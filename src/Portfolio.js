@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { ThemeProvider } from 'next-themes';
+import { IconCloud } from "./components/ui/interactive-icon-cloud";
 import { 
   Mail, 
   Phone, 
@@ -511,7 +513,8 @@ const Portfolio = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0b1220] text-slate-200 selection:bg-blue-500/30">
+    <ThemeProvider attribute="class" defaultTheme="dark">
+      <div className="min-h-screen bg-[#0b1220] text-slate-200 selection:bg-blue-500/30">
       <nav className="fixed inset-x-0 top-0 z-50 border-b border-slate-800/80 bg-[#0b1220]/85 backdrop-blur-md">
         <div className="container mx-auto flex h-16 items-center justify-between gap-6 px-6">
           <a href="#profil" className="flex items-center gap-2 text-lg font-semibold text-white tracking-wide">
@@ -865,14 +868,37 @@ const Portfolio = () => {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="lg:w-1/2 relative"
+              className="lg:w-1/2 relative flex items-center justify-center"
             >
-              <div className="rounded-2xl overflow-hidden border border-slate-800 shadow-2xl relative z-10">
-                <img 
-                  src="/assets/technical-expertise.png" 
-                  alt="Technical Setup" 
-                  className="w-full h-auto"
-                />
+              <div className="relative z-10 w-full max-w-lg">
+                <IconCloud iconSlugs={[
+                  "typescript",
+                  "javascript",
+                  "react",
+                  "html5",
+                  "css3",
+                  "nodedotjs",
+                  "express",
+                  "nextdotjs",
+                  "postgresql",
+                  "firebase",
+                  "vercel",
+                  "jest",
+                  "docker",
+                  "git",
+                  "github",
+                  "figma",
+                  "mongodb",
+                  "tailwindp",
+                  "adobephotoshop",
+                  "adobexd",
+                  "visualstudiocode",
+                  "jira",
+                  "tableau",
+                  "python",
+                  "pandas",
+                  "numpy"
+                ]} />
               </div>
               <div className="absolute -inset-4 bg-blue-500/5 blur-3xl rounded-full z-0" />
             </motion.div>
@@ -991,6 +1017,7 @@ const Portfolio = () => {
         </div>
       </footer>
     </div>
+    </ThemeProvider>
   );
 };
 
