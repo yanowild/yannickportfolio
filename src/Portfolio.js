@@ -289,55 +289,74 @@ const Portfolio = () => {
         </div>
         
         <motion.div 
-          className="container mx-auto px-6 z-10 text-center max-w-5xl"
+          className="container mx-auto px-6 z-10 flex flex-col lg:flex-row items-center justify-between gap-12"
           initial="initial"
           animate="animate"
           variants={staggerContainer}
         >
-          <motion.p 
-            variants={fadeIn}
-            className="text-blue-400 font-medium mb-4"
-          >
-            {t.hero.greeting}
-          </motion.p>
-          
-          <motion.h1 
-            variants={fadeIn}
-            className="text-7xl md:text-9xl font-bold tracking-tight text-white mb-8"
-          >
-            {cvData.name} <span className="text-blue-400">{cvData.lastName}</span>
-          </motion.h1>
+          <div className="lg:w-1/2 text-left">
+            <motion.p 
+              variants={fadeIn}
+              className="text-blue-400 font-medium mb-4"
+            >
+              {t.hero.greeting}
+            </motion.p>
+            
+            <motion.h1 
+              variants={fadeIn}
+              className="text-6xl md:text-8xl font-bold tracking-tight text-white mb-8"
+            >
+              {cvData.name} <span className="text-blue-400">{cvData.lastName}</span>
+            </motion.h1>
 
-          <motion.p 
-            variants={fadeIn}
-            className="text-xl md:text-2xl text-slate-400 font-medium max-w-3xl mx-auto mb-6"
-          >
-            {t.hero.tagline}
-          </motion.p>
+            <motion.p 
+              variants={fadeIn}
+              className="text-xl md:text-2xl text-slate-400 font-medium mb-6"
+            >
+              {t.hero.tagline}
+            </motion.p>
 
-          <motion.p 
-            variants={fadeIn}
-            className="text-lg text-slate-500 max-w-4xl mx-auto leading-relaxed mb-12"
-          >
-            {t.hero.bio}
-          </motion.p>
+            <motion.p 
+              variants={fadeIn}
+              className="text-lg text-slate-500 leading-relaxed mb-12"
+            >
+              {t.hero.bio}
+            </motion.p>
+
+            <motion.div 
+              variants={fadeIn}
+              className="flex flex-wrap gap-4"
+            >
+              <button className="flex items-center gap-2 px-6 py-3 bg-blue-400 text-slate-900 rounded-lg font-bold hover:bg-blue-300 transition-colors text-sm md:text-base">
+                <Download size={20} /> {t.hero.downloadCV}
+              </button>
+              <div className="flex flex-wrap gap-3">
+                <a href="#" className="flex items-center gap-2 p-3 border border-slate-700 rounded-lg bg-slate-800/30 hover:bg-slate-800/50 transition-colors text-slate-200 font-medium" title="LinkedIn">
+                  <Linkedin size={20} />
+                </a>
+                <a href="#" className="flex items-center gap-2 p-3 border border-slate-700 rounded-lg bg-slate-800/30 hover:bg-slate-800/50 transition-colors text-slate-200 font-medium" title="GitHub">
+                  <Github size={20} />
+                </a>
+                <a href="#contact" className="flex items-center gap-2 px-6 py-3 border border-slate-700 rounded-lg bg-slate-800/30 hover:bg-slate-800/50 transition-colors text-slate-200 font-medium">
+                  <Mail size={20} /> {t.nav.contact}
+                </a>
+              </div>
+            </motion.div>
+          </div>
 
           <motion.div 
             variants={fadeIn}
-            className="flex flex-wrap justify-center gap-4"
+            className="lg:w-1/2 relative"
           >
-            <button className="flex items-center gap-2 px-6 py-3 bg-blue-400 text-slate-900 rounded-lg font-bold hover:bg-blue-300 transition-colors">
-              <Download size={20} /> {t.hero.downloadCV}
-            </button>
-            <a href="#" className="flex items-center gap-2 px-6 py-3 border border-slate-700 rounded-lg bg-slate-800/30 hover:bg-slate-800/50 transition-colors text-slate-200 font-medium">
-              <Linkedin size={20} /> LinkedIn
-            </a>
-            <a href="#" className="flex items-center gap-2 px-6 py-3 border border-slate-700 rounded-lg bg-slate-800/30 hover:bg-slate-800/50 transition-colors text-slate-200 font-medium">
-              <Github size={20} /> GitHub
-            </a>
-            <a href="#contact" className="flex items-center gap-2 px-6 py-3 border border-slate-700 rounded-lg bg-slate-800/30 hover:bg-slate-800/50 transition-colors text-slate-200 font-medium">
-              <Mail size={20} /> {t.nav.contact}
-            </a>
+            <div className="relative z-10 rounded-2xl overflow-hidden border border-slate-700 shadow-2xl shadow-blue-900/20">
+              <img 
+                src="/assets/hero-image.png" 
+                alt="Profile Illustration" 
+                className="w-full h-auto object-cover"
+              />
+            </div>
+            {/* Decorative element behind image */}
+            <div className="absolute -inset-4 bg-blue-500/10 blur-2xl rounded-full z-0 animate-pulse" />
           </motion.div>
         </motion.div>
         
