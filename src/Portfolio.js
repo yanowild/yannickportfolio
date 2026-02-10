@@ -26,6 +26,203 @@ import {
   ChevronRightCircle
 } from 'lucide-react';
 
+  const staggerContainer = {
+    animate: {
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const ProjectModal = ({ project, onClose, language, t }) => {
+    // Use multiple images if available, otherwise fallback to the single project image
+    const images = project.images || [project.image];
+
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+    const nextImage = () => {
+      setCurrentImageIndex((prev) => (prev + 1) % images.length);
+    };
+
+    const prevImage = () => {
+      setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
+    };
+
+    React.useEffect(() => {
+      const handleKeyDown = (e) => {
+        if (e.key === 'ArrowRight') nextImage();
+        if (e.key === 'ArrowLeft') prevImage();
+      };
+      window.addEventListener('keydown', handleKeyDown);
+      return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [images.length]);
+
+    // Fix for "click inside, release outside" closing the modal
+    const [isMouseDownOnOverlay, setIsMouseDownOnOverlay] = useState(false);
+
+    const handleOverlayMouseDown = (e) => {
+      if (e.target === e.currentTarget) {
+        setIsMouseDownOnOverlay(true);
+      }
+    };
+
+    const handleOverlayMouseUp = (e) => {
+      if (isMouseDownOnOverlay && e.target === e.currentTarget) {
+        onClose();
+      }
+      setIsMouseDownOnOverlay(false);
+    };
+
+    return (
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        onMouseDown={handleOverlayMouseDown}
+        onMouseUp={handleOverlayMouseUp}
+        className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm"
+      >
+        <motion.div
+          initial={{ scale: 0.9, opacity: 0, y: 20 }}
+          animate={{ scale: 1, opacity: 1, y: 0 }}
+          exit={{ scale: 0.9, opacity: 0, y: 20 }}
+          onMouseDown={(e) => e.stopPropagation()}
+          onMouseUp={(e) => e.stopPropagation()}
+          className="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden max-w-4xl w-full max-h-[90vh] flex flex-col md:flex-row shadow-2xl relative"
+        >
+          <button 
+            onClick={onClose}
+            className="absolute top-4 right-4 z-20 p-2 bg-slate-900/50 backdrop-blur-md rounded-full text-slate-400 hover:text-white transition-colors border border-slate-700/50"
+          >
+            <X size={20} />
+          </button>
+
+          {/* Left Column: Media Carousel */}
+          <div className="w-full md:w-1/2 h-64 md:h-auto bg-slate-900 relative group overflow-hidden">
+            <div className="relative h-full w-full overflow-hidden">
+              <AnimatePresence initial={false} mode="wait">
+                <motion.div
+                  key={currentImageIndex}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                  className="absolute inset-0"
+                >
+                  <img 
+                    src={images[currentImageIndex]} 
+                    alt={`${project.title} - ${currentImageIndex + 1}`} 
+                    className="w-full h-full object-cover transition-all duration-500 grayscale brightness-[0.7] group-hover:grayscale-0 group-hover:brightness-100"
+                  />
+                  {project.captions && project.captions[currentImageIndex] && (
+                    <div className="absolute bottom-10 left-0 right-0 p-4 bg-slate-900/60 backdrop-blur-sm text-slate-300 text-xs text-center">
+                      {project.captions[currentImageIndex]}
+                    </div>
+                  )}
+                </motion.div>
+              </AnimatePresence>
+            </div>
+            
+            {images.length > 1 && (
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+                {images.map((_, idx) => (
+                  <button 
+                    key={idx} 
+                    onClick={() => setCurrentImageIndex(idx)}
+                    className={`w-1.5 h-1.5 rounded-full transition-colors ${idx === currentImageIndex ? 'bg-white' : 'bg-white/50 hover:bg-white/80'}`} 
+                  />
+                ))}
+              </div>
+            )}
+            
+            {images.length > 1 && (
+              <>
+                <button 
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    prevImage();
+                  }}
+                  className="absolute inset-y-0 left-0 flex items-center px-4 group/arrow z-20 opacity-0 group-hover:opacity-100 transition-opacity"
+                >
+                   <ChevronLeft size={32} strokeWidth={3} className="text-blue-600 hover:text-blue-800 transition-colors" />
+                </button>
+                <button 
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    nextImage();
+                  }}
+                  className="absolute inset-y-0 right-0 flex items-center px-4 group/arrow z-20 opacity-0 group-hover:opacity-100 transition-opacity"
+                >
+                   <ChevronRight size={32} strokeWidth={3} className="text-blue-600 hover:text-blue-800 transition-colors" />
+                </button>
+              </>
+            )}
+          </div>
+
+          {/* Right Column: Content */}
+          <div className="w-full md:w-1/2 p-8 overflow-y-auto bg-slate-900">
+            <div className="mb-8">
+              <h3 className="text-3xl font-bold text-white mb-2">{project.title}</h3>
+              <p className="text-blue-400 font-medium text-sm mb-4">{project.desc}</p>
+            </div>
+
+            <div className="space-y-8">
+              {project.role && (
+                <div className="relative pl-4 border-l-2 border-blue-500/30">
+                  <h4 className="text-[10px] font-bold text-blue-400 uppercase tracking-[0.2em] mb-2">{t.sections.modal.role}</h4>
+                  <p className="text-slate-300 text-sm leading-relaxed">{project.role}</p>
+                </div>
+              )}
+
+              {project.context && (
+                <div>
+                  <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-2">{t.sections.modal.context}</h4>
+                  <p className="text-slate-400 text-sm leading-relaxed">{project.context}</p>
+                </div>
+              )}
+
+              {project.outcome && (
+                <div className="p-4 bg-slate-800/40 rounded-xl border border-slate-700/50">
+                  <h4 className="text-[10px] font-bold text-slate-200 uppercase tracking-[0.2em] mb-2">{t.sections.modal.outcome}</h4>
+                  <p className="text-slate-300 text-sm leading-relaxed">{project.outcome}</p>
+                </div>
+              )}
+
+              {project.skillsUsed && (
+                <div>
+                  <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-3">{t.sections.modal.skills}</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {project.skillsUsed.map((skill, i) => (
+                      <span 
+                        key={i}
+                        className="px-3 py-1 bg-slate-800 text-slate-200 text-xs font-semibold rounded-lg border border-slate-700"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              <div className="pt-4 flex flex-col gap-6">
+                {project.link && (
+                  <a 
+                    href={project.link} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-medium transition-colors w-full justify-center md:w-auto text-sm"
+                  >
+                    {t.sections.modal.viewProject} <ExternalLink size={16} />
+                  </a>
+                )}
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </motion.div>
+    );
+  };
+
 const Portfolio = () => {
   const [language, setLanguage] = useState('fr');
   const [activeFilter, setActiveFilter] = useState('all');
@@ -70,11 +267,18 @@ const Portfolio = () => {
       sections: {
         featuredProjects: 'Projets en vedette',
         featuredProjectsDesc: 'Une sélection de projets qui mettent en avant mes compétences et mon expertise dans le développement web et le design. Chaque projet représente un défi et une solution uniques.',
+        modal: {
+          role: 'Mon Rôle',
+          context: 'Contexte',
+          outcome: 'Résultat',
+          skills: 'Compétences',
+          viewProject: 'Voir le projet'
+        },
         categories: {
           all: 'Tout',
-          web: 'Développement Web',
-          design: 'UI/UX Design',
-          mobile: 'Mobile'
+          operations: 'Opérations',
+          consultant: 'Consultant',
+          research: 'Research'
         },
         experience: 'Expérience',
         technical: 'Compétences techniques',
@@ -83,7 +287,7 @@ const Portfolio = () => {
       },
       footer: {
         languages: 'Langues',
-        interests: 'Intérêts',
+        interests: 'Interests',
         touch: 'Contact'
       }
     },
@@ -106,11 +310,18 @@ const Portfolio = () => {
       sections: {
         featuredProjects: 'Featured Projects',
         featuredProjectsDesc: 'A curated selection of projects that showcase my skills and expertise in web development and design. Each project represents a unique challenge and solution.',
+        modal: {
+          role: 'My Role',
+          context: 'Context',
+          outcome: 'Outcome',
+          skills: 'Skills',
+          viewProject: 'View Project'
+        },
         categories: {
           all: 'All',
-          web: 'Web Development',
-          design: 'UI/UX Design',
-          mobile: 'Mobile'
+          operations: 'Operations',
+          consultant: 'Consultant',
+          research: 'Research'
         },
         experience: 'Experience',
         technical: 'Technical Skills',
@@ -133,172 +344,37 @@ const Portfolio = () => {
     transition: { duration: 0.4 }
   };
 
-  const ProjectModal = ({ project, onClose }) => {
-    if (!project) return null;
-
-    // Use multiple images if available, otherwise fallback to the single project image
-    const images = project.images || [project.image];
-
-    return (
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        onClick={onClose}
-        className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm"
-      >
-        <motion.div
-          initial={{ scale: 0.9, opacity: 0, y: 20 }}
-          animate={{ scale: 1, opacity: 1, y: 0 }}
-          exit={{ scale: 0.9, opacity: 0, y: 20 }}
-          onClick={(e) => e.stopPropagation()}
-          className="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden max-w-4xl w-full max-h-[90vh] flex flex-col md:flex-row shadow-2xl relative"
-        >
-          <button 
-            onClick={onClose}
-            className="absolute top-4 right-4 z-20 p-2 bg-slate-900/50 backdrop-blur-md rounded-full text-slate-400 hover:text-white transition-colors border border-slate-700/50"
-          >
-            <X size={20} />
-          </button>
-
-          {/* Left Column: Media Carousel */}
-          <div className="w-full md:w-1/2 h-64 md:h-auto bg-slate-800 relative group overflow-hidden">
-            <div 
-              id="carousel-container"
-              className="flex h-full overflow-x-auto snap-x snap-mandatory scroll-smooth" 
-              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-            >
-              {images.map((img, idx) => (
-                <div key={idx} id={`slide-${idx}`} className="flex-shrink-0 w-full h-full snap-center relative">
-                  <img 
-                    src={img} 
-                    alt={`${project.title} - ${idx + 1}`} 
-                    className="w-full h-full object-cover"
-                  />
-                  {/* Optional captions could go here */}
-                  {project.captions && project.captions[idx] && (
-                    <div className="absolute bottom-10 left-0 right-0 p-4 bg-slate-900/60 backdrop-blur-sm text-slate-300 text-xs text-center">
-                      {project.captions[idx]}
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-            
-            {images.length > 1 && (
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
-                {images.map((_, idx) => (
-                  <button 
-                    key={idx} 
-                    onClick={() => document.getElementById(`slide-${idx}`)?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' })}
-                    className="w-1.5 h-1.5 rounded-full bg-white/50 hover:bg-white transition-colors" 
-                  />
-                ))}
-              </div>
-            )}
-            
-            {images.length > 1 && (
-              <>
-                <button 
-                  onClick={() => {
-                    const container = document.getElementById('carousel-container');
-                    container.scrollBy({ left: -container.offsetWidth, behavior: 'smooth' });
-                  }}
-                  className="absolute inset-y-0 left-0 flex items-center pl-2 opacity-0 group-hover:opacity-100 transition-opacity z-10"
-                >
-                   <div className="p-2 bg-slate-900/50 backdrop-blur-sm rounded-full text-white hover:bg-slate-900 transition-colors shadow-lg"><ChevronLeft size={24} /></div>
-                </button>
-                <button 
-                  onClick={() => {
-                    const container = document.getElementById('carousel-container');
-                    container.scrollBy({ left: container.offsetWidth, behavior: 'smooth' });
-                  }}
-                  className="absolute inset-y-0 right-0 flex items-center pr-2 opacity-0 group-hover:opacity-100 transition-opacity z-10"
-                >
-                   <div className="p-2 bg-slate-900/50 backdrop-blur-sm rounded-full text-white hover:bg-slate-900 transition-colors shadow-lg"><ChevronRight size={24} /></div>
-                </button>
-              </>
-            )}
-          </div>
-
-          {/* Right Column: Content */}
-          <div className="w-full md:w-1/2 p-8 overflow-y-auto bg-slate-900">
-            <div className="mb-6">
-              <h3 className="text-3xl font-bold text-white mb-2">{project.title}</h3>
-              <p className="text-slate-400 leading-relaxed">
-                {project.longDesc || project.desc}
-              </p>
-            </div>
-
-            <div className="space-y-6">
-              <div>
-                <h4 className="text-sm font-bold text-slate-200 uppercase tracking-widest mb-3">{language === 'fr' ? 'À propos' : 'About Project'}</h4>
-                <p className="text-slate-400 text-sm leading-relaxed">
-                  {project.details || "Details about this project will be available soon. It showcases integration of various technologies and creative problem solving."}
-                </p>
-              </div>
-
-              <div className="flex flex-wrap gap-2 pt-4">
-                {project.tags.map((tag, i) => (
-                  <span 
-                    key={i}
-                    className="px-2 py-0.5 bg-blue-500/10 text-blue-400 text-[10px] font-bold uppercase tracking-wider rounded"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-
-              {project.link && (
-                <a 
-                  href={project.link} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-medium transition-colors w-full justify-center md:w-auto"
-                >
-                  {language === 'fr' ? 'Voir le projet' : 'View Project'} <ExternalLink size={18} />
-                </a>
-              )}
-            </div>
-          </div>
-        </motion.div>
-      </motion.div>
-    );
-  };
-
-  const staggerContainer = {
-    animate: {
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  };
-
   const cvData = {
     name: "Yannick",
     lastName: "Wild",
     title: "IT Project Manager",
     projects: [
       {
-        title: "Personal Portfolio",
-        desc: "A minimalist portfolio website built with React and Tailwind CSS, showcasing my work and skills.",
-        longDesc: "This project is the very portfolio you are browsing. It was designed to be fast, responsive, and visually appealing, using modern web technologies to create a seamless user experience.",
-        details: "Built with React and Tailwind CSS, it features Framer Motion for smooth animations and Lucide React for consistent iconography. The architecture is focused on performance and clean code, ensuring a professional presentation of my skills and projects.",
-        category: "web",
-        tags: ["React", "Tailwind CSS", "Framer Motion"],
-        image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=800",
+        title: "Master Thesis",
+        desc: "A Design Science project exploring how interaction design (chatbot vs. GUI) affects user trust and sense of control in AI-assisted travel planning.",
+        role: "Researcher",
+        context: "This Master Thesis project investigates the impact of different interaction paradigms—specifically Chatbots versus Graphical User Interfaces (GUI)—on user trust and their sense of control when using AI-assisted travel planning tools.",
+        outcome: "Using a Design Science Research methodology, I developed two prototypes to test user perceptions. The research provided key insights into how AI should communicate with users to foster trust while maintaining transparency and control through effective UI/UX design and qualitative testing.",
+        skillsUsed: ["Design Science", "UX Research", "AI Interaction Design", "Prototyping", "User Testing"],
+        category: "research",
+        tags: ["Design Science", "UX Research", "AI", "Prototyping"],
+        image: "/assets/Picture MScThesis 1 GUI 1.png",
         images: [
-          "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=800",
-          "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&q=80&w=800"
+          "/assets/Picture MScThesis 1 GUI 1.png",
+          "/assets/Picture MScThesis 2 GUI 2.png",
+          "/assets/Picture MScThesis 3 Chatbot 1.png",
+          "/assets/Picture MScThesis 4 Architecture.png"
         ]
       },
       {
-        title: "E-commerce Platform",
-        desc: "A modern e-commerce platform with a focus on user experience and performance optimization.",
-        longDesc: "A full-featured e-commerce solution designed to provide a smooth shopping experience while maintaining high performance and scalability.",
-        details: "The platform includes features such as real-time inventory management, secure payment integration, and a responsive design that works perfectly across all devices. It uses Node.js and MongoDB for a robust backend and React for a dynamic frontend.",
-        category: "web",
-        tags: ["React", "Node.js", "MongoDB"],
+        title: "SAP FSM Platform",
+        desc: "Implemented SAP FSM to streamline and improve field service management operations globally.",
+        role: "Product Owner",
+        context: "Led the global implementation of the SAP Field Service Management (FSM) platform to harmonize customer service processes across multiple regions and ERP systems (Great Plains, SAP, iScala).",
+        outcome: "Successfully streamlined field service operations, defined key performance indicators (KPIs), and configured advanced dashboards in SAP Analytics Cloud, facilitating cross-departmental collaboration and maximizing operational value.",
+        skillsUsed: ["SAP FSM", "SAP Analytics Cloud", "Product Management", "Agile", "Business Process Mapping"],
+        category: "operations",
+        tags: ["SAP FSM", "SAP Analytics Cloud", "Product Management", "Agile"],
         image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800",
         images: [
           "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800",
@@ -306,55 +382,62 @@ const Portfolio = () => {
         ]
       },
       {
-        title: "Mobile Banking App",
-        desc: "A clean and intuitive mobile banking application designed for ease of use and security.",
-        longDesc: "A secure and user-friendly mobile banking application that allows users to manage their finances on the go with confidence and ease.",
-        details: "Focusing on security and intuitive UI, this app provides real-time transaction tracking, easy fund transfers, and biometric authentication. Developed with React Native to ensure a consistent experience on both iOS and Android platforms.",
-        category: "mobile",
-        tags: ["React Native", "Redux", "Firebase"],
-        image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80&w=800",
+        title: "Operational Optimization",
+        desc: "Implemented a new operational structure and standardized workflows to improve productivity and eliminate bottlenecks.",
+        role: "Business Analyst",
+        context: "Led a project focused on optimizing operational processes, enhancing workflow productivity, and standardizing project management methodologies within a complex business environment.",
+        outcome: "Designed and implemented a standardized project workflow that significantly reduced bottlenecks. Developed advanced Excel templates and VBA macros to streamline reporting and monitoring of multimillion-euro investment budgets.",
+        skillsUsed: ["Business Analysis", "Process Optimization", "Excel VBA", "Project Management"],
+        category: "operations",
+        tags: ["Business Analysis", "Process Optimization", "Excel VBA", "Project Management"],
+        image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800",
         images: [
-          "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80&w=800",
-          "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&q=80&w=800"
+          "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800",
+          "https://images.unsplash.com/photo-1454165833767-027eeef1593e?auto=format&fit=crop&q=80&w=800"
         ]
       },
       {
-        title: "Dashboard UI Kit",
-        desc: "A comprehensive UI kit for building modern dashboard interfaces with a focus on usability.",
-        longDesc: "A versatile and modular UI kit designed to speed up the development of data-rich dashboard interfaces without compromising on aesthetics or usability.",
-        details: "This design system includes dozens of pre-built components, chart styles, and layout templates. Created in Figma with a focus on auto-layout and component properties to ensure maximum flexibility for developers and designers.",
-        category: "design",
-        tags: ["Figma", "UI Design", "Design System"],
-        image: "https://images.unsplash.com/photo-1599658880436-c61792e70672?auto=format&fit=crop&q=80&w=800",
+        title: "FF&E Procurement & Installation for Luxury Hotels",
+        desc: "Managed luxury hotel fit-outs and renovations, coordinating end-to-end FF&E procurement and on-site installations across Europe.",
+        role: "Project Manager",
+        context: "Managed end-to-end delivery of high-profile luxury hotel projects (e.g., Six Senses Ibiza, Rosewood Villa Magna), overseeing contracts and supplier management for projects with budgets up to €15 million.",
+        outcome: "Successfully coordinated procurement and logistics for up to 5,000 items from 100+ suppliers. Maintained strict on-time and on-budget execution through rigorous risk and quality controls, leading core teams to successful project delivery.",
+        skillsUsed: ["Project Management", "Procurement", "Supply Chain", "Vendor Management", "Logistics"],
+        category: "operations",
+        tags: ["Project Management", "Procurement", "Logistics", "Team Leadership", "Supply Chain", "Vendor Management", "Installation", "Project Delivery"],
+        image: "/assets/hero-image.png",
         images: [
-          "https://images.unsplash.com/photo-1599658880436-c61792e70672?auto=format&fit=crop&q=80&w=800",
-          "https://images.unsplash.com/photo-1551288049-bbbda536339a?auto=format&fit=crop&q=80&w=800"
+          "/assets/hero-image.png"
         ]
       },
       {
-        title: "Task Management App",
-        desc: "A productivity application for managing tasks, projects, and team collaboration.",
-        longDesc: "A powerful tool designed to help teams organize their work, track progress, and communicate effectively, all in one centralized platform.",
-        details: "Features include Kanban boards, task dependencies, time tracking, and real-time notifications. Built with Vue.js and Firebase to provide a reactive and reliable experience for teams of all sizes.",
-        category: "web",
-        tags: ["Vue.js", "Vuex", "Firebase"],
-        image: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&q=80&w=800",
+        title: "Business Development Strategy",
+        desc: "Designed a market entry and business development strategy for an IoT-based hospitality technology startup.",
+        role: "Consultant",
+        context: "Developed a comprehensive go-to-market strategy for ARVE Air, an IoT solution targeting the luxury hospitality sector city-by-city across Europe and the Americas.",
+        outcome: "Designed a phased business development strategy focusing on strategic partnerships and integration with open-API architectures. The project successfully translated complex technical IoT solutions into clear business value propositions.",
+        skillsUsed: ["Market Analysis", "Business Development", "IoT Strategy", "Strategic Partnerships"],
+        category: "consultant",
+        tags: ["Business Development", "Market Analysis", "IoT", "Hospitality Strategy"],
+        image: "/assets/Arve 1.png",
         images: [
-          "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&q=80&w=800",
-          "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?auto=format&fit=crop&q=80&w=800"
+          "/assets/Arve 1.png",
+          "/assets/Arve 2.png",
+          "/assets/Arve 3.png"
         ]
       },
       {
-        title: "Travel Blog Website",
-        desc: "A responsive blog website for sharing travel stories and photography with a focus on readability.",
-        longDesc: "A visually stunning blog platform designed to showcase high-quality travel photography and long-form stories in an engaging and readable format.",
-        details: "Optimized for readability and SEO, this WordPress-based site features a custom-built theme, integrated map features for location tagging, and a fully responsive layout for travelers on the move.",
-        category: "web",
-        tags: ["WordPress", "PHP", "Custom Theme"],
-        image: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&q=80&w=800",
+        title: "AI Implementation",
+        desc: "Designed and implemented practical AI solutions to improve operations and decision-making.",
+        role: "Consultant",
+        context: "Delivered AI-driven prototypes and integrations, focusing on measurable business value, transparency, and user trust in professional workflows.",
+        outcome: "Successfully built proof-of-concept assistants, defined AI-specific KPIs, and aligned stakeholders on integration roadmaps to move from experimentation to production environments.",
+        skillsUsed: ["AI Prototyping", "Data Pipelines", "Stakeholder Management", "Implementation Roadmap"],
+        category: "consultant",
+        tags: ["AI", "Data", "Prototyping", "Implementation"],
+        image: "/assets/ai-implementation.png",
         images: [
-          "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&q=80&w=800",
-          "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&q=80&w=800"
+          "/assets/ai-implementation.png"
         ]
       }
     ],
@@ -679,6 +762,8 @@ const Portfolio = () => {
           <ProjectModal 
             project={selectedProject} 
             onClose={() => setSelectedProject(null)} 
+            language={language}
+            t={t}
           />
         )}
       </AnimatePresence>

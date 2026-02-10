@@ -1,0 +1,434 @@
+# Enterprise Data Integration — Odoo Sales Process Modeling & Integration
+## Context
+This group project was completed as part of the **Enterprise Data and Integration** course.
+The objective was to **analyze, model, and extend a real ERP-supported business process** using **Odoo ERP** as the reference system. The project combined **business process modeling**, **data modeling**, and **system integration** through APIs and a customer-facing web application.
+The work was structured in multiple phases (TP1 & TP2), progressing from **process understanding** to **technical integration and prototyping**.
+---
+## Project Objectives
+The project aimed to:
+- Understand and model the **end-to-end sales process** supported by Odoo ERP
+- Identify and formalize the **core business objects and their lifecycles**
+- Demonstrate **programmatic access to ERP data and actions** via Odoo’s XML-RPC API
+- Design and prototype a **customer-facing web application** that interacts with Odoo without giving customers direct ERP access
+---
+## My Role
+**Information Systems Analyst / Data & Integration Engineer (Group Project)**
+Contributions included:
+- Business process modeling (BPMN)
+- Conceptual data modeling (business objects & states)
+- Analysis of ERP user interfaces and module interactions
+- API-based integration with Odoo (XML-RPC)
+- Design of an extended sales process including customers
+- Contribution to Node-RED web application design and logic
+---
+## Part 1 — Sales Process Modeling in Odoo (TP1 – Part 1)
+### Scope of the Process
+We modeled the complete **sales process**, from the initial quotation to post-payment accounting, including:
+- Quotation creation
+- Sales order confirmation
+- Stock availability validation
+- Delivery management (multiple channels)
+- Goods picking
+- Invoicing
+- Payment recording and reconciliation
+### Roles Involved
+- Salesman
+- Sales Manager
+- Store Manager
+- Accountant Clerk
+### Deliverables
+- **BPMN diagram** describing the full sales process as implemented in Odoo
+- **Class diagrams** describing the main business objects
+- **State models** describing object lifecycles:
+  - Sales Order
+  - Delivery
+  - Invoice
+- Mapping between **ERP UI actions** and process steps:
+  - Menus
+  - Buttons
+  - Cross-module navigation (Sales → Inventory → Accounting)
+---
+## Part 2 — ERP Integration via XML-RPC API (TP1 – Part 2)
+### Objective
+Demonstrate how Odoo business objects and processes can be accessed and controlled programmatically using the **XML-RPC API**.
+### Implemented Scripts (JavaScript)
+We implemented and documented scripts capable of:
+- Listing all customers that are companies (not individuals)
+- Listing all sales orders for a given customer
+- Confirming a quotation (promotion to sales order)
+- Creating an invoice for a given order
+- Cancelling a quotation
+### Technical Highlights
+- Use of Odoo developer mode to explore models and fields
+- Mapping ERP UI actions to API methods (e.g. `action_confirm`)
+- Understanding of ERP state transitions and constraints
+- Emphasis on **traceability between business actions and API calls**
+---
+## Part 3 — Customer-Facing Web Application (TP2)
+### Problem Statement
+Customers cannot be given direct access to Odoo ERP, but they should still be able to:
+- Interact with their orders and quotations
+- Participate actively in the sales process
+- Communicate with internal sales roles
+### Proposed Solution
+Design and prototype a **web application** acting as an intermediary between customers and Odoo, implemented using **Node-RED**.
+---
+## Extended Sales Process (“Our Customers Go Online”)
+### Key Idea
+Extend the internal sales process by introducing **customer-driven interactions**, while keeping Odoo as the single source of truth.
+### Customer Capabilities (Examples)
+As a customer, I can:
+- View all my orders
+- Confirm or cancel a quotation
+- Request a change to the delivery date
+- Modify quantities or remove order lines (within defined limits)
+- Download invoice PDFs
+- Report delivery incidents
+- Send messages to the Sales Manager
+---
+## System Architecture
+- **Customer Web Application** (Node-RED)
+- **Customer API layer**
+- **Odoo ERP** (Sales, Inventory, Accounting modules)
+- Internal users (Sales Manager, Account Manager) continue working directly in Odoo
+The web application interacts with Odoo services while enforcing:
+- Role separation
+- Process boundaries
+- Controlled state transitions
+---
+## Deliverables (TP2)
+- BPMN diagram of the **extended sales process**
+- Definition of required **business data classes**
+- UI mockups for the customer web application
+- Implemented interaction pages in Node-RED
+- Tested proof-of-concept prototype
+---
+## Key Learnings
+- ERP systems are **process-centric**, not just databases
+- Business objects and their lifecycles are critical for safe integration
+- APIs expose power but also require strict governance
+- Customer-facing extensions must respect ERP constraints
+- Node-RED is effective for rapid integration prototyping
+- Enterprise integration is as much about **process design** as technology
+---
+## Skills & Competencies Demonstrated
+- Business Process Modeling (BPMN)
+- Enterprise Data Modeling
+- ERP process analysis (Odoo)
+- API-based system integration (XML-RPC)
+- JavaScript scripting for enterprise systems
+- Low-code integration (Node-RED)
+- IS thinking: alignment between business, data, and systems
+---
+## Academic Context
+- Course: **Enterprise Data and Integration**
+- ERP: **Odoo**
+- Technologies:
+  - XML-RPC API
+  - JavaScript
+  - Node-RED
+- Project type: **Group Project**# DSML Group Project — Library Recommendation System (UNIL / University of Bern)
+## Context
+This project was completed as part of a **Data Science and Machine Learning (DSML)** course during my Master’s in **Information Systems and Digital Innovation** (UNIL / University of Bern).
+The project is a **fictional but realistic case study** simulating the design of a recommendation system for a **university library platform**. The goal was to apply machine learning techniques to improve **personalization and user engagement** by recommending relevant books to users based on interaction data and item metadata.
+---
+## Project Objective
+Design, implement, and evaluate a **book recommendation system** capable of predicting relevant items for users, with a focus on **top-K recommendation quality**.
+Primary objectives:
+- Apply data science and machine learning concepts in a realistic end-to-end scenario
+- Build and compare **collaborative filtering** and **content-based** approaches
+- Integrate **metadata embeddings** to improve recommendation quality
+- Optimize model performance using **Precision@10** as the main evaluation metric
+---
+## My Role
+**Data Scientist / Machine Learning Engineer (Group Project)**
+Responsibilities included:
+- Data analysis, cleaning, and augmentation
+- Feature engineering and consideration of multiple modeling approaches
+- Implementation of collaborative filtering and embedding-based models
+- Model evaluation, comparison, and iteration
+- Contribution to documentation, results analysis, and final presentation
+---
+## Data & Methodology
+### 1. Data Analysis & Preparation
+#### Datasets
+- `interactions_train.csv`: user–book interaction data
+- `items.csv`: book metadata (title, author, publisher, subjects, ISBN)
+Key statistics:
+- **Users:** 7,838
+- **Items (books):** 15,291
+- **Time range:** Jan 2023 – Oct 2024
+#### Data Cleaning
+- Removed duplicate interactions
+- Checked and handled missing values
+- Sorted interactions chronologically
+- Analyzed interaction distributions (highly skewed users and items)
+Exploratory analysis included:
+- Histogram of interactions per user (log scale)
+- Histogram of rentals per book (log scale)
+These analyses revealed strong sparsity and popularity bias, typical of real-world recommendation datasets.
+---
+### 2. Data Augmentation & Feature Engineering
+#### Metadata Completion
+- Identified missing metadata fields (Author, ISBN, Publisher, Subjects)
+- Filled missing values using the **Google Books API**
+- Implemented batch processing to optimize API usage
+#### Feature Engineering
+- Converted `Subjects` into a comma-separated text field
+- Created a `summary` field combining:
+  - Title
+  - Author
+  - Subjects
+- Applied **TF-IDF vectorization** (top 100 features) for text-based representations
+#### Data Merging
+- Merged interaction data and item metadata on item ID
+- Exported cleaned datasets for downstream modeling:
+  - `cleaned_merged_data.csv`
+  - `cleaned_items.csv`
+---
+## Modeling Approach
+### Base Models — Collaborative Filtering (Model_1)
+#### Item-to-Item Collaborative Filtering
+- Computed cosine similarity between items based on user interactions
+- Predicted user–item scores using weighted similarities
+#### User-to-User Collaborative Filtering
+- Computed cosine similarity between users based on interaction patterns
+- Predicted preferences from similar users
+#### Model Combination
+- Combined item-based and user-based predictions
+- Equal weighting (0.5 / 0.5)
+**Result:**
+- Precision@10 = **0.1637**
+---
+### Metadata-Augmented Model — Word2Vec (Model_3)
+To improve performance, metadata embeddings were introduced.
+#### Word2Vec Embeddings
+- Trained Word2Vec on book metadata:
+  - Title
+  - Subjects
+  - Summary
+- Embedding size: 100
+- Minimum word frequency: 2
+Each book was represented by an averaged embedding vector derived from its metadata.
+#### Hybrid Similarity
+- Combined:
+  - Item–item similarity based on metadata embeddings
+  - Item–item similarity based on interaction data
+- Equal weighting (0.5 / 0.5)
+**Result:**
+- Precision@10 = **0.1644**
+---
+## Best Model — Hybrid Word2Vec + Collaborative Filtering (Model_2)
+### How the Model Works
+#### 1. Metadata-Based Embeddings
+- Generated Word2Vec embeddings using **Subjects** and **Title**
+- Averaged word vectors to create one vector per book
+- Simpler metadata performed better than longer summaries
+#### 2. Item-to-Item Collaborative Filtering
+Two similarity matrices were computed:
+- **Metadata similarity** (cosine similarity of Word2Vec embeddings)
+- **Interaction similarity** (cosine similarity of user interaction vectors)
+These were combined using tuned weights:
+- **81% interaction-based similarity**
+- **19% metadata-based similarity**
+This produced an item–item prediction matrix.
+#### 3. User-to-User Collaborative Filtering
+- Computed user similarity based on interaction overlap
+- Predicted preferences using nearest users
+#### 4. Final Prediction
+- Combined item-based and user-based predictions
+- Generated top-10 recommendations per user
+---
+## Results & Performance
+- **Baseline Precision@10:** 0.1452
+- **Best Model Precision@10:** **0.1647**
+- **Relative improvement:** +13% over baseline
+- Evaluated via **Kaggle leaderboard**
+---
+## What Worked Well
+- **Hybrid approach:** Combining interaction data with metadata embeddings significantly improved results
+- **Metadata usefulness:** Word2Vec embeddings helped mitigate sparse interaction data
+- **Flexibility:** Weight tuning allowed adaptation to different data sparsity conditions
+- **Simplicity:** Using Subjects and Title outperformed more complex metadata
+---
+## Limitations & Challenges
+- **Cold start problem:** New users and new items remained difficult to recommend accurately
+- **Sparse user behavior:** Limited overlap between users reduced user-based model effectiveness
+- **Semantic limits of Word2Vec:** More complex text (summaries) introduced noise rather than signal
+- **Mismatch between similarity and prediction:** High metadata similarity did not always translate into strong user-item predictions
+---
+## Key Learnings
+- Hybrid recommender systems outperform single-method approaches
+- Simple, well-chosen features often outperform complex ones
+- Metadata is crucial when interaction data is sparse
+- User behavior is noisy and does not always align with semantic similarity
+- Recommendation systems require careful balance between personalization and generalization
+---
+## Deliverables
+- End-to-end recommendation system pipeline
+- Kaggle-evaluated model with measurable improvement
+- GitHub repository with code and experiments
+- Streamlit demo app showcasing recommendations
+- YouTube video explaining the methodology and results
+---
+## Team
+- **Yannick Wild**
+- Oscar Paravicini
+- Ben Donakpe Soro
+Master’s students in **Information Systems and Digital Innovation**
+# Digital Innovation Week — AI-Driven Management Cockpit (Valtronic)
+## Context
+This project was conducted during the **Digital Innovation Week** in collaboration with **Valtronic**, a Swiss SME specialized in the **subcontracting of medical products**.
+Valtronic’s leadership was exploring how **artificial intelligence (AI)** could be leveraged to improve **operational steering, decision-making, and performance monitoring**, but without a clearly defined use case or implementation roadmap.
+Our mission was to **identify relevant AI applications**, define a **realistic MVP**, and propose a **scalable architecture** adapted to an SME context.
+---
+## Project Objective
+Design and propose an **AI-powered enterprise cockpit** to support top management decision-making by:
+- Centralizing operational and financial data
+- Improving KPI monitoring and interpretation
+- Using AI to detect issues, generate insights, and recommend actions
+- Defining a **phased MVP approach** compatible with Valtronic’s existing IT landscape
+---
+## My Role
+**Digital Innovation / Business & AI Analyst (Group Project)**
+Contributions included:
+- Framing the business problem with Valtronic stakeholders
+- Translating business needs into AI-enabled use cases
+- Designing the MVP scope and implementation phases
+- Contributing to data architecture, AI integration logic, and dashboard concepts
+- Structuring risks, limitations, and governance considerations
+---
+## Problem Statement
+Valtronic faced several challenges typical of industrial SMEs:
+- Fragmented data sources (ERP, SAP, Excel, SharePoint, reports)
+- Limited real-time visibility for top management
+- Manual KPI interpretation and delayed insights
+- Unclear understanding of **where AI could add real value**
+Key questions addressed:
+- How to design a **management cockpit** adapted to an SME?
+- How to structure data for AI readiness?
+- How to integrate AI progressively without disrupting operations?
+- What type of AI is realistic and useful in the short term?
+---
+## Proposed Solution Overview
+We proposed an **AI-augmented management cockpit**, combining:
+- Structured ERP data as a reliable foundation
+- Data harmonization and standardization
+- Advanced analytics and predictive KPIs
+- An AI layer capable of interpretation, anomaly detection, and recommendations
+- A modern BI interface (Power BI)
+---
+## MVP Concept — “The Illusionist”
+We introduced the concept of **“L’Illusionniste”**, a logical AI layer acting as an intermediary between raw data and decision-makers.
+### Core Idea
+Instead of replacing existing systems, AI acts as:
+- A **data harmonizer**
+- An **insight generator**
+- A **decision-support assistant**
+### Data Sources
+- SAP
+- ERP systems
+- Excel files
+- SharePoint
+### Output
+- Interactive **Power BI cockpit**
+- AI-generated insights and recommendations
+- Predictive and descriptive KPIs
+---
+## Methodology & Architecture
+### Phase 1 — MVP (Short-Term)
+**Focus: feasibility, reliability, and quick value**
+- Use **ERP data only** (structured, reliable)
+- Harmonize and consolidate data
+- Design the cockpit based on existing KPIs
+- Add a **LLM layer** for:
+  - Natural language interaction with KPIs
+  - Explanation of results
+  - Basic recommendations
+**Goal:** deliver value fast without complex data dependencies
+---
+### Phase 2 — Data Maturity
+**Focus: data quality and consistency**
+- Apply best practices:
+  - Within each data source
+  - Across data sources
+- Standardize schemas and definitions
+- Improve data governance and reliability
+**Goal:** prepare the organization for advanced AI usage
+---
+### Phase 3 — Advanced AI & Automation
+**Focus: predictive intelligence and automation**
+- Push consolidated data to the cloud
+- Apply deep learning models
+- Automate:
+  - KPI selection
+  - Trend detection
+  - Predictive analysis
+- Enable AI-driven scenario simulations
+**Goal:** move from descriptive to predictive and prescriptive analytics
+---
+## AI Use Cases (Example: Finance Department)
+### Inputs
+- ERP fields:
+  - Date
+  - Revenue
+  - Operational Cost
+  - Profit / Loss
+### AI Capabilities
+- Identify abnormal patterns (e.g. revenue = 0 days)
+- Detect trends and deviations from objectives
+- Explain possible causes
+- Recommend corrective actions
+---
+## KPI & AI Analysis Examples
+### Finance
+- Gross margin vs target
+- Revenue evolution
+- Cash flow anomalies
+### Sales
+- Zero-sales transactions
+- Stock availability impact on sales
+- Commercial activity gaps
+### Inventory
+- Stock-outs
+- Replenishment delays
+- Supplier dependency risks
+AI outputs included:
+- Problem identification
+- Probable causes
+- Actionable recommendations
+---
+## Risks & Limitations Identified
+- Data quality dependency (“garbage in, garbage out”)
+- Multiple formats and manual inputs
+- Missing or corrupted data
+- Overgeneralization by AI models
+- Trust and explainability of AI outputs
+Key insight:
+> AI performance is directly linked to **data structure, governance, and maturity**
+---
+## Vision — The Dashboard of Tomorrow
+We proposed a forward-looking cockpit featuring:
+- Predictive KPIs and trend indicators
+- Decision trees showing KPI impacts
+- Scenario simulation (“what-if” analysis)
+- AI-assisted decision automation
+- Integration with future technologies:
+  - IoT
+  - Voice interfaces
+  - Smart devices
+  - Advanced visualization
+---
+## Key Learnings
+- AI value starts with **clear business questions**, not models
+- MVP thinking is critical for SME adoption
+- Structured ERP data is the best entry point for AI
+- AI should **augment decision-makers**, not replace them
+- Digital innovation is as much about **governance and change** as technology
+---
+## Team
+- Chahib Adam
+- Arthur Müller
+- Philippe Ionescu
+- **Yannick Wild**
+Project completed during the **Digital Innovation Week** in collaboration with **Valtronic**.
