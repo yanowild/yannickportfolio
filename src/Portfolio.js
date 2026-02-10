@@ -21,6 +21,10 @@ import {
   BarChart3,
   Download,
   ChevronDown,
+  Settings,
+  Cpu,
+  Database,
+  Activity,
   Layers,
   X,
   ChevronRightCircle
@@ -34,7 +38,7 @@ import {
     }
   };
 
-  const ProjectModal = ({ project, onClose, language, t }) => {
+  const ProjectModal = ({ project, onClose, t }) => {
     // Use multiple images if available, otherwise fallback to the single project image
     const images = project.images || [project.image];
 
@@ -224,7 +228,7 @@ import {
   };
 
 const Portfolio = () => {
-  const [language, setLanguage] = useState('fr');
+  // const [language, setLanguage] = useState('en'); // Removed to strictly use English
   const [activeFilter, setActiveFilter] = useState('all');
 
   const [selectedProject, setSelectedProject] = useState(null);
@@ -248,49 +252,6 @@ const Portfolio = () => {
   }, [selectedProject]);
 
   const uiText = {
-    fr: {
-      nav: {
-        profile: 'Profil',
-        projects: 'Projets',
-        skills: 'Compétences',
-        experience: 'Expérience',
-        education: 'Formation',
-        contact: 'Contact'
-      },
-      hero: {
-        greeting: 'Salut, je suis',
-        tagline: 'Chef de projet IT, passionné par les nouvelles technologies, l\'innovation et la transformation numérique',
-        bio: 'Passionné par l\'analyse de données, l\'optimisation des processus d\'affaires et la transformation numérique, je suis en dernière année de Master en Systèmes d\'Information tout en travaillant sur divers projets alliant technologie et stratégie.',
-        downloadCV: 'Télécharger CV',
-        contact: 'Me contacter'
-      },
-      sections: {
-        featuredProjects: 'Projets en vedette',
-        featuredProjectsDesc: 'Une sélection de projets qui mettent en avant mes compétences et mon expertise dans le développement web et le design. Chaque projet représente un défi et une solution uniques.',
-        modal: {
-          role: 'Mon Rôle',
-          context: 'Contexte',
-          outcome: 'Résultat',
-          skills: 'Compétences',
-          viewProject: 'Voir le projet'
-        },
-        categories: {
-          all: 'Tout',
-          operations: 'Opérations',
-          consultant: 'Consultant',
-          research: 'Research'
-        },
-        experience: 'Expérience',
-        technical: 'Compétences techniques',
-        interpersonal: 'Interpersonnel',
-        education: 'Formation'
-      },
-      footer: {
-        languages: 'Langues',
-        interests: 'Interests',
-        touch: 'Contact'
-      }
-    },
     en: {
       nav: {
         profile: 'Profile',
@@ -310,6 +271,28 @@ const Portfolio = () => {
       sections: {
         featuredProjects: 'Featured Projects',
         featuredProjectsDesc: 'A curated selection of projects that showcase my skills and expertise in web development and design. Each project represents a unique challenge and solution.',
+        expertise: {
+          title: 'My Expertise',
+          subtitle: 'Where business, operations, and digital systems meet.',
+          items: [
+            {
+              title: 'Information Systems',
+              desc: 'Designing and analyzing enterprise systems to align business needs, data, and technology.'
+            },
+            {
+              title: 'Process Optimization',
+              desc: 'Analyzing and redesigning business processes to make them clearer, faster, and more effective.'
+            },
+            {
+              title: 'Operational Efficiency',
+              desc: 'Improving performance by reducing friction, waste, and inefficiencies in operations.'
+            },
+            {
+              title: 'Digital Innovation',
+              desc: 'Identifying and shaping digital and AI-enabled solutions that create real operational value.'
+            }
+          ]
+        },
         modal: {
           role: 'My Role',
           context: 'Context',
@@ -325,6 +308,25 @@ const Portfolio = () => {
         },
         experience: 'Experience',
         technical: 'Technical Skills',
+        technicalExpertise: {
+          title: 'Technical Expertise',
+          subtitle: 'My Skills',
+          desc: 'With a strong foundation in both design and development, I bring a holistic approach to every project. My technical skills include:',
+          skills: [
+            'JavaScript / TypeScript',
+            'React / Next.js',
+            'Node.js / Express',
+            'HTML / CSS',
+            'Tailwind CSS',
+            'UI/UX Design',
+            'Figma / Adobe XD',
+            'MongoDB / SQL',
+            'Git / GitHub',
+            'Responsive Design',
+            'Performance Optimization',
+            'SEO Best Practices'
+          ]
+        },
         interpersonal: 'Interpersonnel',
         education: 'Education'
       },
@@ -336,7 +338,7 @@ const Portfolio = () => {
     }
   };
 
-  const t = uiText[language];
+  const t = uiText.en;
   const fadeIn = {
     initial: { opacity: 0, y: 20 },
     animate: { opacity: 1, y: 0 },
@@ -538,21 +540,8 @@ const Portfolio = () => {
             </a>
           </div>
 
-          <div className="flex items-center gap-1 rounded-full border border-slate-700 bg-slate-800/40 p-1 text-sm font-bold text-slate-300">
-            <button
-              type="button"
-              onClick={() => setLanguage('fr')}
-              className={language === 'fr' ? 'text-white bg-blue-500 rounded-full px-3 py-1 transition-all' : 'transition-colors hover:text-white px-3 py-1'}
-            >
-              FR
-            </button>
-            <button
-              type="button"
-              onClick={() => setLanguage('en')}
-              className={language === 'en' ? 'text-white bg-blue-500 rounded-full px-3 py-1 transition-all' : 'transition-colors hover:text-white px-3 py-1'}
-            >
-              EN
-            </button>
+          <div className="flex items-center gap-1 rounded-full border border-slate-700 bg-slate-800/40 p-2 text-xs font-bold text-blue-400">
+            EN
           </div>
         </div>
       </nav>
@@ -757,12 +746,145 @@ const Portfolio = () => {
         </div>
       </section>
 
+      {/* Expertise Section */}
+      <section id="expertise" className="py-24 bg-[#0b1220] scroll-mt-24 border-b border-slate-800">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16">
+            <motion.p 
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-blue-400 font-medium mb-4 text-sm uppercase tracking-widest"
+            >
+              What I Do
+            </motion.p>
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-5xl font-bold text-white mb-6"
+            >
+              {t.sections.expertise.title}
+            </motion.h2>
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="text-slate-400 max-w-2xl mx-auto text-lg leading-relaxed"
+            >
+              {t.sections.expertise.subtitle}
+            </motion.p>
+          </div>
+
+          <motion.div 
+            variants={staggerContainer}
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+          >
+            {t.sections.expertise.items.map((item, i) => {
+              const icons = [Database, Activity, Settings, Cpu];
+              const Icon = icons[i];
+              return (
+                <motion.div
+                  key={i}
+                  variants={fadeIn}
+                  className="p-8 bg-slate-900/40 border border-slate-800 rounded-2xl hover:border-blue-500/50 transition-all group"
+                >
+                  <div className="mb-6 p-3 bg-slate-800/50 rounded-xl w-fit group-hover:bg-blue-500/10 transition-colors">
+                    <Icon className="text-blue-400 group-hover:text-blue-300 transition-colors" size={28} />
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-4 group-hover:text-blue-400 transition-colors">
+                    {item.title}
+                  </h3>
+                  <p className="text-slate-400 text-sm leading-relaxed">
+                    {item.desc}
+                  </p>
+                </motion.div>
+              );
+            })}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Technical Expertise Section */}
+      <section id="competences" className="py-24 bg-[#0b1220] scroll-mt-24 border-b border-slate-800">
+        <div className="container mx-auto px-6">
+          <div className="flex flex-col lg:flex-row items-center gap-16">
+            <div className="lg:w-1/2">
+              <motion.p 
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="text-slate-500 font-medium mb-4 text-sm"
+              >
+                {t.sections.technicalExpertise.subtitle}
+              </motion.p>
+              <motion.h2 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="text-5xl font-bold text-white mb-8 serif"
+              >
+                {t.sections.technicalExpertise.title}
+              </motion.h2>
+              <motion.p 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 }}
+                className="text-slate-400 text-lg leading-relaxed mb-10"
+              >
+                {t.sections.technicalExpertise.desc}
+              </motion.p>
+
+              <motion.div 
+                variants={staggerContainer}
+                initial="initial"
+                whileInView="animate"
+                viewport={{ once: true }}
+                className="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-8"
+              >
+                {t.sections.technicalExpertise.skills.map((skill, i) => (
+                  <motion.div 
+                    key={i}
+                    variants={fadeIn}
+                    className="flex items-center gap-3"
+                  >
+                    <div className="w-1.5 h-1.5 rounded-full bg-slate-200" />
+                    <span className="text-slate-200 font-medium">{skill}</span>
+                  </motion.div>
+                ))}
+              </motion.div>
+            </div>
+
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="lg:w-1/2 relative"
+            >
+              <div className="rounded-2xl overflow-hidden border border-slate-800 shadow-2xl relative z-10">
+                <img 
+                  src="/assets/technical-expertise.png" 
+                  alt="Technical Setup" 
+                  className="w-full h-auto"
+                />
+              </div>
+              <div className="absolute -inset-4 bg-blue-500/5 blur-3xl rounded-full z-0" />
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       <AnimatePresence>
         {selectedProject && (
           <ProjectModal 
             project={selectedProject} 
             onClose={() => setSelectedProject(null)} 
-            language={language}
             t={t}
           />
         )}
