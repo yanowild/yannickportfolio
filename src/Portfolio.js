@@ -12,6 +12,7 @@ import {
   Code, 
   Users,
   ChevronRight,
+  ChevronLeft,
   ExternalLink,
   Linkedin,
   Github,
@@ -20,12 +21,34 @@ import {
   BarChart3,
   Download,
   ChevronDown,
-  Layers
+  Layers,
+  X,
+  ChevronRightCircle
 } from 'lucide-react';
 
 const Portfolio = () => {
   const [language, setLanguage] = useState('fr');
   const [activeFilter, setActiveFilter] = useState('all');
+
+  const [selectedProject, setSelectedProject] = useState(null);
+
+  React.useEffect(() => {
+    const handleEsc = (e) => {
+      if (e.key === 'Escape') setSelectedProject(null);
+    };
+    window.addEventListener('keydown', handleEsc);
+    
+    if (selectedProject) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      window.removeEventListener('keydown', handleEsc);
+      document.body.style.overflow = 'unset';
+    };
+  }, [selectedProject]);
 
   const uiText = {
     fr: {
@@ -110,6 +133,139 @@ const Portfolio = () => {
     transition: { duration: 0.4 }
   };
 
+  const ProjectModal = ({ project, onClose }) => {
+    if (!project) return null;
+
+    // Use multiple images if available, otherwise fallback to the single project image
+    const images = project.images || [project.image];
+
+    return (
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        onClick={onClose}
+        className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm"
+      >
+        <motion.div
+          initial={{ scale: 0.9, opacity: 0, y: 20 }}
+          animate={{ scale: 1, opacity: 1, y: 0 }}
+          exit={{ scale: 0.9, opacity: 0, y: 20 }}
+          onClick={(e) => e.stopPropagation()}
+          className="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden max-w-4xl w-full max-h-[90vh] flex flex-col md:flex-row shadow-2xl relative"
+        >
+          <button 
+            onClick={onClose}
+            className="absolute top-4 right-4 z-20 p-2 bg-slate-900/50 backdrop-blur-md rounded-full text-slate-400 hover:text-white transition-colors border border-slate-700/50"
+          >
+            <X size={20} />
+          </button>
+
+          {/* Left Column: Media Carousel */}
+          <div className="w-full md:w-1/2 h-64 md:h-auto bg-slate-800 relative group overflow-hidden">
+            <div 
+              id="carousel-container"
+              className="flex h-full overflow-x-auto snap-x snap-mandatory scroll-smooth" 
+              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+            >
+              {images.map((img, idx) => (
+                <div key={idx} id={`slide-${idx}`} className="flex-shrink-0 w-full h-full snap-center relative">
+                  <img 
+                    src={img} 
+                    alt={`${project.title} - ${idx + 1}`} 
+                    className="w-full h-full object-cover"
+                  />
+                  {/* Optional captions could go here */}
+                  {project.captions && project.captions[idx] && (
+                    <div className="absolute bottom-10 left-0 right-0 p-4 bg-slate-900/60 backdrop-blur-sm text-slate-300 text-xs text-center">
+                      {project.captions[idx]}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+            
+            {images.length > 1 && (
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+                {images.map((_, idx) => (
+                  <button 
+                    key={idx} 
+                    onClick={() => document.getElementById(`slide-${idx}`)?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' })}
+                    className="w-1.5 h-1.5 rounded-full bg-white/50 hover:bg-white transition-colors" 
+                  />
+                ))}
+              </div>
+            )}
+            
+            {images.length > 1 && (
+              <>
+                <button 
+                  onClick={() => {
+                    const container = document.getElementById('carousel-container');
+                    container.scrollBy({ left: -container.offsetWidth, behavior: 'smooth' });
+                  }}
+                  className="absolute inset-y-0 left-0 flex items-center pl-2 opacity-0 group-hover:opacity-100 transition-opacity z-10"
+                >
+                   <div className="p-2 bg-slate-900/50 backdrop-blur-sm rounded-full text-white hover:bg-slate-900 transition-colors shadow-lg"><ChevronLeft size={24} /></div>
+                </button>
+                <button 
+                  onClick={() => {
+                    const container = document.getElementById('carousel-container');
+                    container.scrollBy({ left: container.offsetWidth, behavior: 'smooth' });
+                  }}
+                  className="absolute inset-y-0 right-0 flex items-center pr-2 opacity-0 group-hover:opacity-100 transition-opacity z-10"
+                >
+                   <div className="p-2 bg-slate-900/50 backdrop-blur-sm rounded-full text-white hover:bg-slate-900 transition-colors shadow-lg"><ChevronRight size={24} /></div>
+                </button>
+              </>
+            )}
+          </div>
+
+          {/* Right Column: Content */}
+          <div className="w-full md:w-1/2 p-8 overflow-y-auto bg-slate-900">
+            <div className="mb-6">
+              <h3 className="text-3xl font-bold text-white mb-2">{project.title}</h3>
+              <p className="text-slate-400 leading-relaxed">
+                {project.longDesc || project.desc}
+              </p>
+            </div>
+
+            <div className="space-y-6">
+              <div>
+                <h4 className="text-sm font-bold text-slate-200 uppercase tracking-widest mb-3">{language === 'fr' ? 'À propos' : 'About Project'}</h4>
+                <p className="text-slate-400 text-sm leading-relaxed">
+                  {project.details || "Details about this project will be available soon. It showcases integration of various technologies and creative problem solving."}
+                </p>
+              </div>
+
+              <div className="flex flex-wrap gap-2 pt-4">
+                {project.tags.map((tag, i) => (
+                  <span 
+                    key={i}
+                    className="px-2 py-0.5 bg-blue-500/10 text-blue-400 text-[10px] font-bold uppercase tracking-wider rounded"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              {project.link && (
+                <a 
+                  href={project.link} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-medium transition-colors w-full justify-center md:w-auto"
+                >
+                  {language === 'fr' ? 'Voir le projet' : 'View Project'} <ExternalLink size={18} />
+                </a>
+              )}
+            </div>
+          </div>
+        </motion.div>
+      </motion.div>
+    );
+  };
+
   const staggerContainer = {
     animate: {
       transition: {
@@ -126,44 +282,80 @@ const Portfolio = () => {
       {
         title: "Personal Portfolio",
         desc: "A minimalist portfolio website built with React and Tailwind CSS, showcasing my work and skills.",
+        longDesc: "This project is the very portfolio you are browsing. It was designed to be fast, responsive, and visually appealing, using modern web technologies to create a seamless user experience.",
+        details: "Built with React and Tailwind CSS, it features Framer Motion for smooth animations and Lucide React for consistent iconography. The architecture is focused on performance and clean code, ensuring a professional presentation of my skills and projects.",
         category: "web",
         tags: ["React", "Tailwind CSS", "Framer Motion"],
-        image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=800"
+        image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=800",
+        images: [
+          "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=800",
+          "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&q=80&w=800"
+        ]
       },
       {
         title: "E-commerce Platform",
         desc: "A modern e-commerce platform with a focus on user experience and performance optimization.",
+        longDesc: "A full-featured e-commerce solution designed to provide a smooth shopping experience while maintaining high performance and scalability.",
+        details: "The platform includes features such as real-time inventory management, secure payment integration, and a responsive design that works perfectly across all devices. It uses Node.js and MongoDB for a robust backend and React for a dynamic frontend.",
         category: "web",
         tags: ["React", "Node.js", "MongoDB"],
-        image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800"
+        image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800",
+        images: [
+          "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800",
+          "https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&q=80&w=800"
+        ]
       },
       {
         title: "Mobile Banking App",
         desc: "A clean and intuitive mobile banking application designed for ease of use and security.",
+        longDesc: "A secure and user-friendly mobile banking application that allows users to manage their finances on the go with confidence and ease.",
+        details: "Focusing on security and intuitive UI, this app provides real-time transaction tracking, easy fund transfers, and biometric authentication. Developed with React Native to ensure a consistent experience on both iOS and Android platforms.",
         category: "mobile",
         tags: ["React Native", "Redux", "Firebase"],
-        image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80&w=800"
+        image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80&w=800",
+        images: [
+          "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80&w=800",
+          "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&q=80&w=800"
+        ]
       },
       {
         title: "Dashboard UI Kit",
         desc: "A comprehensive UI kit for building modern dashboard interfaces with a focus on usability.",
+        longDesc: "A versatile and modular UI kit designed to speed up the development of data-rich dashboard interfaces without compromising on aesthetics or usability.",
+        details: "This design system includes dozens of pre-built components, chart styles, and layout templates. Created in Figma with a focus on auto-layout and component properties to ensure maximum flexibility for developers and designers.",
         category: "design",
         tags: ["Figma", "UI Design", "Design System"],
-        image: "https://images.unsplash.com/photo-1599658880436-c61792e70672?auto=format&fit=crop&q=80&w=800"
+        image: "https://images.unsplash.com/photo-1599658880436-c61792e70672?auto=format&fit=crop&q=80&w=800",
+        images: [
+          "https://images.unsplash.com/photo-1599658880436-c61792e70672?auto=format&fit=crop&q=80&w=800",
+          "https://images.unsplash.com/photo-1551288049-bbbda536339a?auto=format&fit=crop&q=80&w=800"
+        ]
       },
       {
         title: "Task Management App",
         desc: "A productivity application for managing tasks, projects, and team collaboration.",
+        longDesc: "A powerful tool designed to help teams organize their work, track progress, and communicate effectively, all in one centralized platform.",
+        details: "Features include Kanban boards, task dependencies, time tracking, and real-time notifications. Built with Vue.js and Firebase to provide a reactive and reliable experience for teams of all sizes.",
         category: "web",
         tags: ["Vue.js", "Vuex", "Firebase"],
-        image: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&q=80&w=800"
+        image: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&q=80&w=800",
+        images: [
+          "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&q=80&w=800",
+          "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?auto=format&fit=crop&q=80&w=800"
+        ]
       },
       {
         title: "Travel Blog Website",
         desc: "A responsive blog website for sharing travel stories and photography with a focus on readability.",
+        longDesc: "A visually stunning blog platform designed to showcase high-quality travel photography and long-form stories in an engaging and readable format.",
+        details: "Optimized for readability and SEO, this WordPress-based site features a custom-built theme, integrated map features for location tagging, and a fully responsive layout for travelers on the move.",
         category: "web",
         tags: ["WordPress", "PHP", "Custom Theme"],
-        image: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&q=80&w=800"
+        image: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&q=80&w=800",
+        images: [
+          "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&q=80&w=800",
+          "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&q=80&w=800"
+        ]
       }
     ],
     contact: {
@@ -440,7 +632,8 @@ const Portfolio = () => {
                     key={project.title}
                     variants={fadeIn}
                     layout
-                    className="group bg-slate-900/50 border border-slate-800 rounded-2xl overflow-hidden hover:border-slate-700 transition-all"
+                    onClick={() => setSelectedProject(project)}
+                    className="group bg-slate-900/50 border border-slate-800 rounded-2xl overflow-hidden hover:border-slate-700 transition-all cursor-pointer"
                   >
                   <div className="relative h-64 overflow-hidden">
                     <img 
@@ -480,6 +673,15 @@ const Portfolio = () => {
           </motion.div>
         </div>
       </section>
+
+      <AnimatePresence>
+        {selectedProject && (
+          <ProjectModal 
+            project={selectedProject} 
+            onClose={() => setSelectedProject(null)} 
+          />
+        )}
+      </AnimatePresence>
 
       {/* Experience */}
       <section id="experience" className="py-24 bg-[#0b1220] scroll-mt-16 border-b border-slate-800">
