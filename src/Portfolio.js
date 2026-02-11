@@ -800,7 +800,7 @@ const Portfolio = () => {
       </section>
 
       {/* Technical Skills Section */}
-      <section id="Skills" className="py-8 bg-[#0b1220] scroll-mt-24 border-b border-slate-800">
+      <section id="Skills" className="py-8 bg-slate-900/50 scroll-mt-24 border-b border-slate-800">
         <div className="container mx-auto px-6">
           <div className="flex flex-col lg:flex-row items-center gap-16">
             <div className="lg:w-1/2">
@@ -944,7 +944,7 @@ const Portfolio = () => {
       </section>
 
       {/* Education section */}
-      <section id="formation" className="py-8 bg-[#0b1220] scroll-mt-16 border-b border-slate-800">
+      <section id="formation" className="py-8 bg-slate-900/50 scroll-mt-16 border-b border-slate-800">
         <div className="container mx-auto px-6">
 
           <div className="grid md:grid-cols-3 gap-12 items-stretch max-w-4xl mx-auto">
@@ -995,8 +995,8 @@ const Portfolio = () => {
                 <h4 className="text-lg font-bold text-slate-100 mb-4 uppercase tracking-wider">{t.footer.languages}</h4>
                 <div className="space-y-3">
                   <p className="text-slate-400">🇬🇧 English: Native</p>
-                  <p className="text-slate-400">🇪🇸 Spanish: Native</p>
                   <p className="text-slate-400">🇫🇷 French: Native</p>
+                  <p className="text-slate-400">🇪🇸 Spanish: Native</p>
                   <p className="text-slate-400">🇮🇹 Italian: Fluent (B2)</p>
                 </div>
               </div>
