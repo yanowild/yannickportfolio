@@ -168,7 +168,7 @@ import {
           {/* Right Column: Content */}
           <div className="w-full md:w-1/2 p-8 overflow-y-auto bg-slate-900">
             <div className="mb-8">
-              <h3 className="text-3xl font-bold text-white mb-2">{project.title}</h3>
+              <h3 className="text-3xl font-bold text-slate-100 mb-2">{project.title}</h3>
               <p className="text-blue-400 font-medium text-sm mb-4">{project.desc}</p>
             </div>
 
@@ -189,7 +189,7 @@ import {
 
               {project.outcome && (
                 <div className="p-4 bg-slate-800/40 rounded-xl border border-slate-700/50">
-                  <h4 className="text-[10px] font-bold text-slate-200 uppercase tracking-[0.2em] mb-2">{t.sections.modal.outcome}</h4>
+                  <h4 className="text-[10px] font-bold text-slate-300 uppercase tracking-[0.2em] mb-2">{t.sections.modal.outcome}</h4>
                   <p className="text-slate-300 text-sm leading-relaxed">{project.outcome}</p>
                 </div>
               )}
@@ -201,7 +201,7 @@ import {
                     {project.skillsUsed.map((skill, i) => (
                       <span 
                         key={i}
-                        className="px-3 py-1 bg-slate-800 text-slate-200 text-xs font-semibold rounded-lg border border-slate-700"
+                        className="px-3 py-1 bg-slate-800 text-slate-300 text-xs font-semibold rounded-lg border border-slate-700"
                       >
                         {skill}
                       </span>
@@ -265,8 +265,9 @@ const Portfolio = () => {
       },
       hero: {
         greeting: 'Hi, I am',
-        tagline: 'IT Project Manager, passionate about new technologies, innovation, and digital transformation',
-        bio: 'Passionate about data analysis, business process optimization, and digital transformation, I am in my final year of a Master\'s degree in Information Systems while working on various projects specializing in digitalization and business strategy.',
+        tagline: 'Business Analyst',
+        tagline2: 'Focused on operational efficiency and digital transformation',
+        bio: 'I design and implement structured digital solutions that improve business processes, align systems, and create measurable impact through data and technology.',
         downloadCV: 'Download CV',
         contact: 'Contact'
       },
@@ -354,7 +355,7 @@ const Portfolio = () => {
   const cvData = {
     name: "Yannick",
     lastName: "Wild",
-    title: "IT Project Manager",
+    title: "Business Analyst",
     projects: [
       {
         title: "Master Thesis",
@@ -487,24 +488,24 @@ const Portfolio = () => {
     education: [
       {
         school: "HEC Lausanne",
-        degree: "Master of Science in Information Systems and Digital Innovation",
+        degree: "Master of Science in Information Systems & Digital Innovation",
         period: "2024 - 2025"
       },
       {
-        school: "EHL Hospitality Business School",
-        degree: "Bachelor of Science in International Hospitality Management",
+        school: "EHL École Hôtelière de Lausanne",
+        degree: "Bachelor of Science in Hospitality Management",
         period: "2016 - 2020"
       }
     ],
-    extra: ["Fitness", "Kitesurf", "Snowboard", "Webapp projects"]
+    extra: ["Fitness", "Kitesurf", "Snowboard"]
   };
 
   return (
     <ThemeProvider attribute="class" defaultTheme="dark">
-      <div className="min-h-screen bg-[#0b1220] text-slate-200 selection:bg-blue-500/30">
+      <div className="min-h-screen bg-[#0b1220] text-slate-300 selection:bg-blue-500/30">
       <nav className="fixed inset-x-0 top-0 z-50 border-b border-slate-800/80 bg-[#0b1220]/85 backdrop-blur-md">
         <div className="container mx-auto flex h-16 items-center justify-between gap-6 px-6">
-          <a href="#profil" className="flex items-center gap-2 text-lg font-semibold text-white tracking-wide">
+          <a href="#profil" className="flex items-center gap-2 text-lg font-semibold text-slate-100 tracking-wide">
             <Layers className="text-blue-400" size={20} />
             Portfolio
           </a>
@@ -516,7 +517,7 @@ const Portfolio = () => {
             <a href="#expertise" className="flex items-center gap-2 transition-colors hover:text-white">
               <Settings size={16} /> {t.nav.expertise}
             </a>
-            <a href="#competences" className="flex items-center gap-2 transition-colors hover:text-white">
+            <a href="#Skills" className="flex items-center gap-2 transition-colors hover:text-white">
               <Zap size={16} /> {t.nav.skills}
             </a>
             <a href="#experience" className="flex items-center gap-2 transition-colors hover:text-white">
@@ -558,16 +559,23 @@ const Portfolio = () => {
             
             <motion.h1 
               variants={fadeIn}
-              className="text-6xl md:text-8xl font-bold tracking-tight text-white mb-8"
+              className="text-6xl md:text-8xl font-bold tracking-tight text-slate-100 mb-8"
             >
               {cvData.name} <span className="text-blue-400">{cvData.lastName}</span>
             </motion.h1>
 
             <motion.p 
               variants={fadeIn}
-              className="text-xl md:text-2xl text-slate-400 font-medium mb-6"
+              className="text-xl md:text-2xl text-slate-400 font-medium mb-2"
             >
               {t.hero.tagline}
+            </motion.p>
+
+            <motion.p 
+              variants={fadeIn}
+              className="text-lg md:text-xl text-slate-400 font-medium mb-6"
+            >
+              {t.hero.tagline2}
             </motion.p>
 
             <motion.p 
@@ -585,13 +593,13 @@ const Portfolio = () => {
                 <Download size={20} /> {t.hero.downloadCV}
               </button>
               <div className="flex flex-wrap gap-3">
-                <a href="#" className="flex items-center gap-2 p-3 border border-slate-700 rounded-lg bg-slate-800/30 hover:bg-slate-800/50 transition-colors text-slate-200 font-medium" title="LinkedIn">
+                <a href="#" className="flex items-center gap-2 p-3 border border-slate-700 rounded-lg bg-slate-800/30 hover:bg-slate-800/50 transition-colors text-slate-300 font-medium" title="LinkedIn">
                   <Linkedin size={20} />
                 </a>
-                <a href="#" className="flex items-center gap-2 p-3 border border-slate-700 rounded-lg bg-slate-800/30 hover:bg-slate-800/50 transition-colors text-slate-200 font-medium" title="GitHub">
+                <a href="#" className="flex items-center gap-2 p-3 border border-slate-700 rounded-lg bg-slate-800/30 hover:bg-slate-800/50 transition-colors text-slate-300 font-medium" title="GitHub">
                   <Github size={20} />
                 </a>
-                <a href="#contact" className="flex items-center gap-2 px-6 py-3 border border-slate-700 rounded-lg bg-slate-800/30 hover:bg-slate-800/50 transition-colors text-slate-200 font-medium">
+                <a href="#contact" className="flex items-center gap-2 px-6 py-3 border border-slate-700 rounded-lg bg-slate-800/30 hover:bg-slate-800/50 transition-colors text-slate-300 font-medium">
                   <Mail size={20} /> {t.nav.contact}
                 </a>
               </div>
@@ -640,7 +648,7 @@ const Portfolio = () => {
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="text-5xl font-bold text-white mb-4"
+              className="text-5xl font-bold text-slate-100 mb-4"
             >
               {t.sections.featuredProjects}
             </motion.h2>
@@ -708,7 +716,7 @@ const Portfolio = () => {
                   
                   <div className="p-8">
                     <div className="flex justify-between items-start mb-4">
-                      <h3 className="text-2xl font-bold text-white group-hover:text-blue-400 transition-colors">
+                      <h3 className="text-2xl font-bold text-slate-100 group-hover:text-blue-400 transition-colors">
                         {project.title}
                       </h3>
                       <ExternalLink size={20} className="text-slate-500 group-hover:text-white transition-colors" />
@@ -740,19 +748,11 @@ const Portfolio = () => {
       <section id="expertise" className="py-24 bg-[#0b1220] scroll-mt-24 border-b border-slate-800">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <motion.p 
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-blue-400 font-medium mb-4 text-sm uppercase tracking-widest"
-            >
-              What I Do
-            </motion.p>
             <motion.h2 
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-5xl font-bold text-white mb-6"
+              className="text-5xl font-bold text-slate-100 mb-6"
             >
               Expertise
             </motion.h2>
@@ -786,7 +786,7 @@ const Portfolio = () => {
                   <div className="mb-6 p-3 bg-slate-800/50 rounded-xl w-fit group-hover:bg-blue-500/10 transition-colors">
                     <Icon className="text-blue-400 group-hover:text-blue-300 transition-colors" size={28} />
                   </div>
-                  <h3 className="text-xl font-bold text-white mb-4 group-hover:text-blue-400 transition-colors">
+                  <h3 className="text-xl font-bold text-slate-100 mb-4 group-hover:text-blue-400 transition-colors">
                     {item.title}
                   </h3>
                   <p className="text-slate-400 text-sm leading-relaxed">
@@ -799,24 +799,16 @@ const Portfolio = () => {
         </div>
       </section>
 
-      {/* Technical Expertise Section */}
-      <section id="competences" className="py-24 bg-[#0b1220] scroll-mt-24 border-b border-slate-800">
+      {/* Technical Skills Section */}
+      <section id="Skills" className="py-8 bg-[#0b1220] scroll-mt-24 border-b border-slate-800">
         <div className="container mx-auto px-6">
           <div className="flex flex-col lg:flex-row items-center gap-16">
             <div className="lg:w-1/2">
-              <motion.p 
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="text-slate-500 font-medium mb-4 text-sm"
-              >
-                Skills
-              </motion.p>
               <motion.h2 
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="text-5xl font-bold text-white mb-8 serif"
+                className="text-5xl font-bold text-slate-100 mb-8 serif"
               >
                 {t.sections.technicalExpertise.title}
               </motion.h2>
@@ -844,7 +836,7 @@ const Portfolio = () => {
                     className="flex items-center gap-3"
                   >
                     <div className="w-1.5 h-1.5 rounded-full bg-slate-200" />
-                    <span className="text-slate-200 font-medium">{skill}</span>
+                    <span className="text-slate-300 font-medium">{skill}</span>
                   </motion.div>
                 ))}
               </motion.div>
@@ -903,23 +895,15 @@ const Portfolio = () => {
         )}
       </AnimatePresence>
 
-      {/* Experience */}
-      <section id="experience" className="py-24 bg-[#0b1220] scroll-mt-16 border-b border-slate-800">
+      {/* Experience section */}
+      <section id="experience" className="py-8 bg-[#0b1220] scroll-mt-16 border-b border-slate-800">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <motion.p 
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-blue-400 font-medium mb-4 text-sm uppercase tracking-widest"
-            >
-              My Journey
-            </motion.p>
             <motion.h2 
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-5xl font-bold text-white mb-6"
+              className="text-5xl font-bold text-slate-100 mb-6"
             >
               {t.sections.experience.title}
             </motion.h2>
@@ -946,8 +930,8 @@ const Portfolio = () => {
               >
                 <div className="absolute -left-1.5 top-2 w-3 h-3 bg-blue-500 rounded-full" />
                 <div className="mb-4">
-                  <span className="text-slate-500 font-mono text-sm block mb-1">{exp.period}</span>
-                  <h3 className="text-2xl font-bold text-white">{exp.role}</h3>
+                  <span className="text-blue-400 font-mono text-sm block mb-1">{exp.period}</span>
+                  <h3 className="text-2xl font-bold text-slate-100">{exp.role}</h3>
                   <p className="text-slate-400 font-medium">{exp.company}</p>
                 </div>
                 <p className="text-slate-400 leading-relaxed max-w-3xl">
@@ -959,60 +943,131 @@ const Portfolio = () => {
         </div>
       </section>
 
-      {/* Education */}
-      <section id="formation" className="py-24 bg-slate-900/50 scroll-mt-24 border-b border-slate-800">
+      {/* Education section */}
+      <section id="formation" className="py-8 bg-[#0b1220] scroll-mt-16 border-b border-slate-800">
         <div className="container mx-auto px-6">
-          <h2 className="text-4xl font-bold mb-16 flex items-center gap-4">
-            <GraduationCap className="text-blue-400" /> {t.sections.education}
-          </h2>
-          <div className="grid md:grid-cols-2 gap-8">
-            {cvData.education.map((edu, i) => (
-              <motion.div 
-                key={i}
-                whileHover={{ y: -5 }}
-                className="p-8 bg-slate-800/50 border border-slate-700 rounded-2xl"
+
+          <div className="grid md:grid-cols-3 gap-12 items-stretch max-w-4xl mx-auto">
+            <div className="md:col-span-2">
+              <motion.h2 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="text-5xl font-bold text-slate-100 mb-6"
               >
-                <span className="text-blue-400 font-mono text-sm">{edu.period}</span>
-                <h3 className="text-2xl font-bold text-white mt-2">{edu.degree}</h3>
-                <p className="text-slate-400 mt-2">{edu.school}</p>
-              </motion.div>
-            ))}
+                {t.sections.education}
+              </motion.h2>
+              <div className="relative border-l border-slate-700 ml-4 md:ml-0">
+                {cvData.education.map((edu, index) => (
+                  <motion.div 
+                    key={index}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                    className="relative pl-8 pb-12 last:pb-0"
+                  >
+                    <div className="absolute -left-1.5 top-2 w-3 h-3 bg-blue-500 rounded-full" />
+                    <div className="mb-4">
+                      <span className="text-blue-400 font-mono text-sm block mb-1">{edu.period}</span>
+                      {(() => {
+                        const parts = edu.degree.split(/ in /i);
+                        const diploma = parts[0];
+                        const field = parts.length > 1 ? parts.slice(1).join(' in ') : null;
+                        return (
+                          <>
+                            <h3 className="text-2xl font-bold text-slate-100">{diploma}</h3>
+                            {field && (
+                              <h3 className="text-2xl font-bold text-slate-100 mt-1">{field}</h3>
+                            )}
+                            <p className="text-slate-400 font-medium">{edu.school}</p>
+                          </>
+                        );
+                      })()}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+
+            <div className="md:col-span-1 flex flex-col md:h-full gap-8">
+              <div className="flex-1 rounded-xl border border-slate-800 p-6 bg-slate-900/40">
+                <h4 className="text-lg font-bold text-slate-100 mb-4 uppercase tracking-wider">{t.footer.languages}</h4>
+                <div className="space-y-3">
+                  <p className="text-slate-400">🇬🇧 English: Native</p>
+                  <p className="text-slate-400">🇪🇸 Spanish: Native</p>
+                  <p className="text-slate-400">🇫🇷 French: Native</p>
+                  <p className="text-slate-400">🇮🇹 Italian: Fluent (B2)</p>
+                </div>
+              </div>
+
+              <div className="flex-1 rounded-xl border border-slate-800 p-6 bg-slate-900/40">
+                <h4 className="text-lg font-bold text-slate-100 mb-4 uppercase tracking-wider">{t.footer.interests}</h4>
+                <div className="flex flex-wrap gap-2">
+                  {cvData.extra.map((item, i) => (
+                    <span key={i} className="px-3 py-1 bg-slate-800 rounded-md text-slate-400 text-sm">{item}</span>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Footer / Languages & Extra */}
+      {/* Footer / Contact Information */}
       <footer id="contact" className="py-24 scroll-mt-24 bg-[#0b1220]">
-        <div className="container mx-auto px-6">
-          <div className="grid md:grid-cols-3 gap-12 mb-16">
-            <div>
-              <h4 className="text-lg font-bold text-white mb-6 uppercase tracking-wider">{t.footer.languages}</h4>
-              <div className="space-y-3">
-                <p className="text-slate-400">English: Native</p>
-                <p className="text-slate-400">Spanish: Native</p>
-                <p className="text-slate-400">French: Native</p>
-                <p className="text-slate-400">Italian: Fluent (B2)</p>
+        <div className="container mx-auto px-6 max-w-4xl">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-5xl font-bold text-slate-100 mb-6"
+          >
+            Contact Information
+          </motion.h2>
+          <p className="text-slate-400 text-lg leading-relaxed mb-12">
+            Feel free to reach out through any of the following channels. I'll get back to you as soon as possible.
+          </p>
+
+          <div className="space-y-10 mb-16">
+            <div className="flex items-center gap-6">
+              <div className="p-4 bg-slate-800 rounded-full text-slate-400">
+                <Mail size={24} />
+              </div>
+              <div>
+                <h4 className="text-lg font-bold text-slate-100">Email</h4>
+                <p className="text-slate-400">{cvData.contact.email}</p>
               </div>
             </div>
-            <div>
-              <h4 className="text-lg font-bold text-white mb-6 uppercase tracking-wider">{t.footer.interests}</h4>
-              <div className="flex flex-wrap gap-2">
-                {cvData.extra.map((item, i) => (
-                  <span key={i} className="px-3 py-1 bg-slate-800 rounded-md text-slate-400 text-sm">{item}</span>
-                ))}
+            <div className="flex items-center gap-6">
+              <div className="p-4 bg-slate-800 rounded-full text-slate-400">
+                <Phone size={24} />
+              </div>
+              <div>
+                <h4 className="text-lg font-bold text-slate-100">Phone</h4>
+                <p className="text-slate-400">{cvData.contact.phone}</p>
               </div>
             </div>
-            <div>
-              <h4 className="text-lg font-bold text-white mb-6 uppercase tracking-wider">{t.footer.touch}</h4>
-              <p className="text-slate-400 mb-4">{cvData.contact.email}</p>
-              <div className="flex gap-4">
-                <a href="#" className="p-2 bg-slate-800 rounded-lg text-slate-400 hover:text-blue-400 hover:bg-slate-700 transition-all">
-                  <Linkedin size={20} />
-                </a>
-                <a href="#" className="p-2 bg-slate-800 rounded-lg text-slate-400 hover:text-blue-400 hover:bg-slate-700 transition-all">
-                  <Github size={20} />
-                </a>
+            <div className="flex items-center gap-6">
+              <div className="p-4 bg-slate-800 rounded-full text-slate-400">
+                <MapPin size={24} />
               </div>
+              <div>
+                <h4 className="text-lg font-bold text-slate-100">Location</h4>
+                <p className="text-slate-400">{cvData.contact.location}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="mb-16">
+            <h4 className="text-lg font-bold text-slate-100 mb-6">Let's Connect</h4>
+            <div className="flex gap-4">
+              <a href="#" className="p-4 bg-slate-800 rounded-full text-slate-400 hover:text-blue-400 hover:bg-slate-700 transition-all">
+                <Linkedin size={24} />
+              </a>
+              <a href="#" className="p-4 bg-slate-800 rounded-full text-slate-400 hover:text-blue-400 hover:bg-slate-700 transition-all">
+                <Github size={24} />
+              </a>
             </div>
           </div>
           <div className="pt-8 border-t border-slate-800 text-center text-slate-600 text-sm">
