@@ -118,7 +118,7 @@ import {
                   <img 
                     src={images[currentImageIndex]} 
                     alt={`${project.title} - ${currentImageIndex + 1}`} 
-                    className="w-full h-full object-cover transition-all duration-500 grayscale brightness-[0.7] group-hover:grayscale-0 group-hover:brightness-100"
+                    className="w-full h-full object-cover transition-all duration-500 brightness-[0.85] group-hover:brightness-100"
                   />
                   {project.captions && project.captions[currentImageIndex] && (
                     <div className="absolute bottom-10 left-0 right-0 p-4 bg-slate-900/60 backdrop-blur-sm text-slate-300 text-xs text-center">
@@ -256,8 +256,8 @@ const Portfolio = () => {
   const uiText = {
     en: {
       nav: {
-        profile: 'Profile',
         projects: 'Projects',
+        expertise: 'Expertise',
         skills: 'Skills',
         experience: 'Experience',
         education: 'Education',
@@ -308,10 +308,13 @@ const Portfolio = () => {
           consultant: 'Consultant',
           research: 'Research'
         },
-        experience: 'Experience',
+        experience: {
+          title: 'Experience',
+          subtitle: 'A brief overview of my professional journey and key milestones.'
+        },
         technical: 'Technical Skills',
         technicalExpertise: {
-          title: 'Technical Expertise',
+          title: 'Technical Skills',
           subtitle: 'My Skills',
           desc: 'With a strong foundation in both design and development, I bring a holistic approach to every project. My technical skills include:',
           skills: [
@@ -355,15 +358,16 @@ const Portfolio = () => {
     projects: [
       {
         title: "Master Thesis",
-        desc: "A Design Science project exploring how interaction design (chatbot vs. GUI) affects user trust and sense of control in AI-assisted travel planning.",
+        desc: "Design Science Research exploring how interaction design affects user trust and sense of control in AI travel planning.",
         role: "Researcher",
         context: "This Master Thesis project investigates the impact of different interaction paradigms—specifically Chatbots versus Graphical User Interfaces (GUI)—on user trust and their sense of control when using AI-assisted travel planning tools.",
         outcome: "Using a Design Science Research methodology, I developed two prototypes to test user perceptions. The research provided key insights into how AI should communicate with users to foster trust while maintaining transparency and control through effective UI/UX design and qualitative testing.",
         skillsUsed: ["Design Science", "UX Research", "AI Interaction Design", "Prototyping", "User Testing"],
         category: "research",
-        tags: ["Design Science", "UX Research", "AI", "Prototyping"],
-        image: "/assets/Picture MScThesis 1 GUI 1.png",
+        tags: ["AI Design", "UX/UI", "Experiment"],
+        image: "/assets/Master Thesis Card.jpg",
         images: [
+          "/assets/Master Thesis Card.jpg",
           "/assets/Picture MScThesis 1 GUI 1.png",
           "/assets/Picture MScThesis 2 GUI 2.png",
           "/assets/Picture MScThesis 3 Chatbot 1.png",
@@ -378,10 +382,10 @@ const Portfolio = () => {
         outcome: "Successfully streamlined field service operations, defined key performance indicators (KPIs), and configured advanced dashboards in SAP Analytics Cloud, facilitating cross-departmental collaboration and maximizing operational value.",
         skillsUsed: ["SAP FSM", "SAP Analytics Cloud", "Product Management", "Agile", "Business Process Mapping"],
         category: "operations",
-        tags: ["SAP FSM", "SAP Analytics Cloud", "Product Management", "Agile"],
-        image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800",
+        tags: ["Product Management", "Agile", "Analytics"],
+        image: "/assets/SAP FSM Card.png",
         images: [
-          "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800",
+          "/assets/SAP FSM Card.png",
           "https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&q=80&w=800"
         ]
       },
@@ -393,36 +397,36 @@ const Portfolio = () => {
         outcome: "Designed and implemented a standardized project workflow that significantly reduced bottlenecks. Developed advanced Excel templates and VBA macros to streamline reporting and monitoring of multimillion-euro investment budgets.",
         skillsUsed: ["Business Analysis", "Process Optimization", "Excel VBA", "Project Management"],
         category: "operations",
-        tags: ["Business Analysis", "Process Optimization", "Excel VBA", "Project Management"],
-        image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800",
+        tags: ["Workflow Design", "BPMN", "User Training"],
+        image: "/assets/Operational Optimization Card 2.png",
         images: [
-          "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800",
+          "/assets/Operational Optimization Card 2.png",
           "https://images.unsplash.com/photo-1454165833767-027eeef1593e?auto=format&fit=crop&q=80&w=800"
         ]
       },
       {
-        title: "FF&E Procurement & Installation for Luxury Hotels",
-        desc: "Managed luxury hotel fit-outs and renovations, coordinating end-to-end FF&E procurement and on-site installations across Europe.",
+        title: "Hotel Procurement",
+        desc: "Managed luxury hotel fit-outs and renovations, coordinating end-to-end FF&E procurement and on-site installations.",
         role: "Project Manager",
         context: "Managed end-to-end delivery of high-profile luxury hotel projects (e.g., Six Senses Ibiza, Rosewood Villa Magna), overseeing contracts and supplier management for projects with budgets up to €15 million.",
         outcome: "Successfully coordinated procurement and logistics for up to 5,000 items from 100+ suppliers. Maintained strict on-time and on-budget execution through rigorous risk and quality controls, leading core teams to successful project delivery.",
         skillsUsed: ["Project Management", "Procurement", "Supply Chain", "Vendor Management", "Logistics"],
         category: "operations",
-        tags: ["Project Management", "Procurement", "Logistics", "Team Leadership", "Supply Chain", "Vendor Management", "Installation", "Project Delivery"],
-        image: "/assets/hero-image.png",
+        tags: ["Logistics", "Supply Chain", "Budget Control"],
+        image: "/assets/Procurement.jpg",
         images: [
-          "/assets/hero-image.png"
+          "/assets/Procurement.jpg"
         ]
       },
       {
-        title: "Business Development Strategy",
+        title: "Business Development",
         desc: "Designed a market entry and business development strategy for an IoT-based hospitality technology startup.",
         role: "Consultant",
-        context: "Developed a comprehensive go-to-market strategy for ARVE Air, an IoT solution targeting the luxury hospitality sector city-by-city across Europe and the Americas.",
+        context: "Developed a comprehensive go-to-market strategy for ARVE Air, an IoT solution targeting the luxury hospitality sector city-by-city and the Americas.",
         outcome: "Designed a phased business development strategy focusing on strategic partnerships and integration with open-API architectures. The project successfully translated complex technical IoT solutions into clear business value propositions.",
         skillsUsed: ["Market Analysis", "Business Development", "IoT Strategy", "Strategic Partnerships"],
         category: "consultant",
-        tags: ["Business Development", "Market Analysis", "IoT", "Hospitality Strategy"],
+        tags: ["Market Analysis", "IoT", "Strategy"],
         image: "/assets/Arve 1.png",
         images: [
           "/assets/Arve 1.png",
@@ -438,7 +442,7 @@ const Portfolio = () => {
         outcome: "Successfully built proof-of-concept assistants, defined AI-specific KPIs, and aligned stakeholders on integration roadmaps to move from experimentation to production environments.",
         skillsUsed: ["AI Prototyping", "Data Pipelines", "Stakeholder Management", "Implementation Roadmap"],
         category: "consultant",
-        tags: ["AI", "Data", "Prototyping", "Implementation"],
+        tags: ["Workflow Analysis", "Roadmap", "ROI"],
         image: "/assets/ai-implementation.png",
         images: [
           "/assets/ai-implementation.png"
@@ -461,40 +465,23 @@ const Portfolio = () => {
       {
         company: "GF Machining Solutions",
         location: "Geneva",
-        role: "IT Product Owner",
+        role: "Product Owner",
         period: "2021 - 2023",
-        points: [
-          "Implemented SAP FSM to streamline and improve field service management operations.",
-          "Analysed and harmonised customer service processes across four regions using different ERP systems (Great Plains, SAP, iScala).",
-          "Defined KPIs and configured dashboards in SAP Analytics Cloud for performance monitoring.",
-          "Owned product vision, strategy, and roadmap, aligning development with company objectives.",
-          "Facilitated cross-departmental collaboration to maximize product value on business operations.",
-          "Conducted workshops with stakeholders to demonstrate product usability and workflow."
-        ]
-      },
-      {
-        company: "GF Machining Solutions",
-        location: "Geneva",
-        role: "Project Coordinator",
-        period: "2021 - 2022",
-        points: [
-          "Designed a new SAP customer service process, improving data accuracy and reducing error rates.",
-          "Standardized data input in SAP for main European sales companies to enhance consistency."
-        ]
+        description: "Led the global implementation of the SAP FSM platform, harmonizing customer service processes across multiple regions and ERP systems while defining KPIs and advanced analytics dashboards."
       },
       {
         company: "Sunnyland Consulting",
         location: "Madrid",
         role: "Project Manager",
         period: "2019 - 2021",
-        points: [
-          "Negotiated contracts and monitored investment budgets up to €15 million for high-profile projects (Six Senses Ibiza, Rosewood Villa Magna, Mandarin Oriental Paris).",
-          "Coordinated installations for up to 5,000 items from 100 suppliers.",
-          "Managed a team of three (Project Manager, Project Coordinator, Installation Manager).",
-          "Implemented a new operational structure improving workflow productivity.",
-          "Developed advanced Excel templates and VBA macros for streamlined reporting.",
-          "Designed and implemented a standardized project workflow to eliminate bottlenecks."
-        ]
+        description: "Managed end-to-end delivery of luxury hotel fit-outs with budgets up to €15M, coordinating complex logistics and implementing operational structures to improve workflow productivity."
+      },
+      {
+        company: "Beau-Rivage Palace (F&B), Hotel Bernerhof (Front Office), Grand Hôtel & Centre Thermal (Kitchen)",
+        location: "",
+        role: "Hospitality Operations Roles",
+        period: "2014 – 2017",
+        description: "Worked across front-of-house and back-of-house operations in luxury hospitality environments, gaining hands-on experience in service processes, coordination, and operational execution."
       }
     ],
     education: [
@@ -523,14 +510,14 @@ const Portfolio = () => {
           </a>
           
           <div className="hidden items-center gap-8 text-base font-medium text-slate-400 lg:flex">
-            <a href="#profil" className="flex items-center gap-2 transition-colors hover:text-white">
-              <User size={16} /> {t.nav.profile}
-            </a>
             <a href="#projets" className="flex items-center gap-2 transition-colors hover:text-white">
               <Layout size={16} /> {t.nav.projects}
             </a>
+            <a href="#expertise" className="flex items-center gap-2 transition-colors hover:text-white">
+              <Settings size={16} /> {t.nav.expertise}
+            </a>
             <a href="#competences" className="flex items-center gap-2 transition-colors hover:text-white">
-              <BarChart3 size={16} /> {t.nav.skills}
+              <Zap size={16} /> {t.nav.skills}
             </a>
             <a href="#experience" className="flex items-center gap-2 transition-colors hover:text-white">
               <Briefcase size={16} /> {t.nav.experience}
@@ -646,14 +633,14 @@ const Portfolio = () => {
       </header>
 
       {/* Featured Projects */}
-      <section id="projets" className="py-24 bg-slate-900/50 scroll-mt-24 border-b border-slate-800">
+      <section id="projets" className="pt-16 pb-24 bg-slate-900/50 scroll-mt-24 border-b border-slate-800">
         <div className="container mx-auto px-6">
-          <div className="mb-16">
+          <div className="mb-8">
             <motion.h2 
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="text-5xl font-bold text-white mb-6"
+              className="text-5xl font-bold text-white mb-4"
             >
               {t.sections.featuredProjects}
             </motion.h2>
@@ -673,7 +660,7 @@ const Portfolio = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="flex flex-wrap gap-4 mb-12"
+            className="flex flex-wrap gap-4 mb-8"
           >
             {Object.entries(t.sections.categories).map(([key, label]) => (
               <button
@@ -714,9 +701,9 @@ const Portfolio = () => {
                     <img 
                       src={project.image} 
                       alt={project.title}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      className="w-full h-full object-cover transition-all duration-500 brightness-[0.8] group-hover:brightness-100 group-hover:scale-110"
                     />
-                    <div className="absolute inset-0 bg-slate-900/20 group-hover:bg-slate-900/0 transition-colors" />
+                    <div className="absolute inset-0 bg-slate-900/30 group-hover:bg-slate-900/0 transition-colors" />
                   </div>
                   
                   <div className="p-8">
@@ -767,7 +754,7 @@ const Portfolio = () => {
               viewport={{ once: true }}
               className="text-5xl font-bold text-white mb-6"
             >
-              {t.sections.expertise.title}
+              Expertise
             </motion.h2>
             <motion.p 
               initial={{ opacity: 0, y: 20 }}
@@ -823,7 +810,7 @@ const Portfolio = () => {
                 viewport={{ once: true }}
                 className="text-slate-500 font-medium mb-4 text-sm"
               >
-                {t.sections.technicalExpertise.subtitle}
+                Skills
               </motion.p>
               <motion.h2 
                 initial={{ opacity: 0, y: 20 }}
@@ -919,11 +906,35 @@ const Portfolio = () => {
       {/* Experience */}
       <section id="experience" className="py-24 bg-[#0b1220] scroll-mt-16 border-b border-slate-800">
         <div className="container mx-auto px-6">
-          <h2 className="text-4xl font-bold mb-16 flex items-center gap-4">
-            <Briefcase className="text-blue-400" /> {t.sections.experience}
-          </h2>
+          <div className="text-center mb-16">
+            <motion.p 
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-blue-400 font-medium mb-4 text-sm uppercase tracking-widest"
+            >
+              My Journey
+            </motion.p>
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-5xl font-bold text-white mb-6"
+            >
+              {t.sections.experience.title}
+            </motion.h2>
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="text-slate-400 max-w-2xl mx-auto text-lg leading-relaxed"
+            >
+              {t.sections.experience.subtitle}
+            </motion.p>
+          </div>
           
-          <div className="space-y-12">
+          <div className="max-w-4xl mx-auto relative border-l border-slate-700 ml-4 md:ml-0">
             {cvData.experience.map((exp, index) => (
               <motion.div 
                 key={index}
@@ -931,24 +942,17 @@ const Portfolio = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="group relative pl-8 border-l border-slate-700 hover:border-blue-500 transition-colors"
+                className="relative pl-8 pb-12 last:pb-0"
               >
-                <div className="absolute -left-1.5 top-0 w-3 h-3 bg-slate-700 rounded-full group-hover:bg-blue-500 transition-colors" />
-                <div className="flex flex-wrap justify-between items-start mb-4">
-                  <div>
-                    <h3 className="text-2xl font-bold text-white">{exp.role}</h3>
-                    <p className="text-blue-400 font-medium">{exp.company} • {exp.location}</p>
-                  </div>
-                  <span className="text-slate-500 font-mono mt-1">{exp.period}</span>
+                <div className="absolute -left-1.5 top-2 w-3 h-3 bg-blue-500 rounded-full" />
+                <div className="mb-4">
+                  <span className="text-slate-500 font-mono text-sm block mb-1">{exp.period}</span>
+                  <h3 className="text-2xl font-bold text-white">{exp.role}</h3>
+                  <p className="text-slate-400 font-medium">{exp.company}</p>
                 </div>
-                <ul className="space-y-3">
-                  {exp.points.map((point, i) => (
-                    <li key={i} className="flex items-start gap-3 text-slate-400 leading-relaxed">
-                      <ChevronRight size={18} className="text-slate-600 mt-1 shrink-0" />
-                      <span>{point}</span>
-                    </li>
-                  ))}
-                </ul>
+                <p className="text-slate-400 leading-relaxed max-w-3xl">
+                  {exp.description}
+                </p>
               </motion.div>
             ))}
           </div>
