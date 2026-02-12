@@ -571,10 +571,10 @@ const Portfolio = () => {
                 <Download size={20} /> {t.hero.downloadCV}
               </button>
               <div className="flex flex-wrap gap-3">
-                <a href="#" className="flex items-center gap-2 p-3 border border-slate-700 rounded-lg bg-slate-800/30 hover:bg-slate-800/50 transition-colors text-slate-300 font-medium" title="LinkedIn">
+                <a href="https://www.linkedin.com/in/yannick-wild/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 p-3 border border-slate-700 rounded-lg bg-slate-800/30 hover:bg-slate-800/50 transition-colors text-slate-300 font-medium" title="LinkedIn">
                   <Linkedin size={20} />
                 </a>
-                <a href="#" className="flex items-center gap-2 p-3 border border-slate-700 rounded-lg bg-slate-800/30 hover:bg-slate-800/50 transition-colors text-slate-300 font-medium" title="GitHub">
+                <a href="https://github.com/yanowild" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 p-3 border border-slate-700 rounded-lg bg-slate-800/30 hover:bg-slate-800/50 transition-colors text-slate-300 font-medium" title="GitHub">
                   <Github size={20} />
                 </a>
                 <a href="#contact" className="flex items-center gap-2 px-6 py-3 border border-slate-700 rounded-lg bg-slate-800/30 hover:bg-slate-800/50 transition-colors text-slate-300 font-medium">
