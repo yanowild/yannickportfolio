@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ThemeProvider } from 'next-themes';
 import { IconCloud } from "./components/ui/interactive-icon-cloud";
+import { Globe as SpinningGlobe } from './Globe';
 import { 
   Mail, 
   Phone, 
@@ -985,8 +986,8 @@ const Portfolio = () => {
             Let’s connect.
           </p>
 
-          <div className="flex flex-col lg:flex-row gap-16 mb-16">
-            <div className="space-y-10">
+          <div className="flex flex-col lg:flex-row items-center gap-16">
+            <div className="lg:w-1/2 space-y-10">
               <div className="flex items-center gap-6">
                 <div className="p-4 bg-slate-800 rounded-full text-slate-400">
                   <Mail size={24} />
@@ -1014,21 +1015,33 @@ const Portfolio = () => {
                   <p className="text-slate-400">{cvData.contact.location}</p>
                 </div>
               </div>
-            </div>
-
-            <div className="lg:ml-16">
-              <h4 className="text-lg font-bold text-slate-300 mb-6">Socials</h4>
-              <div className="flex gap-4">
-                <a href="#" className="p-4 bg-slate-800 rounded-full text-slate-400 hover:text-blue-400 hover:bg-slate-700 transition-all">
-                  <Linkedin size={24} />
-                </a>
-                <a href="#" className="p-4 bg-slate-800 rounded-full text-slate-400 hover:text-blue-400 hover:bg-slate-700 transition-all">
-                  <Github size={24} />
-                </a>
+              <div>
+                <h4 className="text-lg font-bold text-slate-300 mb-4">Socials</h4>
+                <div className="flex gap-4">
+                  <a href="#" className="p-4 bg-slate-800 rounded-full text-slate-400 hover:text-blue-400 hover:bg-slate-700 transition-all">
+                    <Linkedin size={24} />
+                  </a>
+                  <a href="#" className="p-4 bg-slate-800 rounded-full text-slate-400 hover:text-blue-400 hover:bg-slate-700 transition-all">
+                    <Github size={24} />
+                  </a>
+                </div>
               </div>
             </div>
+
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="lg:w-1/2 relative flex items-center justify-center"
+            >
+              <div className="relative z-10 w-full max-w-lg -mt-12">
+                <SpinningGlobe />
+              </div>
+            </motion.div>
           </div>
-          <div className="pt-8 border-t border-slate-800 text-center text-slate-600 text-sm">
+
+          <div className="mt-20 pt-8 border-t border-slate-800 text-center text-slate-600 text-sm">
             © {new Date().getFullYear()} Yannick Wild. All rights reserved.
           </div>
         </div>
