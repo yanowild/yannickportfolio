@@ -40,29 +40,70 @@ import {
     }
   };
 
-  const ProjectModal = ({ project, onClose, t }) => {
-    // Use multiple images if available, otherwise fallback to the single project image
+  const CardCarousel = ({ project }) => {
     const images = project.images || [project.image];
-
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-    const nextImage = () => {
+    const nextImage = (e) => {
+      e.stopPropagation();
       setCurrentImageIndex((prev) => (prev + 1) % images.length);
     };
 
-    const prevImage = () => {
+    const prevImage = (e) => {
+      e.stopPropagation();
       setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
     };
 
-    React.useEffect(() => {
-      const handleKeyDown = (e) => {
-        if (e.key === 'ArrowRight') nextImage();
-        if (e.key === 'ArrowLeft') prevImage();
-      };
-      window.addEventListener('keydown', handleKeyDown);
-      return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [images.length]);
+    return (
+      <div className="relative h-64 overflow-hidden group/carousel">
+        <AnimatePresence initial={false} mode="wait">
+          <motion.div
+            key={currentImageIndex}
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="absolute inset-0"
+          >
+            <img 
+              src={images[currentImageIndex]} 
+              alt={`${project.title} - ${currentImageIndex + 1}`}
+              className="w-full h-full object-cover transition-all duration-500 brightness-[0.8] group-hover:brightness-100 group-hover:scale-110"
+            />
+            <div className="absolute inset-0 bg-slate-900/30 group-hover:bg-slate-900/0 transition-colors" />
+          </motion.div>
+        </AnimatePresence>
 
+        {images.length > 1 && (
+          <>
+            <button 
+              onClick={prevImage}
+              className="absolute inset-y-0 left-0 flex items-center px-3 z-20 opacity-0 group-hover/carousel:opacity-100 transition-opacity"
+            >
+              <ChevronLeft size={28} strokeWidth={3} className="text-white/80 hover:text-white transition-colors" />
+            </button>
+            <button 
+              onClick={nextImage}
+              className="absolute inset-y-0 right-0 flex items-center px-3 z-20 opacity-0 group-hover/carousel:opacity-100 transition-opacity"
+            >
+              <ChevronRight size={28} strokeWidth={3} className="text-white/80 hover:text-white transition-colors" />
+            </button>
+            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
+              {images.map((_, idx) => (
+                <button 
+                  key={idx} 
+                  onClick={(e) => { e.stopPropagation(); setCurrentImageIndex(idx); }}
+                  className={`w-1.5 h-1.5 rounded-full transition-colors ${idx === currentImageIndex ? 'bg-white' : 'bg-white/50 hover:bg-white/80'}`} 
+                />
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+    );
+  };
+
+  const ProjectModal = ({ project, onClose, t }) => {
     // Fix for "click inside, release outside" closing the modal
     const [isMouseDownOnOverlay, setIsMouseDownOnOverlay] = useState(false);
 
@@ -94,7 +135,7 @@ import {
           exit={{ scale: 0.9, opacity: 0, y: 20 }}
           onMouseDown={(e) => e.stopPropagation()}
           onMouseUp={(e) => e.stopPropagation()}
-          className="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden max-w-4xl w-full max-h-[90vh] flex flex-col md:flex-row shadow-2xl relative"
+          className="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden max-w-2xl w-full max-h-[90vh] flex flex-col shadow-2xl relative"
         >
           <button 
             onClick={onClose}
@@ -103,93 +144,25 @@ import {
             <X size={20} />
           </button>
 
-          {/* Left Column: Media Carousel */}
-          <div className="w-full md:w-1/2 h-64 md:h-auto bg-slate-900 relative group overflow-hidden">
-            <div className="relative h-full w-full overflow-hidden">
-              <AnimatePresence initial={false} mode="wait">
-                <motion.div
-                  key={currentImageIndex}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
-                  transition={{ duration: 0.3, ease: "easeInOut" }}
-                  className="absolute inset-0"
-                >
-                  <img 
-                    src={images[currentImageIndex]} 
-                    alt={`${project.title} - ${currentImageIndex + 1}`} 
-                    className="w-full h-full object-cover transition-all duration-500 brightness-[0.85] group-hover:brightness-100"
-                  />
-                  {project.captions && project.captions[currentImageIndex] && (
-                    <div className="absolute bottom-10 left-0 right-0 p-4 bg-slate-900/60 backdrop-blur-sm text-slate-300 text-xs text-center">
-                      {project.captions[currentImageIndex]}
-                    </div>
-                  )}
-                </motion.div>
-              </AnimatePresence>
-            </div>
-            
-            {images.length > 1 && (
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
-                {images.map((_, idx) => (
-                  <button 
-                    key={idx} 
-                    onClick={() => setCurrentImageIndex(idx)}
-                    className={`w-1.5 h-1.5 rounded-full transition-colors ${idx === currentImageIndex ? 'bg-white' : 'bg-white/50 hover:bg-white/80'}`} 
-                  />
-                ))}
-              </div>
-            )}
-            
-            {images.length > 1 && (
-              <>
-                <button 
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    prevImage();
-                  }}
-                  className="absolute inset-y-0 left-0 flex items-center px-4 group/arrow z-20 opacity-0 group-hover:opacity-100 transition-opacity"
-                >
-                   <ChevronLeft size={32} strokeWidth={3} className="text-blue-600 hover:text-blue-800 transition-colors" />
-                </button>
-                <button 
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    nextImage();
-                  }}
-                  className="absolute inset-y-0 right-0 flex items-center px-4 group/arrow z-20 opacity-0 group-hover:opacity-100 transition-opacity"
-                >
-                   <ChevronRight size={32} strokeWidth={3} className="text-blue-600 hover:text-blue-800 transition-colors" />
-                </button>
-              </>
-            )}
-          </div>
-
-          {/* Right Column: Content */}
-          <div className="w-full md:w-1/2 p-8 overflow-y-auto bg-slate-900">
+          {/* Content */}
+          <div className="w-full p-8 overflow-y-auto bg-slate-900">
             <div className="mb-8">
-              <h3 className="text-3xl font-bold text-slate-100 mb-2">{project.title}</h3>
-              <p className="text-blue-400 font-medium text-sm mb-4">{project.desc}</p>
+              <h3 className="text-3xl font-bold text-slate-300 mb-2">{project.title}</h3>
+              <p className="text-slate-300 font-medium text-sm mb-4">{project.desc}</p>
             </div>
 
             <div className="space-y-8">
               {project.role && (
                 <div className="relative pl-4 border-l-2 border-blue-500/30">
-                  <h4 className="text-[10px] font-bold text-blue-400 uppercase tracking-[0.2em] mb-2">{t.sections.modal.role}</h4>
-                  <p className="text-slate-300 text-sm leading-relaxed">{project.role}</p>
+                  <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-2">{t.sections.modal.role}</h4>
+                  <p className="text-blue-400 text-sm leading-relaxed">{project.role}</p>
                 </div>
               )}
 
-              {project.context && (
-                <div>
-                  <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-2">{t.sections.modal.context}</h4>
-                  <p className="text-slate-400 text-sm leading-relaxed">{project.context}</p>
-                </div>
-              )}
 
               {project.outcome && (
                 <div className="p-4 bg-slate-800/40 rounded-xl border border-slate-700/50">
-                  <h4 className="text-[10px] font-bold text-slate-300 uppercase tracking-[0.2em] mb-2">{t.sections.modal.outcome}</h4>
+                  <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-2">{t.sections.modal.outcome}</h4>
                   <p className="text-slate-300 text-sm leading-relaxed">{project.outcome}</p>
                 </div>
               )}
@@ -201,7 +174,7 @@ import {
                     {project.skillsUsed.map((skill, i) => (
                       <span 
                         key={i}
-                        className="px-3 py-1 bg-slate-800 text-slate-300 text-xs font-semibold rounded-lg border border-slate-700"
+                        className="px-3 py-1 bg-slate-800/80 text-slate-300 text-xs font-medium rounded-full border border-slate-700"
                       >
                         {skill}
                       </span>
@@ -272,8 +245,8 @@ const Portfolio = () => {
         contact: 'Contact'
       },
       sections: {
-        featuredProjects: 'Featured Projects',
-        featuredProjectsDesc: 'A curated selection of projects that showcase my skills and expertise in web development and design. Each project represents a unique challenge and solution.',
+        featuredProjects: 'Projects',
+        featuredProjectsDesc: 'A selection of projects that showcase my skills and expertise.',
         expertise: {
           title: 'My Expertise',
           subtitle: 'Where business, operations, and digital systems meet.',
@@ -311,7 +284,7 @@ const Portfolio = () => {
         },
         experience: {
           title: 'Experience',
-          subtitle: 'A brief overview of my professional journey and key milestones.'
+          subtitle: 'A brief overview of my professional journey.'
         },
         technical: 'Technical Skills',
         technicalExpertise: {
@@ -358,30 +331,12 @@ const Portfolio = () => {
     title: "Business Analyst",
     projects: [
       {
-        title: "Master Thesis",
-        desc: "Design Science Research exploring how interaction design affects user trust and sense of control in AI travel planning.",
-        role: "Researcher",
-        context: "This Master Thesis project investigates the impact of different interaction paradigms—specifically Chatbots versus Graphical User Interfaces (GUI)—on user trust and their sense of control when using AI-assisted travel planning tools.",
-        outcome: "Using a Design Science Research methodology, I developed two prototypes to test user perceptions. The research provided key insights into how AI should communicate with users to foster trust while maintaining transparency and control through effective UI/UX design and qualitative testing.",
-        skillsUsed: ["Design Science", "UX Research", "AI Interaction Design", "Prototyping", "User Testing"],
-        category: "research",
-        tags: ["AI Design", "UX/UI", "Experiment"],
-        image: "/assets/Master Thesis Card.jpg",
-        images: [
-          "/assets/Master Thesis Card.jpg",
-          "/assets/Picture MScThesis 1 GUI 1.png",
-          "/assets/Picture MScThesis 2 GUI 2.png",
-          "/assets/Picture MScThesis 3 Chatbot 1.png",
-          "/assets/Picture MScThesis 4 Architecture.png"
-        ]
-      },
-      {
         title: "SAP FSM Platform",
         desc: "Implemented SAP FSM to streamline and improve field service management operations globally.",
         role: "Product Owner",
         context: "Led the global implementation of the SAP Field Service Management (FSM) platform to harmonize customer service processes across multiple regions and ERP systems (Great Plains, SAP, iScala).",
         outcome: "Successfully streamlined field service operations, defined key performance indicators (KPIs), and configured advanced dashboards in SAP Analytics Cloud, facilitating cross-departmental collaboration and maximizing operational value.",
-        skillsUsed: ["SAP FSM", "SAP Analytics Cloud", "Product Management", "Agile", "Business Process Mapping"],
+        skillsUsed: ["Product Management", "Agile", "Analytics"],
         category: "operations",
         tags: ["Product Management", "Agile", "Analytics"],
         image: "/assets/SAP FSM Card.png",
@@ -396,7 +351,7 @@ const Portfolio = () => {
         role: "Business Analyst",
         context: "Led a project focused on optimizing operational processes, enhancing workflow productivity, and standardizing project management methodologies within a complex business environment.",
         outcome: "Designed and implemented a standardized project workflow that significantly reduced bottlenecks. Developed advanced Excel templates and VBA macros to streamline reporting and monitoring of multimillion-euro investment budgets.",
-        skillsUsed: ["Business Analysis", "Process Optimization", "Excel VBA", "Project Management"],
+        skillsUsed: ["Workflow Design", "BPMN", "User Training"],
         category: "operations",
         tags: ["Workflow Design", "BPMN", "User Training"],
         image: "/assets/Operational Optimization Card 2.png",
@@ -411,7 +366,7 @@ const Portfolio = () => {
         role: "Project Manager",
         context: "Managed end-to-end delivery of high-profile luxury hotel projects (e.g., Six Senses Ibiza, Rosewood Villa Magna), overseeing contracts and supplier management for projects with budgets up to €15 million.",
         outcome: "Successfully coordinated procurement and logistics for up to 5,000 items from 100+ suppliers. Maintained strict on-time and on-budget execution through rigorous risk and quality controls, leading core teams to successful project delivery.",
-        skillsUsed: ["Project Management", "Procurement", "Supply Chain", "Vendor Management", "Logistics"],
+        skillsUsed: ["Logistics", "Supply Chain", "Budget Control"],
         category: "operations",
         tags: ["Logistics", "Supply Chain", "Budget Control"],
         image: "/assets/Procurement.jpg",
@@ -420,12 +375,44 @@ const Portfolio = () => {
         ]
       },
       {
-        title: "Business Development",
+        title: "AI Implementation",
+        desc: "Designed and implemented practical AI solutions to improve operations and decision-making.",
+        role: "Consultant",
+        context: "Delivered AI-driven prototypes and integrations, focusing on measurable business value, transparency, and user trust in professional workflows.",
+        outcome: "Successfully built proof-of-concept assistants, defined AI-specific KPIs, and aligned stakeholders on integration roadmaps to move from experimentation to production environments.",
+        skillsUsed: ["Workflow Analysis", "Roadmap", "ROI"],
+        category: "consultant",
+        tags: ["Workflow Analysis", "Roadmap", "ROI"],
+        image: "/assets/ai-implementation.png",
+        images: [
+          "/assets/ai-implementation.png"
+        ]
+      },
+      {
+        title: "Master Thesis",
+        desc: "Design Science Research exploring how interaction design affects user trust and sense of control in AI travel planning.",
+        role: "Researcher",
+        context: "This Master Thesis project investigates the impact of different interaction paradigms—specifically Chatbots versus Graphical User Interfaces (GUI)—on user trust and their sense of control when using AI-assisted travel planning tools.",
+        outcome: "Using a Design Science Research methodology, I developed two prototypes to test user perceptions. The research provided key insights into how AI should communicate with users to foster trust while maintaining transparency and control through effective UI/UX design and qualitative testing.",
+        skillsUsed: ["AI Design", "UX/UI", "Experiment"],
+        category: "research",
+        tags: ["AI Design", "UX/UI", "Experiment"],
+        image: "/assets/Master Thesis Card.jpg",
+        images: [
+          "/assets/Master Thesis Card.jpg",
+          "/assets/Picture MScThesis 1 GUI 1.png",
+          "/assets/Picture MScThesis 2 GUI 2.png",
+          "/assets/Picture MScThesis 3 Chatbot 1.png",
+          "/assets/Picture MScThesis 4 Architecture.png"
+        ]
+      },
+      {
+        title: "Bachelor Project",
         desc: "Designed a market entry and business development strategy for an IoT-based hospitality technology startup.",
         role: "Consultant",
         context: "Developed a comprehensive go-to-market strategy for ARVE Air, an IoT solution targeting the luxury hospitality sector city-by-city and the Americas.",
         outcome: "Designed a phased business development strategy focusing on strategic partnerships and integration with open-API architectures. The project successfully translated complex technical IoT solutions into clear business value propositions.",
-        skillsUsed: ["Market Analysis", "Business Development", "IoT Strategy", "Strategic Partnerships"],
+        skillsUsed: ["Market Analysis", "IoT", "Strategy"],
         category: "consultant",
         tags: ["Market Analysis", "IoT", "Strategy"],
         image: "/assets/Arve 1.png",
@@ -433,20 +420,6 @@ const Portfolio = () => {
           "/assets/Arve 1.png",
           "/assets/Arve 2.png",
           "/assets/Arve 3.png"
-        ]
-      },
-      {
-        title: "AI Implementation",
-        desc: "Designed and implemented practical AI solutions to improve operations and decision-making.",
-        role: "Consultant",
-        context: "Delivered AI-driven prototypes and integrations, focusing on measurable business value, transparency, and user trust in professional workflows.",
-        outcome: "Successfully built proof-of-concept assistants, defined AI-specific KPIs, and aligned stakeholders on integration roadmaps to move from experimentation to production environments.",
-        skillsUsed: ["AI Prototyping", "Data Pipelines", "Stakeholder Management", "Implementation Roadmap"],
-        category: "consultant",
-        tags: ["Workflow Analysis", "Roadmap", "ROI"],
-        image: "/assets/ai-implementation.png",
-        images: [
-          "/assets/ai-implementation.png"
         ]
       }
     ],
@@ -488,12 +461,12 @@ const Portfolio = () => {
     education: [
       {
         school: "HEC Lausanne",
-        degree: "Master of Science in Information Systems & Digital Innovation",
+        degree: "Master in Information Systems & Digital Innovation",
         period: "2024 - 2025"
       },
       {
         school: "EHL École Hôtelière de Lausanne",
-        degree: "Bachelor of Science in Hospitality Management",
+        degree: "Bachelor in Hospitality Management",
         period: "2016 - 2020"
       }
     ],
@@ -505,7 +478,7 @@ const Portfolio = () => {
       <div className="min-h-screen bg-[#0b1220] text-slate-300 selection:bg-blue-500/30">
       <nav className="fixed inset-x-0 top-0 z-50 border-b border-slate-800/80 bg-[#0b1220]/85 backdrop-blur-md">
         <div className="container mx-auto flex h-16 items-center justify-between gap-6 px-6">
-          <a href="#profil" className="flex items-center gap-2 text-lg font-semibold text-slate-100 tracking-wide">
+          <a href="#profil" className="flex items-center gap-2 text-lg font-semibold text-slate-300 tracking-wide">
             <Layers className="text-blue-400" size={20} />
             Portfolio
           </a>
@@ -537,7 +510,7 @@ const Portfolio = () => {
         </div>
       </nav>
       {/* Hero Section */}
-      <header id="profil" className="relative min-h-screen scroll-mt-24 flex items-center justify-center overflow-hidden pt-20">
+      <header id="profil" className="relative min-h-screen scroll-mt-16 flex items-center justify-center overflow-hidden pt-20">
         <div className="absolute inset-0 z-0">
           <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-[128px]" />
           <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-indigo-600/10 rounded-full blur-[128px]" />
@@ -549,7 +522,7 @@ const Portfolio = () => {
           animate="animate"
           variants={staggerContainer}
         >
-          <div className="lg:w-1/2 text-left">
+          <div className="text-center max-w-3xl mx-auto">
             <motion.p 
               variants={fadeIn}
               className="text-blue-400 font-medium mb-4"
@@ -559,7 +532,7 @@ const Portfolio = () => {
             
             <motion.h1 
               variants={fadeIn}
-              className="text-6xl md:text-8xl font-bold tracking-tight text-slate-100 mb-8"
+              className="text-6xl md:text-8xl font-bold tracking-tight text-slate-300 mb-8"
             >
               {cvData.name} <span className="text-blue-400">{cvData.lastName}</span>
             </motion.h1>
@@ -587,7 +560,7 @@ const Portfolio = () => {
 
             <motion.div 
               variants={fadeIn}
-              className="flex flex-wrap gap-4"
+              className="flex flex-wrap gap-4 justify-center"
             >
               <button className="flex items-center gap-2 px-6 py-3 bg-blue-400 text-slate-900 rounded-lg font-bold hover:bg-blue-300 transition-colors text-sm md:text-base">
                 <Download size={20} /> {t.hero.downloadCV}
@@ -606,20 +579,6 @@ const Portfolio = () => {
             </motion.div>
           </div>
 
-          <motion.div 
-            variants={fadeIn}
-            className="lg:w-1/2 relative"
-          >
-            <div className="relative z-10 rounded-2xl overflow-hidden border border-slate-700 shadow-2xl shadow-blue-900/20">
-              <img 
-                src="/assets/hero-image.png" 
-                alt="Profile Illustration" 
-                className="w-full h-auto object-cover"
-              />
-            </div>
-            {/* Decorative element behind image */}
-            <div className="absolute -inset-4 bg-blue-500/10 blur-2xl rounded-full z-0 animate-pulse" />
-          </motion.div>
         </motion.div>
         
         <motion.div 
@@ -640,15 +599,15 @@ const Portfolio = () => {
         </motion.div>
       </header>
 
-      {/* Featured Projects */}
-      <section id="projets" className="pt-16 pb-24 bg-slate-900/50 scroll-mt-24 border-b border-slate-800">
+      {/* Projects Section */}
+      <section id="projets" className="pt-16 pb-24 bg-slate-900/50 scroll-mt-16 border-b border-slate-800">
         <div className="container mx-auto px-6">
           <div className="mb-8">
             <motion.h2 
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="text-5xl font-bold text-slate-100 mb-4"
+              className="text-5xl font-bold text-slate-300 mb-4"
             >
               {t.sections.featuredProjects}
             </motion.h2>
@@ -705,18 +664,11 @@ const Portfolio = () => {
                     onClick={() => setSelectedProject(project)}
                     className="group bg-slate-900/50 border border-slate-800 rounded-2xl overflow-hidden hover:border-slate-700 transition-all cursor-pointer"
                   >
-                  <div className="relative h-64 overflow-hidden">
-                    <img 
-                      src={project.image} 
-                      alt={project.title}
-                      className="w-full h-full object-cover transition-all duration-500 brightness-[0.8] group-hover:brightness-100 group-hover:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-slate-900/30 group-hover:bg-slate-900/0 transition-colors" />
-                  </div>
+                  <CardCarousel project={project} />
                   
                   <div className="p-8">
                     <div className="flex justify-between items-start mb-4">
-                      <h3 className="text-2xl font-bold text-slate-100 group-hover:text-blue-400 transition-colors">
+                      <h3 className="text-2xl font-bold text-slate-300 group-hover:text-blue-400 transition-colors">
                         {project.title}
                       </h3>
                       <ExternalLink size={20} className="text-slate-500 group-hover:text-white transition-colors" />
@@ -745,14 +697,14 @@ const Portfolio = () => {
       </section>
 
       {/* Expertise Section */}
-      <section id="expertise" className="py-24 bg-[#0b1220] scroll-mt-24 border-b border-slate-800">
+      <section id="expertise" className="py-16 bg-[#0b1220] scroll-mt-16 border-b border-slate-800">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <motion.h2 
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-5xl font-bold text-slate-100 mb-6"
+              className="text-5xl font-bold text-slate-300 mb-6"
             >
               Expertise
             </motion.h2>
@@ -783,10 +735,10 @@ const Portfolio = () => {
                   variants={fadeIn}
                   className="p-8 bg-slate-900/40 border border-slate-800 rounded-2xl hover:border-blue-500/50 transition-all group"
                 >
-                  <div className="mb-6 p-3 bg-slate-800/50 rounded-xl w-fit group-hover:bg-blue-500/10 transition-colors">
-                    <Icon className="text-blue-400 group-hover:text-blue-300 transition-colors" size={28} />
+                  <div className="mb-2 p-3 w-fit transition-colors">
+                    <Icon className="text-slate-300 group-hover:text-blue-400 transition-colors" size={28} />
                   </div>
-                  <h3 className="text-xl font-bold text-slate-100 mb-4 group-hover:text-blue-400 transition-colors">
+                  <h3 className="text-xl font-bold text-slate-300 mb-2 group-hover:text-blue-400 transition-colors">
                     {item.title}
                   </h3>
                   <p className="text-slate-400 text-sm leading-relaxed">
@@ -800,7 +752,7 @@ const Portfolio = () => {
       </section>
 
       {/* Technical Skills Section */}
-      <section id="Skills" className="py-8 bg-slate-900/50 scroll-mt-24 border-b border-slate-800">
+      <section id="Skills" className="py-8 bg-slate-900/50 scroll-mt-16 border-b border-slate-800">
         <div className="container mx-auto px-6">
           <div className="flex flex-col lg:flex-row items-center gap-16">
             <div className="lg:w-1/2">
@@ -808,7 +760,7 @@ const Portfolio = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="text-5xl font-bold text-slate-100 mb-8 serif"
+                className="text-5xl font-bold text-slate-300 mb-8 serif"
               >
                 {t.sections.technicalExpertise.title}
               </motion.h2>
@@ -898,12 +850,12 @@ const Portfolio = () => {
       {/* Experience section */}
       <section id="experience" className="py-8 bg-[#0b1220] scroll-mt-16 border-b border-slate-800">
         <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
+          <div className="text-center mb-8">
             <motion.h2 
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-5xl font-bold text-slate-100 mb-6"
+              className="text-5xl font-bold text-slate-300 mb-6"
             >
               {t.sections.experience.title}
             </motion.h2>
@@ -918,27 +870,29 @@ const Portfolio = () => {
             </motion.p>
           </div>
           
-          <div className="max-w-4xl mx-auto relative border-l border-slate-700 ml-4 md:ml-0">
-            {cvData.experience.map((exp, index) => (
-              <motion.div 
-                key={index}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="relative pl-8 pb-12 last:pb-0"
-              >
-                <div className="absolute -left-1.5 top-2 w-3 h-3 bg-blue-500 rounded-full" />
-                <div className="mb-4">
-                  <span className="text-blue-400 font-mono text-sm block mb-1">{exp.period}</span>
-                  <h3 className="text-2xl font-bold text-slate-100">{exp.role}</h3>
-                  <p className="text-slate-400 font-medium">{exp.company}</p>
-                </div>
-                <p className="text-slate-400 leading-relaxed max-w-3xl">
-                  {exp.description}
-                </p>
-              </motion.div>
-            ))}
+          <div className="max-w-4xl mx-auto">
+            <div className="md:max-w-[65%] relative ml-4 md:ml-0">
+              {cvData.experience.map((exp, index) => (
+                <motion.div 
+                  key={index}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className={`relative pl-8 pb-12 last:pb-0 border-l border-slate-700`}
+                >
+                  <div className="absolute -left-1.5 top-0 w-3 h-3 bg-blue-500 rounded-full" />
+                  <div className="mb-4">
+                    <span className="text-blue-400 font-mono text-sm block mb-1">{exp.period}</span>
+                    <h3 className="text-2xl font-bold text-slate-300">{exp.role}</h3>
+                    <p className="text-slate-400 font-medium">{exp.company}</p>
+                  </div>
+                  <p className="text-slate-400 leading-relaxed">
+                    {exp.description}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -953,11 +907,11 @@ const Portfolio = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="text-5xl font-bold text-slate-100 mb-6"
+                className="text-5xl font-bold text-slate-300 mb-6"
               >
                 {t.sections.education}
               </motion.h2>
-              <div className="relative border-l border-slate-700 ml-4 md:ml-0">
+              <div className="relative ml-4 md:ml-0">
                 {cvData.education.map((edu, index) => (
                   <motion.div 
                     key={index}
@@ -965,9 +919,9 @@ const Portfolio = () => {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.1 }}
-                    className="relative pl-8 pb-12 last:pb-0"
+                    className={`relative pl-8 pb-12 last:pb-0 border-l border-slate-700`}
                   >
-                    <div className="absolute -left-1.5 top-2 w-3 h-3 bg-blue-500 rounded-full" />
+                    <div className="absolute -left-1.5 top-0 w-3 h-3 bg-blue-500 rounded-full" />
                     <div className="mb-4">
                       <span className="text-blue-400 font-mono text-sm block mb-1">{edu.period}</span>
                       {(() => {
@@ -976,9 +930,9 @@ const Portfolio = () => {
                         const field = parts.length > 1 ? parts.slice(1).join(' in ') : null;
                         return (
                           <>
-                            <h3 className="text-2xl font-bold text-slate-100">{diploma}</h3>
+                            <h3 className="text-2xl font-bold text-slate-300">{diploma}</h3>
                             {field && (
-                              <h3 className="text-2xl font-bold text-slate-100 mt-1">{field}</h3>
+                              <p className="text-slate-400 font-medium mt-1">{field}</p>
                             )}
                             <p className="text-slate-400 font-medium">{edu.school}</p>
                           </>
@@ -992,7 +946,7 @@ const Portfolio = () => {
 
             <div className="md:col-span-1 flex flex-col md:h-full gap-8">
               <div className="flex-1 rounded-xl border border-slate-800 p-6 bg-slate-900/40">
-                <h4 className="text-lg font-bold text-slate-100 mb-4 uppercase tracking-wider">{t.footer.languages}</h4>
+                <h4 className="text-lg font-bold text-slate-300 mb-4 uppercase tracking-wider">{t.footer.languages}</h4>
                 <div className="space-y-3">
                   <p className="text-slate-400">🇬🇧 English: Native</p>
                   <p className="text-slate-400">🇫🇷 French: Native</p>
@@ -1002,7 +956,7 @@ const Portfolio = () => {
               </div>
 
               <div className="flex-1 rounded-xl border border-slate-800 p-6 bg-slate-900/40">
-                <h4 className="text-lg font-bold text-slate-100 mb-4 uppercase tracking-wider">{t.footer.interests}</h4>
+                <h4 className="text-lg font-bold text-slate-300 mb-4 uppercase tracking-wider">{t.footer.interests}</h4>
                 <div className="flex flex-wrap gap-2">
                   {cvData.extra.map((item, i) => (
                     <span key={i} className="px-3 py-1 bg-slate-800 rounded-md text-slate-400 text-sm">{item}</span>
@@ -1014,60 +968,64 @@ const Portfolio = () => {
         </div>
       </section>
 
-      {/* Footer / Contact Information */}
-      <footer id="contact" className="py-24 scroll-mt-24 bg-[#0b1220]">
+      {/* Footer / Contact */}
+      <footer id="contact" className="py-8 scroll-mt-16 bg-[#0b1220]">
         <div className="container mx-auto px-6 max-w-4xl">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-5xl font-bold text-slate-100 mb-6"
+            className="text-5xl font-bold text-slate-300 mb-6"
           >
-            Contact Information
+            Contact
           </motion.h2>
           <p className="text-slate-400 text-lg leading-relaxed mb-12">
-            Feel free to reach out through any of the following channels. I'll get back to you as soon as possible.
+            Interested in improving your operations or systems?
+            <br />
+            Let’s connect.
           </p>
 
-          <div className="space-y-10 mb-16">
-            <div className="flex items-center gap-6">
-              <div className="p-4 bg-slate-800 rounded-full text-slate-400">
-                <Mail size={24} />
+          <div className="flex flex-col lg:flex-row gap-16 mb-16">
+            <div className="space-y-10">
+              <div className="flex items-center gap-6">
+                <div className="p-4 bg-slate-800 rounded-full text-slate-400">
+                  <Mail size={24} />
+                </div>
+                <div>
+                  <h4 className="text-lg font-bold text-slate-300">Email</h4>
+                  <p className="text-slate-400">{cvData.contact.email}</p>
+                </div>
               </div>
-              <div>
-                <h4 className="text-lg font-bold text-slate-100">Email</h4>
-                <p className="text-slate-400">{cvData.contact.email}</p>
+              <div className="flex items-center gap-6">
+                <div className="p-4 bg-slate-800 rounded-full text-slate-400">
+                  <Phone size={24} />
+                </div>
+                <div>
+                  <h4 className="text-lg font-bold text-slate-300">Phone</h4>
+                  <p className="text-slate-400">{cvData.contact.phone}</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-6">
+                <div className="p-4 bg-slate-800 rounded-full text-slate-400">
+                  <MapPin size={24} />
+                </div>
+                <div>
+                  <h4 className="text-lg font-bold text-slate-300">Location</h4>
+                  <p className="text-slate-400">{cvData.contact.location}</p>
+                </div>
               </div>
             </div>
-            <div className="flex items-center gap-6">
-              <div className="p-4 bg-slate-800 rounded-full text-slate-400">
-                <Phone size={24} />
-              </div>
-              <div>
-                <h4 className="text-lg font-bold text-slate-100">Phone</h4>
-                <p className="text-slate-400">{cvData.contact.phone}</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-6">
-              <div className="p-4 bg-slate-800 rounded-full text-slate-400">
-                <MapPin size={24} />
-              </div>
-              <div>
-                <h4 className="text-lg font-bold text-slate-100">Location</h4>
-                <p className="text-slate-400">{cvData.contact.location}</p>
-              </div>
-            </div>
-          </div>
 
-          <div className="mb-16">
-            <h4 className="text-lg font-bold text-slate-100 mb-6">Let's Connect</h4>
-            <div className="flex gap-4">
-              <a href="#" className="p-4 bg-slate-800 rounded-full text-slate-400 hover:text-blue-400 hover:bg-slate-700 transition-all">
-                <Linkedin size={24} />
-              </a>
-              <a href="#" className="p-4 bg-slate-800 rounded-full text-slate-400 hover:text-blue-400 hover:bg-slate-700 transition-all">
-                <Github size={24} />
-              </a>
+            <div className="lg:ml-16">
+              <h4 className="text-lg font-bold text-slate-300 mb-6">Socials</h4>
+              <div className="flex gap-4">
+                <a href="#" className="p-4 bg-slate-800 rounded-full text-slate-400 hover:text-blue-400 hover:bg-slate-700 transition-all">
+                  <Linkedin size={24} />
+                </a>
+                <a href="#" className="p-4 bg-slate-800 rounded-full text-slate-400 hover:text-blue-400 hover:bg-slate-700 transition-all">
+                  <Github size={24} />
+                </a>
+              </div>
             </div>
           </div>
           <div className="pt-8 border-t border-slate-800 text-center text-slate-600 text-sm">
