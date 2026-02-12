@@ -970,7 +970,7 @@ const Portfolio = () => {
       </section>
 
       {/* Footer / Contact */}
-      <footer id="contact" className="py-8 scroll-mt-16 bg-[#0b1220]">
+      <footer id="contact" className="pt-8 pb-4 scroll-mt-16 bg-[#0b1220]">
         <div className="container mx-auto px-6 max-w-4xl">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
