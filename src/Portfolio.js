@@ -1033,9 +1033,9 @@ const Portfolio = () => {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="lg:w-1/2 relative flex items-center justify-center"
+              className="w-full lg:w-1/2 relative flex items-center justify-center"
             >
-              <div className="relative z-10 w-full max-w-lg -mt-12">
+              <div className="relative z-10 w-full max-w-sm lg:max-w-lg -mt-12">
                 <SpinningGlobe />
               </div>
             </motion.div>
