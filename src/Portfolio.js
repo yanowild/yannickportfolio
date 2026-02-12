@@ -970,7 +970,7 @@ const Portfolio = () => {
       </section>
 
       {/* Footer / Contact */}
-      <footer id="contact" className="pt-8 pb-4 scroll-mt-16 bg-[#0b1220]">
+      <footer id="contact" className="pt-8 pb-0 scroll-mt-16 bg-[#0b1220]">
         <div className="container mx-auto px-6 max-w-4xl">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -1041,7 +1041,7 @@ const Portfolio = () => {
             </motion.div>
           </div>
 
-          <div className="mt-20 pt-8 border-t border-slate-800 text-center text-slate-600 text-sm">
+          <div className="mt-8 pt-6 border-t border-slate-800 text-center text-slate-600 text-sm pb-2">
             © {new Date().getFullYear()} Yannick Wild. All rights reserved.
           </div>
         </div>
