@@ -149,6 +149,9 @@ import {
           <div className="w-full p-8 overflow-y-auto bg-slate-900">
             <div className="mb-8">
               <h3 className="text-3xl font-bold text-slate-300 mb-2">{project.title}</h3>
+              {project.grade && (
+                <p className="text-slate-300 font-semibold text-sm mb-2">Grade: {project.grade}</p>
+              )}
               <p className="text-slate-300 font-medium text-sm mb-4">{project.desc}</p>
             </div>
 
@@ -280,8 +283,7 @@ const Portfolio = () => {
         categories: {
           all: 'All',
           operations: 'Operations',
-          consultant: 'Consultant',
-          research: 'Research'
+          academic: 'Academic'
         },
         experience: {
           title: 'Experience',
@@ -376,13 +378,13 @@ const Portfolio = () => {
         ]
       },
       {
-        title: "AI Implementation",
+        title: "Applied Projects",
         desc: "Designed and implemented practical AI solutions to improve operations and decision-making.",
         role: "Consultant",
         context: "Delivered AI-driven prototypes and integrations, focusing on measurable business value, transparency, and user trust in professional workflows.",
         outcome: "Successfully built proof-of-concept assistants, defined AI-specific KPIs, and aligned stakeholders on integration roadmaps to move from experimentation to production environments.",
         skillsUsed: ["Workflow Analysis", "Roadmap", "ROI"],
-        category: "consultant",
+        category: "academic",
         tags: ["Workflow Analysis", "Roadmap", "ROI"],
         image: "/assets/ai-implementation.png",
         images: [
@@ -396,7 +398,8 @@ const Portfolio = () => {
         context: "This Master Thesis project investigates the impact of different interaction paradigms—specifically Chatbots versus Graphical User Interfaces (GUI)—on user trust and their sense of control when using AI-assisted travel planning tools.",
         outcome: "Using a Design Science Research methodology, I developed two prototypes to test user perceptions. The research provided key insights into how AI should communicate with users to foster trust while maintaining transparency and control through effective UI/UX design and qualitative testing.",
         skillsUsed: ["AI Design", "UX/UI", "Experiment"],
-        category: "research",
+        grade: "6/6",
+        category: "academic",
         tags: ["AI Design", "UX/UI", "Experiment"],
         image: "/assets/Master Thesis Card.jpg",
         images: [
@@ -408,13 +411,14 @@ const Portfolio = () => {
         ]
       },
       {
-        title: "Bachelor Project",
+        title: "Bachelor Final Project",
         desc: "Designed a market entry and business development strategy for an IoT-based hospitality technology startup.",
         role: "Consultant",
         context: "Developed a comprehensive go-to-market strategy for ARVE Air, an IoT solution targeting the luxury hospitality sector city-by-city and the Americas.",
         outcome: "Designed a phased business development strategy focusing on strategic partnerships and integration with open-API architectures. The project successfully translated complex technical IoT solutions into clear business value propositions.",
         skillsUsed: ["Market Analysis", "IoT", "Strategy"],
-        category: "consultant",
+        grade: "6/6",
+        category: "academic",
         tags: ["Market Analysis", "IoT", "Strategy"],
         image: "/assets/Arve 1.png",
         images: [
@@ -674,6 +678,9 @@ const Portfolio = () => {
                       </h3>
                       <ExternalLink size={20} className="text-slate-500 group-hover:text-white transition-colors" />
                     </div>
+                    {project.grade && (
+                      <p className="text-slate-300 group-hover:text-blue-400 transition-colors font-semibold text-sm mb-4">Grade: {project.grade}</p>
+                    )}
                     
                     <p className="text-slate-400 mb-6 leading-relaxed">
                       {project.desc}
