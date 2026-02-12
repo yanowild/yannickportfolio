@@ -533,14 +533,14 @@ const Portfolio = () => {
             
             <motion.h1 
               variants={fadeIn}
-              className="text-6xl md:text-8xl font-bold tracking-tight text-slate-300 mb-8"
+              className="text-4xl md:text-8xl font-bold tracking-tight text-slate-300 mb-6"
             >
               {cvData.name} <span className="text-blue-400">{cvData.lastName}</span>
             </motion.h1>
 
             <motion.p 
               variants={fadeIn}
-              className="text-xl md:text-2xl text-slate-400 font-medium mb-2"
+              className="text-lg md:text-2xl text-slate-400 font-medium mb-2"
             >
               {t.hero.tagline}
             </motion.p>
@@ -554,7 +554,7 @@ const Portfolio = () => {
 
             <motion.p 
               variants={fadeIn}
-              className="text-lg text-slate-500 leading-relaxed mb-12"
+              className="text-lg text-slate-500 leading-relaxed mb-8"
             >
               {t.hero.bio}
             </motion.p>
@@ -592,7 +592,7 @@ const Portfolio = () => {
             opacity: { delay: 1, duration: 1 },
             y: { repeat: Infinity, duration: 2, ease: "easeInOut" }
           }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2"
+          className="absolute bottom-10 left-0 right-0 flex justify-center"
         >
           <a href="#projets" className="p-3 border border-slate-700 rounded-full flex items-center justify-center hover:bg-slate-800 transition-colors">
             <ChevronDown size={24} className="text-slate-400" />
