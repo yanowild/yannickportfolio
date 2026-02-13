@@ -131,11 +131,6 @@ const SpinningGlobe = lazy(() => import('./Globe').then(m => ({ default: m.Globe
   const ProjectModal = ({ project, onClose, t, darkMode }) => {
     // Fix for "click inside, release outside" closing the modal
     const [isMouseDownOnOverlay, setIsMouseDownOnOverlay] = useState(false);
-    const [expandedSections, setExpandedSections] = useState({});
-
-    const toggleSection = (idx) => {
-      setExpandedSections(prev => ({ ...prev, [idx]: !prev[idx] }));
-    };
 
     const handleOverlayMouseDown = (e) => {
       if (e.target === e.currentTarget) {
@@ -184,31 +179,6 @@ const SpinningGlobe = lazy(() => import('./Globe').then(m => ({ default: m.Globe
               <p className={`font-medium text-sm mb-4 ${darkMode ? 'text-slate-300' : 'text-[#4A5568]'}`}>{project.desc}</p>
             </div>
 
-            {project.courseSections ? (
-              <div className="space-y-8">
-                {project.courseSections.map((section, sIdx) => (
-                  <div key={sIdx}>
-                    <button
-                      onClick={() => toggleSection(sIdx)}
-                      className={`flex items-center gap-2 w-full text-left`}
-                    >
-                      <span className={`text-lg font-bold leading-none ${darkMode ? 'text-slate-400' : 'text-[#6B7280]'}`}>{expandedSections[sIdx] ? '−' : '+'}</span>
-                      <h4 className={`text-xl font-bold ${darkMode ? 'text-slate-200' : 'text-[#1F2933]'}`}>{section.title}</h4>
-                    </button>
-                    {expandedSections[sIdx] && (
-                      <div className="space-y-3 mt-4">
-                        {section.courses.map((course, cIdx) => (
-                          <div key={cIdx} className="px-4 py-3">
-                            <p className={`text-base font-semibold ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{course.name}</p>
-                            <p className={`text-sm mt-0.5 ${darkMode ? 'text-slate-300' : 'text-[#4A5568]'}`}>{course.impact}</p>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            ) : (
             <div className="space-y-8">
               {project.role && (
                 <div className={`relative pl-4 border-l-2 ${darkMode ? 'border-blue-500/30' : 'border-[#2F5FD7]'}`}>
@@ -254,7 +224,6 @@ const SpinningGlobe = lazy(() => import('./Globe').then(m => ({ default: m.Globe
                 )}
               </div>
             </div>
-            )}
           </div>
         </motion.div>
       </motion.div>
@@ -452,44 +421,17 @@ const Portfolio = () => {
       },
       {
         title: "Applied Projects",
-        desc: "Master-level projects spanning enterprise systems, technical engineering, and innovation design.",
+        desc: "Designed and implemented practical AI solutions to improve operations and decision-making.",
+        role: "Consultant",
+        context: "Delivered AI-driven prototypes and integrations, focusing on measurable business value, transparency, and user trust in professional workflows.",
+        outcome: "Successfully built proof-of-concept assistants, defined AI-specific KPIs, and aligned stakeholders on integration roadmaps to move from experimentation to production environments.",
+        skillsUsed: ["Workflow Analysis", "Roadmap", "ROI"],
+        subtitle: "Industry Collaborations",
         category: "academic",
-        skillsUsed: ["Innovation", "Enterprise", "Teamwork"],
-        tags: ["Innovation", "Enterprise", "Teamwork"],
+        tags: ["Workflow Analysis", "Roadmap", "ROI"],
         image: "/assets/Applied Projects 1.jpg",
         images: [
           "/assets/Applied Projects 1.jpg"
-        ],
-        courseSections: [
-          {
-            title: "Enterprise Systems & Operations",
-            subtitle: "Designing scalable enterprise architectures, data flows, and AI-enabled operating models.",
-            courses: [
-              { name: "Business & Information Systems Design", impact: "Designed enterprise capability maps and process architectures aligned with strategic objectives." },
-              { name: "Enterprise Data Integration", impact: "Built end-to-end data pipelines and integration architectures across heterogeneous systems." },
-              { name: "Management of AI in Organizations", impact: "Developed AI transformation roadmap and governance framework for enterprise adoption." }
-            ]
-          },
-          {
-            title: "Technical Foundations",
-            subtitle: "Building and securing scalable systems from backend architecture to machine learning.",
-            courses: [
-              { name: "Software Architectures", impact: "Designed distributed system architecture with modular components and service separation." },
-              { name: "Data Science & Machine Learning", impact: "Implemented supervised & unsupervised models for predictive analytics use cases." },
-              { name: "Cybersecurity", impact: "Applied HMAC, authentication hardening, and intrusion detection techniques." }
-            ]
-          },
-          {
-            title: "Innovation & Design",
-            subtitle: "Designing systems people actually want to use — balancing strategy, UX, and business models.",
-            courses: [
-              { name: "Interaction Design", impact: "Designed and evaluated UX prototypes using experimental methods." },
-              { name: "Digital Strategies & Innovation", impact: "Built digital transformation roadmap for industry case organization." },
-              { name: "Digital Innovation & Design Thinking", impact: "Conducted structured innovation sprint with problem framing & solution prototyping." },
-              { name: "Ethical Business Modeling & Innovation Design", impact: "Developed sustainable business model integrating ethical and regulatory constraints." },
-              { name: "Digital Innovation Week", impact: "Rapid team-based innovation challenge delivering validated prototype in 5 days." }
-            ]
-          }
         ]
       },
       {
