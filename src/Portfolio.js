@@ -32,7 +32,8 @@ import {
   X,
   ChevronRightCircle,
   Sun,
-  Moon
+  Moon,
+  Menu
 } from 'lucide-react';
 
   const staggerContainer = {
@@ -230,6 +231,7 @@ import {
 const Portfolio = () => {
   // const [language, setLanguage] = useState('en'); // Removed to strictly use English
   const [darkMode, setDarkMode] = useState(true);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeFilter, setActiveFilter] = useState('all');
 
   const [selectedProject, setSelectedProject] = useState(null);
@@ -532,6 +534,13 @@ const Portfolio = () => {
 
           <div className="flex items-center gap-2">
             <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className={`flex items-center justify-center rounded-full border p-2 transition-colors duration-300 lg:hidden ${darkMode ? 'border-slate-700 bg-slate-800/40 text-slate-300 hover:bg-slate-700/60' : 'border-[#D8DCE3] bg-white text-[#4A5568] hover:bg-[#EDEFF2]'}`}
+              title="Menu"
+            >
+              <Menu size={16} />
+            </button>
+            <button
               onClick={() => setDarkMode(!darkMode)}
               className={`flex items-center justify-center rounded-full border p-2 transition-colors duration-300 ${darkMode ? 'border-slate-700 bg-slate-800/40 text-yellow-400 hover:bg-slate-700/60' : 'border-[#D8DCE3] bg-white text-[#4A5568] hover:bg-[#EDEFF2]'}`}
               title={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
@@ -543,6 +552,39 @@ const Portfolio = () => {
             </div>
           </div>
         </div>
+
+        {/* Mobile Menu */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.2 }}
+              className={`lg:hidden border-t overflow-hidden ${darkMode ? 'border-slate-800 bg-[#0b1220]/95' : 'border-[#D8DCE3] bg-[#F4F5F7]/95'}`}
+            >
+              <div className={`flex flex-col gap-1 px-6 py-4 text-base font-medium ${darkMode ? 'text-slate-400' : 'text-[#4A5568]'}`}>
+                {[
+                  { href: '#projets', icon: Layout, label: t.nav.projects },
+                  { href: '#expertise', icon: Settings, label: t.nav.expertise },
+                  { href: '#Skills', icon: Zap, label: t.nav.skills },
+                  { href: '#experience', icon: Briefcase, label: t.nav.experience },
+                  { href: '#formation', icon: GraduationCap, label: t.nav.education },
+                  { href: '#contact', icon: Mail, label: t.nav.contact },
+                ].map(({ href, icon: Icon, label }) => (
+                  <a
+                    key={href}
+                    href={href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`flex items-center gap-3 px-3 py-3 rounded-lg transition-colors ${darkMode ? 'hover:bg-slate-800 hover:text-white' : 'hover:bg-[#EDEFF2] hover:text-[#2F5FD7]'}`}
+                  >
+                    <Icon size={16} /> {label}
+                  </a>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </nav>
       {/* Hero Section */}
       <header id="profil" className="relative min-h-screen scroll-mt-16 flex items-center justify-center overflow-hidden pt-20">
