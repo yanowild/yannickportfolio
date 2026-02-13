@@ -29,7 +29,17 @@ const GLOBE_CONFIG = {
   ],
 };
 
-export function Globe({ className, config = GLOBE_CONFIG }) {
+const GLOBE_CONFIG_LIGHT = {
+  ...GLOBE_CONFIG,
+  dark: 0,
+  baseColor: [0.95, 0.96, 0.97],
+  glowColor: [0.85, 0.87, 0.9],
+  mapBrightness: 6,
+  diffuse: 1.2,
+};
+
+export function Globe({ className, config, darkMode = true }) {
+  const effectiveConfig = config || (darkMode ? GLOBE_CONFIG : GLOBE_CONFIG_LIGHT);
   const phiRef = useRef(0);
   const widthRef = useRef(0);
   const canvasRef = useRef(null);
@@ -39,9 +49,6 @@ export function Globe({ className, config = GLOBE_CONFIG }) {
 
   const updatePointerInteraction = (value) => {
     pointerInteracting.current = value;
-    if (canvasRef.current) {
-      canvasRef.current.style.cursor = value ? "grabbing" : "grab";
-    }
   };
 
   const updateMovement = (clientX) => {
@@ -73,7 +80,7 @@ export function Globe({ className, config = GLOBE_CONFIG }) {
     onResize();
 
     const globe = createGlobe(canvasRef.current, {
-      ...config,
+      ...effectiveConfig,
       width: widthRef.current * 2,
       height: widthRef.current * 2,
       onRender,
@@ -86,7 +93,7 @@ export function Globe({ className, config = GLOBE_CONFIG }) {
       window.removeEventListener("resize", onResize);
       globe.destroy();
     };
-  }, []);
+  }, [darkMode]);
 
   return (
     <div className={`relative mx-auto aspect-square w-full max-w-[600px] ${className || ""}`}>
@@ -94,13 +101,6 @@ export function Globe({ className, config = GLOBE_CONFIG }) {
         className="w-full h-full opacity-0 transition-opacity duration-500"
         style={{ contain: "layout paint size" }}
         ref={canvasRef}
-        onPointerDown={(e) =>
-          updatePointerInteraction(e.clientX - pointerInteractionMovement.current)
-        }
-        onPointerUp={() => updatePointerInteraction(null)}
-        onPointerOut={() => updatePointerInteraction(null)}
-        onMouseMove={(e) => updateMovement(e.clientX)}
-        onTouchMove={(e) => e.touches[0] && updateMovement(e.touches[0].clientX)}
       />
     </div>
   );
