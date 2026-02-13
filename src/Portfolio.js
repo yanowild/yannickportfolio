@@ -44,7 +44,7 @@ import {
     }
   };
 
-  const CardCarousel = ({ project }) => {
+  const CardCarousel = ({ project, darkMode }) => {
     const images = project.images || [project.image];
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const touchStartX = useRef(null);
@@ -91,9 +91,9 @@ import {
             <img 
               src={images[currentImageIndex]} 
               alt={`${project.title} - ${currentImageIndex + 1}`}
-              className={`w-full h-full ${project.imageContain ? 'object-cover object-left-top' : 'object-cover'} transition-all duration-500 brightness-[0.8] group-hover:brightness-100`}
+              className={`w-full h-full ${project.imageContain ? 'object-cover object-left-top' : 'object-cover'} transition-all duration-500 ${darkMode ? 'brightness-[0.8]' : 'brightness-[0.95]'} group-hover:brightness-100`}
             />
-            <div className="absolute inset-0 bg-slate-900/30 group-hover:bg-slate-900/0 transition-colors" />
+            <div className={`absolute inset-0 transition-colors group-hover:bg-transparent ${darkMode ? 'bg-slate-900/30' : 'bg-slate-900/5'}`} />
           </motion.div>
         </AnimatePresence>
 
@@ -230,11 +230,18 @@ import {
 
 const Portfolio = () => {
   // const [language, setLanguage] = useState('en'); // Removed to strictly use English
-  const [darkMode, setDarkMode] = useState(true);
+  const [darkMode, setDarkMode] = useState(() => {
+    const saved = localStorage.getItem('darkMode');
+    return saved !== null ? JSON.parse(saved) : false;
+  });
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeFilter, setActiveFilter] = useState('all');
 
   const [selectedProject, setSelectedProject] = useState(null);
+
+  React.useEffect(() => {
+    localStorage.setItem('darkMode', JSON.stringify(darkMode));
+  }, [darkMode]);
 
   React.useEffect(() => {
     const handleEsc = (e) => {
@@ -372,7 +379,8 @@ const Portfolio = () => {
           "/assets/SAP FSM 1.png",
           "/assets/SAP FSM 2.png",
           "/assets/SAP FSM 3.png",
-
+          "/assets/SAP FSM 4.png",
+          "/assets/SAP FSM 5.png",
         ]
       },
       {
@@ -384,9 +392,11 @@ const Portfolio = () => {
         skillsUsed: ["Workflow Design", "BPMN", "User Training"],
         category: "operations",
         tags: ["Workflow Design", "BPMN", "User Training"],
-        image: "/assets/Operational Optimization Card 2.png",
+        image: "/assets/Workflow Design 2.png",
         images: [
-          "/assets/Operational Optimization Card 2.png",
+          "/assets/Workflow Design 2.png",
+          "/assets/Workflow Design 1.png",
+          "/assets/Workflow Design 3.png",
         ]
       },
       {
@@ -398,9 +408,13 @@ const Portfolio = () => {
         skillsUsed: ["Logistics", "Supply Chain", "Budget Control"],
         category: "operations",
         tags: ["Logistics", "Supply Chain", "Budget Control"],
-        image: "/assets/Hotel Procurement 1.jpg",
+        image: "/assets/Hotel Procurement 2.png",
         images: [
-          "/assets/Hotel Procurement 1.jpg"
+          "/assets/Hotel Procurement 2.png",
+          "/assets/Hotel Procurement 3.png",
+          "/assets/Hotel Procurement 4.png",
+          "/assets/Hotel Procurement 5.png",
+          "/assets/Hotel Procurement 6.png",
         ]
       },
       {
@@ -410,6 +424,7 @@ const Portfolio = () => {
         context: "Delivered AI-driven prototypes and integrations, focusing on measurable business value, transparency, and user trust in professional workflows.",
         outcome: "Successfully built proof-of-concept assistants, defined AI-specific KPIs, and aligned stakeholders on integration roadmaps to move from experimentation to production environments.",
         skillsUsed: ["Workflow Analysis", "Roadmap", "ROI"],
+        subtitle: "Industry Collaborations",
         category: "academic",
         tags: ["Workflow Analysis", "Roadmap", "ROI"],
         image: "/assets/Applied Projects 1.jpg",
@@ -431,6 +446,8 @@ const Portfolio = () => {
         images: [
           "/assets/Master Thesis 1.png",
           "/assets/Master Thesis 2.png",
+          "/assets/Master Thesis 3.png",
+          "/assets/Master Thesis 4.png",
         ]
       },
       {
@@ -670,8 +687,8 @@ const Portfolio = () => {
           }}
           className="absolute bottom-10 left-0 right-0 flex justify-center"
         >
-          <a href="#projets" className={`p-3 border rounded-full flex items-center justify-center transition-colors ${darkMode ? 'border-slate-700 hover:bg-slate-800' : 'border-[#D8DCE3] hover:bg-[#EDEFF2]'}`}>
-            <ChevronDown size={24} className={darkMode ? 'text-slate-400' : 'text-[#6B7280]'} />
+          <a href="#projets" className={`p-3 border rounded-full flex items-center justify-center transition-colors ${darkMode ? 'border-slate-700 hover:bg-slate-800' : 'border-[#4A5568] hover:bg-[#EDEFF2]'}`}>
+            <ChevronDown size={24} className={darkMode ? 'text-slate-300' : 'text-black'} />
           </a>
         </motion.div>
       </header>
@@ -741,7 +758,7 @@ const Portfolio = () => {
                     onClick={() => setSelectedProject(project)}
                     className={`group rounded-2xl overflow-hidden transition-all cursor-pointer border ${darkMode ? 'bg-slate-900/50 border-slate-800 hover:border-slate-700' : 'bg-white border-[#D8DCE3] hover:border-[#2F5FD7]/40 shadow-sm'}`}
                   >
-                  <CardCarousel project={project} />
+                  <CardCarousel project={project} darkMode={darkMode} />
                   
                   <div className="p-8">
                     <div className="flex justify-between items-start mb-4">
@@ -752,6 +769,9 @@ const Portfolio = () => {
                     </div>
                     {project.grade && (
                       <p className={`transition-colors font-semibold text-sm mb-4 ${darkMode ? 'text-slate-300 group-hover:text-blue-400' : 'text-[#1F2933] group-hover:text-[#2F5FD7]'}`}>Grade: {project.grade}</p>
+                    )}
+                    {project.subtitle && (
+                      <p className={`transition-colors font-semibold text-sm mb-4 ${darkMode ? 'text-slate-300 group-hover:text-blue-400' : 'text-[#1F2933] group-hover:text-[#2F5FD7]'}`}>{project.subtitle}</p>
                     )}
                     
                     <p className={`mb-6 leading-relaxed ${darkMode ? 'text-slate-400' : 'text-[#4A5568]'}`}>
@@ -821,7 +841,7 @@ const Portfolio = () => {
                   <h3 className={`text-xl font-bold mb-2 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>
                     {item.title}
                   </h3>
-                  <p className={`text-sm leading-relaxed ${darkMode ? 'text-slate-400' : 'text-[#4A5568]'}`}>
+                  <p className={`leading-relaxed ${darkMode ? 'text-slate-400' : 'text-[#4A5568]'}`}>
                     {item.desc}
                   </p>
                 </motion.div>
@@ -1026,23 +1046,21 @@ const Portfolio = () => {
             </div>
 
             <div className="md:col-span-1 flex flex-col md:h-full gap-8">
-              <div className={`flex-1 rounded-xl border p-6 ${darkMode ? 'border-slate-800 bg-slate-900/40' : 'border-[#D8DCE3] bg-white shadow-sm'}`}>
-                <h4 className={`text-lg font-bold mb-4 uppercase tracking-wider ${darkMode ? 'text-slate-300' : 'text-[#6B7280]'}`}>{t.footer.languages}</h4>
+              <div className={`flex-1 rounded-xl border p-6 text-center ${darkMode ? 'border-slate-800 bg-slate-900/40' : 'border-[#D8DCE3] bg-white shadow-sm'}`}>
+                <h4 className={`text-lg font-bold mb-4 uppercase tracking-wider ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{t.footer.languages}</h4>
                 <div className="space-y-3">
-                  <p className={darkMode ? 'text-slate-400' : 'text-[#4A5568]'}>🇬🇧 English: Native</p>
-                  <p className={darkMode ? 'text-slate-400' : 'text-[#4A5568]'}>🇫🇷 French: Native</p>
-                  <p className={darkMode ? 'text-slate-400' : 'text-[#4A5568]'}>🇪🇸 Spanish: Native</p>
-                  <p className={darkMode ? 'text-slate-400' : 'text-[#4A5568]'}>🇮🇹 Italian: Fluent (B2)</p>
+                  <p className={`text-base ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>🇫🇷 French: Native</p>
+                  <p className={`text-base ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>🇬🇧 English: Native</p>
+                  <p className={`text-base ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>🇪🇸 Spanish: Native</p>
+                  <p className={`text-base ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>🇮🇹 Italian: Fluent (B2)</p>
                 </div>
               </div>
 
-              <div className={`flex-1 rounded-xl border p-6 ${darkMode ? 'border-slate-800 bg-slate-900/40' : 'border-[#D8DCE3] bg-white shadow-sm'}`}>
-                <h4 className={`text-lg font-bold mb-4 uppercase tracking-wider ${darkMode ? 'text-slate-300' : 'text-[#6B7280]'}`}>{t.footer.interests}</h4>
-                <div className="flex flex-wrap gap-2">
-                  {cvData.extra.map((item, i) => (
-                    <span key={i} className={`px-3 py-1 rounded-md text-sm ${darkMode ? 'bg-slate-800 text-slate-400' : 'bg-[#F4F5F7] text-[#4A5568] border border-[#D8DCE3]'}`}>{item}</span>
-                  ))}
-                </div>
+              <div className={`flex-1 rounded-xl border p-6 text-center ${darkMode ? 'border-slate-800 bg-slate-900/40' : 'border-[#D8DCE3] bg-white shadow-sm'}`}>
+                <h4 className={`text-lg font-bold mb-4 uppercase tracking-wider ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{t.footer.interests}</h4>
+                <p className={`text-base ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>
+                  {cvData.extra.join(' · ')}
+                </p>
               </div>
             </div>
           </div>
