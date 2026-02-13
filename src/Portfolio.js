@@ -1,8 +1,6 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, lazy, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ThemeProvider } from 'next-themes';
-import { IconCloud } from "./components/ui/interactive-icon-cloud";
-import { Globe as SpinningGlobe } from './Globe';
 import { 
   Mail, 
   Phone, 
@@ -36,10 +34,13 @@ import {
   Menu
 } from 'lucide-react';
 
+const IconCloud = lazy(() => import("./components/ui/interactive-icon-cloud").then(m => ({ default: m.IconCloud })));
+const SpinningGlobe = lazy(() => import('./Globe').then(m => ({ default: m.Globe })));
+
   const staggerContainer = {
     animate: {
       transition: {
-        staggerChildren: 0.1
+        staggerChildren: 0
       }
     }
   };
@@ -91,6 +92,7 @@ import {
             <img 
               src={images[currentImageIndex]} 
               alt={`${project.title} - ${currentImageIndex + 1}`}
+              loading="lazy"
               className={`w-full h-full ${project.imageContain ? 'object-cover object-left-top' : 'object-cover'} transition-all duration-500 ${darkMode ? 'brightness-[0.8]' : 'brightness-[0.95]'} group-hover:brightness-100`}
             />
             <div className={`absolute inset-0 transition-colors group-hover:bg-transparent ${darkMode ? 'bg-slate-900/30' : 'bg-slate-900/5'}`} />
@@ -129,6 +131,11 @@ import {
   const ProjectModal = ({ project, onClose, t, darkMode }) => {
     // Fix for "click inside, release outside" closing the modal
     const [isMouseDownOnOverlay, setIsMouseDownOnOverlay] = useState(false);
+    const [expandedSections, setExpandedSections] = useState({});
+
+    const toggleSection = (idx) => {
+      setExpandedSections(prev => ({ ...prev, [idx]: !prev[idx] }));
+    };
 
     const handleOverlayMouseDown = (e) => {
       if (e.target === e.currentTarget) {
@@ -177,6 +184,31 @@ import {
               <p className={`font-medium text-sm mb-4 ${darkMode ? 'text-slate-300' : 'text-[#4A5568]'}`}>{project.desc}</p>
             </div>
 
+            {project.courseSections ? (
+              <div className="space-y-8">
+                {project.courseSections.map((section, sIdx) => (
+                  <div key={sIdx}>
+                    <button
+                      onClick={() => toggleSection(sIdx)}
+                      className={`flex items-center gap-2 w-full text-left`}
+                    >
+                      <span className={`text-lg font-bold leading-none ${darkMode ? 'text-slate-400' : 'text-[#6B7280]'}`}>{expandedSections[sIdx] ? '−' : '+'}</span>
+                      <h4 className={`text-xl font-bold ${darkMode ? 'text-slate-200' : 'text-[#1F2933]'}`}>{section.title}</h4>
+                    </button>
+                    {expandedSections[sIdx] && (
+                      <div className="space-y-3 mt-4">
+                        {section.courses.map((course, cIdx) => (
+                          <div key={cIdx} className="px-4 py-3">
+                            <p className={`text-base font-semibold ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{course.name}</p>
+                            <p className={`text-sm mt-0.5 ${darkMode ? 'text-slate-300' : 'text-[#4A5568]'}`}>{course.impact}</p>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            ) : (
             <div className="space-y-8">
               {project.role && (
                 <div className={`relative pl-4 border-l-2 ${darkMode ? 'border-blue-500/30' : 'border-[#2F5FD7]'}`}>
@@ -222,6 +254,7 @@ import {
                 )}
               </div>
             </div>
+            )}
           </div>
         </motion.div>
       </motion.div>
@@ -356,7 +389,7 @@ const Portfolio = () => {
     initial: { opacity: 0, y: 20 },
     animate: { opacity: 1, y: 0 },
     exit: { opacity: 0, scale: 0.95 },
-    transition: { duration: 0.4 }
+    transition: { duration: 0.3 }
   };
 
   const cvData = {
@@ -419,17 +452,44 @@ const Portfolio = () => {
       },
       {
         title: "Applied Projects",
-        desc: "Designed and implemented practical AI solutions to improve operations and decision-making.",
-        role: "Consultant",
-        context: "Delivered AI-driven prototypes and integrations, focusing on measurable business value, transparency, and user trust in professional workflows.",
-        outcome: "Successfully built proof-of-concept assistants, defined AI-specific KPIs, and aligned stakeholders on integration roadmaps to move from experimentation to production environments.",
-        skillsUsed: ["Workflow Analysis", "Roadmap", "ROI"],
-        subtitle: "Industry Collaborations",
+        desc: "Master-level projects spanning enterprise systems, technical engineering, and innovation design.",
         category: "academic",
-        tags: ["Workflow Analysis", "Roadmap", "ROI"],
+        skillsUsed: ["Innovation", "Enterprise", "Teamwork"],
+        tags: ["Innovation", "Enterprise", "Teamwork"],
         image: "/assets/Applied Projects 1.jpg",
         images: [
           "/assets/Applied Projects 1.jpg"
+        ],
+        courseSections: [
+          {
+            title: "Enterprise Systems & Operations",
+            subtitle: "Designing scalable enterprise architectures, data flows, and AI-enabled operating models.",
+            courses: [
+              { name: "Business & Information Systems Design", impact: "Designed enterprise capability maps and process architectures aligned with strategic objectives." },
+              { name: "Enterprise Data Integration", impact: "Built end-to-end data pipelines and integration architectures across heterogeneous systems." },
+              { name: "Management of AI in Organizations", impact: "Developed AI transformation roadmap and governance framework for enterprise adoption." }
+            ]
+          },
+          {
+            title: "Technical Foundations",
+            subtitle: "Building and securing scalable systems from backend architecture to machine learning.",
+            courses: [
+              { name: "Software Architectures", impact: "Designed distributed system architecture with modular components and service separation." },
+              { name: "Data Science & Machine Learning", impact: "Implemented supervised & unsupervised models for predictive analytics use cases." },
+              { name: "Cybersecurity", impact: "Applied HMAC, authentication hardening, and intrusion detection techniques." }
+            ]
+          },
+          {
+            title: "Innovation & Design",
+            subtitle: "Designing systems people actually want to use — balancing strategy, UX, and business models.",
+            courses: [
+              { name: "Interaction Design", impact: "Designed and evaluated UX prototypes using experimental methods." },
+              { name: "Digital Strategies & Innovation", impact: "Built digital transformation roadmap for industry case organization." },
+              { name: "Digital Innovation & Design Thinking", impact: "Conducted structured innovation sprint with problem framing & solution prototyping." },
+              { name: "Ethical Business Modeling & Innovation Design", impact: "Developed sustainable business model integrating ethical and regulatory constraints." },
+              { name: "Digital Innovation Week", impact: "Rapid team-based innovation challenge delivering validated prototype in 5 days." }
+            ]
+          }
         ]
       },
       {
@@ -710,7 +770,6 @@ const Portfolio = () => {
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
               className={`max-w-2xl mx-auto text-lg leading-relaxed ${darkMode ? 'text-slate-400' : 'text-[#4A5568]'}`}
             >
               {t.sections.featuredProjectsDesc}
@@ -813,7 +872,6 @@ const Portfolio = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
               className={`max-w-2xl mx-auto text-lg leading-relaxed ${darkMode ? 'text-slate-400' : 'text-[#4A5568]'}`}
             >
               {t.sections.expertise.subtitle}
@@ -869,7 +927,6 @@ const Portfolio = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.1 }}
                 className={`text-lg leading-relaxed mb-10 ${darkMode ? 'text-slate-400' : 'text-[#4A5568]'}`}
               >
                 {t.sections.technicalExpertise.desc}
@@ -903,6 +960,7 @@ const Portfolio = () => {
               className="lg:w-1/2 relative flex items-center justify-center"
             >
               <div className="relative z-10 w-full max-w-lg">
+                <Suspense fallback={<div className="w-full aspect-square" />}>
                 <IconCloud iconSlugs={[
                   "typescript",
                   "javascript",
@@ -931,6 +989,7 @@ const Portfolio = () => {
                   "pandas",
                   "numpy"
                 ]} />
+                </Suspense>
               </div>
               <div className={`absolute -inset-4 blur-3xl rounded-full z-0 ${darkMode ? 'bg-blue-500/5' : 'bg-[#2F5FD7]/5'}`} />
             </motion.div>
@@ -965,7 +1024,6 @@ const Portfolio = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
               className={`max-w-2xl mx-auto text-lg leading-relaxed ${darkMode ? 'text-slate-400' : 'text-[#4A5568]'}`}
             >
               {t.sections.experience.subtitle}
@@ -980,7 +1038,7 @@ const Portfolio = () => {
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
+                  
                   className={`relative pl-8 pb-12 last:pb-0 border-l ${darkMode ? 'border-slate-700' : 'border-[#D8DCE3]'}`}
                 >
                   <div className={`absolute -left-1.5 top-0 w-3 h-3 rounded-full ${darkMode ? 'bg-blue-500' : 'bg-[#2F5FD7]'}`} />
@@ -1020,7 +1078,7 @@ const Portfolio = () => {
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
+                    
                     className={`relative pl-8 pb-12 last:pb-0 border-l ${darkMode ? 'border-slate-700' : 'border-[#D8DCE3]'}`}
                   >
                     <div className={`absolute -left-1.5 top-0 w-3 h-3 rounded-full ${darkMode ? 'bg-blue-500' : 'bg-[#2F5FD7]'}`} />
@@ -1135,7 +1193,9 @@ const Portfolio = () => {
               className="w-full lg:w-1/2 relative flex items-center justify-center"
             >
               <div className="relative z-10 w-full max-w-sm lg:max-w-lg -mt-12">
-                <SpinningGlobe darkMode={darkMode} />
+                <Suspense fallback={<div className="w-full aspect-square" />}>
+                  <SpinningGlobe darkMode={darkMode} />
+                </Suspense>
               </div>
             </motion.div>
           </div>
