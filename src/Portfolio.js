@@ -679,7 +679,7 @@ const Portfolio = () => {
       {/* Projects Section */}
       <section id="projets" className={`pt-16 pb-24 scroll-mt-16 border-b transition-colors duration-300 ${darkMode ? 'bg-slate-900/50 border-slate-800' : 'bg-[#EDEFF2] border-[#D8DCE3]'}`}>
         <div className="container mx-auto px-6">
-          <div className="mb-8">
+          <div className="mb-8 text-center">
             <motion.h2 
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -693,7 +693,7 @@ const Portfolio = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className={`max-w-2xl text-lg leading-relaxed ${darkMode ? 'text-slate-400' : 'text-[#4A5568]'}`}
+              className={`max-w-2xl mx-auto text-lg leading-relaxed ${darkMode ? 'text-slate-400' : 'text-[#4A5568]'}`}
             >
               {t.sections.featuredProjectsDesc}
             </motion.p>
@@ -704,7 +704,7 @@ const Portfolio = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="flex flex-wrap gap-4 mb-8"
+            className="flex flex-wrap gap-4 mb-8 justify-center"
           >
             {Object.entries(t.sections.categories).map(([key, label]) => (
               <button
