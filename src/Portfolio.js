@@ -729,7 +729,7 @@ const Portfolio = () => {
                 onClick={() => setActiveFilter(key)}
                 className={`px-6 py-2 rounded-full text-sm font-medium transition-all ${
                   activeFilter === key 
-                    ? darkMode ? 'bg-white text-slate-900' : 'bg-[#2F5FD7] text-white'
+                    ? darkMode ? 'bg-blue-400 text-slate-900' : 'bg-[#2F5FD7] text-white'
                     : darkMode ? 'bg-slate-800 text-slate-400 hover:bg-slate-700' : 'bg-white text-[#4A5568] hover:bg-[#EDEFF2] border border-[#D8DCE3]'
                 }`}
               >
