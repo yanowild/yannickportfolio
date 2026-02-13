@@ -448,6 +448,7 @@ const Portfolio = () => {
           "/assets/Master Thesis 2.png",
           "/assets/Master Thesis 3.png",
           "/assets/Master Thesis 4.png",
+          "/assets/Master Thesis 5.png",
         ]
       },
       {
@@ -1087,7 +1088,7 @@ const Portfolio = () => {
           <div className="flex flex-col lg:flex-row items-center gap-16">
             <div className="lg:w-1/2 space-y-10">
               <div className="flex items-center gap-6">
-                <div className={`p-4 rounded-full ${darkMode ? 'bg-slate-800 text-slate-400' : 'bg-white text-[#2F5FD7] border border-[#D8DCE3]'}`}>
+                <div className={`p-4 rounded-full ${darkMode ? 'bg-slate-800 text-blue-400' : 'bg-white text-[#2F5FD7] border border-[#D8DCE3]'}`}>
                   <Mail size={24} />
                 </div>
                 <div>
@@ -1096,7 +1097,7 @@ const Portfolio = () => {
                 </div>
               </div>
               <div className="flex items-center gap-6">
-                <div className={`p-4 rounded-full ${darkMode ? 'bg-slate-800 text-slate-400' : 'bg-white text-[#2F5FD7] border border-[#D8DCE3]'}`}>
+                <div className={`p-4 rounded-full ${darkMode ? 'bg-slate-800 text-blue-400' : 'bg-white text-[#2F5FD7] border border-[#D8DCE3]'}`}>
                   <Phone size={24} />
                 </div>
                 <div>
@@ -1105,7 +1106,7 @@ const Portfolio = () => {
                 </div>
               </div>
               <div className="flex items-center gap-6">
-                <div className={`p-4 rounded-full ${darkMode ? 'bg-slate-800 text-slate-400' : 'bg-white text-[#2F5FD7] border border-[#D8DCE3]'}`}>
+                <div className={`p-4 rounded-full ${darkMode ? 'bg-slate-800 text-blue-400' : 'bg-white text-[#2F5FD7] border border-[#D8DCE3]'}`}>
                   <MapPin size={24} />
                 </div>
                 <div>
