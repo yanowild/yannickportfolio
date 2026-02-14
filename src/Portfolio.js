@@ -180,7 +180,7 @@ const SpinningGlobe = lazy(() => import('./Globe').then(m => ({ default: m.Globe
 
             <div className="space-y-8">
               {project.role && (
-                <div className={`relative pl-4 border-l-2 ${darkMode ? 'border-blue-500/30' : 'border-[#2F5FD7]'}`}>
+                <div className={`relative pl-4 border-l-2 ${darkMode ? 'border-blue-400/30' : 'border-[#2F5FD7]'}`}>
                   <h4 className={`text-[10px] font-bold uppercase tracking-[0.2em] mb-2 ${darkMode ? 'text-slate-400' : 'text-[#6B7280]'}`}>{t.sections.modal.role}</h4>
                   <p className={`text-sm font-semibold leading-relaxed ${darkMode ? 'text-blue-400' : 'text-[#2F5FD7]'}`}>{project.role}</p>
                 </div>
@@ -235,7 +235,7 @@ const SpinningGlobe = lazy(() => import('./Globe').then(m => ({ default: m.Globe
                     href={project.link} 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className={`inline-flex items-center gap-2 px-6 py-3 text-white rounded-xl font-medium transition-colors w-full justify-center md:w-auto text-sm ${darkMode ? 'bg-blue-600 hover:bg-blue-500' : 'bg-[#2F5FD7] hover:bg-[#2854b5]'}`}
+                    className={`inline-flex items-center gap-2 px-6 py-3 text-white rounded-xl font-medium transition-colors w-full justify-center md:w-auto text-sm ${darkMode ? 'bg-blue-400 hover:bg-blue-400/80 text-slate-900' : 'bg-[#2F5FD7] hover:bg-[#2854b5]'}`}
                   >
                     {t.sections.modal.viewProject} <ExternalLink size={16} />
                   </a>
@@ -519,7 +519,7 @@ const Portfolio = () => {
       {
         company: "Beau-Rivage Palace (F&B), Hotel Bernerhof (Front Office), Grand Hôtel & Centre Thermal (Kitchen)",
         location: "",
-        role: "Hospitality Operations Roles",
+        role: "Hospitality Operations",
         period: "2014 – 2017",
         description: "Worked across front-of-house and back-of-house operations in luxury hospitality environments, gaining hands-on experience in service processes, coordination, and operational execution."
       }
@@ -541,7 +541,7 @@ const Portfolio = () => {
 
   return (
     <ThemeProvider attribute="class" defaultTheme="dark">
-      <div className={`min-h-screen selection:bg-blue-500/30 transition-colors duration-300 ${darkMode ? 'bg-[#0b1220] text-slate-300' : 'bg-[#F4F5F7] text-[#1F2933]'}`}>
+      <div className={`min-h-screen selection:bg-blue-400/30 transition-colors duration-300 ${darkMode ? 'bg-[#0b1220] text-slate-300' : 'bg-[#F4F5F7] text-[#1F2933]'}`}>
       <nav className={`fixed inset-x-0 top-0 z-50 border-b backdrop-blur-md transition-colors duration-300 ${darkMode ? 'border-slate-800/80 bg-[#0b1220]/85' : 'border-[#D8DCE3] bg-[#F4F5F7]/90'}`}>
         <div className="container mx-auto flex h-16 items-center justify-between gap-6 px-6">
           <a href="#profil" className={`flex items-center gap-2 text-lg font-semibold tracking-wide transition-colors duration-300 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>
@@ -677,17 +677,17 @@ const Portfolio = () => {
               variants={fadeIn}
               className="flex flex-wrap gap-4 justify-center"
             >
-              <button className={`flex items-center gap-2 px-4 py-2 rounded-lg font-bold transition-colors text-sm md:text-base ${darkMode ? 'bg-blue-400 text-slate-900 hover:bg-blue-300' : 'bg-[#2F5FD7] text-white hover:bg-[#2854b5]'}`}>
+              <button className={`flex items-center gap-2 px-4 py-2 rounded-lg font-bold transition-colors text-sm md:text-base ${darkMode ? 'bg-blue-400 text-slate-900 hover:bg-blue-400/80' : 'bg-[#2F5FD7] text-white hover:bg-[#2854b5]'}`}>
                 <Download size={20} /> {t.hero.downloadCV}
               </button>
               <div className="flex flex-wrap gap-3">
-                <a href="#contact" className={`flex items-center gap-2 px-4 py-2 border rounded-lg transition-colors font-medium ${darkMode ? 'border-slate-700 bg-slate-800/30 hover:bg-slate-800/50 text-slate-300' : 'border-[#D8DCE3] bg-white hover:bg-[#EDEFF2] text-[#4A5568]'}`}>
-                  <Mail size={20} /> {t.nav.contact}
+                <a href="#contact" className={`flex items-center gap-2 p-3 border rounded-lg transition-colors font-medium ${darkMode ? 'border-slate-700 bg-slate-800/30 hover:bg-slate-800/50 text-slate-300 hover:text-blue-400' : 'border-[#D8DCE3] bg-white hover:bg-[#EDEFF2] text-[#4A5568] hover:text-[#2F5FD7]'}`} title="Contact">
+                  <Mail size={20} />
                 </a>
-                <a href="https://www.linkedin.com/in/yannick-wild/" target="_blank" rel="noopener noreferrer" className={`flex items-center gap-2 p-3 border rounded-lg transition-colors font-medium ${darkMode ? 'border-slate-700 bg-slate-800/30 hover:bg-slate-800/50 text-slate-300' : 'border-[#D8DCE3] bg-white hover:bg-[#EDEFF2] text-[#4A5568]'}`} title="LinkedIn">
+                <a href="https://www.linkedin.com/in/yannick-wild/" target="_blank" rel="noopener noreferrer" className={`flex items-center gap-2 p-3 border rounded-lg transition-colors font-medium ${darkMode ? 'border-slate-700 bg-slate-800/30 hover:bg-slate-800/50 text-slate-300 hover:text-blue-400' : 'border-[#D8DCE3] bg-white hover:bg-[#EDEFF2] text-[#4A5568] hover:text-[#2F5FD7]'}`} title="LinkedIn">
                   <Linkedin size={20} />
                 </a>
-                <a href="https://github.com/yanowild" target="_blank" rel="noopener noreferrer" className={`flex items-center gap-2 p-3 border rounded-lg transition-colors font-medium ${darkMode ? 'border-slate-700 bg-slate-800/30 hover:bg-slate-800/50 text-slate-300' : 'border-[#D8DCE3] bg-white hover:bg-[#EDEFF2] text-[#4A5568]'}`} title="GitHub">
+                <a href="https://github.com/yanowild" target="_blank" rel="noopener noreferrer" className={`flex items-center gap-2 p-3 border rounded-lg transition-colors font-medium ${darkMode ? 'border-slate-700 bg-slate-800/30 hover:bg-slate-800/50 text-slate-300 hover:text-blue-400' : 'border-[#D8DCE3] bg-white hover:bg-[#EDEFF2] text-[#4A5568] hover:text-[#2F5FD7]'}`} title="GitHub">
                   <Github size={20} />
                 </a>
               </div>
@@ -935,7 +935,7 @@ const Portfolio = () => {
                 ]} />
                 </Suspense>
               </div>
-              <div className={`absolute -inset-4 blur-3xl rounded-full z-0 ${darkMode ? 'bg-blue-500/5' : 'bg-[#2F5FD7]/5'}`} />
+              <div className={`absolute -inset-4 blur-3xl rounded-full z-0 ${darkMode ? 'bg-blue-400/5' : 'bg-[#2F5FD7]/5'}`} />
             </motion.div>
           </div>
         </div>
@@ -985,7 +985,7 @@ const Portfolio = () => {
                   
                   className={`relative pl-8 pb-12 last:pb-0 border-l ${darkMode ? 'border-slate-700' : 'border-[#D8DCE3]'}`}
                 >
-                  <div className={`absolute -left-1.5 top-0 w-3 h-3 rounded-full ${darkMode ? 'bg-blue-500' : 'bg-[#2F5FD7]'}`} />
+                  <div className={`absolute -left-1.5 top-0 w-3 h-3 rounded-full ${darkMode ? 'bg-blue-400' : 'bg-[#2F5FD7]'}`} />
                   <div className="mb-4">
                     <span className={`font-mono text-sm block mb-1 ${darkMode ? 'text-blue-400' : 'text-[#2F5FD7]'}`}>{exp.period}</span>
                     <h3 className={`text-2xl font-bold ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{exp.role}</h3>
@@ -1025,7 +1025,7 @@ const Portfolio = () => {
                     
                     className={`relative pl-8 pb-12 last:pb-0 border-l ${darkMode ? 'border-slate-700' : 'border-[#D8DCE3]'}`}
                   >
-                    <div className={`absolute -left-1.5 top-0 w-3 h-3 rounded-full ${darkMode ? 'bg-blue-500' : 'bg-[#2F5FD7]'}`} />
+                    <div className={`absolute -left-1.5 top-0 w-3 h-3 rounded-full ${darkMode ? 'bg-blue-400' : 'bg-[#2F5FD7]'}`} />
                     <div className="mb-4">
                       <span className={`font-mono text-sm block mb-1 ${darkMode ? 'text-blue-400' : 'text-[#2F5FD7]'}`}>{edu.period}</span>
                       {(() => {
@@ -1082,7 +1082,7 @@ const Portfolio = () => {
             Contact
           </motion.h2>
           <p className={`text-lg leading-relaxed mb-12 ${darkMode ? 'text-slate-400' : 'text-[#4A5568]'}`}>
-            Interested in improving your operations or systems?
+            Interested in improving your systems?
             <br />
             Let’s connect.
           </p>
@@ -1144,7 +1144,7 @@ const Portfolio = () => {
             </motion.div>
           </div>
 
-          <div className={`mt-8 pt-6 border-t text-center text-sm pb-2 ${darkMode ? 'border-slate-800 text-slate-600' : 'border-[#D8DCE3] text-[#6B7280]'}`}>
+          <div className={`mt-8 pt-6 border-t text-center text-sm pb-6 ${darkMode ? 'border-slate-800 text-slate-500' : 'border-[#D8DCE3] text-[#6B7280]'}`}>
             © {new Date().getFullYear()} Yannick Wild. All rights reserved.
           </div>
         </div>
