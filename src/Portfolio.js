@@ -195,6 +195,25 @@ const SpinningGlobe = lazy(() => import('./Globe').then(m => ({ default: m.Globe
                 </div>
               )}
 
+              {project.projectLinks && project.projectLinks.length > 0 && (
+                <div>
+                  <h4 className={`text-[10px] font-bold uppercase tracking-[0.2em] mb-3 ${darkMode ? 'text-slate-400' : 'text-[#6B7280]'}`}>Projects Realized</h4>
+                  <div className="flex flex-col gap-2">
+                    {project.projectLinks.map((link, i) => (
+                      <a
+                        key={i}
+                        href={link.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`inline-flex items-center gap-2 text-sm font-medium transition-colors ${darkMode ? 'text-slate-300 hover:text-blue-400' : 'text-[#4A5568] hover:text-[#2F5FD7]'}`}
+                      >
+                        {link.label} <ExternalLink size={14} />
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               {project.skillsUsed && (
                 <div>
                   <h4 className={`text-[10px] font-bold uppercase tracking-[0.2em] mb-3 ${darkMode ? 'text-slate-400' : 'text-[#6B7280]'}`}>{t.sections.modal.skills}</h4>
@@ -278,7 +297,7 @@ const Portfolio = () => {
         tagline: 'Business Analyst',
         tagline2: 'Focused on operational efficiency and digital transformation',
         bio: 'I design and implement structured digital solutions that improve business processes, align systems, and create measurable impact through data and technology.',
-        downloadCV: 'Download CV',
+        downloadCV: 'CV',
         contact: 'Contact'
       },
       sections: {
@@ -376,11 +395,11 @@ const Portfolio = () => {
         category: "operations",
         tags: ["Product Management", "Agile", "Analytics"],
         imageContain: true,
-        image: "/assets/SAP FSM 4.png",
+        image: "/assets/SAP FSM 1.webp",
         images: [
-          "/assets/SAP FSM 4.png",
-          "/assets/SAP FSM 3.png",
-          "/assets/SAP FSM 2.png",]
+          "/assets/SAP FSM 1.webp",
+          "/assets/SAP FSM 2.webp",
+          "/assets/SAP FSM 3.webp",]
       },
       {
         title: "Workflow Design",
@@ -391,11 +410,11 @@ const Portfolio = () => {
         skillsUsed: ["Workflow Design", "BPMN", "User Training"],
         category: "operations",
         tags: ["Workflow Design", "BPMN", "User Training"],
-        image: "/assets/Workflow Design 2.png",
+        image: "/assets/Workflow Design 1.webp",
         images: [
-          "/assets/Workflow Design 2.png",
-          "/assets/Workflow Design 1.png",
-          "/assets/Workflow Design 3.png",
+          "/assets/Workflow Design 1.webp",
+          "/assets/Workflow Design 2.webp",
+          "/assets/Workflow Design 3.webp",
         ]
       },
       {
@@ -405,13 +424,17 @@ const Portfolio = () => {
         context: "Managed end-to-end delivery of high-profile luxury hotel projects (e.g., Six Senses Ibiza, Rosewood Villa Magna), overseeing contracts and supplier management for projects with budgets up to €15 million.",
         outcome: "Successfully coordinated procurement and logistics for up to 5,000 items from 100+ suppliers. Maintained strict on-time and on-budget execution through rigorous risk and quality controls, leading core teams to successful project delivery.",
         skillsUsed: ["Logistics", "Supply Chain", "Budget Control"],
+        projectLinks: [
+          { label: "Rosewood Villa Magna", url: "https://www.rosewoodhotels.com/en/villa-magna" },
+          { label: "Six Senses Ibiza", url: "https://www.sixsenses.com/en/hotels-resorts/europe/spain/ibiza" }
+        ],
         category: "operations",
         tags: ["Logistics", "Supply Chain", "Budget Control"],
-        image: "/assets/Hotel Procurement 2.png",
+        image: "/assets/Hotel Procurement 1.webp",
         images: [
-          "/assets/Hotel Procurement 2.png",
-          "/assets/Hotel Procurement 4.png",
-          "/assets/Hotel Procurement 6.png",
+          "/assets/Hotel Procurement 1.webp",
+          "/assets/Hotel Procurement 2.webp",
+          "/assets/Hotel Procurement 3.webp",
         ]
       },
       {
@@ -424,9 +447,12 @@ const Portfolio = () => {
         subtitle: "Industry Collaborations",
         category: "academic",
         tags: ["Workflow Analysis", "Roadmap", "ROI"],
-        image: "/assets/Applied Projects 1.jpg",
+        image: "/assets/Applied Projects 1.webp",
         images: [
-          "/assets/Applied Projects 1.jpg"
+          "/assets/Applied Projects 1.webp",
+          "/assets/Applied Projects 2.webp",
+          "/assets/Applied Projects 3.webp",
+
         ]
       },
       {
@@ -439,11 +465,11 @@ const Portfolio = () => {
         grade: "6/6",
         category: "academic",
         tags: ["AI Design", "UX/UI", "Experiment"],
-        image: "/assets/Master Thesis 1.png",
+        image: "/assets/Master Thesis 1.webp",
         images: [
-          "/assets/Master Thesis 1.png",
-          "/assets/Master Thesis 3.png",
-          "/assets/Master Thesis 4.png",
+          "/assets/Master Thesis 1.webp",
+          "/assets/Master Thesis 2.webp",
+          "/assets/Master Thesis 3.webp",
         ]
       },
       {
@@ -456,11 +482,11 @@ const Portfolio = () => {
         grade: "6/6",
         category: "academic",
         tags: ["Market Analysis", "IoT", "Strategy"],
-        image: "/assets/Arve 1.png",
+        image: "/assets/Arve 1.webp",
         images: [
-          "/assets/Arve 1.png",
-          "/assets/Arve 2.png",
-          "/assets/Arve 3.png"
+          "/assets/Arve 1.webp",
+          "/assets/Arve 2.webp",
+          "/assets/Arve 3.webp"
         ]
       }
     ],
@@ -656,14 +682,14 @@ const Portfolio = () => {
                 <Download size={20} /> {t.hero.downloadCV}
               </button>
               <div className="flex flex-wrap gap-3">
+                <a href="#contact" className={`flex items-center gap-2 px-6 py-3 border rounded-lg transition-colors font-medium ${darkMode ? 'border-slate-700 bg-slate-800/30 hover:bg-slate-800/50 text-slate-300' : 'border-[#D8DCE3] bg-white hover:bg-[#EDEFF2] text-[#4A5568]'}`}>
+                  <Mail size={20} /> {t.nav.contact}
+                </a>
                 <a href="https://www.linkedin.com/in/yannick-wild/" target="_blank" rel="noopener noreferrer" className={`flex items-center gap-2 p-3 border rounded-lg transition-colors font-medium ${darkMode ? 'border-slate-700 bg-slate-800/30 hover:bg-slate-800/50 text-slate-300' : 'border-[#D8DCE3] bg-white hover:bg-[#EDEFF2] text-[#4A5568]'}`} title="LinkedIn">
                   <Linkedin size={20} />
                 </a>
                 <a href="https://github.com/yanowild" target="_blank" rel="noopener noreferrer" className={`flex items-center gap-2 p-3 border rounded-lg transition-colors font-medium ${darkMode ? 'border-slate-700 bg-slate-800/30 hover:bg-slate-800/50 text-slate-300' : 'border-[#D8DCE3] bg-white hover:bg-[#EDEFF2] text-[#4A5568]'}`} title="GitHub">
                   <Github size={20} />
-                </a>
-                <a href="#contact" className={`flex items-center gap-2 px-6 py-3 border rounded-lg transition-colors font-medium ${darkMode ? 'border-slate-700 bg-slate-800/30 hover:bg-slate-800/50 text-slate-300' : 'border-[#D8DCE3] bg-white hover:bg-[#EDEFF2] text-[#4A5568]'}`}>
-                  <Mail size={20} /> {t.nav.contact}
                 </a>
               </div>
             </motion.div>
@@ -1110,10 +1136,10 @@ const Portfolio = () => {
               <div>
                 <h4 className={`text-lg font-bold mb-4 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>Socials</h4>
                 <div className="flex gap-4">
-                  <a href="#" className={`p-4 rounded-full hover:text-blue-400 transition-all ${darkMode ? 'bg-slate-800 text-slate-400 hover:bg-slate-700' : 'bg-white text-[#4A5568] hover:bg-[#EDEFF2] border border-[#D8DCE3]'}`}>
+                  <a href="https://www.linkedin.com/in/yannick-wild/" target="_blank" rel="noopener noreferrer" className={`p-4 rounded-full transition-all ${darkMode ? 'bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-blue-400' : 'bg-white text-[#4A5568] hover:bg-[#EDEFF2] hover:text-[#2F5FD7] border border-[#D8DCE3]'}`}>
                     <Linkedin size={24} />
                   </a>
-                  <a href="#" className={`p-4 rounded-full hover:text-blue-400 transition-all ${darkMode ? 'bg-slate-800 text-slate-400 hover:bg-slate-700' : 'bg-white text-[#4A5568] hover:bg-[#EDEFF2] border border-[#D8DCE3]'}`}>
+                  <a href="https://github.com/yanowild" target="_blank" rel="noopener noreferrer" className={`p-4 rounded-full transition-all ${darkMode ? 'bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-blue-400' : 'bg-white text-[#4A5568] hover:bg-[#EDEFF2] hover:text-[#2F5FD7] border border-[#D8DCE3]'}`}>
                     <Github size={24} />
                   </a>
                 </div>
