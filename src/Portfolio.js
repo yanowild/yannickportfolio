@@ -21,7 +21,6 @@ import {
   Layout,
   BarChart3,
   Download,
-  ChevronDown,
   Settings,
   Cpu,
   Database,
@@ -626,7 +625,7 @@ const Portfolio = () => {
         </AnimatePresence>
       </nav>
       {/* Hero Section */}
-      <header id="profil" className="relative min-h-screen scroll-mt-16 flex items-center justify-center overflow-hidden pt-5 md:pt-20">
+      <header id="profil" className="relative min-h-screen scroll-mt-16 flex items-center justify-center overflow-hidden pt-20">
         <div className="absolute inset-0 z-0">
           <div className={`absolute top-1/4 left-1/4 w-96 h-96 rounded-full blur-[128px] ${darkMode ? 'bg-blue-600/10' : 'bg-[#2F5FD7]/10'}`} />
           <div className={`absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full blur-[128px] ${darkMode ? 'bg-indigo-600/10' : 'bg-[#2F5FD7]/5'}`} />
@@ -678,11 +677,11 @@ const Portfolio = () => {
               variants={fadeIn}
               className="flex flex-wrap gap-4 justify-center"
             >
-              <button className={`flex items-center gap-2 px-6 py-3 rounded-lg font-bold transition-colors text-sm md:text-base ${darkMode ? 'bg-blue-400 text-slate-900 hover:bg-blue-300' : 'bg-[#2F5FD7] text-white hover:bg-[#2854b5]'}`}>
+              <button className={`flex items-center gap-2 px-4 py-2 rounded-lg font-bold transition-colors text-sm md:text-base ${darkMode ? 'bg-blue-400 text-slate-900 hover:bg-blue-300' : 'bg-[#2F5FD7] text-white hover:bg-[#2854b5]'}`}>
                 <Download size={20} /> {t.hero.downloadCV}
               </button>
               <div className="flex flex-wrap gap-3">
-                <a href="#contact" className={`flex items-center gap-2 px-6 py-3 border rounded-lg transition-colors font-medium ${darkMode ? 'border-slate-700 bg-slate-800/30 hover:bg-slate-800/50 text-slate-300' : 'border-[#D8DCE3] bg-white hover:bg-[#EDEFF2] text-[#4A5568]'}`}>
+                <a href="#contact" className={`flex items-center gap-2 px-4 py-2 border rounded-lg transition-colors font-medium ${darkMode ? 'border-slate-700 bg-slate-800/30 hover:bg-slate-800/50 text-slate-300' : 'border-[#D8DCE3] bg-white hover:bg-[#EDEFF2] text-[#4A5568]'}`}>
                   <Mail size={20} /> {t.nav.contact}
                 </a>
                 <a href="https://www.linkedin.com/in/yannick-wild/" target="_blank" rel="noopener noreferrer" className={`flex items-center gap-2 p-3 border rounded-lg transition-colors font-medium ${darkMode ? 'border-slate-700 bg-slate-800/30 hover:bg-slate-800/50 text-slate-300' : 'border-[#D8DCE3] bg-white hover:bg-[#EDEFF2] text-[#4A5568]'}`} title="LinkedIn">
@@ -697,22 +696,6 @@ const Portfolio = () => {
 
         </motion.div>
         
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ 
-            opacity: 1,
-            y: [0, 10, 0] 
-          }}
-          transition={{ 
-            opacity: { delay: 1, duration: 1 },
-            y: { repeat: Infinity, duration: 2, ease: "easeInOut" }
-          }}
-          className="absolute bottom-20 left-0 right-0 flex justify-center"
-        >
-          <a href="#projets" className={`p-3 border rounded-full flex items-center justify-center transition-colors ${darkMode ? 'border-slate-700 hover:bg-slate-800' : 'border-[#4A5568] hover:bg-[#EDEFF2]'}`}>
-            <ChevronDown size={24} className={darkMode ? 'text-slate-300' : 'text-black'} />
-          </a>
-        </motion.div>
       </header>
 
       {/* Projects Section */}
@@ -992,7 +975,7 @@ const Portfolio = () => {
           </div>
           
           <div className="max-w-4xl mx-auto">
-            <div className="md:max-w-[65%] relative ml-4 md:ml-0">
+            <div className="md:max-w-[65%] relative">
               {cvData.experience.map((exp, index) => (
                 <motion.div 
                   key={index}
@@ -1032,7 +1015,7 @@ const Portfolio = () => {
               >
                 {t.sections.education}
               </motion.h2>
-              <div className="relative ml-4 md:ml-0">
+              <div className="relative">
                 {cvData.education.map((edu, index) => (
                   <motion.div 
                     key={index}
