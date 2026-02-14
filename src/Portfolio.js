@@ -376,14 +376,11 @@ const Portfolio = () => {
         category: "operations",
         tags: ["Product Management", "Agile", "Analytics"],
         imageContain: true,
-        image: "/assets/SAP FSM 1.png",
+        image: "/assets/SAP FSM 4.png",
         images: [
-          "/assets/SAP FSM 1.png",
-          "/assets/SAP FSM 2.png",
-          "/assets/SAP FSM 3.png",
           "/assets/SAP FSM 4.png",
-          "/assets/SAP FSM 5.png",
-        ]
+          "/assets/SAP FSM 3.png",
+          "/assets/SAP FSM 2.png",]
       },
       {
         title: "Workflow Design",
@@ -413,9 +410,7 @@ const Portfolio = () => {
         image: "/assets/Hotel Procurement 2.png",
         images: [
           "/assets/Hotel Procurement 2.png",
-          "/assets/Hotel Procurement 3.png",
           "/assets/Hotel Procurement 4.png",
-          "/assets/Hotel Procurement 5.png",
           "/assets/Hotel Procurement 6.png",
         ]
       },
@@ -447,10 +442,8 @@ const Portfolio = () => {
         image: "/assets/Master Thesis 1.png",
         images: [
           "/assets/Master Thesis 1.png",
-          "/assets/Master Thesis 2.png",
           "/assets/Master Thesis 3.png",
           "/assets/Master Thesis 4.png",
-          "/assets/Master Thesis 5.png",
         ]
       },
       {
