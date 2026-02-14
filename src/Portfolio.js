@@ -205,7 +205,7 @@ const SpinningGlobe = lazy(() => import('./Globe').then(m => ({ default: m.Globe
                         href={link.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`inline-flex items-center gap-2 text-sm font-medium transition-colors w-fit ${darkMode ? 'text-slate-300 hover:text-blue-400' : 'text-[#4A5568] hover:text-[#2F5FD7]'}`}
+                        className={`inline-flex items-center gap-2 text-sm font-medium transition-colors ${darkMode ? 'text-slate-300 hover:text-blue-400' : 'text-[#4A5568] hover:text-[#2F5FD7]'}`}
                       >
                         {link.label} <ExternalLink size={14} />
                       </a>
@@ -669,14 +669,14 @@ const Portfolio = () => {
 
             <motion.p 
               variants={fadeIn}
-              className={`text-lg leading-relaxed mb-4 md:mb-8 ${darkMode ? 'text-slate-500' : 'text-[#6B7280]'}`}
+              className={`text-lg leading-relaxed mb-8 ${darkMode ? 'text-slate-500' : 'text-[#6B7280]'}`}
             >
               {t.hero.bio}
             </motion.p>
 
             <motion.div 
               variants={fadeIn}
-              className="flex flex-wrap gap-3 md:gap-4 justify-center"
+              className="flex flex-wrap gap-4 justify-center"
             >
               <button className={`flex items-center gap-2 px-6 py-3 rounded-lg font-bold transition-colors text-sm md:text-base ${darkMode ? 'bg-blue-400 text-slate-900 hover:bg-blue-300' : 'bg-[#2F5FD7] text-white hover:bg-[#2854b5]'}`}>
                 <Download size={20} /> {t.hero.downloadCV}
@@ -707,7 +707,7 @@ const Portfolio = () => {
             opacity: { delay: 1, duration: 1 },
             y: { repeat: Infinity, duration: 2, ease: "easeInOut" }
           }}
-          className="absolute bottom-4 md:bottom-10 left-0 right-0 flex justify-center"
+          className="absolute bottom-10 left-0 right-0 flex justify-center"
         >
           <a href="#projets" className={`p-3 border rounded-full flex items-center justify-center transition-colors ${darkMode ? 'border-slate-700 hover:bg-slate-800' : 'border-[#4A5568] hover:bg-[#EDEFF2]'}`}>
             <ChevronDown size={24} className={darkMode ? 'text-slate-300' : 'text-black'} />
