@@ -507,21 +507,21 @@ const Portfolio = () => {
         location: "Geneva",
         role: "Product Owner",
         period: "2021 - 2023",
-        description: "Led the global implementation of the SAP FSM platform, harmonizing customer service processes across multiple regions and ERP systems while defining KPIs and advanced analytics dashboards."
+        description: ["Implemented SAP FSM to optimize service operations and workflow efficiency.", "Analyzed service processes and ERP's in US, China, Europe, and APAC."," Designed a global service process within SAP FSM.", "Defined KPIs and configured dashboards in SAP Analytics Cloud to monitor operations."]
       },
       {
         company: "Sunnyland Consulting",
         location: "Madrid",
         role: "Project Manager",
         period: "2019 - 2021",
-        description: "Managed end-to-end delivery of luxury hotel fit-outs with budgets up to €15M, coordinating complex logistics and implementing operational structures to improve workflow productivity."
+        description: ["Managed a team to deliver end-to-end procurement services for luxury hotel openings.", "Procurement services included budget control, purchasing, deliveries, and installations.", "Implemented a new operational structure to improve workflow productivity."]
       },
       {
-        company: "Beau-Rivage Palace (F&B), Hotel Bernerhof (Front Office), Grand Hôtel & Centre Thermal (Kitchen)",
-        location: "",
+        company: ["Beau-Rivage Palace (F&B)", "Hotel Bernerhof (Front Office)", "Grand Hôtel & Centre Thermal (Kitchen)"],
+        location: ["Lausanne", "Grindelwald", "Yverdon"],
         role: "Hospitality Operations",
         period: "2014 – 2017",
-        description: "Worked across front-of-house and back-of-house operations in luxury hospitality environments, gaining hands-on experience in service processes, coordination, and operational execution."
+        description: "Experience in service processes and execution."
       }
     ],
     education: [
@@ -906,32 +906,35 @@ const Portfolio = () => {
               <div className="relative z-10 w-full max-w-lg">
                 <Suspense fallback={<div className="w-full aspect-square" />}>
                 <IconCloud iconSlugs={[
-                  "typescript",
-                  "javascript",
-                  "react",
-                  "html5",
+                  "claude",
+                  "copilot",
                   "css3",
-                  "nodedotjs",
-                  "express",
-                  "nextdotjs",
-                  "postgresql",
-                  "firebase",
-                  "vercel",
-                  "jest",
                   "docker",
+                  "expo",
+                  "figma",
+                  "firebase",
                   "git",
                   "github",
-                  "figma",
-                  "mongodb",
-                  "tailwindcss",
+                  "html5",
+                  "hubspot",
+                  "intellijidea",
+                  "javascript",
+                  "jira",
+                  "kaggle",
+                  "lucid",
+                  "miro",
+                  "mysql",
+                  "numpy",
+                  "odoo",
+                  "pandas",
+                  "postman",
+                  "python",
+                  "react",
+                  "render",
                   "sap",
                   "slack",
-                  "notion",
-                  "jira",
-                  "confluence",
-                  "python",
-                  "pandas",
-                  "numpy"
+                  "springboot",
+                  "tailwindcss"
                 ]} />
                 </Suspense>
               </div>
@@ -975,7 +978,7 @@ const Portfolio = () => {
           </div>
           
           <div className="max-w-4xl mx-auto">
-            <div className="md:max-w-[65%] relative">
+            <div className="relative">
               {cvData.experience.map((exp, index) => (
                 <motion.div 
                   key={index}
@@ -989,11 +992,21 @@ const Portfolio = () => {
                   <div className="mb-4">
                     <span className={`font-mono text-sm block mb-1 ${darkMode ? 'text-blue-400' : 'text-[#2F5FD7]'}`}>{exp.period}</span>
                     <h3 className={`text-2xl font-bold ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{exp.role}</h3>
-                    <p className={`font-medium ${darkMode ? 'text-slate-400' : 'text-[#4A5568]'}`}>{exp.company}</p>
+                    {Array.isArray(exp.company) ? exp.company.map((c, i) => (
+                      <p key={i} className={`font-medium ${darkMode ? 'text-slate-400' : 'text-[#4A5568]'}`}>{c}{Array.isArray(exp.location) && exp.location[i] ? `, ${exp.location[i]}` : exp.location ? `, ${exp.location}` : ''}</p>
+                    )) : (
+                      <p className={`font-medium ${darkMode ? 'text-slate-400' : 'text-[#4A5568]'}`}>{exp.company}{exp.location ? `, ${exp.location}` : ''}</p>
+                    )}
                   </div>
-                  <p className={`leading-relaxed ${darkMode ? 'text-slate-400' : 'text-[#4A5568]'}`}>
-                    {exp.description}
-                  </p>
+                  {Array.isArray(exp.description) || (typeof exp.description === 'string' && exp.description.startsWith('•')) || Array.isArray(exp.company) || exp.company === 'Sunnyland Consulting' ? (
+                    <ul className={`list-disc list-inside leading-relaxed ${darkMode ? 'text-slate-400' : 'text-[#4A5568]'}`}>
+                      {Array.isArray(exp.description) ? exp.description.map((d, i) => <li key={i}>{d}</li>) : <li>{exp.description}</li>}
+                    </ul>
+                  ) : (
+                    <p className={`leading-relaxed ${darkMode ? 'text-slate-400' : 'text-[#4A5568]'}`}>
+                      {exp.description}
+                    </p>
+                  )}
                 </motion.div>
               ))}
             </div>
@@ -1048,7 +1061,7 @@ const Portfolio = () => {
               </div>
             </div>
 
-            <div className="md:col-span-1 flex flex-col md:h-full gap-8">
+            <div className="md:col-span-1 flex flex-col md:h-full gap-4">
               <div className={`flex-1 rounded-xl border p-6 text-center ${darkMode ? 'border-slate-800 bg-slate-900/40' : 'border-[#D8DCE3] bg-white shadow-sm'}`}>
                 <h4 className={`text-lg font-bold mb-4 uppercase tracking-wider ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{t.footer.languages}</h4>
                 <div className="space-y-3">
