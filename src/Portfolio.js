@@ -626,7 +626,7 @@ const Portfolio = () => {
         </AnimatePresence>
       </nav>
       {/* Hero Section */}
-      <header id="profil" className="relative min-h-screen scroll-mt-16 flex items-center justify-center overflow-hidden pt-10 md:pt-20">
+      <header id="profil" className="relative min-h-screen scroll-mt-16 flex items-center justify-center overflow-hidden pt-5 md:pt-20">
         <div className="absolute inset-0 z-0">
           <div className={`absolute top-1/4 left-1/4 w-96 h-96 rounded-full blur-[128px] ${darkMode ? 'bg-blue-600/10' : 'bg-[#2F5FD7]/10'}`} />
           <div className={`absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full blur-[128px] ${darkMode ? 'bg-indigo-600/10' : 'bg-[#2F5FD7]/5'}`} />
