@@ -223,10 +223,10 @@ const ICON_CLOUD_SLUGS = [
                 </div>
               )}
 
-              {project.projectLinks && project.projectLinks.length > 0 && (
+              {!project.linksAfterSkills && project.projectLinks && project.projectLinks.length > 0 && (
                 <div>
-                  <h4 className={`text-[10px] font-bold uppercase tracking-[0.2em] mb-3 ${darkMode ? 'text-slate-400' : 'text-[#6B7280]'}`}>Projects Realized</h4>
-                  <div className="flex flex-col gap-2">
+                  <h4 className={`text-[10px] font-bold uppercase tracking-[0.2em] mb-3 ${darkMode ? 'text-slate-400' : 'text-[#6B7280]'}`}>{project.projectLinksTitle || 'Projects Realized'}</h4>
+                  <div className={`flex ${project.projectLinksInline ? 'flex-row' : 'flex-col'} gap-2`}>
                     {project.projectLinks.map((link, i) => (
                       <a
                         key={i}
@@ -258,8 +258,27 @@ const ICON_CLOUD_SLUGS = [
                 </div>
               )}
 
-              <div className="pt-4 flex flex-col gap-6">
-                {project.link && (
+              {project.linksAfterSkills && project.projectLinks && project.projectLinks.length > 0 && (
+                <div>
+                  <h4 className={`text-[10px] font-bold uppercase tracking-[0.2em] mb-3 ${darkMode ? 'text-slate-400' : 'text-[#6B7280]'}`}>{project.projectLinksTitle || 'Projects Realized'}</h4>
+                  <div className={`flex ${project.projectLinksInline ? 'flex-row' : 'flex-col'} gap-2`}>
+                    {project.projectLinks.map((link, i) => (
+                      <a
+                        key={i}
+                        href={link.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`inline-flex items-center gap-2 text-sm font-medium transition-colors w-fit ${darkMode ? 'text-slate-300 hover:text-blue-400' : 'text-[#4A5568] hover:text-[#2F5FD7]'}`}
+                      >
+                        {link.label} <ExternalLink size={14} />
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {project.link && (
+                <div className="pt-4 flex flex-col gap-6">
                   <a 
                     href={project.link} 
                     target="_blank" 
@@ -268,8 +287,8 @@ const ICON_CLOUD_SLUGS = [
                   >
                     {t.sections.modal.viewProject} <ExternalLink size={16} />
                   </a>
-                )}
-              </div>
+                </div>
+              )}
             </div>
           </div>
         </motion.div>
@@ -388,6 +407,12 @@ const cvData = {
       context: "Led the global implementation of the SAP Field Service Management (FSM) platform to harmonize customer service processes across multiple regions and ERP systems (Great Plains, SAP, iScala).",
       outcome: "Successfully streamlined field service operations, defined key performance indicators (KPIs), and configured advanced dashboards in SAP Analytics Cloud, facilitating cross-departmental collaboration and maximizing operational value.",
       skillsUsed: ["Product Management", "Agile", "Analytics"],
+      projectLinks: [
+        { label: "Company: GFMS", url: "https://www.gfms.com/com/en.html" },
+        { label: "Platform: SAP FSM", url: "https://www.sap.com/swiss/products/scm/field-service-management.html" }
+      ],
+      projectLinksTitle: "Links",
+      linksAfterSkills: true,
       category: "operations",
       tags: ["Product Management", "Agile", "Analytics"],
       imageContain: true,
@@ -404,6 +429,12 @@ const cvData = {
       context: "Led a project focused on optimizing operational processes, enhancing workflow productivity, and standardizing project management methodologies within a complex business environment.",
       outcome: "Designed and implemented a standardized project workflow that significantly reduced bottlenecks. Developed advanced Excel templates and VBA macros to streamline reporting and monitoring of multimillion-euro investment budgets.",
       skillsUsed: ["Workflow Design", "BPMN", "User Training"],
+      projectLinks: [
+        { label: "Company: GFMS", url: "https://www.gfms.com/com/en.html" },
+        { label: "Company: Sunnyland", url: "https://www.sunnylandconsulting.com" }
+      ],
+      projectLinksTitle: "Links",
+      linksAfterSkills: true,
       category: "operations",
       tags: ["Workflow Design", "BPMN", "User Training"],
       image: "/assets/Workflow Design 1.webp",
@@ -421,9 +452,12 @@ const cvData = {
       outcome: "Successfully coordinated procurement and logistics for up to 5,000 items from 100+ suppliers. Maintained strict on-time and on-budget execution through rigorous risk and quality controls, leading core teams to successful project delivery.",
       skillsUsed: ["Logistics", "Supply Chain", "Budget Control"],
       projectLinks: [
-        { label: "Rosewood Villa Magna", url: "https://www.rosewoodhotels.com/en/villa-magna" },
-        { label: "Six Senses Ibiza", url: "https://www.sixsenses.com/en/hotels-resorts/europe/spain/ibiza" }
+        { label: "Company: Sunnyland", url: "https://www.sunnylandconsulting.com" },
+        { label: "Project: Rosewood Villa Magna", url: "https://www.rosewoodhotels.com/en/villa-magna" },
+        { label: "Project: Six Senses Ibiza", url: "https://www.sixsenses.com/en/hotels-resorts/europe/spain/ibiza" }
       ],
+      projectLinksTitle: "Links",
+      linksAfterSkills: true,
       category: "operations",
       tags: ["Logistics", "Supply Chain", "Budget Control"],
       image: "/assets/Hotel Procurement 1.webp",
@@ -440,6 +474,12 @@ const cvData = {
       context: "Delivered AI-driven prototypes and integrations, focusing on measurable business value, transparency, and user trust in professional workflows.",
       outcome: "Successfully built proof-of-concept assistants, defined AI-specific KPIs, and aligned stakeholders on integration roadmaps to move from experimentation to production environments.",
       skillsUsed: ["Workflow Analysis", "Roadmap", "ROI"],
+      projectLinks: [
+        { label: "Company: SAP", url: "https://www.sap.com/index.html" },
+        { label: "Company: Valtronic", url: "https://valtronic.com/" }
+      ],
+      projectLinksTitle: "Links",
+      linksAfterSkills: true,
       subtitle: "Industry Collaborations",
       category: "academic",
       tags: ["Workflow Analysis", "Roadmap", "ROI"],
@@ -458,6 +498,11 @@ const cvData = {
       context: "This Master Thesis project investigates the impact of different interaction paradigms—specifically Chatbots versus Graphical User Interfaces (GUI)—on user trust and their sense of control when using AI-assisted travel planning tools.",
       outcome: "Using a Design Science Research methodology, I developed two prototypes to test user perceptions. The research provided key insights into how AI should communicate with users to foster trust while maintaining transparency and control through effective UI/UX design and qualitative testing.",
       skillsUsed: ["AI Design", "UX/UI", "Experiment"],
+      projectLinks: [
+        { label: "University: HEC", url: "https://www.unil.ch/hec/en/home/menuinst/master/systemes-d-information.html" }
+      ],
+      projectLinksTitle: "Links",
+      linksAfterSkills: true,
       grade: "6/6",
       category: "academic",
       tags: ["AI Design", "UX/UI", "Experiment"],
@@ -475,6 +520,12 @@ const cvData = {
       context: "Developed a comprehensive go-to-market strategy for ARVE Air, an IoT solution targeting the luxury hospitality sector city-by-city and the Americas.",
       outcome: "Designed a phased business development strategy focusing on strategic partnerships and integration with open-API architectures. The project successfully translated complex technical IoT solutions into clear business value propositions.",
       skillsUsed: ["Market Analysis", "IoT", "Strategy"],
+      projectLinks: [
+        { label: "University: EHL", url: "https://www.ehl.edu" },
+        { label: "Company: Arve", url: "https://www.arveair.com" }
+      ],
+      projectLinksTitle: "Links",
+      linksAfterSkills: true,
       grade: "6/6",
       category: "academic",
       tags: ["Market Analysis", "IoT", "Strategy"],
