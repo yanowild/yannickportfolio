@@ -36,15 +36,47 @@ import {
 const IconCloud = lazy(() => import("./components/ui/interactive-icon-cloud").then(m => ({ default: m.IconCloud })));
 const SpinningGlobe = lazy(() => import('./Globe').then(m => ({ default: m.Globe })));
 
+const ICON_CLOUD_SLUGS = [
+  "claude",
+  "copilot",
+  "css3",
+  "docker",
+  "expo",
+  "figma",
+  "firebase",
+  "git",
+  "github",
+  "html5",
+  "hubspot",
+  "intellijidea",
+  "javascript",
+  "jira",
+  "kaggle",
+  "lucid",
+  "miro",
+  "mysql",
+  "numpy",
+  "odoo",
+  "pandas",
+  "postman",
+  "python",
+  "react",
+  "render",
+  "sap",
+  "slack",
+  "springboot",
+  "tailwindcss"
+];
+
   const staggerContainer = {
     animate: {
       transition: {
-        staggerChildren: 0
+        staggerChildren: 0.05
       }
     }
   };
 
-  const CardCarousel = ({ project, darkMode }) => {
+  const CardCarousel = React.memo(({ project, darkMode }) => {
     const images = project.images || [project.image];
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const touchStartX = useRef(null);
@@ -79,24 +111,21 @@ const SpinningGlobe = lazy(() => import('./Globe').then(m => ({ default: m.Globe
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
-        <AnimatePresence initial={false} mode="wait">
-          <motion.div
-            key={currentImageIndex}
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="absolute inset-0"
+        {images.map((img, idx) => (
+          <div
+            key={idx}
+            className="absolute inset-0 transition-opacity duration-300 ease-in-out"
+            style={{ opacity: idx === currentImageIndex ? 1 : 0, pointerEvents: idx === currentImageIndex ? 'auto' : 'none' }}
           >
             <img 
-              src={images[currentImageIndex]} 
-              alt={`${project.title} - ${currentImageIndex + 1}`}
+              src={img} 
+              alt={`${project.title} - ${idx + 1}`}
               loading="lazy"
               className={`w-full h-full ${project.imageContain ? 'object-cover object-left-top' : 'object-cover'} transition-all duration-500 ${darkMode ? 'brightness-[0.8]' : 'brightness-[0.95]'} group-hover:brightness-100`}
             />
             <div className={`absolute inset-0 transition-colors group-hover:bg-transparent ${darkMode ? 'bg-slate-900/30' : 'bg-slate-900/5'}`} />
-          </motion.div>
-        </AnimatePresence>
+          </div>
+        ))}
 
         {images.length > 1 && (
           <>
@@ -125,7 +154,7 @@ const SpinningGlobe = lazy(() => import('./Globe').then(m => ({ default: m.Globe
         )}
       </div>
     );
-  };
+  });
 
   const ProjectModal = ({ project, onClose, t, darkMode }) => {
     // Fix for "click inside, release outside" closing the modal
@@ -151,7 +180,7 @@ const SpinningGlobe = lazy(() => import('./Globe').then(m => ({ default: m.Globe
         exit={{ opacity: 0 }}
         onMouseDown={handleOverlayMouseDown}
         onMouseUp={handleOverlayMouseUp}
-        className={`fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-sm ${darkMode ? 'bg-slate-950/80' : 'bg-black/40'}`}
+        className={`fixed inset-0 z-50 flex items-center justify-center p-4 ${darkMode ? 'bg-slate-950/80' : 'bg-black/50'}`}
       >
         <motion.div
           initial={{ scale: 0.9, opacity: 0, y: 20 }}
@@ -248,6 +277,265 @@ const SpinningGlobe = lazy(() => import('./Globe').then(m => ({ default: m.Globe
     );
   };
 
+
+const uiText = {
+  en: {
+    nav: {
+      projects: 'Projects',
+      expertise: 'Expertise',
+      skills: 'Skills',
+      experience: 'Experience',
+      education: 'Education',
+      contact: 'Contact'
+    },
+    hero: {
+      greeting: 'Hi, I am',
+      tagline: 'Business Analyst',
+      tagline2: 'Focused on operational efficiency and digital transformation',
+      bio: 'I design and implement structured digital solutions that improve business processes, align systems, and create measurable impact through data and technology.',
+      downloadCV: 'CV',
+      contact: 'Contact'
+    },
+    sections: {
+      featuredProjects: 'Projects',
+      featuredProjectsDesc: 'A selection of projects that showcase my skills and expertise.',
+      expertise: {
+        title: 'My Expertise',
+        subtitle: 'Where business, operations, and digital systems meet.',
+        items: [
+          {
+            title: 'Information Systems',
+            desc: 'Designing and analyzing enterprise systems to align business needs, data, and technology.'
+          },
+          {
+            title: 'Process Optimization',
+            desc: 'Analyzing and redesigning business processes to make them clearer, faster, and more effective.'
+          },
+          {
+            title: 'Operational Efficiency',
+            desc: 'Improving performance by reducing friction, waste, and inefficiencies in operations.'
+          },
+          {
+            title: 'Digital Innovation',
+            desc: 'Identifying and shaping digital and AI-enabled solutions that create real operational value.'
+          }
+        ]
+      },
+      modal: {
+        role: 'My Role',
+        context: 'Context',
+        outcome: 'Outcome',
+        skills: 'Skills',
+        viewProject: 'View Project'
+      },
+      categories: {
+        all: 'All',
+        operations: 'Operations',
+        academic: 'Academic'
+      },
+      experience: {
+        title: 'Experience',
+        subtitle: 'A brief overview of my professional journey.'
+      },
+      technical: 'Technical Skills',
+      technicalExpertise: {
+        title: 'Technical Skills',
+        subtitle: 'My Skills',
+        desc: 'With a strong foundation in both design and development, I bring a holistic approach to every project. My technical skills include:',
+        skills: [
+          'JavaScript / TypeScript',
+          'React / Next.js',
+          'Node.js / Express',
+          'HTML / CSS',
+          'Tailwind CSS',
+          'UI/UX Design',
+          'Figma / Adobe XD',
+          'MongoDB / SQL',
+          'Git / GitHub',
+          'Responsive Design',
+          'Performance Optimization',
+          'SEO Best Practices'
+        ]
+      },
+      interpersonal: 'Interpersonnel',
+      education: 'Education'
+    },
+    footer: {
+      languages: 'Languages',
+      interests: 'Interests',
+      touch: 'Get in touch'
+    }
+  }
+};
+
+const t = uiText.en;
+const fadeIn = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+  exit: { opacity: 0, scale: 0.95 },
+  transition: { duration: 0.3 }
+};
+
+const cvData = {
+  name: "Yannick",
+  lastName: "Wild",
+  title: "Business Analyst",
+  projects: [
+    {
+      title: "SAP FSM Platform",
+      desc: "Implemented SAP FSM to streamline and improve field service management operations globally.",
+      role: "Product Owner",
+      context: "Led the global implementation of the SAP Field Service Management (FSM) platform to harmonize customer service processes across multiple regions and ERP systems (Great Plains, SAP, iScala).",
+      outcome: "Successfully streamlined field service operations, defined key performance indicators (KPIs), and configured advanced dashboards in SAP Analytics Cloud, facilitating cross-departmental collaboration and maximizing operational value.",
+      skillsUsed: ["Product Management", "Agile", "Analytics"],
+      category: "operations",
+      tags: ["Product Management", "Agile", "Analytics"],
+      imageContain: true,
+      image: "/assets/SAP FSM 1.webp",
+      images: [
+        "/assets/SAP FSM 1.webp",
+        "/assets/SAP FSM 2.webp",
+        "/assets/SAP FSM 3.webp",]
+    },
+    {
+      title: "Workflow Design",
+      desc: "Implemented a new operational structure and standardized workflows to improve productivity and eliminate bottlenecks.",
+      role: "Business Analyst",
+      context: "Led a project focused on optimizing operational processes, enhancing workflow productivity, and standardizing project management methodologies within a complex business environment.",
+      outcome: "Designed and implemented a standardized project workflow that significantly reduced bottlenecks. Developed advanced Excel templates and VBA macros to streamline reporting and monitoring of multimillion-euro investment budgets.",
+      skillsUsed: ["Workflow Design", "BPMN", "User Training"],
+      category: "operations",
+      tags: ["Workflow Design", "BPMN", "User Training"],
+      image: "/assets/Workflow Design 1.webp",
+      images: [
+        "/assets/Workflow Design 1.webp",
+        "/assets/Workflow Design 2.webp",
+        "/assets/Workflow Design 3.webp",
+      ]
+    },
+    {
+      title: "Hotel Procurement",
+      desc: "Managed luxury hotel fit-outs and renovations, coordinating end-to-end FF&E procurement and on-site installations.",
+      role: "Project Manager",
+      context: "Managed end-to-end delivery of high-profile luxury hotel projects (e.g., Six Senses Ibiza, Rosewood Villa Magna), overseeing contracts and supplier management for projects with budgets up to €15 million.",
+      outcome: "Successfully coordinated procurement and logistics for up to 5,000 items from 100+ suppliers. Maintained strict on-time and on-budget execution through rigorous risk and quality controls, leading core teams to successful project delivery.",
+      skillsUsed: ["Logistics", "Supply Chain", "Budget Control"],
+      projectLinks: [
+        { label: "Rosewood Villa Magna", url: "https://www.rosewoodhotels.com/en/villa-magna" },
+        { label: "Six Senses Ibiza", url: "https://www.sixsenses.com/en/hotels-resorts/europe/spain/ibiza" }
+      ],
+      category: "operations",
+      tags: ["Logistics", "Supply Chain", "Budget Control"],
+      image: "/assets/Hotel Procurement 1.webp",
+      images: [
+        "/assets/Hotel Procurement 1.webp",
+        "/assets/Hotel Procurement 2.webp",
+        "/assets/Hotel Procurement 3.webp",
+      ]
+    },
+    {
+      title: "Applied Projects",
+      desc: "Designed and implemented practical AI solutions to improve operations and decision-making.",
+      role: "Consultant",
+      context: "Delivered AI-driven prototypes and integrations, focusing on measurable business value, transparency, and user trust in professional workflows.",
+      outcome: "Successfully built proof-of-concept assistants, defined AI-specific KPIs, and aligned stakeholders on integration roadmaps to move from experimentation to production environments.",
+      skillsUsed: ["Workflow Analysis", "Roadmap", "ROI"],
+      subtitle: "Industry Collaborations",
+      category: "academic",
+      tags: ["Workflow Analysis", "Roadmap", "ROI"],
+      image: "/assets/Applied Projects 1.webp",
+      images: [
+        "/assets/Applied Projects 1.webp",
+        "/assets/Applied Projects 2.webp",
+        "/assets/Applied Projects 3.webp",
+
+      ]
+    },
+    {
+      title: "HEC Master Thesis",
+      desc: "Design Science Research exploring how interaction design affects user trust and sense of control in AI travel planning.",
+      role: "Researcher",
+      context: "This Master Thesis project investigates the impact of different interaction paradigms—specifically Chatbots versus Graphical User Interfaces (GUI)—on user trust and their sense of control when using AI-assisted travel planning tools.",
+      outcome: "Using a Design Science Research methodology, I developed two prototypes to test user perceptions. The research provided key insights into how AI should communicate with users to foster trust while maintaining transparency and control through effective UI/UX design and qualitative testing.",
+      skillsUsed: ["AI Design", "UX/UI", "Experiment"],
+      grade: "6/6",
+      category: "academic",
+      tags: ["AI Design", "UX/UI", "Experiment"],
+      image: "/assets/Master Thesis 1.webp",
+      images: [
+        "/assets/Master Thesis 1.webp",
+        "/assets/Master Thesis 2.webp",
+        "/assets/Master Thesis 3.webp",
+      ]
+    },
+    {
+      title: "EHL Bachelor Project",
+      desc: "Designed a market entry and business development strategy for an IoT-based hospitality technology startup.",
+      role: "Consultant",
+      context: "Developed a comprehensive go-to-market strategy for ARVE Air, an IoT solution targeting the luxury hospitality sector city-by-city and the Americas.",
+      outcome: "Designed a phased business development strategy focusing on strategic partnerships and integration with open-API architectures. The project successfully translated complex technical IoT solutions into clear business value propositions.",
+      skillsUsed: ["Market Analysis", "IoT", "Strategy"],
+      grade: "6/6",
+      category: "academic",
+      tags: ["Market Analysis", "IoT", "Strategy"],
+      image: "/assets/Arve 1.webp",
+      images: [
+        "/assets/Arve 1.webp",
+        "/assets/Arve 2.webp",
+        "/assets/Arve 3.webp"
+      ]
+    }
+  ],
+  contact: {
+    phone: "+41 79 910 10 84",
+    email: "wildyannick1@gmail.com",
+    location: "Switzerland",
+    nationality: "Swiss"
+  },
+  languages: ["English", "French", "Spanish", "Italian"],
+  summary: "Organised | Resourceful | Analytical Mindset | Solution Oriented",
+  skills: {
+    technical: ["SAP 001", "Python", "Pandas", "JavaScript", "Jira", "SQL", "HTML", "CSS", "Agile Methodologies", "Excel Advanced"],
+    interpersonal: ["Strong communicator", "Problem solver", "Cross-functional collaboration"]
+  },
+  experience: [
+    {
+      company: "GF Machining Solutions",
+      location: "Geneva",
+      role: "Product Owner",
+      period: "2021 - 2023",
+      description: ["Implemented SAP FSM to optimize service operations and workflow efficiency.", "Analyzed service processes and ERP's in US, China, Europe, and APAC."," Designed a global service process within SAP FSM.", "Defined KPIs and configured dashboards in SAP Analytics Cloud to monitor operations."]
+    },
+    {
+      company: "Sunnyland Consulting",
+      location: "Madrid",
+      role: "Project Manager",
+      period: "2019 - 2021",
+      description: ["Managed a team to deliver end-to-end procurement services for luxury hotel openings.", "Procurement services included budget control, purchasing, deliveries, and installations.", "Implemented a new operational structure to improve workflow productivity."]
+    },
+    {
+      company: ["Beau-Rivage Palace (F&B)", "Hotel Bernerhof (Front Office)", "Grand Hôtel & Centre Thermal (Kitchen)"],
+      location: ["Lausanne", "Grindelwald", "Yverdon"],
+      role: "Hospitality Operations",
+      period: "2014 – 2017",
+      description: "Experience in service processes and execution."
+    }
+  ],
+  education: [
+    {
+      school: "HEC Lausanne",
+      degree: "Master in Information Systems & Digital Innovation",
+      period: "2024 - 2025"
+    },
+    {
+      school: "EHL École Hôtelière de Lausanne",
+      degree: "Bachelor in Hospitality Management",
+      period: "2016 - 2020"
+    }
+  ],
+  extra: ["Fitness", "Kitesurf", "Snowboard"]
+};
+
 const Portfolio = () => {
   // const [language, setLanguage] = useState('en'); // Removed to strictly use English
   const [darkMode, setDarkMode] = useState(() => {
@@ -281,263 +569,6 @@ const Portfolio = () => {
     };
   }, [selectedProject]);
 
-  const uiText = {
-    en: {
-      nav: {
-        projects: 'Projects',
-        expertise: 'Expertise',
-        skills: 'Skills',
-        experience: 'Experience',
-        education: 'Education',
-        contact: 'Contact'
-      },
-      hero: {
-        greeting: 'Hi, I am',
-        tagline: 'Business Analyst',
-        tagline2: 'Focused on operational efficiency and digital transformation',
-        bio: 'I design and implement structured digital solutions that improve business processes, align systems, and create measurable impact through data and technology.',
-        downloadCV: 'CV',
-        contact: 'Contact'
-      },
-      sections: {
-        featuredProjects: 'Projects',
-        featuredProjectsDesc: 'A selection of projects that showcase my skills and expertise.',
-        expertise: {
-          title: 'My Expertise',
-          subtitle: 'Where business, operations, and digital systems meet.',
-          items: [
-            {
-              title: 'Information Systems',
-              desc: 'Designing and analyzing enterprise systems to align business needs, data, and technology.'
-            },
-            {
-              title: 'Process Optimization',
-              desc: 'Analyzing and redesigning business processes to make them clearer, faster, and more effective.'
-            },
-            {
-              title: 'Operational Efficiency',
-              desc: 'Improving performance by reducing friction, waste, and inefficiencies in operations.'
-            },
-            {
-              title: 'Digital Innovation',
-              desc: 'Identifying and shaping digital and AI-enabled solutions that create real operational value.'
-            }
-          ]
-        },
-        modal: {
-          role: 'My Role',
-          context: 'Context',
-          outcome: 'Outcome',
-          skills: 'Skills',
-          viewProject: 'View Project'
-        },
-        categories: {
-          all: 'All',
-          operations: 'Operations',
-          academic: 'Academic'
-        },
-        experience: {
-          title: 'Experience',
-          subtitle: 'A brief overview of my professional journey.'
-        },
-        technical: 'Technical Skills',
-        technicalExpertise: {
-          title: 'Technical Skills',
-          subtitle: 'My Skills',
-          desc: 'With a strong foundation in both design and development, I bring a holistic approach to every project. My technical skills include:',
-          skills: [
-            'JavaScript / TypeScript',
-            'React / Next.js',
-            'Node.js / Express',
-            'HTML / CSS',
-            'Tailwind CSS',
-            'UI/UX Design',
-            'Figma / Adobe XD',
-            'MongoDB / SQL',
-            'Git / GitHub',
-            'Responsive Design',
-            'Performance Optimization',
-            'SEO Best Practices'
-          ]
-        },
-        interpersonal: 'Interpersonnel',
-        education: 'Education'
-      },
-      footer: {
-        languages: 'Languages',
-        interests: 'Interests',
-        touch: 'Get in touch'
-      }
-    }
-  };
-
-  const t = uiText.en;
-  const fadeIn = {
-    initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0 },
-    exit: { opacity: 0, scale: 0.95 },
-    transition: { duration: 0.3 }
-  };
-
-  const cvData = {
-    name: "Yannick",
-    lastName: "Wild",
-    title: "Business Analyst",
-    projects: [
-      {
-        title: "SAP FSM Platform",
-        desc: "Implemented SAP FSM to streamline and improve field service management operations globally.",
-        role: "Product Owner",
-        context: "Led the global implementation of the SAP Field Service Management (FSM) platform to harmonize customer service processes across multiple regions and ERP systems (Great Plains, SAP, iScala).",
-        outcome: "Successfully streamlined field service operations, defined key performance indicators (KPIs), and configured advanced dashboards in SAP Analytics Cloud, facilitating cross-departmental collaboration and maximizing operational value.",
-        skillsUsed: ["Product Management", "Agile", "Analytics"],
-        category: "operations",
-        tags: ["Product Management", "Agile", "Analytics"],
-        imageContain: true,
-        image: "/assets/SAP FSM 1.webp",
-        images: [
-          "/assets/SAP FSM 1.webp",
-          "/assets/SAP FSM 2.webp",
-          "/assets/SAP FSM 3.webp",]
-      },
-      {
-        title: "Workflow Design",
-        desc: "Implemented a new operational structure and standardized workflows to improve productivity and eliminate bottlenecks.",
-        role: "Business Analyst",
-        context: "Led a project focused on optimizing operational processes, enhancing workflow productivity, and standardizing project management methodologies within a complex business environment.",
-        outcome: "Designed and implemented a standardized project workflow that significantly reduced bottlenecks. Developed advanced Excel templates and VBA macros to streamline reporting and monitoring of multimillion-euro investment budgets.",
-        skillsUsed: ["Workflow Design", "BPMN", "User Training"],
-        category: "operations",
-        tags: ["Workflow Design", "BPMN", "User Training"],
-        image: "/assets/Workflow Design 1.webp",
-        images: [
-          "/assets/Workflow Design 1.webp",
-          "/assets/Workflow Design 2.webp",
-          "/assets/Workflow Design 3.webp",
-        ]
-      },
-      {
-        title: "Hotel Procurement",
-        desc: "Managed luxury hotel fit-outs and renovations, coordinating end-to-end FF&E procurement and on-site installations.",
-        role: "Project Manager",
-        context: "Managed end-to-end delivery of high-profile luxury hotel projects (e.g., Six Senses Ibiza, Rosewood Villa Magna), overseeing contracts and supplier management for projects with budgets up to €15 million.",
-        outcome: "Successfully coordinated procurement and logistics for up to 5,000 items from 100+ suppliers. Maintained strict on-time and on-budget execution through rigorous risk and quality controls, leading core teams to successful project delivery.",
-        skillsUsed: ["Logistics", "Supply Chain", "Budget Control"],
-        projectLinks: [
-          { label: "Rosewood Villa Magna", url: "https://www.rosewoodhotels.com/en/villa-magna" },
-          { label: "Six Senses Ibiza", url: "https://www.sixsenses.com/en/hotels-resorts/europe/spain/ibiza" }
-        ],
-        category: "operations",
-        tags: ["Logistics", "Supply Chain", "Budget Control"],
-        image: "/assets/Hotel Procurement 1.webp",
-        images: [
-          "/assets/Hotel Procurement 1.webp",
-          "/assets/Hotel Procurement 2.webp",
-          "/assets/Hotel Procurement 3.webp",
-        ]
-      },
-      {
-        title: "Applied Projects",
-        desc: "Designed and implemented practical AI solutions to improve operations and decision-making.",
-        role: "Consultant",
-        context: "Delivered AI-driven prototypes and integrations, focusing on measurable business value, transparency, and user trust in professional workflows.",
-        outcome: "Successfully built proof-of-concept assistants, defined AI-specific KPIs, and aligned stakeholders on integration roadmaps to move from experimentation to production environments.",
-        skillsUsed: ["Workflow Analysis", "Roadmap", "ROI"],
-        subtitle: "Industry Collaborations",
-        category: "academic",
-        tags: ["Workflow Analysis", "Roadmap", "ROI"],
-        image: "/assets/Applied Projects 1.webp",
-        images: [
-          "/assets/Applied Projects 1.webp",
-          "/assets/Applied Projects 2.webp",
-          "/assets/Applied Projects 3.webp",
-
-        ]
-      },
-      {
-        title: "HEC Master Thesis",
-        desc: "Design Science Research exploring how interaction design affects user trust and sense of control in AI travel planning.",
-        role: "Researcher",
-        context: "This Master Thesis project investigates the impact of different interaction paradigms—specifically Chatbots versus Graphical User Interfaces (GUI)—on user trust and their sense of control when using AI-assisted travel planning tools.",
-        outcome: "Using a Design Science Research methodology, I developed two prototypes to test user perceptions. The research provided key insights into how AI should communicate with users to foster trust while maintaining transparency and control through effective UI/UX design and qualitative testing.",
-        skillsUsed: ["AI Design", "UX/UI", "Experiment"],
-        grade: "6/6",
-        category: "academic",
-        tags: ["AI Design", "UX/UI", "Experiment"],
-        image: "/assets/Master Thesis 1.webp",
-        images: [
-          "/assets/Master Thesis 1.webp",
-          "/assets/Master Thesis 2.webp",
-          "/assets/Master Thesis 3.webp",
-        ]
-      },
-      {
-        title: "EHL Bachelor Project",
-        desc: "Designed a market entry and business development strategy for an IoT-based hospitality technology startup.",
-        role: "Consultant",
-        context: "Developed a comprehensive go-to-market strategy for ARVE Air, an IoT solution targeting the luxury hospitality sector city-by-city and the Americas.",
-        outcome: "Designed a phased business development strategy focusing on strategic partnerships and integration with open-API architectures. The project successfully translated complex technical IoT solutions into clear business value propositions.",
-        skillsUsed: ["Market Analysis", "IoT", "Strategy"],
-        grade: "6/6",
-        category: "academic",
-        tags: ["Market Analysis", "IoT", "Strategy"],
-        image: "/assets/Arve 1.webp",
-        images: [
-          "/assets/Arve 1.webp",
-          "/assets/Arve 2.webp",
-          "/assets/Arve 3.webp"
-        ]
-      }
-    ],
-    contact: {
-      phone: "+41 79 910 10 84",
-      email: "wildyannick1@gmail.com",
-      location: "Switzerland",
-      nationality: "Swiss"
-    },
-    languages: ["English", "French", "Spanish", "Italian"],
-    summary: "Organised | Resourceful | Analytical Mindset | Solution Oriented",
-    skills: {
-      technical: ["SAP 001", "Python", "Pandas", "JavaScript", "Jira", "SQL", "HTML", "CSS", "Agile Methodologies", "Excel Advanced"],
-      interpersonal: ["Strong communicator", "Problem solver", "Cross-functional collaboration"]
-    },
-    experience: [
-      {
-        company: "GF Machining Solutions",
-        location: "Geneva",
-        role: "Product Owner",
-        period: "2021 - 2023",
-        description: ["Implemented SAP FSM to optimize service operations and workflow efficiency.", "Analyzed service processes and ERP's in US, China, Europe, and APAC."," Designed a global service process within SAP FSM.", "Defined KPIs and configured dashboards in SAP Analytics Cloud to monitor operations."]
-      },
-      {
-        company: "Sunnyland Consulting",
-        location: "Madrid",
-        role: "Project Manager",
-        period: "2019 - 2021",
-        description: ["Managed a team to deliver end-to-end procurement services for luxury hotel openings.", "Procurement services included budget control, purchasing, deliveries, and installations.", "Implemented a new operational structure to improve workflow productivity."]
-      },
-      {
-        company: ["Beau-Rivage Palace (F&B)", "Hotel Bernerhof (Front Office)", "Grand Hôtel & Centre Thermal (Kitchen)"],
-        location: ["Lausanne", "Grindelwald", "Yverdon"],
-        role: "Hospitality Operations",
-        period: "2014 – 2017",
-        description: "Experience in service processes and execution."
-      }
-    ],
-    education: [
-      {
-        school: "HEC Lausanne",
-        degree: "Master in Information Systems & Digital Innovation",
-        period: "2024 - 2025"
-      },
-      {
-        school: "EHL École Hôtelière de Lausanne",
-        degree: "Bachelor in Hospitality Management",
-        period: "2016 - 2020"
-      }
-    ],
-    extra: ["Fitness", "Kitesurf", "Snowboard"]
-  };
 
   return (
     <ThemeProvider attribute="class" defaultTheme="dark">
@@ -758,7 +789,6 @@ const Portfolio = () => {
                   <motion.div
                     key={project.title}
                     variants={fadeIn}
-                    layout
                     onClick={() => setSelectedProject(project)}
                     className={`group rounded-2xl overflow-hidden transition-all cursor-pointer border ${darkMode ? 'bg-slate-900/50 border-slate-800 hover:border-slate-700' : 'bg-white border-[#D8DCE3] hover:border-[#2F5FD7]/40 shadow-sm'}`}
                   >
@@ -905,37 +935,7 @@ const Portfolio = () => {
             >
               <div className="relative z-10 w-full max-w-lg">
                 <Suspense fallback={<div className="w-full aspect-square" />}>
-                <IconCloud iconSlugs={[
-                  "claude",
-                  "copilot",
-                  "css3",
-                  "docker",
-                  "expo",
-                  "figma",
-                  "firebase",
-                  "git",
-                  "github",
-                  "html5",
-                  "hubspot",
-                  "intellijidea",
-                  "javascript",
-                  "jira",
-                  "kaggle",
-                  "lucid",
-                  "miro",
-                  "mysql",
-                  "numpy",
-                  "odoo",
-                  "pandas",
-                  "postman",
-                  "python",
-                  "react",
-                  "render",
-                  "sap",
-                  "slack",
-                  "springboot",
-                  "tailwindcss"
-                ]} />
+                <IconCloud iconSlugs={ICON_CLOUD_SLUGS} />
                 </Suspense>
               </div>
               <div className={`absolute -inset-4 blur-3xl rounded-full z-0 ${darkMode ? 'bg-blue-400/5' : 'bg-[#2F5FD7]/5'}`} />

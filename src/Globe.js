@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import createGlobe from "cobe";
 
 const GLOBE_CONFIG = {
@@ -10,7 +10,7 @@ const GLOBE_CONFIG = {
   theta: 0.3,
   dark: 1,
   diffuse: 0.4,
-  mapSamples: 16000,
+  mapSamples: 8000,
   mapBrightness: 1.2,
   baseColor: [0.08, 0.12, 0.25],
   markerColor: [96 / 255, 165 / 255, 250 / 255],
@@ -43,9 +43,12 @@ export function Globe({ className, config, darkMode = true }) {
   const phiRef = useRef(0);
   const widthRef = useRef(0);
   const canvasRef = useRef(null);
+  const containerRef = useRef(null);
   const pointerInteracting = useRef(null);
   const pointerInteractionMovement = useRef(0);
   const rRef = useRef(0);
+  const globeRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
 
   const updatePointerInteraction = (value) => {
     pointerInteracting.current = value;
@@ -75,7 +78,30 @@ export function Globe({ className, config, darkMode = true }) {
     }
   };
 
+  // IntersectionObserver to track visibility
   useEffect(() => {
+    const node = containerRef.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsVisible(entry.isIntersecting),
+      { threshold: 0.05 }
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  // Create/destroy globe based on visibility and darkMode
+  useEffect(() => {
+    if (!isVisible || !canvasRef.current) {
+      // Destroy globe when not visible
+      if (globeRef.current) {
+        globeRef.current.destroy();
+        globeRef.current = null;
+      }
+      return;
+    }
+
     window.addEventListener("resize", onResize);
     onResize();
 
@@ -85,18 +111,21 @@ export function Globe({ className, config, darkMode = true }) {
       height: widthRef.current * 2,
       onRender,
     });
+    globeRef.current = globe;
 
     setTimeout(() => {
       if (canvasRef.current) canvasRef.current.style.opacity = "1";
     });
+
     return () => {
       window.removeEventListener("resize", onResize);
       globe.destroy();
+      globeRef.current = null;
     };
-  }, [darkMode]);
+  }, [isVisible, darkMode]);
 
   return (
-    <div className={`relative mx-auto aspect-square w-full max-w-[600px] ${className || ""}`}>
+    <div ref={containerRef} className={`relative mx-auto aspect-square w-full max-w-[600px] ${className || ""}`}>
       <canvas
         className="w-full h-full opacity-0 transition-opacity duration-500"
         style={{ contain: "layout paint size" }}
