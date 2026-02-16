@@ -312,13 +312,13 @@ const uiText = {
       greeting: 'Hi, I am',
       tagline: 'Business Analyst',
       tagline2: 'Focused on operational efficiency and digital transformation',
-      bio: 'I design and implement structured digital solutions that improve business processes, align systems, and create measurable impact through data and technology.',
+      bio: 'Complex systems deserve simple design. I improve business processes by aligning operations with effective information systems.',
       downloadCV: 'CV',
       contact: 'Contact'
     },
     sections: {
       featuredProjects: 'Projects',
-      featuredProjectsDesc: 'A selection of projects that showcase my skills and expertise.',
+      featuredProjectsDesc: 'Selected projects in information systems, operations, and project management.',
       expertise: {
         title: 'My Expertise',
         subtitle: 'Where business, operations, and digital systems meet.',
@@ -403,7 +403,7 @@ const cvData = {
   projects: [
     {
       title: "SAP FSM Platform",
-      desc: "Implemented SAP FSM to streamline and improve field service management operations globally.",
+      desc: "Redesigned global field service operations by implementing SAP FSM (EU, USA, China, APAC).",
       role: "Product Owner",
       context: "Led the global implementation of the SAP Field Service Management (FSM) platform to harmonize customer service processes across multiple regions and ERP systems (Great Plains, SAP, iScala).",
       outcome: "Successfully streamlined field service operations, defined key performance indicators (KPIs), and configured advanced dashboards in SAP Analytics Cloud, facilitating cross-departmental collaboration and maximizing operational value.",
@@ -425,7 +425,7 @@ const cvData = {
     },
     {
       title: "Workflow Design",
-      desc: "Implemented a new operational structure and standardized workflows to improve productivity and eliminate bottlenecks.",
+      desc: "Designed and optimized operational workflows across industrial and hospitality organizations.",
       role: "Business Analyst",
       context: "Led a project focused on optimizing operational processes, enhancing workflow productivity, and standardizing project management methodologies within a complex business environment.",
       outcome: "Designed and implemented a standardized project workflow that significantly reduced bottlenecks. Developed advanced Excel templates and VBA macros to streamline reporting and monitoring of multimillion-euro investment budgets.",
@@ -494,7 +494,7 @@ const cvData = {
     },
     {
       title: "HEC Master Thesis",
-      desc: "Design Science Research exploring how interaction design affects user trust and sense of control in AI travel planning.",
+      desc: "Research exploring how interaction design affects user trust and sense of control in AI travel planning.",
       role: "Researcher",
       context: "This Master Thesis project investigates the impact of different interaction paradigms—specifically Chatbots versus Graphical User Interfaces (GUI)—on user trust and their sense of control when using AI-assisted travel planning tools.",
       outcome: "Using a Design Science Research methodology, I developed two prototypes to test user perceptions. The research provided key insights into how AI should communicate with users to foster trust while maintaining transparency and control through effective UI/UX design and qualitative testing.",
@@ -721,40 +721,27 @@ const Portfolio = () => {
           animate="animate"
           variants={staggerContainer}
         >
-          <div className="text-center max-w-3xl mx-auto">
-            <motion.p 
-              variants={fadeIn}
-              className={`font-medium mb-4 ${darkMode ? 'text-blue-400' : 'text-[#2F5FD7]'}`}
-            >
-              {t.hero.greeting}
-            </motion.p>
-            
+          <div className="text-center max-w-4xl mx-auto">
             <motion.h1 
               variants={fadeIn}
               className={`text-4xl md:text-8xl font-bold tracking-tight mb-6 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}
             >
-              {cvData.name} <span className={darkMode ? 'text-blue-400' : 'text-[#2F5FD7]'}>{cvData.lastName}</span>
+              {cvData.name} <span className={darkMode ? 'text-slate-300' : 'text-[#1F2933]'}>{cvData.lastName}</span>
             </motion.h1>
 
             <motion.p 
               variants={fadeIn}
-              className={`text-lg md:text-2xl font-medium mb-2 ${darkMode ? 'text-slate-400' : 'text-[#4A5568]'}`}
+              className={`text-lg md:text-2xl font-bold mb-6 ${darkMode ? 'text-blue-400' : 'text-[#2F5FD7]'}`}
             >
               {t.hero.tagline}
             </motion.p>
 
             <motion.p 
               variants={fadeIn}
-              className={`text-lg md:text-xl font-medium mb-6 ${darkMode ? 'text-slate-400' : 'text-[#4A5568]'}`}
+              className={`text-lg md:text-xl font-medium leading-relaxed mb-8 ${darkMode ? 'text-slate-500' : 'text-[#6B7280]'}`}
             >
-              {t.hero.tagline2}
-            </motion.p>
-
-            <motion.p 
-              variants={fadeIn}
-              className={`text-lg leading-relaxed mb-8 ${darkMode ? 'text-slate-500' : 'text-[#6B7280]'}`}
-            >
-              {t.hero.bio}
+              Complex systems deserve simple design.<br />
+              I improve business processes by aligning operations with effective information systems.
             </motion.p>
 
             <motion.div 
@@ -782,8 +769,8 @@ const Portfolio = () => {
               href="#projets"
               className={`inline-flex flex-col items-center gap-1 mt-8 transition-colors ${darkMode ? 'text-slate-400 hover:text-blue-400' : 'text-[#6B7280] hover:text-[#2F5FD7]'}`}
             >
-              <span className="text-sm font-medium">See more</span>
-              <ChevronDown size={20} className="animate-bounce" />
+              <span className="text-sm md:text-base font-bold">See more</span>
+              <ChevronDown size={24} className="animate-bounce" />
             </motion.a>
           </div>
 
