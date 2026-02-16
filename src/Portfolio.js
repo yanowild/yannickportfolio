@@ -121,7 +121,7 @@ const ICON_CLOUD_SLUGS = [
               src={img} 
               alt={`${project.title} - ${idx + 1}`}
               loading="lazy"
-              className={`w-full h-full ${project.imageContain ? 'object-cover object-left-top' : 'object-cover'} transition-all duration-500 ${darkMode ? 'brightness-[0.8]' : 'brightness-[0.95]'} group-hover:brightness-100`}
+              className={`w-full h-full ${project.imageContain ? 'object-cover object-left-top' : 'object-cover'} transition-[filter] duration-500 ${darkMode ? 'brightness-[0.8]' : 'brightness-[0.95]'} group-hover:brightness-100`}
             />
             <div className={`absolute inset-0 transition-colors group-hover:bg-transparent ${darkMode ? 'bg-slate-900/30' : 'bg-slate-900/5'}`} />
           </div>
@@ -549,6 +549,7 @@ const Portfolio = () => {
 
   React.useEffect(() => {
     localStorage.setItem('darkMode', JSON.stringify(darkMode));
+    document.body.style.backgroundColor = darkMode ? '#0b1220' : '#F4F5F7';
   }, [darkMode]);
 
   React.useEffect(() => {
@@ -762,10 +763,10 @@ const Portfolio = () => {
               <button
                 key={key}
                 onClick={() => setActiveFilter(key)}
-                className={`px-6 py-2 rounded-full text-sm font-medium transition-all ${
+                className={`px-6 py-2 rounded-full text-sm font-medium transition-colors border ${
                   activeFilter === key 
-                    ? darkMode ? 'bg-blue-400 text-slate-900' : 'bg-[#2F5FD7] text-white'
-                    : darkMode ? 'bg-slate-800 text-slate-400 hover:bg-slate-700' : 'bg-white text-[#4A5568] hover:bg-[#EDEFF2] border border-[#D8DCE3]'
+                    ? darkMode ? 'bg-blue-400 text-slate-900 border-transparent' : 'bg-[#2F5FD7] text-white border-transparent'
+                    : darkMode ? 'bg-slate-800 text-slate-400 hover:bg-slate-700 border-transparent' : 'bg-white text-[#4A5568] hover:bg-[#EDEFF2] border-[#D8DCE3]'
                 }`}
               >
                 {label}
@@ -790,7 +791,7 @@ const Portfolio = () => {
                     key={project.title}
                     variants={fadeIn}
                     onClick={() => setSelectedProject(project)}
-                    className={`group rounded-2xl overflow-hidden transition-all cursor-pointer border ${darkMode ? 'bg-slate-900/50 border-slate-800 hover:border-slate-700' : 'bg-white border-[#D8DCE3] hover:border-[#2F5FD7]/40 shadow-sm'}`}
+                    className={`group rounded-2xl overflow-hidden transition-colors cursor-pointer border ${darkMode ? 'bg-slate-900/50 border-slate-800 hover:border-slate-700' : 'bg-white border-[#D8DCE3] hover:border-[#2F5FD7]/40'}`}
                   >
                   <CardCarousel project={project} darkMode={darkMode} />
                   
@@ -866,7 +867,7 @@ const Portfolio = () => {
                 <motion.div
                   key={i}
                   variants={fadeIn}
-                  className={`p-8 border rounded-2xl ${darkMode ? 'bg-slate-900/40 border-slate-800' : 'bg-white border-[#D8DCE3] shadow-sm'}`}
+                  className={`p-8 border rounded-2xl ${darkMode ? 'bg-slate-900/40 border-slate-800' : 'bg-white border-[#D8DCE3]'}`}
                 >
                   <div className="mb-2 p-3 w-fit transition-colors">
                     <Icon className={`${darkMode ? 'text-blue-400' : 'text-[#2F5FD7]'}`} size={28} />
@@ -1062,7 +1063,7 @@ const Portfolio = () => {
             </div>
 
             <div className="md:col-span-1 flex flex-col md:h-full gap-4">
-              <div className={`flex-1 rounded-xl border p-6 text-center ${darkMode ? 'border-slate-800 bg-slate-900/40' : 'border-[#D8DCE3] bg-white shadow-sm'}`}>
+              <div className={`flex-1 rounded-xl border p-6 text-center ${darkMode ? 'border-slate-800 bg-slate-900/40' : 'border-[#D8DCE3] bg-white'}`}>
                 <h4 className={`text-lg font-bold mb-4 uppercase tracking-wider ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{t.footer.languages}</h4>
                 <div className="space-y-3">
                   <p className={`text-base ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>🇫🇷 French: Native</p>
@@ -1072,7 +1073,7 @@ const Portfolio = () => {
                 </div>
               </div>
 
-              <div className={`flex-1 rounded-xl border p-6 text-center ${darkMode ? 'border-slate-800 bg-slate-900/40' : 'border-[#D8DCE3] bg-white shadow-sm'}`}>
+              <div className={`flex-1 rounded-xl border p-6 text-center ${darkMode ? 'border-slate-800 bg-slate-900/40' : 'border-[#D8DCE3] bg-white'}`}>
                 <h4 className={`text-lg font-bold mb-4 uppercase tracking-wider ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{t.footer.interests}</h4>
                 <p className={`text-base ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>
                   {cvData.extra.join(' · ')}
@@ -1103,7 +1104,7 @@ const Portfolio = () => {
           <div className="flex flex-col lg:flex-row items-center gap-16">
             <div className="lg:w-1/2 space-y-10">
               <div className="flex items-center gap-6">
-                <div className={`p-4 rounded-full ${darkMode ? 'bg-slate-800 text-blue-400' : 'bg-white text-[#2F5FD7] border border-[#D8DCE3]'}`}>
+                <div className={`p-4 rounded-full border ${darkMode ? 'bg-slate-800 text-blue-400 border-transparent' : 'bg-white text-[#2F5FD7] border-[#D8DCE3]'}`}>
                   <Mail size={24} />
                 </div>
                 <div>
@@ -1112,7 +1113,7 @@ const Portfolio = () => {
                 </div>
               </div>
               <div className="flex items-center gap-6">
-                <div className={`p-4 rounded-full ${darkMode ? 'bg-slate-800 text-blue-400' : 'bg-white text-[#2F5FD7] border border-[#D8DCE3]'}`}>
+                <div className={`p-4 rounded-full border ${darkMode ? 'bg-slate-800 text-blue-400 border-transparent' : 'bg-white text-[#2F5FD7] border-[#D8DCE3]'}`}>
                   <Phone size={24} />
                 </div>
                 <div>
@@ -1121,7 +1122,7 @@ const Portfolio = () => {
                 </div>
               </div>
               <div className="flex items-center gap-6">
-                <div className={`p-4 rounded-full ${darkMode ? 'bg-slate-800 text-blue-400' : 'bg-white text-[#2F5FD7] border border-[#D8DCE3]'}`}>
+                <div className={`p-4 rounded-full border ${darkMode ? 'bg-slate-800 text-blue-400 border-transparent' : 'bg-white text-[#2F5FD7] border-[#D8DCE3]'}`}>
                   <MapPin size={24} />
                 </div>
                 <div>
@@ -1132,10 +1133,10 @@ const Portfolio = () => {
               <div>
                 <h4 className={`text-lg font-bold mb-4 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>Socials</h4>
                 <div className="flex gap-4">
-                  <a href="https://www.linkedin.com/in/yannick-wild/" target="_blank" rel="noopener noreferrer" className={`p-4 rounded-full transition-all ${darkMode ? 'bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-blue-400' : 'bg-white text-[#4A5568] hover:bg-[#EDEFF2] hover:text-[#2F5FD7] border border-[#D8DCE3]'}`}>
+                  <a href="https://www.linkedin.com/in/yannick-wild/" target="_blank" rel="noopener noreferrer" className={`p-4 rounded-full transition-colors border ${darkMode ? 'bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-blue-400 border-transparent' : 'bg-white text-[#4A5568] hover:bg-[#EDEFF2] hover:text-[#2F5FD7] border-[#D8DCE3]'}`}>
                     <Linkedin size={24} />
                   </a>
-                  <a href="https://github.com/yanowild" target="_blank" rel="noopener noreferrer" className={`p-4 rounded-full transition-all ${darkMode ? 'bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-blue-400' : 'bg-white text-[#4A5568] hover:bg-[#EDEFF2] hover:text-[#2F5FD7] border border-[#D8DCE3]'}`}>
+                  <a href="https://github.com/yanowild" target="_blank" rel="noopener noreferrer" className={`p-4 rounded-full transition-colors border ${darkMode ? 'bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-blue-400 border-transparent' : 'bg-white text-[#4A5568] hover:bg-[#EDEFF2] hover:text-[#2F5FD7] border-[#D8DCE3]'}`}>
                     <Github size={24} />
                   </a>
                 </div>

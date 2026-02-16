@@ -91,7 +91,7 @@ export function Globe({ className, config, darkMode = true }) {
     return () => observer.disconnect();
   }, []);
 
-  // Create/destroy globe based on visibility and darkMode
+  // Create/destroy globe based on visibility
   useEffect(() => {
     if (!isVisible || !canvasRef.current) {
       // Destroy globe when not visible
@@ -122,7 +122,26 @@ export function Globe({ className, config, darkMode = true }) {
       globe.destroy();
       globeRef.current = null;
     };
-  }, [isVisible, darkMode]);
+  }, [isVisible]);
+
+  // Update globe colors on darkMode change without destroying it
+  useEffect(() => {
+    if (!globeRef.current || !isVisible) return;
+    // Destroy and recreate is needed for cobe, but preserve canvas dimensions
+    // to avoid layout shift. We do a quick swap.
+    if (!canvasRef.current) return;
+    const currentOpacity = canvasRef.current.style.opacity;
+    globeRef.current.destroy();
+    const globe = createGlobe(canvasRef.current, {
+      ...effectiveConfig,
+      width: widthRef.current * 2,
+      height: widthRef.current * 2,
+      onRender,
+    });
+    globeRef.current = globe;
+    // Keep opacity so canvas doesn't flash
+    canvasRef.current.style.opacity = currentOpacity;
+  }, [darkMode]);
 
   return (
     <div ref={containerRef} className={`relative mx-auto aspect-square w-full max-w-[600px] ${className || ""}`}>

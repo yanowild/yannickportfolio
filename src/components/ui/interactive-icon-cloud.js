@@ -31,7 +31,7 @@ export const cloudProps = {
     tooltipDelay: 0,
     outlineColour: "#0000",
     maxSpeed: 0.01,
-    minSpeed: 0.002,
+    minSpeed: 0.01,
     dragControl: true,
   },
 }
@@ -56,7 +56,7 @@ export const renderCustomIcon = (icon, theme) => {
   })
 }
 
-export function IconCloud({ iconSlugs }) {
+export const IconCloud = React.memo(function IconCloud({ iconSlugs }) {
   const [data, setData] = useState(null)
   const { theme } = useTheme()
 
@@ -70,11 +70,12 @@ export function IconCloud({ iconSlugs }) {
     return Object.values(data.simpleIcons).map((icon) =>
       renderCustomIcon(icon, theme || "light"),
     )
-  }, [data, theme])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data])
 
   return (
     <Cloud {...cloudProps}>
       <>{renderedIcons}</>
     </Cloud>
   )
-}
+})
