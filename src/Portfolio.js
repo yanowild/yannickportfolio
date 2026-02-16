@@ -30,7 +30,8 @@ import {
   ChevronRightCircle,
   Sun,
   Moon,
-  Menu
+  Menu,
+  ChevronDown
 } from 'lucide-react';
 
 const IconCloud = lazy(() => import("./components/ui/interactive-icon-cloud").then(m => ({ default: m.IconCloud })));
@@ -775,6 +776,15 @@ const Portfolio = () => {
                 </a>
               </div>
             </motion.div>
+
+            <motion.a
+              variants={fadeIn}
+              href="#projets"
+              className={`inline-flex flex-col items-center gap-1 mt-8 transition-colors ${darkMode ? 'text-slate-400 hover:text-blue-400' : 'text-[#6B7280] hover:text-[#2F5FD7]'}`}
+            >
+              <span className="text-sm font-medium">See more</span>
+              <ChevronDown size={20} className="animate-bounce" />
+            </motion.a>
           </div>
 
         </motion.div>
