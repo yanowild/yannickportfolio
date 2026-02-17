@@ -411,7 +411,7 @@ const cvData = {
       desc: "Managed end-to-end procurement services and on-site installations for luxury hotel openings.",
       role: "Project Manager",
       outcome: "Successfully coordinated procurement and logistics for up to 5,000 items from 100+ suppliers. Maintained strict on-time and on-budget execution through rigorous risk and quality controls, leading core teams to successful project delivery.",
-      skillsUsed: ["Logistics", "Sourcing", "Teamwork"],
+      skillsUsed: ["Logistics", "Sourcing", "Team"],
       projectLinks: [
         { label: "Company: Sunnyland", url: "https://www.sunnylandconsulting.com" },
         { label: "Project: Six Senses Ibiza", url: "https://www.sixsenses.com/en/hotels-resorts/europe/spain/ibiza" },
@@ -419,7 +419,7 @@ const cvData = {
       ],
       projectLinksTitle: "Links",
       category: "operations",
-      tags: ["Logistics", "Sourcing", "Teamwork"],
+      tags: ["Logistics", "Sourcing", "Team"],
       image: "/assets/Hotel Procurement 1.webp",
       images: [
         "/assets/Hotel Procurement 1.webp",
@@ -461,7 +461,7 @@ const cvData = {
       projectLinksTitle: "Links",
       grade: "6/6",
       category: "academic",
-      tags: ["Interviews", "Experiment", "Analysis"],
+      tags: ["Interviews", "Experiment", "AI"],
       image: "/assets/Master Thesis 1.webp",
       images: [
         "/assets/Master Thesis 1.webp",
@@ -474,7 +474,7 @@ const cvData = {
       desc: "Developed a market entry and business development strategy for an IoT startup.",
       role: "Consultant",
       outcome: "Designed a phased business development strategy focusing on strategic partnerships and integration with open-API architectures. The project successfully translated complex technical IoT solutions into clear business value propositions.",
-      skillsUsed: ["Strategy", "Data Analysis", "IoT"],
+      skillsUsed: ["Strategy", "Data", "IoT"],
       projectLinks: [
         { label: "University: EHL", url: "https://www.ehl.edu" },
         { label: "Company: Arve", url: "https://www.arveair.com" }
@@ -482,7 +482,7 @@ const cvData = {
       projectLinksTitle: "Links",
       grade: "6/6",
       category: "academic",
-      tags: ["Strategy", "Data Analysis", "IoT"],
+      tags: ["Strategy", "Data", "IoT"],
       image: "/assets/Arve 1.webp",
       images: [
         "/assets/Arve 1.webp",
