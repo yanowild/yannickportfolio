@@ -193,7 +193,7 @@ const ICON_CLOUD_SLUGS = [
         >
           <button 
             onClick={onClose}
-            className={`absolute top-4 right-4 z-20 p-2 backdrop-blur-md rounded-full transition-colors border ${darkMode ? 'bg-slate-900/50 text-slate-400 hover:text-white border-slate-700/50' : 'bg-white/80 text-[#4A5568] hover:text-[#2F5FD7] border-[#D8DCE3]'}`}
+            className={`absolute top-4 right-4 z-20 p-2 backdrop-blur-md rounded-full transition-colors border ${darkMode ? 'bg-slate-900/50 text-slate-400 hover:text-white border-slate-700/50' : 'bg-white/80 text-[#1F2933] hover:text-[#2F5FD7] border-[#D8DCE3]'}`}
           >
             <X size={20} />
           </button>
@@ -203,54 +203,35 @@ const ICON_CLOUD_SLUGS = [
             <div className="mb-8">
               <h3 className={`text-3xl font-bold mb-2 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{project.title}</h3>
               {project.grade && (
-                <p className={`font-semibold text-sm mb-2 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>Grade: {project.grade}</p>
+                <p className={`text-base font-medium mb-2 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>Grade: {project.grade}</p>
               )}
-              <p className={`font-medium text-sm mb-4 ${darkMode ? 'text-slate-300' : 'text-[#4A5568]'}`}>{project.desc}</p>
+              <p className={`text-base mb-4 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{project.desc}</p>
             </div>
 
             <div className="space-y-8">
               {project.role && (
                 <div className={`relative pl-4 border-l-2 ${darkMode ? 'border-blue-400/30' : 'border-[#2F5FD7]'}`}>
-                  <h4 className={`text-[10px] font-bold uppercase tracking-[0.2em] mb-2 ${darkMode ? 'text-slate-400' : 'text-[#6B7280]'}`}>{t.sections.modal.role}</h4>
-                  <p className={`text-sm font-semibold leading-relaxed ${darkMode ? 'text-blue-400' : 'text-[#2F5FD7]'}`}>{project.role}</p>
+                  <h4 className={`text-base font-semibold mb-2 ${darkMode ? 'text-slate-400' : 'text-[#1F2933]'}`}>{t.sections.modal.role}</h4>
+                  <p className={`text-base font-semibold leading-relaxed ${darkMode ? 'text-blue-400' : 'text-[#2F5FD7]'}`}>{project.role}</p>
                 </div>
               )}
 
 
               {project.outcome && (
                 <div className={`p-4 rounded-xl border ${darkMode ? 'bg-slate-800/40 border-slate-700/50' : 'bg-[#F4F5F7] border-[#D8DCE3]'}`}>
-                  <h4 className={`text-[10px] font-bold uppercase tracking-[0.2em] mb-2 ${darkMode ? 'text-slate-400' : 'text-[#6B7280]'}`}>{t.sections.modal.outcome}</h4>
-                  <p className={`text-sm leading-relaxed ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{project.outcome}</p>
-                </div>
-              )}
-
-              {!project.linksAfterSkills && project.projectLinks && project.projectLinks.length > 0 && (
-                <div>
-                  <h4 className={`text-[10px] font-bold uppercase tracking-[0.2em] mb-3 ${darkMode ? 'text-slate-400' : 'text-[#6B7280]'}`}>{project.projectLinksTitle || 'Projects Realized'}</h4>
-                  <div className={`flex ${project.projectLinksInline ? 'flex-row' : 'flex-col'} gap-2`}>
-                    {project.projectLinks.map((link, i) => (
-                      <a
-                        key={i}
-                        href={link.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`inline-flex items-center gap-2 text-sm font-medium transition-colors w-fit ${darkMode ? 'text-slate-300 hover:text-blue-400' : 'text-[#4A5568] hover:text-[#2F5FD7]'}`}
-                      >
-                        {link.label} <ExternalLink size={14} />
-                      </a>
-                    ))}
-                  </div>
+                  <h4 className={`text-base font-semibold mb-2 ${darkMode ? 'text-slate-400' : 'text-[#1F2933]'}`}>{t.sections.modal.outcome}</h4>
+                  <p className={`text-base leading-relaxed ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{project.outcome}</p>
                 </div>
               )}
 
               {project.skillsUsed && (
                 <div>
-                  <h4 className={`text-[10px] font-bold uppercase tracking-[0.2em] mb-3 ${darkMode ? 'text-slate-400' : 'text-[#6B7280]'}`}>{t.sections.modal.skills}</h4>
+                  <h4 className={`text-base font-semibold mb-3 ${darkMode ? 'text-slate-400' : 'text-[#1F2933]'}`}>{t.sections.modal.skills}</h4>
                   <div className="flex flex-wrap gap-2">
                     {project.skillsUsed.map((skill, i) => (
                       <span 
                         key={i}
-                        className={`px-3 py-1 text-xs font-medium rounded-full border ${darkMode ? 'bg-slate-800/80 text-slate-300 border-slate-700' : 'bg-[#EDEFF2] text-[#4A5568] border-[#D8DCE3]'}`}
+                        className={`px-3 py-1 text-base rounded-full border ${darkMode ? 'bg-slate-800/80 text-slate-300 border-slate-700' : 'bg-[#EDEFF2] text-[#1F2933] border-[#D8DCE3]'}`}
                       >
                         {skill}
                       </span>
@@ -259,9 +240,9 @@ const ICON_CLOUD_SLUGS = [
                 </div>
               )}
 
-              {project.linksAfterSkills && project.projectLinks && project.projectLinks.length > 0 && (
+              {project.projectLinks && project.projectLinks.length > 0 && (
                 <div>
-                  <h4 className={`text-[10px] font-bold uppercase tracking-[0.2em] mb-3 ${darkMode ? 'text-slate-400' : 'text-[#6B7280]'}`}>{project.projectLinksTitle || 'Projects Realized'}</h4>
+                  <h4 className={`text-base font-semibold mb-3 ${darkMode ? 'text-slate-400' : 'text-[#1F2933]'}`}>{project.projectLinksTitle || 'Projects Realized'}</h4>
                   <div className={`flex ${project.projectLinksInline ? 'flex-row' : 'flex-col'} gap-2`}>
                     {project.projectLinks.map((link, i) => (
                       <a
@@ -269,25 +250,12 @@ const ICON_CLOUD_SLUGS = [
                         href={link.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`inline-flex items-center gap-2 text-sm font-medium transition-colors w-fit ${darkMode ? 'text-slate-300 hover:text-blue-400' : 'text-[#4A5568] hover:text-[#2F5FD7]'}`}
+                        className={`inline-flex items-center gap-2 text-base transition-colors w-fit ${darkMode ? 'text-slate-300 hover:text-blue-400' : 'text-[#1F2933] hover:text-[#2F5FD7]'}`}
                       >
                         {link.label} <ExternalLink size={14} />
                       </a>
                     ))}
                   </div>
-                </div>
-              )}
-
-              {project.link && (
-                <div className="pt-4 flex flex-col gap-6">
-                  <a 
-                    href={project.link} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className={`inline-flex items-center gap-2 px-6 py-3 text-white rounded-xl font-medium transition-colors w-full justify-center md:w-auto text-sm ${darkMode ? 'bg-blue-400 hover:bg-blue-400/80 text-slate-900' : 'bg-[#2F5FD7] hover:bg-[#2854b5]'}`}
-                  >
-                    {t.sections.modal.viewProject} <ExternalLink size={16} />
-                  </a>
                 </div>
               )}
             </div>
@@ -343,10 +311,8 @@ const uiText = {
       },
       modal: {
         role: 'My Role',
-        context: 'Context',
         outcome: 'Outcome',
         skills: 'Skills',
-        viewProject: 'View Project'
       },
       categories: {
         all: 'All',
@@ -397,25 +363,22 @@ const fadeIn = {
 };
 
 const cvData = {
-  name: "Yannick",
-  lastName: "Wild",
+  name: "Yannick Wild",
   title: "Business Analyst",
   projects: [
     {
       title: "SAP FSM Platform",
-      desc: "Redesigned global field service operations by implementing SAP FSM (EU, USA, China, APAC).",
+      desc: "Redesigned global field service operations by implementing SAP FSM (Europe, USA, China, APAC).",
       role: "Product Owner",
-      context: "Led the global implementation of the SAP Field Service Management (FSM) platform to harmonize customer service processes across multiple regions and ERP systems (Great Plains, SAP, iScala).",
       outcome: "Successfully streamlined field service operations, defined key performance indicators (KPIs), and configured advanced dashboards in SAP Analytics Cloud, facilitating cross-departmental collaboration and maximizing operational value.",
-      skillsUsed: ["Product Management", "Agile", "Analytics"],
+      skillsUsed: ["BPMN", "Agile", "Analytics"],
       projectLinks: [
         { label: "Company: GFMS", url: "https://www.gfms.com/com/en.html" },
         { label: "Platform: SAP FSM", url: "https://www.sap.com/swiss/products/scm/field-service-management.html" }
       ],
       projectLinksTitle: "Links",
-      linksAfterSkills: true,
       category: "operations",
-      tags: ["Product Management", "Agile", "Analytics"],
+      tags: ["BPMN", "Agile", "Analytics"],
       imageContain: true,
       image: "/assets/SAP FSM 1.webp",
       images: [
@@ -424,43 +387,39 @@ const cvData = {
         "/assets/SAP FSM 3.webp",]
     },
     {
-      title: "Workflow Design",
-      desc: "Designed and optimized operational workflows across industrial and hospitality organizations.",
-      role: "Business Analyst",
-      context: "Led a project focused on optimizing operational processes, enhancing workflow productivity, and standardizing project management methodologies within a complex business environment.",
+      title: "Personal projects",
+      desc: "Independent projects where I design and build web applications, mobile apps, and agentic AI systems.",
+      role: "A bit of everything",
       outcome: "Designed and implemented a standardized project workflow that significantly reduced bottlenecks. Developed advanced Excel templates and VBA macros to streamline reporting and monitoring of multimillion-euro investment budgets.",
-      skillsUsed: ["Workflow Design", "BPMN", "User Training"],
+      skillsUsed: ["Full-Stack", "UX/UI", "AI"],
       projectLinks: [
         { label: "Company: GFMS", url: "https://www.gfms.com/com/en.html" },
         { label: "Company: Sunnyland", url: "https://www.sunnylandconsulting.com" }
       ],
       projectLinksTitle: "Links",
-      linksAfterSkills: true,
       category: "operations",
-      tags: ["Workflow Design", "BPMN", "User Training"],
-      image: "/assets/Workflow Design 1.webp",
+      tags: ["Full-Stack", "UX/UI", "AI"],
+      image: "/assets/SAP FSM 3.webp",
       images: [
-        "/assets/Workflow Design 1.webp",
+        "/assets/SAP FSM 3.webp",
         "/assets/Workflow Design 2.webp",
         "/assets/Workflow Design 3.webp",
       ]
     },
     {
       title: "Hotel Procurement",
-      desc: "Managed luxury hotel fit-outs and renovations, coordinating end-to-end FF&E procurement and on-site installations.",
+      desc: "Managed end-to-end procurement services and on-site installations for luxury hotel openings.",
       role: "Project Manager",
-      context: "Managed end-to-end delivery of high-profile luxury hotel projects (e.g., Six Senses Ibiza, Rosewood Villa Magna), overseeing contracts and supplier management for projects with budgets up to €15 million.",
       outcome: "Successfully coordinated procurement and logistics for up to 5,000 items from 100+ suppliers. Maintained strict on-time and on-budget execution through rigorous risk and quality controls, leading core teams to successful project delivery.",
-      skillsUsed: ["Logistics", "Supply Chain", "Budget Control"],
+      skillsUsed: ["Logistics", "Sourcing", "Teamwork"],
       projectLinks: [
         { label: "Company: Sunnyland", url: "https://www.sunnylandconsulting.com" },
-        { label: "Project: Rosewood Villa Magna", url: "https://www.rosewoodhotels.com/en/villa-magna" },
-        { label: "Project: Six Senses Ibiza", url: "https://www.sixsenses.com/en/hotels-resorts/europe/spain/ibiza" }
+        { label: "Project: Six Senses Ibiza", url: "https://www.sixsenses.com/en/hotels-resorts/europe/spain/ibiza" },
+        { label: "Project: Rosewood Villa Magna", url: "https://www.rosewoodhotels.com/en/villa-magna" }
       ],
       projectLinksTitle: "Links",
-      linksAfterSkills: true,
       category: "operations",
-      tags: ["Logistics", "Supply Chain", "Budget Control"],
+      tags: ["Logistics", "Sourcing", "Teamwork"],
       image: "/assets/Hotel Procurement 1.webp",
       images: [
         "/assets/Hotel Procurement 1.webp",
@@ -470,20 +429,18 @@ const cvData = {
     },
     {
       title: "Applied Projects",
-      desc: "Designed and implemented practical AI solutions to improve operations and decision-making.",
+      desc: "Projects developed in collaboration with industry professionals during my Master’s at HEC Lausanne.",
       role: "Consultant",
-      context: "Delivered AI-driven prototypes and integrations, focusing on measurable business value, transparency, and user trust in professional workflows.",
       outcome: "Successfully built proof-of-concept assistants, defined AI-specific KPIs, and aligned stakeholders on integration roadmaps to move from experimentation to production environments.",
-      skillsUsed: ["Workflow Analysis", "Roadmap", "ROI"],
+      skillsUsed: ["Architecture", "Roadmap", "AI"],
       projectLinks: [
         { label: "Company: SAP", url: "https://www.sap.com/index.html" },
         { label: "Company: Valtronic", url: "https://valtronic.com/" }
       ],
       projectLinksTitle: "Links",
-      linksAfterSkills: true,
       subtitle: "Industry Collaborations",
       category: "academic",
-      tags: ["Workflow Analysis", "Roadmap", "ROI"],
+      tags: ["Architecture", "Roadmap", "AI"],
       image: "/assets/Applied Projects 1.webp",
       images: [
         "/assets/Applied Projects 1.webp",
@@ -494,19 +451,17 @@ const cvData = {
     },
     {
       title: "HEC Master Thesis",
-      desc: "Research exploring how interaction design affects user trust and sense of control in AI travel planning.",
+      desc: "Research examining how interaction design influences user trust and sense of control in AI travel planning.",
       role: "Researcher",
-      context: "This Master Thesis project investigates the impact of different interaction paradigms—specifically Chatbots versus Graphical User Interfaces (GUI)—on user trust and their sense of control when using AI-assisted travel planning tools.",
       outcome: "Using a Design Science Research methodology, I developed two prototypes to test user perceptions. The research provided key insights into how AI should communicate with users to foster trust while maintaining transparency and control through effective UI/UX design and qualitative testing.",
-      skillsUsed: ["AI Design", "UX/UI", "Experiment"],
+      skillsUsed: ["Interviews", "Experiment", "Analysis"],
       projectLinks: [
         { label: "University: HEC", url: "https://www.unil.ch/hec/en/home/menuinst/master/systemes-d-information.html" }
       ],
       projectLinksTitle: "Links",
-      linksAfterSkills: true,
       grade: "6/6",
       category: "academic",
-      tags: ["AI Design", "UX/UI", "Experiment"],
+      tags: ["Interviews", "Experiment", "Analysis"],
       image: "/assets/Master Thesis 1.webp",
       images: [
         "/assets/Master Thesis 1.webp",
@@ -516,20 +471,18 @@ const cvData = {
     },
     {
       title: "EHL Bachelor Project",
-      desc: "Designed a market entry and business development strategy for an IoT-based hospitality technology startup.",
+      desc: "Developed a market entry and business development strategy for an IoT startup.",
       role: "Consultant",
-      context: "Developed a comprehensive go-to-market strategy for ARVE Air, an IoT solution targeting the luxury hospitality sector city-by-city and the Americas.",
       outcome: "Designed a phased business development strategy focusing on strategic partnerships and integration with open-API architectures. The project successfully translated complex technical IoT solutions into clear business value propositions.",
-      skillsUsed: ["Market Analysis", "IoT", "Strategy"],
+      skillsUsed: ["Strategy", "Data Analysis", "IoT"],
       projectLinks: [
         { label: "University: EHL", url: "https://www.ehl.edu" },
         { label: "Company: Arve", url: "https://www.arveair.com" }
       ],
       projectLinksTitle: "Links",
-      linksAfterSkills: true,
       grade: "6/6",
       category: "academic",
-      tags: ["Market Analysis", "IoT", "Strategy"],
+      tags: ["Strategy", "Data Analysis", "IoT"],
       image: "/assets/Arve 1.webp",
       images: [
         "/assets/Arve 1.webp",
@@ -726,7 +679,7 @@ const Portfolio = () => {
               variants={fadeIn}
               className={`text-4xl md:text-8xl font-bold tracking-tight mb-6 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}
             >
-              {cvData.name} <span className={darkMode ? 'text-slate-300' : 'text-[#1F2933]'}>{cvData.lastName}</span>
+              {cvData.name}
             </motion.h1>
 
             <motion.p 
@@ -738,10 +691,10 @@ const Portfolio = () => {
 
             <motion.p 
               variants={fadeIn}
-              className={`text-lg md:text-xl font-medium leading-relaxed mb-8 ${darkMode ? 'text-slate-500' : 'text-[#6B7280]'}`}
+              className={`text-lg md:text-xl font-medium leading-relaxed mb-8 ${darkMode ? 'text-slate-500' : 'text-[#1F2933]'}`}
             >
               Complex systems deserve simple design.<br />
-              I improve business processes by aligning operations with effective information systems.
+              I improve business processes by aligning operations with effective digital solutions.
             </motion.p>
 
             <motion.div 
@@ -752,13 +705,13 @@ const Portfolio = () => {
                 <Download size={20} /> {t.hero.downloadCV}
               </button>
               <div className="flex flex-wrap gap-3">
-                <a href="#contact" className={`flex items-center gap-2 p-3 border rounded-lg transition-colors font-medium ${darkMode ? 'border-slate-700 bg-slate-800/30 hover:bg-slate-800/50 text-slate-300 hover:text-blue-400' : 'border-[#D8DCE3] bg-white hover:bg-[#EDEFF2] text-[#4A5568] hover:text-[#2F5FD7]'}`} title="Contact">
+                <a href="#contact" className={`flex items-center gap-2 p-3 border rounded-lg transition-colors font-medium ${darkMode ? 'border-slate-700 bg-slate-800/30 hover:bg-slate-800/50 text-slate-300 hover:text-blue-400' : 'border-[#D8DCE3] bg-white hover:bg-[#EDEFF2] text-[#1F2933] hover:text-[#2F5FD7]'}`} title="Contact">
                   <Mail size={20} />
                 </a>
-                <a href="https://www.linkedin.com/in/yannick-wild/" target="_blank" rel="noopener noreferrer" className={`flex items-center gap-2 p-3 border rounded-lg transition-colors font-medium ${darkMode ? 'border-slate-700 bg-slate-800/30 hover:bg-slate-800/50 text-slate-300 hover:text-blue-400' : 'border-[#D8DCE3] bg-white hover:bg-[#EDEFF2] text-[#4A5568] hover:text-[#2F5FD7]'}`} title="LinkedIn">
+                <a href="https://www.linkedin.com/in/yannick-wild/" target="_blank" rel="noopener noreferrer" className={`flex items-center gap-2 p-3 border rounded-lg transition-colors font-medium ${darkMode ? 'border-slate-700 bg-slate-800/30 hover:bg-slate-800/50 text-slate-300 hover:text-blue-400' : 'border-[#D8DCE3] bg-white hover:bg-[#EDEFF2] text-[#1F2933] hover:text-[#2F5FD7]'}`} title="LinkedIn">
                   <Linkedin size={20} />
                 </a>
-                <a href="https://github.com/yanowild" target="_blank" rel="noopener noreferrer" className={`flex items-center gap-2 p-3 border rounded-lg transition-colors font-medium ${darkMode ? 'border-slate-700 bg-slate-800/30 hover:bg-slate-800/50 text-slate-300 hover:text-blue-400' : 'border-[#D8DCE3] bg-white hover:bg-[#EDEFF2] text-[#4A5568] hover:text-[#2F5FD7]'}`} title="GitHub">
+                <a href="https://github.com/yanowild" target="_blank" rel="noopener noreferrer" className={`flex items-center gap-2 p-3 border rounded-lg transition-colors font-medium ${darkMode ? 'border-slate-700 bg-slate-800/30 hover:bg-slate-800/50 text-slate-300 hover:text-blue-400' : 'border-[#D8DCE3] bg-white hover:bg-[#EDEFF2] text-[#1F2933] hover:text-[#2F5FD7]'}`} title="GitHub">
                   <Github size={20} />
                 </a>
               </div>
@@ -767,7 +720,7 @@ const Portfolio = () => {
             <motion.a
               variants={fadeIn}
               href="#projets"
-              className={`inline-flex flex-col items-center gap-1 mt-8 transition-colors ${darkMode ? 'text-slate-400 hover:text-blue-400' : 'text-[#6B7280] hover:text-[#2F5FD7]'}`}
+              className={`inline-flex flex-col items-center gap-1 mt-8 transition-colors ${darkMode ? 'text-slate-400 hover:text-blue-400' : 'text-[#1F2933] hover:text-[#2F5FD7]'}`}
             >
               <span className="text-sm md:text-base font-bold">See more</span>
               <ChevronDown size={24} className="animate-bounce" />
@@ -794,7 +747,7 @@ const Portfolio = () => {
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className={`max-w-2xl mx-auto text-lg leading-relaxed ${darkMode ? 'text-slate-400' : 'text-[#4A5568]'}`}
+              className={`max-w-2xl mx-auto text-lg leading-relaxed ${darkMode ? 'text-slate-400' : 'text-[#1F2933]'}`}
             >
               {t.sections.featuredProjectsDesc}
             </motion.p>
@@ -811,10 +764,10 @@ const Portfolio = () => {
               <button
                 key={key}
                 onClick={() => setActiveFilter(key)}
-                className={`px-6 py-2 rounded-full text-sm font-medium transition-colors border ${
+                className={`px-6 py-2 rounded-full text-base font-medium transition-colors border ${
                   activeFilter === key 
                     ? darkMode ? 'bg-blue-400 text-slate-900 border-transparent' : 'bg-[#2F5FD7] text-white border-transparent'
-                    : darkMode ? 'bg-slate-800 text-slate-400 hover:bg-slate-700 border-transparent' : 'bg-white text-[#4A5568] hover:bg-[#EDEFF2] border-[#D8DCE3]'
+                    : darkMode ? 'bg-slate-800 text-slate-400 hover:bg-slate-700 border-transparent' : 'bg-white text-[#1F2933] hover:bg-[#EDEFF2] border-[#D8DCE3]'
                 }`}
               >
                 {label}
@@ -850,14 +803,15 @@ const Portfolio = () => {
                       </h3>
                       <ExternalLink size={20} className={`transition-colors ${darkMode ? 'group-hover:text-blue-400' : 'group-hover:text-[#2F5FD7]'} ${darkMode ? 'text-slate-500' : 'text-[#6B7280]'}`} />
                     </div>
-                    {project.grade && (
-                      <p className={`transition-colors font-semibold text-sm mb-4 ${darkMode ? 'text-slate-300 group-hover:text-blue-400' : 'text-[#1F2933] group-hover:text-[#2F5FD7]'}`}>Grade: {project.grade}</p>
-                    )}
-                    {project.subtitle && (
-                      <p className={`transition-colors font-semibold text-sm mb-4 ${darkMode ? 'text-slate-300 group-hover:text-blue-400' : 'text-[#1F2933] group-hover:text-[#2F5FD7]'}`}>{project.subtitle}</p>
+                    {/* Project card grade/subtitle */}
+                    {(project.grade || project.subtitle) && (
+                      <div className={`transition-colors font-medium text-base mb-4 ${darkMode ? 'text-slate-300 group-hover:text-blue-400' : 'text-[#1F2933] group-hover:text-[#2F5FD7]'}`}>
+                        {project.grade && <p>Grade: {project.grade}</p>}
+                        {project.subtitle && <p>{project.subtitle}</p>}
+                      </div>
                     )}
                     
-                    <p className={`mb-6 leading-relaxed ${darkMode ? 'text-slate-400' : 'text-[#4A5568]'}`}>
+                    <p className={`mb-6 leading-relaxed ${darkMode ? 'text-slate-400' : 'text-[#1F2933]'}`}>
                       {project.desc}
                     </p>
                     
@@ -865,7 +819,7 @@ const Portfolio = () => {
                       {project.tags.map((tag, i) => (
                         <span 
                           key={i}
-                          className={`px-3 py-1 text-xs font-medium rounded-full border ${darkMode ? 'bg-slate-800/80 text-slate-300 border-slate-700' : 'bg-[#F4F5F7] text-[#4A5568] border-[#D8DCE3]'}`}
+                          className={`px-3 py-1 text-base rounded-full border ${darkMode ? 'bg-slate-800/80 text-slate-300 border-slate-700' : 'bg-[#F4F5F7] text-[#1F2933] border-[#D8DCE3]'}`}
                         >
                           {tag}
                         </span>
