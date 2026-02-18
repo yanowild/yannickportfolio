@@ -1099,7 +1099,7 @@ const Portfolio = () => {
               Contact
             </motion.h2>
           </div>
-          <p className={`text-lg leading-relaxed mb-12 text-center ${darkMode ? 'text-slate-400' : 'text-[#4A5568]'}`}>
+          <p className={`text-lg leading-relaxed mb-12 text-center ${darkMode ? 'text-slate-400' : 'text-[#1F2933]'}`}>
             Interested in improving your systems?
             <br />
             Let’s connect.
@@ -1111,36 +1111,27 @@ const Portfolio = () => {
                 <div className={`p-4 rounded-full border ${darkMode ? 'bg-slate-800 text-blue-400 border-transparent' : 'bg-white text-[#2F5FD7] border-[#D8DCE3]'}`}>
                   <Mail size={24} />
                 </div>
-                <div>
-                  <h4 className={`text-lg font-bold ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>Email</h4>
-                  <p className={darkMode ? 'text-slate-400' : 'text-[#4A5568]'}>{cvData.contact.email}</p>
-                </div>
+                <p className={`text-base font-semibold ${darkMode ? 'text-slate-400' : 'text-[#1F2933]'}`}>{cvData.contact.email}</p>
               </div>
               <div className="flex items-center gap-6">
                 <div className={`p-4 rounded-full border ${darkMode ? 'bg-slate-800 text-blue-400 border-transparent' : 'bg-white text-[#2F5FD7] border-[#D8DCE3]'}`}>
                   <Phone size={24} />
                 </div>
-                <div>
-                  <h4 className={`text-lg font-bold ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>Phone</h4>
-                  <p className={darkMode ? 'text-slate-400' : 'text-[#4A5568]'}>{cvData.contact.phone}</p>
-                </div>
+                <p className={`text-base font-semibold ${darkMode ? 'text-slate-400' : 'text-[#1F2933]'}`}>{cvData.contact.phone}</p>
               </div>
               <div className="flex items-center gap-6">
                 <div className={`p-4 rounded-full border ${darkMode ? 'bg-slate-800 text-blue-400 border-transparent' : 'bg-white text-[#2F5FD7] border-[#D8DCE3]'}`}>
                   <MapPin size={24} />
                 </div>
-                <div>
-                  <h4 className={`text-lg font-bold ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>Location</h4>
-                  <p className={darkMode ? 'text-slate-400' : 'text-[#4A5568]'}>{cvData.contact.location}</p>
-                </div>
+                <p className={`text-base font-semibold ${darkMode ? 'text-slate-400' : 'text-[#1F2933]'}`}>{cvData.contact.location}</p>
               </div>
               <div>
-                <h4 className={`text-lg font-bold mb-4 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>Socials</h4>
+                <h4 className={`text-base font-semibold mb-4 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>Socials</h4>
                 <div className="flex gap-4">
-                  <a href="https://www.linkedin.com/in/yannick-wild/" target="_blank" rel="noopener noreferrer" className={`p-4 rounded-full transition-colors border ${darkMode ? 'bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-blue-400 border-transparent' : 'bg-white text-[#4A5568] hover:bg-[#EDEFF2] hover:text-[#2F5FD7] border-[#D8DCE3]'}`}>
+                  <a href="https://www.linkedin.com/in/yannick-wild/" target="_blank" rel="noopener noreferrer" className={`p-4 rounded-full transition-colors border ${darkMode ? 'bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-blue-400 border-transparent' : 'bg-white text-[#1F2933] hover:bg-[#EDEFF2] hover:text-[#2F5FD7] border-[#D8DCE3]'}`}>
                     <Linkedin size={24} />
                   </a>
-                  <a href="https://github.com/yanowild" target="_blank" rel="noopener noreferrer" className={`p-4 rounded-full transition-colors border ${darkMode ? 'bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-blue-400 border-transparent' : 'bg-white text-[#4A5568] hover:bg-[#EDEFF2] hover:text-[#2F5FD7] border-[#D8DCE3]'}`}>
+                  <a href="https://github.com/yanowild" target="_blank" rel="noopener noreferrer" className={`p-4 rounded-full transition-colors border ${darkMode ? 'bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-blue-400 border-transparent' : 'bg-white text-[#1F2933] hover:bg-[#EDEFF2] hover:text-[#2F5FD7] border-[#D8DCE3]'}`}>
                     <Github size={24} />
                   </a>
                 </div>
@@ -1162,7 +1153,7 @@ const Portfolio = () => {
             </motion.div>
           </div>
 
-          <div className={`mt-8 pt-6 border-t text-center text-sm pb-6 ${darkMode ? 'border-slate-800 text-slate-500' : 'border-[#D8DCE3] text-[#6B7280]'}`}>
+          <div className={`mt-8 pt-6 border-t text-center text-sm pb-6 ${darkMode ? 'border-slate-800 text-slate-500' : 'border-[#D8DCE3] text-[#1F2933]'}`}>
             © {new Date().getFullYear()} Yannick Wild. All rights reserved.
           </div>
         </div>
