@@ -317,7 +317,8 @@ const uiText = {
       categories: {
         all: 'All',
         operations: 'Operations',
-        academic: 'Academic'
+        academic: 'Academic',
+        personal: 'Personal'
       },
       experience: {
         title: 'Experience',
@@ -325,7 +326,7 @@ const uiText = {
       },
       technical: 'Technical Skills',
       technicalExpertise: {
-        title: 'Technical Skills',
+        title: 'Skills',
         subtitle: 'My Skills',
         desc: 'With a strong foundation in both design and development, I bring a holistic approach to every project. My technical skills include:',
         skills: [
@@ -368,6 +369,7 @@ const cvData = {
   projects: [
     {
       title: "SAP FSM Platform",
+      subtitle: "Product Owner",
       desc: "Redesigned global field service operations by implementing SAP FSM (Europe, USA, China, APAC).",
       role: "Product Owner",
       outcome: "Successfully streamlined field service operations, defined key performance indicators (KPIs), and configured advanced dashboards in SAP Analytics Cloud, facilitating cross-departmental collaboration and maximizing operational value.",
@@ -387,27 +389,8 @@ const cvData = {
         "/assets/SAP FSM 3.webp",]
     },
     {
-      title: "Personal projects",
-      desc: "Independent projects where I design and build web applications, mobile apps, and agentic AI systems.",
-      role: "A bit of everything",
-      outcome: "Designed and implemented a standardized project workflow that significantly reduced bottlenecks. Developed advanced Excel templates and VBA macros to streamline reporting and monitoring of multimillion-euro investment budgets.",
-      skillsUsed: ["Full-Stack", "UX/UI", "AI"],
-      projectLinks: [
-        { label: "Company: GFMS", url: "https://www.gfms.com/com/en.html" },
-        { label: "Company: Sunnyland", url: "https://www.sunnylandconsulting.com" }
-      ],
-      projectLinksTitle: "Links",
-      category: "operations",
-      tags: ["Full-Stack", "UX/UI", "AI"],
-      image: "/assets/SAP FSM 3.webp",
-      images: [
-        "/assets/SAP FSM 3.webp",
-        "/assets/Workflow Design 2.webp",
-        "/assets/Workflow Design 3.webp",
-      ]
-    },
-    {
       title: "Hotel Procurement",
+      subtitle: "Project Manager",
       desc: "Managed end-to-end procurement services and on-site installations for luxury hotel openings.",
       role: "Project Manager",
       outcome: "Successfully coordinated procurement and logistics for up to 5,000 items from 100+ suppliers. Maintained strict on-time and on-budget execution through rigorous risk and quality controls, leading core teams to successful project delivery.",
@@ -428,29 +411,8 @@ const cvData = {
       ]
     },
     {
-      title: "Applied Projects",
-      desc: "Projects developed in collaboration with industry professionals during my Master’s at HEC Lausanne.",
-      role: "Consultant",
-      outcome: "Successfully built proof-of-concept assistants, defined AI-specific KPIs, and aligned stakeholders on integration roadmaps to move from experimentation to production environments.",
-      skillsUsed: ["Architecture", "Roadmap", "AI"],
-      projectLinks: [
-        { label: "Company: SAP", url: "https://www.sap.com/index.html" },
-        { label: "Company: Valtronic", url: "https://valtronic.com/" }
-      ],
-      projectLinksTitle: "Links",
-      subtitle: "Industry Collaborations",
-      category: "academic",
-      tags: ["Architecture", "Roadmap", "AI"],
-      image: "/assets/Applied Projects 1.webp",
-      images: [
-        "/assets/Applied Projects 1.webp",
-        "/assets/Applied Projects 2.webp",
-        "/assets/Applied Projects 3.webp",
-
-      ]
-    },
-    {
       title: "HEC Master Thesis",
+      subtitle: "Researcher (Grade: 6/6)",
       desc: "Research examining how interaction design influences user trust and sense of control in AI travel planning.",
       role: "Researcher",
       outcome: "Using a Design Science Research methodology, I developed two prototypes to test user perceptions. The research provided key insights into how AI should communicate with users to foster trust while maintaining transparency and control through effective UI/UX design and qualitative testing.",
@@ -459,7 +421,6 @@ const cvData = {
         { label: "University: HEC", url: "https://www.unil.ch/hec/en/home/menuinst/master/systemes-d-information.html" }
       ],
       projectLinksTitle: "Links",
-      grade: "6/6",
       category: "academic",
       tags: ["Interviews", "Experiment", "AI"],
       image: "/assets/Master Thesis 1.webp",
@@ -471,7 +432,8 @@ const cvData = {
     },
     {
       title: "EHL Bachelor Project",
-      desc: "Developed a market entry and business development strategy for an IoT startup.",
+      subtitle: "Consultant (Grade: 6/6)",
+      desc: "Developed a business development strategy and market entry plan for an IoT air quality solutions company.",
       role: "Consultant",
       outcome: "Designed a phased business development strategy focusing on strategic partnerships and integration with open-API architectures. The project successfully translated complex technical IoT solutions into clear business value propositions.",
       skillsUsed: ["Strategy", "Data", "IoT"],
@@ -480,7 +442,6 @@ const cvData = {
         { label: "Company: Arve", url: "https://www.arveair.com" }
       ],
       projectLinksTitle: "Links",
-      grade: "6/6",
       category: "academic",
       tags: ["Strategy", "Data", "IoT"],
       image: "/assets/Arve 1.webp",
@@ -488,6 +449,49 @@ const cvData = {
         "/assets/Arve 1.webp",
         "/assets/Arve 2.webp",
         "/assets/Arve 3.webp"
+      ]
+    },
+    {
+      title: "Applied Projects",
+      desc: "Projects developed in collaboration with industry professionals during my Master’s at HEC Lausanne.",
+      role: "Consultant",
+      outcome: "Successfully built proof-of-concept assistants, defined AI-specific KPIs, and aligned stakeholders on integration roadmaps to move from experimentation to production environments.",
+      skillsUsed: ["Architecture", "Roadmap", "AI"],
+      projectLinks: [
+        { label: "Company: SAP", url: "https://www.sap.com/index.html" },
+        { label: "Company: Valtronic", url: "https://valtronic.com/" }
+      ],
+      projectLinksTitle: "Links",
+      subtitle: "Consultant",
+      category: "academic",
+      tags: ["Architecture", "Roadmap", "AI"],
+      image: "/assets/Applied Projects 1.webp",
+      images: [
+        "/assets/Applied Projects 1.webp",
+        "/assets/Applied Projects 2.webp",
+        "/assets/Applied Projects 3.webp",
+
+      ]
+    },
+    {
+      title: "Personal projects",
+      subtitle: "Full Stack Developper",
+      desc: "Independent projects where I design and build web applications, mobile apps, and agentic AI systems.",
+      role: "A bit of everything",
+      outcome: "Designed and implemented a standardized project workflow that significantly reduced bottlenecks. Developed advanced Excel templates and VBA macros to streamline reporting and monitoring of multimillion-euro investment budgets.",
+      skillsUsed: ["Full-Stack", "UX/UI", "AI"],
+      projectLinks: [
+        { label: "Company: GFMS", url: "https://www.gfms.com/com/en.html" },
+        { label: "Company: Sunnyland", url: "https://www.sunnylandconsulting.com" }
+      ],
+      projectLinksTitle: "Links",
+      category: "personal",
+      tags: ["Full-Stack", "UX/UI", "AI"],
+      image: "/assets/SAP FSM 3.webp",
+      images: [
+        "/assets/SAP FSM 3.webp",
+        "/assets/Workflow Design 2.webp",
+        "/assets/Workflow Design 3.webp",
       ]
     }
   ],
@@ -519,11 +523,11 @@ const cvData = {
       description: ["Managed a team to deliver end-to-end procurement services for luxury hotel openings.", "Procurement services included budget control, purchasing, deliveries, and installations.", "Implemented a new operational structure to improve workflow productivity."]
     },
     {
-      company: ["Beau-Rivage Palace (F&B)", "Hotel Bernerhof (Front Office)", "Grand Hôtel & Centre Thermal (Kitchen)"],
+      company: ["Beau-Rivage Palace", "Hotel Bernerhof", "Grand Hôtel & Centre Thermal"],
       location: ["Lausanne", "Grindelwald", "Yverdon"],
-      role: "Hospitality Operations",
+      role: "Hotel Ops",
       period: "2014 – 2017",
-      description: "Experience in service processes and execution."
+      description: "Experience in service processes and execution (F&B Service, Kitchen, Front Office)."
     }
   ],
   education: [
@@ -581,12 +585,12 @@ const Portfolio = () => {
       <div className={`min-h-screen selection:bg-blue-400/30 transition-colors duration-300 ${darkMode ? 'bg-[#0b1220] text-slate-300' : 'bg-[#F4F5F7] text-[#1F2933]'}`}>
       <nav className={`fixed inset-x-0 top-0 z-50 border-b backdrop-blur-md transition-colors duration-300 ${darkMode ? 'border-slate-800/80 bg-[#0b1220]/85' : 'border-[#D8DCE3] bg-[#F4F5F7]/90'}`}>
         <div className="container mx-auto flex h-16 items-center justify-between gap-6 px-6">
-          <a href="#profil" className={`flex items-center gap-2 text-lg font-semibold tracking-wide transition-colors duration-300 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>
+          <a href="#profil" className={`flex items-center gap-2 text-lg font-bold tracking-wide transition-colors duration-300 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>
             <Layers className={darkMode ? 'text-blue-400' : 'text-[#2F5FD7]'} size={20} />
             Portfolio
           </a>
           
-          <div className={`hidden items-center gap-8 text-base font-medium lg:flex transition-colors duration-300 ${darkMode ? 'text-slate-400' : 'text-[#4A5568]'}`}>
+          <div className={`hidden items-center gap-8 text-base lg:flex transition-colors duration-300 ${darkMode ? 'text-slate-400' : 'text-[#1F2933]'}`}>
             <a href="#projets" className={`flex items-center gap-2 transition-colors ${darkMode ? 'hover:text-white' : 'hover:text-[#2F5FD7]'}`}>
               <Layout size={16} /> {t.nav.projects}
             </a>
@@ -610,19 +614,19 @@ const Portfolio = () => {
           <div className="flex items-center gap-2">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className={`flex items-center justify-center rounded-full border p-2 transition-colors duration-300 lg:hidden ${darkMode ? 'border-slate-700 bg-slate-800/40 text-slate-300 hover:bg-slate-700/60' : 'border-[#D8DCE3] bg-white text-[#4A5568] hover:bg-[#EDEFF2]'}`}
+              className={`flex h-10 w-10 items-center justify-center rounded-full border transition-colors duration-300 lg:hidden ${darkMode ? 'border-slate-700 bg-slate-800/40 text-slate-300 hover:bg-slate-700/60' : 'border-[#D8DCE3] bg-white text-[#1F2933] hover:bg-[#EDEFF2]'}`}
               title="Menu"
             >
-              <Menu size={16} />
+              <Menu size={20} />
             </button>
             <button
               onClick={() => setDarkMode(!darkMode)}
-              className={`flex items-center justify-center rounded-full border p-2 transition-colors duration-300 ${darkMode ? 'border-slate-700 bg-slate-800/40 text-yellow-400 hover:bg-slate-700/60' : 'border-[#D8DCE3] bg-white text-[#4A5568] hover:bg-[#EDEFF2]'}`}
+              className={`flex h-10 w-10 items-center justify-center rounded-full border transition-colors duration-300 ${darkMode ? 'border-slate-700 bg-slate-800/40 text-yellow-400 hover:bg-slate-700/60' : 'border-[#D8DCE3] bg-white text-[#1F2933] hover:text-[#2F5FD7]'}`}
               title={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
             >
-              {darkMode ? <Sun size={14} /> : <Moon size={14} />}
+              {darkMode ? <Sun size={20} /> : <Moon size={20} />}
             </button>
-            <div className={`flex items-center gap-1 rounded-full border p-2 text-xs font-bold transition-colors duration-300 ${darkMode ? 'border-slate-700 bg-slate-800/40 text-blue-400' : 'border-[#D8DCE3] bg-white text-[#2F5FD7]'}`}>
+            <div className={`flex h-10 w-10 items-center justify-center rounded-full border text-sm font-bold transition-colors duration-300 ${darkMode ? 'border-slate-700 bg-slate-800/40 text-blue-400' : 'border-[#D8DCE3] bg-white text-[#1F2933] hover:text-[#2F5FD7]'}`}>
               EN
             </div>
           </div>
@@ -638,7 +642,7 @@ const Portfolio = () => {
               transition={{ duration: 0.2 }}
               className={`lg:hidden border-t overflow-hidden ${darkMode ? 'border-slate-800 bg-[#0b1220]/95' : 'border-[#D8DCE3] bg-[#F4F5F7]/95'}`}
             >
-              <div className={`flex flex-col gap-1 px-6 py-4 text-base font-medium ${darkMode ? 'text-slate-400' : 'text-[#4A5568]'}`}>
+              <div className={`flex flex-col gap-1 px-6 py-4 text-base ${darkMode ? 'text-slate-400' : 'text-[#1F2933]'}`}>
                 {[
                   { href: '#projets', icon: Layout, label: t.nav.projects },
                   { href: '#expertise', icon: Settings, label: t.nav.expertise },
@@ -845,14 +849,6 @@ const Portfolio = () => {
             >
               Expertise
             </motion.h2>
-            <motion.p 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className={`max-w-2xl mx-auto text-lg leading-relaxed ${darkMode ? 'text-slate-400' : 'text-[#4A5568]'}`}
-            >
-              {t.sections.expertise.subtitle}
-            </motion.p>
           </div>
 
           <motion.div 
@@ -877,7 +873,7 @@ const Portfolio = () => {
                   <h3 className={`text-xl font-bold mb-2 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>
                     {item.title}
                   </h3>
-                  <p className={`leading-relaxed ${darkMode ? 'text-slate-400' : 'text-[#4A5568]'}`}>
+                  <p className={`text-base leading-relaxed ${darkMode ? 'text-slate-400' : 'text-[#1F2933]'}`}>
                     {item.desc}
                   </p>
                 </motion.div>
@@ -890,21 +886,23 @@ const Portfolio = () => {
       {/* Technical Skills Section */}
       <section id="Skills" className={`py-8 scroll-mt-16 border-b transition-colors duration-300 ${darkMode ? 'bg-slate-900/50 border-slate-800' : 'bg-[#EDEFF2] border-[#D8DCE3]'}`}>
         <div className="container mx-auto px-6">
+          <div className="text-center mb-8">
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className={`text-5xl font-bold mb-6 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}
+            >
+              {t.sections.technicalExpertise.title}
+            </motion.h2>
+          </div>
           <div className="flex flex-col lg:flex-row items-center gap-16">
             <div className="lg:w-1/2">
-              <motion.h2 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className={`text-5xl font-bold mb-8 serif ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}
-              >
-                {t.sections.technicalExpertise.title}
-              </motion.h2>
               <motion.p 
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className={`text-lg leading-relaxed mb-10 ${darkMode ? 'text-slate-400' : 'text-[#4A5568]'}`}
+                className={`text-lg leading-relaxed mb-10 ${darkMode ? 'text-slate-400' : 'text-[#1F2933]'}`}
               >
                 {t.sections.technicalExpertise.desc}
               </motion.p>
@@ -923,7 +921,7 @@ const Portfolio = () => {
                     className="flex items-center gap-3"
                   >
                     <div className={`w-1.5 h-1.5 rounded-full ${darkMode ? 'bg-blue-400' : 'bg-[#2F5FD7]'}`} />
-                    <span className={`font-medium ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{skill}</span>
+                    <span className={`text-base font-medium ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{skill}</span>
                   </motion.div>
                 ))}
               </motion.div>
@@ -943,6 +941,25 @@ const Portfolio = () => {
               </div>
               <div className={`absolute -inset-4 blur-3xl rounded-full z-0 ${darkMode ? 'bg-blue-400/5' : 'bg-[#2F5FD7]/5'}`} />
             </motion.div>
+          </div>
+
+          <div className="flex flex-col md:flex-row gap-4 mt-12">
+              <div className={`flex-1 rounded-xl border p-6 text-center ${darkMode ? 'border-slate-800 bg-slate-900/40' : 'border-[#D8DCE3] bg-white'}`}>
+                <h4 className={`text-lg font-bold mb-4 uppercase tracking-wider ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{t.footer.languages}</h4>
+                <div className="space-y-3">
+                  <p className={`text-base ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>🇫🇷 French: Native</p>
+                  <p className={`text-base ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>🇬🇧 English: Native</p>
+                  <p className={`text-base ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>🇪🇸 Spanish: Native</p>
+                  <p className={`text-base ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>🇮🇹 Italian: Fluent (B2)</p>
+                </div>
+              </div>
+
+              <div className={`flex-1 rounded-xl border p-6 text-center ${darkMode ? 'border-slate-800 bg-slate-900/40' : 'border-[#D8DCE3] bg-white'}`}>
+                <h4 className={`text-lg font-bold mb-4 uppercase tracking-wider ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{t.footer.interests}</h4>
+                <p className={`text-base ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>
+                  {cvData.extra.join(' · ')}
+                </p>
+              </div>
           </div>
         </div>
       </section>
@@ -970,18 +987,11 @@ const Portfolio = () => {
             >
               {t.sections.experience.title}
             </motion.h2>
-            <motion.p 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className={`max-w-2xl mx-auto text-lg leading-relaxed ${darkMode ? 'text-slate-400' : 'text-[#4A5568]'}`}
-            >
-              {t.sections.experience.subtitle}
-            </motion.p>
           </div>
           
           <div className="max-w-4xl mx-auto">
             <div className="relative">
+              <div className={`absolute left-0 top-[1rem] bottom-0 w-px ${darkMode ? 'bg-slate-700' : 'bg-[#D8DCE3]'}`} />
               {cvData.experience.map((exp, index) => (
                 <motion.div 
                   key={index}
@@ -989,27 +999,30 @@ const Portfolio = () => {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   
-                  className={`relative pl-8 pb-12 last:pb-0 border-l ${darkMode ? 'border-slate-700' : 'border-[#D8DCE3]'}`}
+                  className="relative pl-8 pb-12 last:pb-0"
                 >
-                  <div className={`absolute -left-1.5 top-0 w-3 h-3 rounded-full ${darkMode ? 'bg-blue-400' : 'bg-[#2F5FD7]'}`} />
+                  <div className={`absolute -left-1.5 top-2.5 w-3 h-3 rounded-full z-10 ${darkMode ? 'bg-blue-400' : 'bg-[#2F5FD7]'}`} />
                   <div className="mb-4">
-                    <span className={`font-mono text-sm block mb-1 ${darkMode ? 'text-blue-400' : 'text-[#2F5FD7]'}`}>{exp.period}</span>
-                    <h3 className={`text-2xl font-bold ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{exp.role}</h3>
+                    <div className="flex items-baseline justify-between gap-4">
+                      <h3 className={`text-2xl font-bold ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{exp.role}</h3>
+                      <span className={`text-base whitespace-nowrap ${darkMode ? 'text-blue-400' : 'text-[#2F5FD7]'}`}>{exp.period}</span>
+                    </div>
                     {Array.isArray(exp.company) ? exp.company.map((c, i) => (
-                      <p key={i} className={`font-medium ${darkMode ? 'text-slate-400' : 'text-[#4A5568]'}`}>{c}{Array.isArray(exp.location) && exp.location[i] ? `, ${exp.location[i]}` : exp.location ? `, ${exp.location}` : ''}</p>
+                      <p
+                        key={i}
+                        className={`text-base font-medium ${i === 0 ? 'mt-1' : ''} ${darkMode ? 'text-slate-400' : 'text-[#1F2933]'}`}
+                      >
+                        {c}{Array.isArray(exp.location) && exp.location[i] ? `, ${exp.location[i]}` : exp.location ? `, ${exp.location}` : ''}
+                      </p>
                     )) : (
-                      <p className={`font-medium ${darkMode ? 'text-slate-400' : 'text-[#4A5568]'}`}>{exp.company}{exp.location ? `, ${exp.location}` : ''}</p>
+                      <p className={`text-base font-medium mt-1 ${darkMode ? 'text-slate-400' : 'text-[#1F2933]'}`}>{exp.company}{exp.location ? `, ${exp.location}` : ''}</p>
                     )}
                   </div>
-                  {Array.isArray(exp.description) || (typeof exp.description === 'string' && exp.description.startsWith('•')) || Array.isArray(exp.company) || exp.company === 'Sunnyland Consulting' ? (
-                    <ul className={`list-disc list-inside leading-relaxed ${darkMode ? 'text-slate-400' : 'text-[#4A5568]'}`}>
-                      {Array.isArray(exp.description) ? exp.description.map((d, i) => <li key={i}>{d}</li>) : <li>{exp.description}</li>}
-                    </ul>
-                  ) : (
-                    <p className={`leading-relaxed ${darkMode ? 'text-slate-400' : 'text-[#4A5568]'}`}>
-                      {exp.description}
-                    </p>
-                  )}
+                  <ul className={`text-base list-disc list-inside leading-relaxed space-y-1 ${darkMode ? 'text-slate-400' : 'text-[#1F2933]'}`}>
+                    {(Array.isArray(exp.description) ? exp.description : [exp.description]).map((d, i) => (
+                      <li key={i}>{d}</li>
+                    ))}
+                  </ul>
                 </motion.div>
               ))}
             </div>
@@ -1020,67 +1033,54 @@ const Portfolio = () => {
       {/* Education section */}
       <section id="formation" className={`py-8 scroll-mt-16 border-b transition-colors duration-300 ${darkMode ? 'bg-slate-900/50 border-slate-800' : 'bg-[#EDEFF2] border-[#D8DCE3]'}`}>
         <div className="container mx-auto px-6">
+          <div className="text-center mb-8">
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className={`text-5xl font-bold mb-6 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}
+            >
+              {t.sections.education}
+            </motion.h2>
+          </div>
 
-          <div className="grid md:grid-cols-3 gap-12 items-stretch max-w-4xl mx-auto">
-            <div className="md:col-span-2">
-              <motion.h2 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className={`text-5xl font-bold mb-6 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}
-              >
-                {t.sections.education}
-              </motion.h2>
-              <div className="relative">
-                {cvData.education.map((edu, index) => (
-                  <motion.div 
-                    key={index}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    
-                    className={`relative pl-8 pb-12 last:pb-0 border-l ${darkMode ? 'border-slate-700' : 'border-[#D8DCE3]'}`}
-                  >
-                    <div className={`absolute -left-1.5 top-0 w-3 h-3 rounded-full ${darkMode ? 'bg-blue-400' : 'bg-[#2F5FD7]'}`} />
-                    <div className="mb-4">
-                      <span className={`font-mono text-sm block mb-1 ${darkMode ? 'text-blue-400' : 'text-[#2F5FD7]'}`}>{edu.period}</span>
+          <div className="max-w-4xl mx-auto">
+            <div className="relative">
+              <div className={`absolute left-0 top-[1rem] bottom-0 w-px ${darkMode ? 'bg-slate-700' : 'bg-[#D8DCE3]'}`} />
+              {cvData.education.map((edu, index) => (
+                <motion.div 
+                  key={index}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  
+                  className="relative pl-8 pb-12 last:pb-0"
+                >
+                  <div className={`absolute -left-1.5 top-2.5 w-3 h-3 rounded-full z-10 ${darkMode ? 'bg-blue-400' : 'bg-[#2F5FD7]'}`} />
+                  <div className="mb-4">
+                    <div className="flex items-baseline justify-between gap-4">
                       {(() => {
                         const parts = edu.degree.split(/ in /i);
                         const diploma = parts[0];
-                        const field = parts.length > 1 ? parts.slice(1).join(' in ') : null;
-                        return (
-                          <>
-                            <h3 className={`text-2xl font-bold ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{diploma}</h3>
-                            {field && (
-                              <p className={`font-medium mt-1 ${darkMode ? 'text-slate-400' : 'text-[#4A5568]'}`}>{field}</p>
-                            )}
-                            <p className={`font-medium ${darkMode ? 'text-slate-400' : 'text-[#4A5568]'}`}>{edu.school}</p>
-                          </>
-                        );
+                        return <h3 className={`text-2xl font-bold ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{diploma}</h3>;
                       })()}
+                      <span className={`text-base whitespace-nowrap ${darkMode ? 'text-blue-400' : 'text-[#2F5FD7]'}`}>{edu.period}</span>
                     </div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-
-            <div className="md:col-span-1 flex flex-col md:h-full gap-4">
-              <div className={`flex-1 rounded-xl border p-6 text-center ${darkMode ? 'border-slate-800 bg-slate-900/40' : 'border-[#D8DCE3] bg-white'}`}>
-                <h4 className={`text-lg font-bold mb-4 uppercase tracking-wider ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{t.footer.languages}</h4>
-                <div className="space-y-3">
-                  <p className={`text-base ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>🇫🇷 French: Native</p>
-                  <p className={`text-base ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>🇬🇧 English: Native</p>
-                  <p className={`text-base ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>🇪🇸 Spanish: Native</p>
-                  <p className={`text-base ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>🇮🇹 Italian: Fluent (B2)</p>
-                </div>
-              </div>
-
-              <div className={`flex-1 rounded-xl border p-6 text-center ${darkMode ? 'border-slate-800 bg-slate-900/40' : 'border-[#D8DCE3] bg-white'}`}>
-                <h4 className={`text-lg font-bold mb-4 uppercase tracking-wider ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{t.footer.interests}</h4>
-                <p className={`text-base ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>
-                  {cvData.extra.join(' · ')}
-                </p>
-              </div>
+                    {(() => {
+                      const parts = edu.degree.split(/ in /i);
+                      const field = parts.length > 1 ? parts.slice(1).join(' in ') : null;
+                      return (
+                        <>
+                          {field && (
+                            <p className={`text-base font-medium mt-1 ${darkMode ? 'text-slate-400' : 'text-[#1F2933]'}`}>{field}</p>
+                          )}
+                          <p className={`text-base font-medium ${darkMode ? 'text-slate-400' : 'text-[#1F2933]'}`}>{edu.school}</p>
+                        </>
+                      );
+                    })()}
+                  </div>
+                </motion.div>
+              ))}
             </div>
           </div>
         </div>
@@ -1089,15 +1089,17 @@ const Portfolio = () => {
       {/* Footer / Contact */}
       <footer id="contact" className={`pt-8 pb-0 scroll-mt-16 transition-colors duration-300 ${darkMode ? 'bg-[#0b1220]' : 'bg-[#F4F5F7]'}`}>
         <div className="container mx-auto px-6 max-w-4xl">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className={`text-5xl font-bold mb-6 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}
-          >
-            Contact
-          </motion.h2>
-          <p className={`text-lg leading-relaxed mb-12 ${darkMode ? 'text-slate-400' : 'text-[#4A5568]'}`}>
+          <div className="text-center mb-8">
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className={`text-5xl font-bold mb-6 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}
+            >
+              Contact
+            </motion.h2>
+          </div>
+          <p className={`text-lg leading-relaxed mb-12 text-center ${darkMode ? 'text-slate-400' : 'text-[#4A5568]'}`}>
             Interested in improving your systems?
             <br />
             Let’s connect.
