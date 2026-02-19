@@ -24,6 +24,7 @@ import {
   Settings,
   Cpu,
   Database,
+  Bot,
   Activity,
   Layers,
   X,
@@ -193,7 +194,7 @@ const ICON_CLOUD_SLUGS = [
         >
           <button 
             onClick={onClose}
-            className={`absolute top-4 right-4 z-20 p-2 backdrop-blur-md rounded-full transition-colors border ${darkMode ? 'bg-slate-900/50 text-slate-400 hover:text-white border-slate-700/50' : 'bg-white/80 text-[#1F2933] hover:text-[#2F5FD7] border-[#D8DCE3]'}`}
+            className={`absolute top-4 right-4 z-20 p-2 backdrop-blur-md rounded-full transition-colors border ${darkMode ? 'bg-slate-900/50 text-slate-400 hover:text-blue-400 border-slate-700/50' : 'bg-white/80 text-[#1F2933] hover:text-[#2F5FD7] border-[#D8DCE3]'}`}
           >
             <X size={20} />
           </button>
@@ -278,7 +279,7 @@ const uiText = {
     },
     hero: {
       greeting: 'Hi, I am',
-      tagline: 'Business Analyst',
+      tagline: 'Business & Systems Engineer',
       tagline2: 'Focused on operational efficiency and digital transformation',
       bio: 'Complex systems deserve simple design. I improve business processes by aligning operations with effective information systems.',
       downloadCV: 'CV',
@@ -293,19 +294,19 @@ const uiText = {
         items: [
           {
             title: 'Information Systems',
-            desc: 'Designing and analyzing enterprise systems to align business needs, data, and technology.'
+            desc: 'Working across systems architecture, data structures and software development.'
           },
           {
             title: 'Process Optimization',
-            desc: 'Analyzing and redesigning business processes to make them clearer, faster, and more effective.'
+            desc: 'Improving efficiency by implementing structured and scalable business processes.'
           },
           {
-            title: 'Operational Efficiency',
-            desc: 'Improving performance by reducing friction, waste, and inefficiencies in operations.'
+            title: 'Artificial Intelligence',
+            desc: 'Leveraging AI tools and APIs for development, automation, and workflow acceleration.'
           },
           {
-            title: 'Digital Innovation',
-            desc: 'Identifying and shaping digital and AI-enabled solutions that create real operational value.'
+            title: 'Interaction Design',
+            desc: 'Focusing on user experience to design intuitive, engaging, and enjoyable interfaces.'
           }
         ]
       },
@@ -324,27 +325,27 @@ const uiText = {
         title: 'Experience',
         subtitle: 'A brief overview of my professional journey.'
       },
-      technical: 'Technical Skills',
+      engineering: 'Engineering',
+      platforms: 'Platforms',
       technicalExpertise: {
         title: 'Skills',
         subtitle: 'My Skills',
         desc: 'With a strong foundation in both design and development, I bring a holistic approach to every project. My technical skills include:',
-        skills: [
-          'JavaScript / TypeScript',
-          'React / Next.js',
-          'Node.js / Express',
-          'HTML / CSS',
-          'Tailwind CSS',
-          'UI/UX Design',
-          'Figma / Adobe XD',
-          'MongoDB / SQL',
-          'Git / GitHub',
-          'Responsive Design',
-          'Performance Optimization',
-          'SEO Best Practices'
+        engineering: [
+          'Artificial Intelligence',
+          'Java - Python - SQL',
+          'HTML - CSS - JS',
+          'Spring - Auth - API',
+        ],
+        platforms: [
+          'IntelliJ - Github',
+          'Jira - Postman',
+          'SAP - Odoo',
+          'Archimate - BPMN',
+
         ]
       },
-      interpersonal: 'Interpersonnel',
+      interpersonal: 'Interpersonal',
       education: 'Education'
     },
     footer: {
@@ -505,36 +506,43 @@ const cvData = {
   summary: "Organised | Resourceful | Analytical Mindset | Solution Oriented",
   skills: {
     technical: ["SAP 001", "Python", "Pandas", "JavaScript", "Jira", "SQL", "HTML", "CSS", "Agile Methodologies", "Excel Advanced"],
-    interpersonal: ["Strong communicator", "Problem solver", "Cross-functional collaboration"]
+    interpersonal: ["Organized", "Resourceful", "Problem Solver", "Team Player"]
   },
   experience: [
+    {
+      company: "Travelpop",
+      location: "Personal Project",
+      role: "Full Stack Dev",
+      period: "2024 - Present",
+      description: ["Building a travel app (web + mobile) where users can:", "Manage reservations, itineraries, travel documentation, and budgets."," Invite other users to edit or view a trip.", "Interact with Google maps directly in the app."]
+    },
     {
       company: "GF Machining Solutions",
       location: "Geneva",
       role: "Product Owner",
       period: "2021 - 2023",
-      description: ["Implemented SAP FSM to optimize service operations and workflow efficiency.", "Analyzed service processes and ERP's in US, China, Europe, and APAC."," Designed a global service process within SAP FSM.", "Defined KPIs and configured dashboards in SAP Analytics Cloud to monitor operations."]
+      description: ["Led the implementation of SAP FSM to optimize global service operations.", "Analyzed service processes and ERP data in Europe, US, China, and APAC."," Designed standard service processes in SAP FSM.", "Defined KPIs and configured dashboards in SAP Analytics Cloud."]
     },
     {
       company: "Sunnyland Consulting",
       location: "Madrid",
       role: "Project Manager",
       period: "2019 - 2021",
-      description: ["Managed a team to deliver end-to-end procurement services for luxury hotel openings.", "Procurement services included budget control, purchasing, deliveries, and installations.", "Implemented a new operational structure to improve workflow productivity."]
+      description: ["Managed a team to deliver end-to-end procurement services for luxury hotel openings.", "Procurement services included: budget control, purchasing, deliveries, and installations.", "Implemented a new operational structure to improve workflow productivity."]
     },
     {
       company: ["Beau-Rivage Palace", "Hotel Bernerhof", "Grand Hôtel & Centre Thermal"],
       location: ["Lausanne", "Grindelwald", "Yverdon"],
       role: "Hotel Ops",
       period: "2014 – 2017",
-      description: "Experience in service processes and execution (F&B Service, Kitchen, Front Office)."
+      description: "Operational experience in F&B (service & kitchen), and front office."
     }
   ],
   education: [
     {
       school: "HEC Lausanne",
       degree: "Master in Information Systems & Digital Innovation",
-      period: "2024 - 2025"
+      period: "2024 - 2026"
     },
     {
       school: "EHL École Hôtelière de Lausanne",
@@ -591,22 +599,22 @@ const Portfolio = () => {
           </a>
           
           <div className={`hidden items-center gap-8 text-base lg:flex transition-colors duration-300 ${darkMode ? 'text-slate-400' : 'text-[#1F2933]'}`}>
-            <a href="#projets" className={`flex items-center gap-2 transition-colors ${darkMode ? 'hover:text-white' : 'hover:text-[#2F5FD7]'}`}>
+            <a href="#projets" className={`flex items-center gap-2 transition-colors ${darkMode ? 'hover:text-blue-400' : 'hover:text-[#2F5FD7]'}`}>
               <Layout size={16} /> {t.nav.projects}
             </a>
-            <a href="#expertise" className={`flex items-center gap-2 transition-colors ${darkMode ? 'hover:text-white' : 'hover:text-[#2F5FD7]'}`}>
+            <a href="#expertise" className={`flex items-center gap-2 transition-colors ${darkMode ? 'hover:text-blue-400' : 'hover:text-[#2F5FD7]'}`}>
               <Settings size={16} /> {t.nav.expertise}
             </a>
-            <a href="#Skills" className={`flex items-center gap-2 transition-colors ${darkMode ? 'hover:text-white' : 'hover:text-[#2F5FD7]'}`}>
+            <a href="#Skills" className={`flex items-center gap-2 transition-colors ${darkMode ? 'hover:text-blue-400' : 'hover:text-[#2F5FD7]'}`}>
               <Zap size={16} /> {t.nav.skills}
             </a>
-            <a href="#experience" className={`flex items-center gap-2 transition-colors ${darkMode ? 'hover:text-white' : 'hover:text-[#2F5FD7]'}`}>
+            <a href="#experience" className={`flex items-center gap-2 transition-colors ${darkMode ? 'hover:text-blue-400' : 'hover:text-[#2F5FD7]'}`}>
               <Briefcase size={16} /> {t.nav.experience}
             </a>
-            <a href="#formation" className={`flex items-center gap-2 transition-colors ${darkMode ? 'hover:text-white' : 'hover:text-[#2F5FD7]'}`}>
+            <a href="#formation" className={`flex items-center gap-2 transition-colors ${darkMode ? 'hover:text-blue-400' : 'hover:text-[#2F5FD7]'}`}>
               <GraduationCap size={16} /> {t.nav.education}
             </a>
-            <a href="#contact" className={`flex items-center gap-2 transition-colors ${darkMode ? 'hover:text-white' : 'hover:text-[#2F5FD7]'}`}>
+            <a href="#contact" className={`flex items-center gap-2 transition-colors ${darkMode ? 'hover:text-blue-400' : 'hover:text-[#2F5FD7]'}`}>
               <Mail size={16} /> {t.nav.contact}
             </a>
           </div>
@@ -655,7 +663,7 @@ const Portfolio = () => {
                     key={href}
                     href={href}
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`flex items-center gap-3 px-3 py-3 rounded-lg transition-colors ${darkMode ? 'hover:bg-slate-800 hover:text-white' : 'hover:bg-[#EDEFF2] hover:text-[#2F5FD7]'}`}
+                    className={`flex items-center gap-3 px-3 py-3 rounded-lg transition-colors ${darkMode ? 'hover:bg-slate-800 hover:text-blue-400' : 'hover:bg-[#EDEFF2] hover:text-[#2F5FD7]'}`}
                   >
                     <Icon size={16} /> {label}
                   </a>
@@ -859,7 +867,7 @@ const Portfolio = () => {
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
           >
             {t.sections.expertise.items.map((item, i) => {
-              const icons = [Database, BarChart3, Settings, Cpu];
+              const icons = [Database, Settings, Bot, User];
               const Icon = icons[i];
               return (
                 <motion.div
@@ -883,7 +891,7 @@ const Portfolio = () => {
         </div>
       </section>
 
-      {/* Technical Skills Section */}
+      {/* Skills Section */}
       <section id="Skills" className={`py-8 scroll-mt-16 border-b transition-colors duration-300 ${darkMode ? 'bg-slate-900/50 border-slate-800' : 'bg-[#EDEFF2] border-[#D8DCE3]'}`}>
         <div className="container mx-auto px-6">
           <div className="text-center mb-8">
@@ -897,36 +905,96 @@ const Portfolio = () => {
             </motion.h2>
           </div>
           <div className="flex flex-col lg:flex-row items-center gap-16">
-            <div className="lg:w-1/2">
-              <motion.p 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className={`text-lg leading-relaxed mb-10 ${darkMode ? 'text-slate-400' : 'text-[#1F2933]'}`}
-              >
-                {t.sections.technicalExpertise.desc}
-              </motion.p>
+            {/* Left: 3 stacked cards */}
+            <div className="w-full lg:w-1/2 flex flex-col gap-6">
+              {/* Technical Card */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Engineering Card */}
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  className="p-6"
+                >
+                  <div className="flex flex-col items-center">
+                    <h4 className={`text-lg font-bold mb-4 text-center w-full ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{t.sections.engineering}</h4>
+                    <div className="space-y-3 w-full pl-[15%]">
+                      {t.sections.technicalExpertise.engineering.map((skill, i) => (
+                        <div key={i} className="flex items-center gap-3">
+                          <div className={`w-1.5 h-1.5 rounded-full ${darkMode ? 'bg-blue-400' : 'bg-[#2F5FD7]'}`} />
+                          <span className={`text-base font-medium ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{skill}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
 
-              <motion.div 
-                variants={staggerContainer}
-                initial="initial"
-                whileInView="animate"
-                viewport={{ once: true }}
-                className="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-8"
-              >
-                {t.sections.technicalExpertise.skills.map((skill, i) => (
-                  <motion.div 
-                    key={i}
-                    variants={fadeIn}
-                    className="flex items-center gap-3"
-                  >
-                    <div className={`w-1.5 h-1.5 rounded-full ${darkMode ? 'bg-blue-400' : 'bg-[#2F5FD7]'}`} />
-                    <span className={`text-base font-medium ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{skill}</span>
-                  </motion.div>
-                ))}
-              </motion.div>
+                {/* Platforms Card */}
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.05 }}
+                  className="p-6"
+                >
+                  <div className="flex flex-col items-center">
+                    <h4 className={`text-lg font-bold mb-4 text-center w-full ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{t.sections.platforms}</h4>
+                    <div className="space-y-3 w-full pl-[15%]">
+                      {t.sections.technicalExpertise.platforms.map((skill, i) => (
+                        <div key={i} className="flex items-center gap-3">
+                          <div className={`w-1.5 h-1.5 rounded-full ${darkMode ? 'bg-blue-400' : 'bg-[#2F5FD7]'}`} />
+                          <span className={`text-base font-medium ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{skill}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Interpersonal Card */}
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.1 }}
+                  className="p-6"
+                >
+                  <div className="flex flex-col items-center">
+                    <h4 className={`text-lg font-bold mb-4 text-center w-full ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{t.sections.interpersonal}</h4>
+                    <div className="space-y-3 w-full pl-[15%]">
+                      {cvData.skills.interpersonal.map((skill, i) => (
+                        <div key={i} className="flex items-center gap-3">
+                          <div className={`w-1.5 h-1.5 rounded-full ${darkMode ? 'bg-blue-400' : 'bg-[#2F5FD7]'}`} />
+                          <span className={`text-base font-medium ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{skill}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+
+                {/* Languages Card */}
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.15 }}
+                  className="p-6"
+                >
+                  <div className="flex flex-col items-center">
+                    <h4 className={`text-lg font-bold mb-4 text-center w-full ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{t.footer.languages}</h4>
+                    <div className="space-y-3 w-full pl-[15%]">
+                      <div className="flex items-center gap-3"><span className={`text-base font-medium ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>🇫🇷 French: Native</span></div>
+                      <div className="flex items-center gap-3"><span className={`text-base font-medium ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>🇬🇧 English: Native</span></div>
+                      <div className="flex items-center gap-3"><span className={`text-base font-medium ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>🇪🇸 Spanish: Native</span></div>
+                      <div className="flex items-center gap-3"><span className={`text-base font-medium ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>🇮🇹 Italian: Fluent (B2)</span></div>
+                    </div>
+                  </div>
+                </motion.div>
+              </div>
             </div>
 
+            {/* Right: Icon Cloud */}
             <motion.div 
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -934,32 +1002,13 @@ const Portfolio = () => {
               transition={{ duration: 0.6 }}
               className="lg:w-1/2 relative flex items-center justify-center"
             >
-              <div className="relative z-10 w-full max-w-lg">
+              <div className="relative z-10 w-full max-w-md">
                 <Suspense fallback={<div className="w-full aspect-square" />}>
                 <IconCloud iconSlugs={ICON_CLOUD_SLUGS} />
                 </Suspense>
               </div>
               <div className={`absolute -inset-4 blur-3xl rounded-full z-0 ${darkMode ? 'bg-blue-400/5' : 'bg-[#2F5FD7]/5'}`} />
             </motion.div>
-          </div>
-
-          <div className="flex flex-col md:flex-row gap-4 mt-12">
-              <div className={`flex-1 rounded-xl border p-6 text-center ${darkMode ? 'border-slate-800 bg-slate-900/40' : 'border-[#D8DCE3] bg-white'}`}>
-                <h4 className={`text-lg font-bold mb-4 uppercase tracking-wider ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{t.footer.languages}</h4>
-                <div className="space-y-3">
-                  <p className={`text-base ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>🇫🇷 French: Native</p>
-                  <p className={`text-base ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>🇬🇧 English: Native</p>
-                  <p className={`text-base ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>🇪🇸 Spanish: Native</p>
-                  <p className={`text-base ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>🇮🇹 Italian: Fluent (B2)</p>
-                </div>
-              </div>
-
-              <div className={`flex-1 rounded-xl border p-6 text-center ${darkMode ? 'border-slate-800 bg-slate-900/40' : 'border-[#D8DCE3] bg-white'}`}>
-                <h4 className={`text-lg font-bold mb-4 uppercase tracking-wider ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{t.footer.interests}</h4>
-                <p className={`text-base ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>
-                  {cvData.extra.join(' · ')}
-                </p>
-              </div>
           </div>
         </div>
       </section>
@@ -1010,7 +1059,7 @@ const Portfolio = () => {
                     {Array.isArray(exp.company) ? exp.company.map((c, i) => (
                       <p
                         key={i}
-                        className={`text-base font-medium ${i === 0 ? 'mt-1' : ''} ${darkMode ? 'text-slate-400' : 'text-[#1F2933]'}`}
+                        className={`text-base font-medium mt-1 ${darkMode ? 'text-slate-400' : 'text-[#1F2933]'}`}
                       >
                         {c}{Array.isArray(exp.location) && exp.location[i] ? `, ${exp.location[i]}` : exp.location ? `, ${exp.location}` : ''}
                       </p>
@@ -1018,9 +1067,9 @@ const Portfolio = () => {
                       <p className={`text-base font-medium mt-1 ${darkMode ? 'text-slate-400' : 'text-[#1F2933]'}`}>{exp.company}{exp.location ? `, ${exp.location}` : ''}</p>
                     )}
                   </div>
-                  <ul className={`text-base list-disc list-inside leading-relaxed space-y-1 ${darkMode ? 'text-slate-400' : 'text-[#1F2933]'}`}>
+                  <ul className={`text-base leading-relaxed space-y-1 ml-[5px] ${darkMode ? 'text-slate-400' : 'text-[#1F2933]'}`}>
                     {(Array.isArray(exp.description) ? exp.description : [exp.description]).map((d, i) => (
-                      <li key={i}>{d}</li>
+                      <li key={i} className="flex gap-2"><span className="mt-[0.70em] min-w-[5px] w-[5px] h-[5px] rounded-full bg-current flex-shrink-0" /><span>{d}</span></li>
                     ))}
                   </ul>
                 </motion.div>
@@ -1074,7 +1123,7 @@ const Portfolio = () => {
                           {field && (
                             <p className={`text-base font-medium mt-1 ${darkMode ? 'text-slate-400' : 'text-[#1F2933]'}`}>{field}</p>
                           )}
-                          <p className={`text-base font-medium ${darkMode ? 'text-slate-400' : 'text-[#1F2933]'}`}>{edu.school}</p>
+                          <p className={`text-base font-medium mt-1 ${darkMode ? 'text-slate-400' : 'text-[#1F2933]'}`}>{edu.school}</p>
                         </>
                       );
                     })()}
