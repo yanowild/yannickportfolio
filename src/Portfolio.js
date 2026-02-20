@@ -5,13 +5,9 @@ import {
   Mail, 
   Phone, 
   MapPin, 
-  Globe, 
-  Zap, 
+  Zap,
   Briefcase, 
   GraduationCap, 
-  Award, 
-  Code, 
-  Users,
   ChevronRight,
   ChevronLeft,
   ExternalLink,
@@ -19,16 +15,12 @@ import {
   Github,
   User,
   Layout,
-  BarChart3,
   Download,
   Settings,
-  Cpu,
   Database,
   Bot,
-  Activity,
   Layers,
   X,
-  ChevronRightCircle,
   Sun,
   Moon,
   Menu,
@@ -194,7 +186,7 @@ const ICON_CLOUD_SLUGS = [
         >
           <button 
             onClick={onClose}
-            className={`absolute top-4 right-4 z-20 p-2 backdrop-blur-md rounded-full transition-colors border ${darkMode ? 'bg-slate-900/50 text-slate-400 hover:text-blue-400 border-slate-700/50' : 'bg-white/80 text-[#1F2933] hover:text-[#2F5FD7] border-[#D8DCE3]'}`}
+            className={`absolute top-4 right-4 z-20 p-2 backdrop-blur-md rounded-full transition-colors border ${darkMode ? 'bg-slate-900/50 text-slate-300 hover:text-blue-400 border-slate-700/50' : 'bg-white/80 text-[#1F2933] hover:text-[#2F5FD7] border-[#D8DCE3]'}`}
           >
             <X size={20} />
           </button>
@@ -212,7 +204,7 @@ const ICON_CLOUD_SLUGS = [
             <div className="space-y-8">
               {project.role && (
                 <div className={`relative pl-4 border-l-2 ${darkMode ? 'border-blue-400/30' : 'border-[#2F5FD7]'}`}>
-                  <h4 className={`text-base font-semibold mb-2 ${darkMode ? 'text-slate-400' : 'text-[#1F2933]'}`}>{t.sections.modal.role}</h4>
+                  <h4 className={`text-base font-semibold mb-2 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{t.projects.modal.role}</h4>
                   <p className={`text-base font-semibold leading-relaxed ${darkMode ? 'text-blue-400' : 'text-[#2F5FD7]'}`}>{project.role}</p>
                 </div>
               )}
@@ -220,14 +212,14 @@ const ICON_CLOUD_SLUGS = [
 
               {project.outcome && (
                 <div className={`p-4 rounded-xl border ${darkMode ? 'bg-slate-800/40 border-slate-700/50' : 'bg-[#F4F5F7] border-[#D8DCE3]'}`}>
-                  <h4 className={`text-base font-semibold mb-2 ${darkMode ? 'text-slate-400' : 'text-[#1F2933]'}`}>{t.sections.modal.outcome}</h4>
+                  <h4 className={`text-base font-semibold mb-2 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{t.projects.modal.outcome}</h4>
                   <p className={`text-base leading-relaxed ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{project.outcome}</p>
                 </div>
               )}
 
               {project.skillsUsed && (
                 <div>
-                  <h4 className={`text-base font-semibold mb-3 ${darkMode ? 'text-slate-400' : 'text-[#1F2933]'}`}>{t.sections.modal.skills}</h4>
+                  <h4 className={`text-base font-semibold mb-3 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{t.projects.modal.skills}</h4>
                   <div className="flex flex-wrap gap-2">
                     {project.skillsUsed.map((skill, i) => (
                       <span 
@@ -243,7 +235,7 @@ const ICON_CLOUD_SLUGS = [
 
               {project.projectLinks && project.projectLinks.length > 0 && (
                 <div>
-                  <h4 className={`text-base font-semibold mb-3 ${darkMode ? 'text-slate-400' : 'text-[#1F2933]'}`}>{project.projectLinksTitle || 'Projects Realized'}</h4>
+                  <h4 className={`text-base font-semibold mb-3 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{project.projectLinksTitle || 'Projects Realized'}</h4>
                   <div className={`flex ${project.projectLinksInline ? 'flex-row' : 'flex-col'} gap-2`}>
                     {project.projectLinks.map((link, i) => (
                       <a
@@ -269,6 +261,7 @@ const ICON_CLOUD_SLUGS = [
 
 const uiText = {
   en: {
+    // Header
     nav: {
       projects: 'Projects',
       expertise: 'Expertise',
@@ -277,39 +270,21 @@ const uiText = {
       education: 'Education',
       contact: 'Contact'
     },
+    // Hero
     hero: {
-      greeting: 'Hi, I am',
+      name: 'Yannick Wild',
       tagline: 'Business & Systems Engineer',
-      tagline2: 'Focused on operational efficiency and digital transformation',
       bio: 'Complex systems deserve simple design. I improve business processes by aligning operations with effective information systems.',
       downloadCV: 'CV',
-      contact: 'Contact'
+      contact: 'Contact',
+      linkedin: 'https://www.linkedin.com/in/yannick-wild/',
+      github: 'https://github.com/yanowild',
+      seeMore: 'See more'
     },
-    sections: {
-      featuredProjects: 'Projects',
-      featuredProjectsDesc: 'Selected projects in information systems, operations, and project management.',
-      expertise: {
-        title: 'My Expertise',
-        subtitle: 'Where business, operations, and digital systems meet.',
-        items: [
-          {
-            title: 'Information Systems',
-            desc: 'Working across systems architecture, data structures and software development.'
-          },
-          {
-            title: 'Process Optimization',
-            desc: 'Improving efficiency by implementing structured and scalable business processes.'
-          },
-          {
-            title: 'Artificial Intelligence',
-            desc: 'Leveraging AI tools and APIs for development, automation, and workflow acceleration.'
-          },
-          {
-            title: 'Interaction Design',
-            desc: 'Focusing on user experience to design intuitive, engaging, and enjoyable interfaces.'
-          }
-        ]
-      },
+    // Projects
+    projects: {
+      title: 'Projects',
+      desc: 'Selected projects in information systems, operations, and project management.',
       modal: {
         role: 'My Role',
         outcome: 'Outcome',
@@ -321,37 +296,244 @@ const uiText = {
         academic: 'Academic',
         personal: 'Personal'
       },
-      experience: {
-        title: 'Experience',
-        subtitle: 'A brief overview of my professional journey.'
-      },
+      items: [
+        {
+          title: "SAP FSM Platform",
+          subtitle: "Product Owner",
+          desc: "Redesigned global field service operations by implementing SAP FSM (Europe, USA, China, APAC).",
+          role: "Product Owner",
+          outcome: "Successfully streamlined field service operations, defined key performance indicators (KPIs), and configured advanced dashboards in SAP Analytics Cloud, facilitating cross-departmental collaboration and maximizing operational value.",
+          skillsUsed: ["BPMN", "Agile", "Analytics"],
+          projectLinks: [
+            { label: "Company: GFMS", url: "https://www.gfms.com/com/en.html" },
+            { label: "Platform: SAP FSM", url: "https://www.sap.com/swiss/products/scm/field-service-management.html" }
+          ],
+          projectLinksTitle: "Links",
+          category: "operations",
+          tags: ["BPMN", "Agile", "Analytics"],
+          imageContain: true,
+          image: "/assets/SAP FSM 1.webp",
+          images: [
+            "/assets/SAP FSM 1.webp",
+            "/assets/SAP FSM 2.webp",
+            "/assets/SAP FSM 3.webp",
+          ]
+        },
+        {
+          title: "Hotel Procurement",
+          subtitle: "Project Manager",
+          desc: "Managed end-to-end procurement services and on-site installations for luxury hotel openings.",
+          role: "Project Manager",
+          outcome: "Successfully coordinated procurement and logistics for up to 5,000 items from 100+ suppliers. Maintained strict on-time and on-budget execution through rigorous risk and quality controls, leading core teams to successful project delivery.",
+          skillsUsed: ["Logistics", "Sourcing", "Team"],
+          projectLinks: [
+            { label: "Company: Sunnyland", url: "https://www.sunnylandconsulting.com" },
+            { label: "Project: Six Senses Ibiza", url: "https://www.sixsenses.com/en/hotels-resorts/europe/spain/ibiza" },
+            { label: "Project: Rosewood Villa Magna", url: "https://www.rosewoodhotels.com/en/villa-magna" }
+          ],
+          projectLinksTitle: "Links",
+          category: "operations",
+          tags: ["Logistics", "Sourcing", "Team"],
+          image: "/assets/Hotel Procurement 1.webp",
+          images: [
+            "/assets/Hotel Procurement 1.webp",
+            "/assets/Hotel Procurement 2.webp",
+            "/assets/Hotel Procurement 3.webp",
+          ]
+        },
+        {
+          title: "HEC Master Thesis",
+          subtitle: "Researcher (Grade: 6/6)",
+          desc: "Research examining how interaction design influences user trust and sense of control in AI travel planning.",
+          role: "Researcher",
+          outcome: "Using a Design Science Research methodology, I developed two prototypes to test user perceptions. The research provided key insights into how AI should communicate with users to foster trust while maintaining transparency and control through effective UI/UX design and qualitative testing.",
+          skillsUsed: ["Interviews", "Experiment", "Analysis"],
+          projectLinks: [
+            { label: "University: HEC", url: "https://www.unil.ch/hec/en/home/menuinst/master/systemes-d-information.html" }
+          ],
+          projectLinksTitle: "Links",
+          category: "academic",
+          tags: ["Interviews", "Experiment", "AI"],
+          image: "/assets/Master Thesis 1.webp",
+          images: [
+            "/assets/Master Thesis 1.webp",
+            "/assets/Master Thesis 2.webp",
+            "/assets/Master Thesis 3.webp",
+          ]
+        },
+        {
+          title: "EHL Bachelor Project",
+          subtitle: "Consultant (Grade: 6/6)",
+          desc: "Developed a business development strategy and market entry plan for an IoT air quality solutions company.",
+          role: "Consultant",
+          outcome: "Designed a phased business development strategy focusing on strategic partnerships and integration with open-API architectures. The project successfully translated complex technical IoT solutions into clear business value propositions.",
+          skillsUsed: ["Strategy", "Data", "IoT"],
+          projectLinks: [
+            { label: "University: EHL", url: "https://www.ehl.edu" },
+            { label: "Company: Arve", url: "https://www.arveair.com" }
+          ],
+          projectLinksTitle: "Links",
+          category: "academic",
+          tags: ["Strategy", "Data", "IoT"],
+          image: "/assets/Arve 1.webp",
+          images: [
+            "/assets/Arve 1.webp",
+            "/assets/Arve 2.webp",
+            "/assets/Arve 3.webp"
+          ]
+        },
+        {
+          title: "Applied Projects",
+          desc: "Projects developed in collaboration with industry professionals during my Master's at HEC Lausanne.",
+          role: "Consultant",
+          outcome: "Successfully built proof-of-concept assistants, defined AI-specific KPIs, and aligned stakeholders on integration roadmaps to move from experimentation to production environments.",
+          skillsUsed: ["Architecture", "Roadmap", "AI"],
+          projectLinks: [
+            { label: "Company: SAP", url: "https://www.sap.com/index.html" },
+            { label: "Company: Valtronic", url: "https://valtronic.com/" }
+          ],
+          projectLinksTitle: "Links",
+          subtitle: "Consultant",
+          category: "academic",
+          tags: ["Architecture", "Roadmap", "AI"],
+          image: "/assets/Applied Projects 1.webp",
+          images: [
+            "/assets/Applied Projects 1.webp",
+            "/assets/Applied Projects 2.webp",
+            "/assets/Applied Projects 3.webp",
+          ]
+        },
+        {
+          title: "Personal projects",
+          subtitle: "Full Stack Developer",
+          desc: "Independent projects where I design and build web applications, mobile apps, and agentic AI systems.",
+          role: "A bit of everything",
+          outcome: "Designed and implemented a standardized project workflow that significantly reduced bottlenecks. Developed advanced Excel templates and VBA macros to streamline reporting and monitoring of multimillion-euro investment budgets.",
+          skillsUsed: ["Full-Stack", "UX/UI", "AI"],
+          projectLinks: [
+            { label: "Company: GFMS", url: "https://www.gfms.com/com/en.html" },
+            { label: "Company: Sunnyland", url: "https://www.sunnylandconsulting.com" }
+          ],
+          projectLinksTitle: "Links",
+          category: "personal",
+          tags: ["Full-Stack", "UX/UI", "AI"],
+          image: "/assets/SAP FSM 3.webp",
+          images: [
+            "/assets/SAP FSM 3.webp",
+            "/assets/Workflow Design 2.webp",
+            "/assets/Workflow Design 3.webp",
+          ]
+        }
+      ]
+    },
+    // Expertise
+    expertise: {
+      title: 'My Expertise',
+      items: [
+        {
+          title: 'Information Systems',
+          desc: 'Working across systems architecture, data structures and software development.'
+        },
+        {
+          title: 'Process Optimization',
+          desc: 'Improving efficiency by implementing structured and scalable business processes.'
+        },
+        {
+          title: 'Artificial Intelligence',
+          desc: 'Leveraging AI tools for development, automation, and workflow acceleration.'
+        },
+        {
+          title: 'Interaction Design',
+          desc: 'Focusing on user experience to design intuitive, engaging, and enjoyable interfaces.'
+        }
+      ]
+    },
+    // Skills
+    skills: {
+      title: 'Skills',
       engineering: 'Engineering',
       platforms: 'Platforms',
-      technicalExpertise: {
-        title: 'Skills',
-        subtitle: 'My Skills',
-        desc: 'With a strong foundation in both design and development, I bring a holistic approach to every project. My technical skills include:',
-        engineering: [
-          'Artificial Intelligence',
-          'Java - Python - SQL',
-          'HTML - CSS - JS',
-          'Spring - Auth - API',
-        ],
-        platforms: [
-          'IntelliJ - Github',
-          'Jira - Postman',
-          'SAP - Odoo',
-          'Archimate - BPMN',
-
-        ]
-      },
       interpersonal: 'Interpersonal',
-      education: 'Education'
-    },
-    footer: {
       languages: 'Languages',
-      interests: 'Interests',
-      touch: 'Get in touch'
+      engineeringSkills: [
+        'Artificial Intelligence',
+        'Java · Python · SQL',
+        'HTML · CSS · JS',
+        'Spring · Auth · API',
+      ],
+      platformsSkills: [
+        'IntelliJ · Github',
+        'Jira · Postman',
+        'SAP · Odoo',
+        'Archimate · BPMN',
+      ],
+      interpersonalSkills: [
+        'Problem Solver',
+        'Organized',
+        'Resourceful',
+        'Team Player'
+      ]
+    },
+    // Experience
+    experience: {
+      title: 'Experience',
+      items: [
+        {
+          company: "Travelpop",
+          location: "Personal Project",
+          role: "Full Stack Dev",
+          period: "2024 - Present",
+          description: ["Building a travel app (web + mobile) where users can:", "Manage reservations, itineraries, travel documentation, and budgets."," Invite other users to edit or view a trip.", "Interact with Google maps directly in the app."]
+        },
+        {
+          company: "GF Machining Solutions",
+          location: "Geneva",
+          role: "Product Owner",
+          period: "2021 - 2023",
+          description: ["Led the implementation of SAP FSM to optimize global service operations.", "Analyzed service processes and ERP data in Europe, US, China, and APAC."," Designed standard service processes in SAP FSM.", "Defined KPIs and configured dashboards in SAP Analytics Cloud."]
+        },
+        {
+          company: "Sunnyland Consulting",
+          location: "Madrid",
+          role: "Project Manager",
+          period: "2019 - 2021",
+          description: ["Managed a team to deliver end-to-end procurement services for luxury hotel openings.", "Procurement services included: budget control, purchasing, deliveries, and installations.", "Implemented a new operational structure to improve workflow productivity."]
+        },
+        {
+          company: ["Beau-Rivage Palace", "Hotel Bernerhof", "Grand Hôtel & Centre Thermal"],
+          location: ["Lausanne", "Grindelwald", "Yverdon"],
+          role: "Hotel Ops",
+          period: "2014 – 2017",
+          description: "Operational experience in F&B (service & kitchen), and front office."
+        }
+      ]
+    },
+    // Education
+    education: {
+      title: 'Education',
+      items: [
+        {
+          school: "HEC Lausanne",
+          degree: "Master in Information Systems & Digital Innovation",
+          period: "2024 - 2026"
+        },
+        {
+          school: "EHL École Hôtelière de Lausanne",
+          degree: "Bachelor in Hospitality Management",
+          period: "2016 - 2020"
+        }
+      ]
+    },
+    // Contact
+    contact: {
+      phone: "+41 79 910 10 84",
+      email: "wildyannick1@gmail.com",
+      location: "Switzerland",
+      nationality: "Swiss"
+    },
+    // Footer
+    footer: {
+      extra: ["Fitness", "Kitesurf", "Snowboard"]
     }
   }
 };
@@ -362,195 +544,6 @@ const fadeIn = {
   animate: { opacity: 1, y: 0 },
   exit: { opacity: 0, scale: 0.95 },
   transition: { duration: 0.3 }
-};
-
-const cvData = {
-  name: "Yannick Wild",
-  title: "Business Analyst",
-  projects: [
-    {
-      title: "SAP FSM Platform",
-      subtitle: "Product Owner",
-      desc: "Redesigned global field service operations by implementing SAP FSM (Europe, USA, China, APAC).",
-      role: "Product Owner",
-      outcome: "Successfully streamlined field service operations, defined key performance indicators (KPIs), and configured advanced dashboards in SAP Analytics Cloud, facilitating cross-departmental collaboration and maximizing operational value.",
-      skillsUsed: ["BPMN", "Agile", "Analytics"],
-      projectLinks: [
-        { label: "Company: GFMS", url: "https://www.gfms.com/com/en.html" },
-        { label: "Platform: SAP FSM", url: "https://www.sap.com/swiss/products/scm/field-service-management.html" }
-      ],
-      projectLinksTitle: "Links",
-      category: "operations",
-      tags: ["BPMN", "Agile", "Analytics"],
-      imageContain: true,
-      image: "/assets/SAP FSM 1.webp",
-      images: [
-        "/assets/SAP FSM 1.webp",
-        "/assets/SAP FSM 2.webp",
-        "/assets/SAP FSM 3.webp",]
-    },
-    {
-      title: "Hotel Procurement",
-      subtitle: "Project Manager",
-      desc: "Managed end-to-end procurement services and on-site installations for luxury hotel openings.",
-      role: "Project Manager",
-      outcome: "Successfully coordinated procurement and logistics for up to 5,000 items from 100+ suppliers. Maintained strict on-time and on-budget execution through rigorous risk and quality controls, leading core teams to successful project delivery.",
-      skillsUsed: ["Logistics", "Sourcing", "Team"],
-      projectLinks: [
-        { label: "Company: Sunnyland", url: "https://www.sunnylandconsulting.com" },
-        { label: "Project: Six Senses Ibiza", url: "https://www.sixsenses.com/en/hotels-resorts/europe/spain/ibiza" },
-        { label: "Project: Rosewood Villa Magna", url: "https://www.rosewoodhotels.com/en/villa-magna" }
-      ],
-      projectLinksTitle: "Links",
-      category: "operations",
-      tags: ["Logistics", "Sourcing", "Team"],
-      image: "/assets/Hotel Procurement 1.webp",
-      images: [
-        "/assets/Hotel Procurement 1.webp",
-        "/assets/Hotel Procurement 2.webp",
-        "/assets/Hotel Procurement 3.webp",
-      ]
-    },
-    {
-      title: "HEC Master Thesis",
-      subtitle: "Researcher (Grade: 6/6)",
-      desc: "Research examining how interaction design influences user trust and sense of control in AI travel planning.",
-      role: "Researcher",
-      outcome: "Using a Design Science Research methodology, I developed two prototypes to test user perceptions. The research provided key insights into how AI should communicate with users to foster trust while maintaining transparency and control through effective UI/UX design and qualitative testing.",
-      skillsUsed: ["Interviews", "Experiment", "Analysis"],
-      projectLinks: [
-        { label: "University: HEC", url: "https://www.unil.ch/hec/en/home/menuinst/master/systemes-d-information.html" }
-      ],
-      projectLinksTitle: "Links",
-      category: "academic",
-      tags: ["Interviews", "Experiment", "AI"],
-      image: "/assets/Master Thesis 1.webp",
-      images: [
-        "/assets/Master Thesis 1.webp",
-        "/assets/Master Thesis 2.webp",
-        "/assets/Master Thesis 3.webp",
-      ]
-    },
-    {
-      title: "EHL Bachelor Project",
-      subtitle: "Consultant (Grade: 6/6)",
-      desc: "Developed a business development strategy and market entry plan for an IoT air quality solutions company.",
-      role: "Consultant",
-      outcome: "Designed a phased business development strategy focusing on strategic partnerships and integration with open-API architectures. The project successfully translated complex technical IoT solutions into clear business value propositions.",
-      skillsUsed: ["Strategy", "Data", "IoT"],
-      projectLinks: [
-        { label: "University: EHL", url: "https://www.ehl.edu" },
-        { label: "Company: Arve", url: "https://www.arveair.com" }
-      ],
-      projectLinksTitle: "Links",
-      category: "academic",
-      tags: ["Strategy", "Data", "IoT"],
-      image: "/assets/Arve 1.webp",
-      images: [
-        "/assets/Arve 1.webp",
-        "/assets/Arve 2.webp",
-        "/assets/Arve 3.webp"
-      ]
-    },
-    {
-      title: "Applied Projects",
-      desc: "Projects developed in collaboration with industry professionals during my Master’s at HEC Lausanne.",
-      role: "Consultant",
-      outcome: "Successfully built proof-of-concept assistants, defined AI-specific KPIs, and aligned stakeholders on integration roadmaps to move from experimentation to production environments.",
-      skillsUsed: ["Architecture", "Roadmap", "AI"],
-      projectLinks: [
-        { label: "Company: SAP", url: "https://www.sap.com/index.html" },
-        { label: "Company: Valtronic", url: "https://valtronic.com/" }
-      ],
-      projectLinksTitle: "Links",
-      subtitle: "Consultant",
-      category: "academic",
-      tags: ["Architecture", "Roadmap", "AI"],
-      image: "/assets/Applied Projects 1.webp",
-      images: [
-        "/assets/Applied Projects 1.webp",
-        "/assets/Applied Projects 2.webp",
-        "/assets/Applied Projects 3.webp",
-
-      ]
-    },
-    {
-      title: "Personal projects",
-      subtitle: "Full Stack Developper",
-      desc: "Independent projects where I design and build web applications, mobile apps, and agentic AI systems.",
-      role: "A bit of everything",
-      outcome: "Designed and implemented a standardized project workflow that significantly reduced bottlenecks. Developed advanced Excel templates and VBA macros to streamline reporting and monitoring of multimillion-euro investment budgets.",
-      skillsUsed: ["Full-Stack", "UX/UI", "AI"],
-      projectLinks: [
-        { label: "Company: GFMS", url: "https://www.gfms.com/com/en.html" },
-        { label: "Company: Sunnyland", url: "https://www.sunnylandconsulting.com" }
-      ],
-      projectLinksTitle: "Links",
-      category: "personal",
-      tags: ["Full-Stack", "UX/UI", "AI"],
-      image: "/assets/SAP FSM 3.webp",
-      images: [
-        "/assets/SAP FSM 3.webp",
-        "/assets/Workflow Design 2.webp",
-        "/assets/Workflow Design 3.webp",
-      ]
-    }
-  ],
-  contact: {
-    phone: "+41 79 910 10 84",
-    email: "wildyannick1@gmail.com",
-    location: "Switzerland",
-    nationality: "Swiss"
-  },
-  languages: ["English", "French", "Spanish", "Italian"],
-  summary: "Organised | Resourceful | Analytical Mindset | Solution Oriented",
-  skills: {
-    technical: ["SAP 001", "Python", "Pandas", "JavaScript", "Jira", "SQL", "HTML", "CSS", "Agile Methodologies", "Excel Advanced"],
-    interpersonal: ["Organized", "Resourceful", "Problem Solver", "Team Player"]
-  },
-  experience: [
-    {
-      company: "Travelpop",
-      location: "Personal Project",
-      role: "Full Stack Dev",
-      period: "2024 - Present",
-      description: ["Building a travel app (web + mobile) where users can:", "Manage reservations, itineraries, travel documentation, and budgets."," Invite other users to edit or view a trip.", "Interact with Google maps directly in the app."]
-    },
-    {
-      company: "GF Machining Solutions",
-      location: "Geneva",
-      role: "Product Owner",
-      period: "2021 - 2023",
-      description: ["Led the implementation of SAP FSM to optimize global service operations.", "Analyzed service processes and ERP data in Europe, US, China, and APAC."," Designed standard service processes in SAP FSM.", "Defined KPIs and configured dashboards in SAP Analytics Cloud."]
-    },
-    {
-      company: "Sunnyland Consulting",
-      location: "Madrid",
-      role: "Project Manager",
-      period: "2019 - 2021",
-      description: ["Managed a team to deliver end-to-end procurement services for luxury hotel openings.", "Procurement services included: budget control, purchasing, deliveries, and installations.", "Implemented a new operational structure to improve workflow productivity."]
-    },
-    {
-      company: ["Beau-Rivage Palace", "Hotel Bernerhof", "Grand Hôtel & Centre Thermal"],
-      location: ["Lausanne", "Grindelwald", "Yverdon"],
-      role: "Hotel Ops",
-      period: "2014 – 2017",
-      description: "Operational experience in F&B (service & kitchen), and front office."
-    }
-  ],
-  education: [
-    {
-      school: "HEC Lausanne",
-      degree: "Master in Information Systems & Digital Innovation",
-      period: "2024 - 2026"
-    },
-    {
-      school: "EHL École Hôtelière de Lausanne",
-      degree: "Bachelor in Hospitality Management",
-      period: "2016 - 2020"
-    }
-  ],
-  extra: ["Fitness", "Kitesurf", "Snowboard"]
 };
 
 const Portfolio = () => {
@@ -589,7 +582,7 @@ const Portfolio = () => {
 
 
   return (
-    <ThemeProvider attribute="class" defaultTheme="dark">
+    <ThemeProvider attribute="class" defaultTheme="light">
       <div className={`min-h-screen selection:bg-blue-400/30 transition-colors duration-300 ${darkMode ? 'bg-[#0b1220] text-slate-300' : 'bg-[#F4F5F7] text-[#1F2933]'}`}>
       <nav className={`fixed inset-x-0 top-0 z-50 border-b backdrop-blur-md transition-colors duration-300 ${darkMode ? 'border-slate-800/80 bg-[#0b1220]/85' : 'border-[#D8DCE3] bg-[#F4F5F7]/90'}`}>
         <div className="container mx-auto flex h-16 items-center justify-between gap-6 px-6">
@@ -598,20 +591,20 @@ const Portfolio = () => {
             Portfolio
           </a>
           
-          <div className={`hidden items-center gap-8 text-base lg:flex transition-colors duration-300 ${darkMode ? 'text-slate-400' : 'text-[#1F2933]'}`}>
-            <a href="#projets" className={`flex items-center gap-2 transition-colors ${darkMode ? 'hover:text-blue-400' : 'hover:text-[#2F5FD7]'}`}>
+          <div className={`hidden items-center gap-8 text-base lg:flex transition-colors duration-300 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>
+            <a href="#projects" className={`flex items-center gap-2 transition-colors ${darkMode ? 'hover:text-blue-400' : 'hover:text-[#2F5FD7]'}`}>
               <Layout size={16} /> {t.nav.projects}
             </a>
             <a href="#expertise" className={`flex items-center gap-2 transition-colors ${darkMode ? 'hover:text-blue-400' : 'hover:text-[#2F5FD7]'}`}>
               <Settings size={16} /> {t.nav.expertise}
             </a>
-            <a href="#Skills" className={`flex items-center gap-2 transition-colors ${darkMode ? 'hover:text-blue-400' : 'hover:text-[#2F5FD7]'}`}>
+            <a href="#skills" className={`flex items-center gap-2 transition-colors ${darkMode ? 'hover:text-blue-400' : 'hover:text-[#2F5FD7]'}`}>
               <Zap size={16} /> {t.nav.skills}
             </a>
             <a href="#experience" className={`flex items-center gap-2 transition-colors ${darkMode ? 'hover:text-blue-400' : 'hover:text-[#2F5FD7]'}`}>
               <Briefcase size={16} /> {t.nav.experience}
             </a>
-            <a href="#formation" className={`flex items-center gap-2 transition-colors ${darkMode ? 'hover:text-blue-400' : 'hover:text-[#2F5FD7]'}`}>
+            <a href="#education" className={`flex items-center gap-2 transition-colors ${darkMode ? 'hover:text-blue-400' : 'hover:text-[#2F5FD7]'}`}>
               <GraduationCap size={16} /> {t.nav.education}
             </a>
             <a href="#contact" className={`flex items-center gap-2 transition-colors ${darkMode ? 'hover:text-blue-400' : 'hover:text-[#2F5FD7]'}`}>
@@ -650,13 +643,13 @@ const Portfolio = () => {
               transition={{ duration: 0.2 }}
               className={`lg:hidden border-t overflow-hidden ${darkMode ? 'border-slate-800 bg-[#0b1220]/95' : 'border-[#D8DCE3] bg-[#F4F5F7]/95'}`}
             >
-              <div className={`flex flex-col gap-1 px-6 py-4 text-base ${darkMode ? 'text-slate-400' : 'text-[#1F2933]'}`}>
+              <div className={`flex flex-col gap-1 px-6 py-4 text-base ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>
                 {[
-                  { href: '#projets', icon: Layout, label: t.nav.projects },
+                  { href: '#projects', icon: Layout, label: t.nav.projects },
                   { href: '#expertise', icon: Settings, label: t.nav.expertise },
-                  { href: '#Skills', icon: Zap, label: t.nav.skills },
+                  { href: '#skills', icon: Zap, label: t.nav.skills },
                   { href: '#experience', icon: Briefcase, label: t.nav.experience },
-                  { href: '#formation', icon: GraduationCap, label: t.nav.education },
+                  { href: '#education', icon: GraduationCap, label: t.nav.education },
                   { href: '#contact', icon: Mail, label: t.nav.contact },
                 ].map(({ href, icon: Icon, label }) => (
                   <a
@@ -691,7 +684,7 @@ const Portfolio = () => {
               variants={fadeIn}
               className={`text-4xl md:text-8xl font-bold tracking-tight mb-6 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}
             >
-              {cvData.name}
+              {t.hero.name}
             </motion.h1>
 
             <motion.p 
@@ -703,7 +696,7 @@ const Portfolio = () => {
 
             <motion.p 
               variants={fadeIn}
-              className={`text-lg md:text-xl font-medium leading-relaxed mb-8 ${darkMode ? 'text-slate-500' : 'text-[#1F2933]'}`}
+              className={`text-lg md:text-xl font-medium leading-relaxed mb-8 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}
             >
               Complex systems deserve simple design.<br />
               I improve business processes by aligning operations with effective digital solutions.
@@ -720,10 +713,10 @@ const Portfolio = () => {
                 <a href="#contact" className={`flex items-center gap-2 p-3 border rounded-lg transition-colors font-medium ${darkMode ? 'border-slate-700 bg-slate-800/30 hover:bg-slate-800/50 text-slate-300 hover:text-blue-400' : 'border-[#D8DCE3] bg-white hover:bg-[#EDEFF2] text-[#1F2933] hover:text-[#2F5FD7]'}`} title="Contact">
                   <Mail size={20} />
                 </a>
-                <a href="https://www.linkedin.com/in/yannick-wild/" target="_blank" rel="noopener noreferrer" className={`flex items-center gap-2 p-3 border rounded-lg transition-colors font-medium ${darkMode ? 'border-slate-700 bg-slate-800/30 hover:bg-slate-800/50 text-slate-300 hover:text-blue-400' : 'border-[#D8DCE3] bg-white hover:bg-[#EDEFF2] text-[#1F2933] hover:text-[#2F5FD7]'}`} title="LinkedIn">
+                <a href={t.hero.linkedin} target="_blank" rel="noopener noreferrer" className={`flex items-center gap-2 p-3 border rounded-lg transition-colors font-medium ${darkMode ? 'border-slate-700 bg-slate-800/30 hover:bg-slate-800/50 text-slate-300 hover:text-blue-400' : 'border-[#D8DCE3] bg-white hover:bg-[#EDEFF2] text-[#1F2933] hover:text-[#2F5FD7]'}`} title="LinkedIn">
                   <Linkedin size={20} />
                 </a>
-                <a href="https://github.com/yanowild" target="_blank" rel="noopener noreferrer" className={`flex items-center gap-2 p-3 border rounded-lg transition-colors font-medium ${darkMode ? 'border-slate-700 bg-slate-800/30 hover:bg-slate-800/50 text-slate-300 hover:text-blue-400' : 'border-[#D8DCE3] bg-white hover:bg-[#EDEFF2] text-[#1F2933] hover:text-[#2F5FD7]'}`} title="GitHub">
+                <a href={t.hero.github} target="_blank" rel="noopener noreferrer" className={`flex items-center gap-2 p-3 border rounded-lg transition-colors font-medium ${darkMode ? 'border-slate-700 bg-slate-800/30 hover:bg-slate-800/50 text-slate-300 hover:text-blue-400' : 'border-[#D8DCE3] bg-white hover:bg-[#EDEFF2] text-[#1F2933] hover:text-[#2F5FD7]'}`} title="GitHub">
                   <Github size={20} />
                 </a>
               </div>
@@ -731,10 +724,10 @@ const Portfolio = () => {
 
             <motion.a
               variants={fadeIn}
-              href="#projets"
-              className={`inline-flex flex-col items-center gap-1 mt-8 transition-colors ${darkMode ? 'text-slate-400 hover:text-blue-400' : 'text-[#1F2933] hover:text-[#2F5FD7]'}`}
+              href="#projects"
+              className={`inline-flex flex-col items-center gap-1 mt-8 transition-colors ${darkMode ? 'text-slate-300 hover:text-blue-400' : 'text-[#1F2933] hover:text-[#2F5FD7]'}`}
             >
-              <span className="text-sm md:text-base font-bold">See more</span>
+              <span className="text-sm md:text-base font-bold">{t.hero.seeMore}</span>
               <ChevronDown size={24} className="animate-bounce" />
             </motion.a>
           </div>
@@ -744,7 +737,7 @@ const Portfolio = () => {
       </header>
 
       {/* Projects Section */}
-      <section id="projets" className={`pt-16 pb-24 scroll-mt-16 border-b transition-colors duration-300 ${darkMode ? 'bg-slate-900/50 border-slate-800' : 'bg-[#EDEFF2] border-[#D8DCE3]'}`}>
+      <section id="projects" className={`pt-16 pb-24 scroll-mt-16 border-b transition-colors duration-300 ${darkMode ? 'bg-slate-900/50 border-slate-800' : 'bg-[#EDEFF2] border-[#D8DCE3]'}`}>
         <div className="container mx-auto px-6">
           <div className="mb-8 text-center">
             <motion.h2 
@@ -753,15 +746,15 @@ const Portfolio = () => {
               viewport={{ once: true }}
               className={`text-5xl font-bold mb-4 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}
             >
-              {t.sections.featuredProjects}
+              {t.projects.title}
             </motion.h2>
             <motion.p 
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className={`max-w-2xl mx-auto text-lg leading-relaxed ${darkMode ? 'text-slate-400' : 'text-[#1F2933]'}`}
+              className={`max-w-2xl mx-auto text-lg leading-relaxed ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}
             >
-              {t.sections.featuredProjectsDesc}
+              {t.projects.desc}
             </motion.p>
           </div>
 
@@ -772,14 +765,14 @@ const Portfolio = () => {
             viewport={{ once: true }}
             className="flex flex-wrap gap-4 mb-8 justify-center"
           >
-            {Object.entries(t.sections.categories).map(([key, label]) => (
+            {Object.entries(t.projects.categories).map(([key, label]) => (
               <button
                 key={key}
                 onClick={() => setActiveFilter(key)}
                 className={`px-6 py-2 rounded-full text-base font-medium transition-colors border ${
                   activeFilter === key 
                     ? darkMode ? 'bg-blue-400 text-slate-900 border-transparent' : 'bg-[#2F5FD7] text-white border-transparent'
-                    : darkMode ? 'bg-slate-800 text-slate-400 hover:bg-slate-700 border-transparent' : 'bg-white text-[#1F2933] hover:bg-[#EDEFF2] border-[#D8DCE3]'
+                    : darkMode ? 'bg-slate-800 text-slate-300 hover:bg-slate-700 border-transparent' : 'bg-white text-[#1F2933] hover:bg-[#EDEFF2] border-[#D8DCE3]'
                 }`}
               >
                 {label}
@@ -797,7 +790,7 @@ const Portfolio = () => {
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
           >
             <AnimatePresence mode="popLayout">
-              {cvData.projects
+              {t.projects.items
                 .filter(project => activeFilter === 'all' || project.category === activeFilter)
                 .map((project) => (
                   <motion.div
@@ -813,7 +806,7 @@ const Portfolio = () => {
                       <h3 className={`text-2xl font-bold transition-colors ${darkMode ? 'group-hover:text-blue-400' : 'group-hover:text-[#2F5FD7]'} ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>
                         {project.title}
                       </h3>
-                      <ExternalLink size={20} className={`transition-colors ${darkMode ? 'group-hover:text-blue-400' : 'group-hover:text-[#2F5FD7]'} ${darkMode ? 'text-slate-500' : 'text-[#6B7280]'}`} />
+                      <ExternalLink size={20} className={`transition-colors ${darkMode ? 'group-hover:text-blue-400' : 'group-hover:text-[#2F5FD7]'} ${darkMode ? 'text-slate-300' : 'text-[#6B7280]'}`} />
                     </div>
                     {/* Project card grade/subtitle */}
                     {(project.grade || project.subtitle) && (
@@ -823,7 +816,7 @@ const Portfolio = () => {
                       </div>
                     )}
                     
-                    <p className={`mb-6 leading-relaxed ${darkMode ? 'text-slate-400' : 'text-[#1F2933]'}`}>
+                    <p className={`mb-6 leading-relaxed ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>
                       {project.desc}
                     </p>
                     
@@ -843,10 +836,21 @@ const Portfolio = () => {
             </AnimatePresence>
           </motion.div>
         </div>
+
+        <AnimatePresence>
+          {selectedProject && (
+            <ProjectModal 
+              project={selectedProject} 
+              onClose={() => setSelectedProject(null)} 
+              t={t}
+              darkMode={darkMode}
+            />
+          )}
+        </AnimatePresence>
       </section>
 
       {/* Expertise Section */}
-      <section id="expertise" className={`py-16 scroll-mt-16 border-b transition-colors duration-300 ${darkMode ? 'bg-[#0b1220] border-slate-800' : 'bg-[#F4F5F7] border-[#D8DCE3]'}`}>
+      <section id="expertise" className={`py-16 scroll-mt-16 transition-colors duration-300 ${darkMode ? 'bg-[#0b1220]' : 'bg-[#F4F5F7]'}`}>
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <motion.h2 
@@ -864,26 +868,53 @@ const Portfolio = () => {
             initial="initial"
             whileInView="animate"
             viewport={{ once: true }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-0"
           >
-            {t.sections.expertise.items.map((item, i) => {
+            {t.expertise.items.map((item, i) => {
               const icons = [Database, Settings, Bot, User];
               const Icon = icons[i];
+              
+              // Responsive column helpers (0-based index):
+              const isLast = i === t.expertise.items.length - 1;
+              const isRightColMd = i % 2 === 1; // md:grid-cols-2 → right column items shouldn't draw a divider
+              const isLastColLg = i % 4 === 3;   // lg:grid-cols-4 → last column shouldn't draw a divider
+
+              // Classes to control the independent separator between items
+              const mobileAfterToggle = isLast ? 'after:hidden' : 'after:block';
+              const mdAfterToggle = isRightColMd ? 'md:after:hidden' : 'md:after:block';
+              const lgAfterToggle = isLastColLg ? 'lg:after:hidden' : 'lg:after:block';
+
               return (
                 <motion.div
                   key={i}
                   variants={fadeIn}
-                  className={`p-8 border rounded-2xl ${darkMode ? 'bg-slate-900/40 border-slate-800' : 'bg-white border-[#D8DCE3]'}`}
+                  className={[
+                    "relative px-12 pt-5 pb-8 md:py-8",
+                    // Independent separator: horizontal on mobile, vertical on md+
+                    "after:absolute after:pointer-events-none",
+                    // Mobile: horizontal line at bottom
+                    "after:bottom-0 after:left-12 after:right-12 after:h-px after:w-auto",
+                    // md+: vertical line at right
+                    "md:after:top-8 md:after:bottom-8 md:after:right-0 md:after:left-auto md:after:w-px md:after:h-auto",
+                    darkMode ? "after:bg-slate-700" : "after:bg-[#D8DCE3]",
+                    mobileAfterToggle,
+                    mdAfterToggle,
+                    lgAfterToggle,
+                  ].join(" ")}
                 >
-                  <div className="mb-2 p-3 w-fit transition-colors">
-                    <Icon className={`${darkMode ? 'text-blue-400' : 'text-[#2F5FD7]'}`} size={28} />
+                  <div className="relative h-full flex flex-col items-center">
+                    <div className="mb-2 p-3 w-fit mx-auto transition-colors">
+                      <Icon className={`${darkMode ? 'text-blue-400' : 'text-[#2F5FD7]'}`} size={28} />
+                    </div>
+                    <h3 className={`text-xl font-bold mb-2 text-center ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>
+                      {item.title}
+                    </h3>
+                    <div className="flex justify-center flex-grow">
+                      <p className={`text-base leading-relaxed text-center max-w-xs ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>
+                        {item.desc}
+                      </p>
+                    </div>
                   </div>
-                  <h3 className={`text-xl font-bold mb-2 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>
-                    {item.title}
-                  </h3>
-                  <p className={`text-base leading-relaxed ${darkMode ? 'text-slate-400' : 'text-[#1F2933]'}`}>
-                    {item.desc}
-                  </p>
                 </motion.div>
               );
             })}
@@ -892,7 +923,7 @@ const Portfolio = () => {
       </section>
 
       {/* Skills Section */}
-      <section id="Skills" className={`py-8 scroll-mt-16 border-b transition-colors duration-300 ${darkMode ? 'bg-slate-900/50 border-slate-800' : 'bg-[#EDEFF2] border-[#D8DCE3]'}`}>
+      <section id="skills" className={`py-8 scroll-mt-16 border-b transition-colors duration-300 ${darkMode ? 'bg-slate-900/50 border-slate-800' : 'bg-[#EDEFF2] border-[#D8DCE3]'}`}>
         <div className="container mx-auto px-6">
           <div className="text-center mb-8">
             <motion.h2 
@@ -901,7 +932,7 @@ const Portfolio = () => {
               viewport={{ once: true }}
               className={`text-5xl font-bold mb-6 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}
             >
-              {t.sections.technicalExpertise.title}
+              {t.skills.title}
             </motion.h2>
           </div>
           <div className="flex flex-col lg:flex-row items-center gap-16">
@@ -917,9 +948,9 @@ const Portfolio = () => {
                   className="p-6"
                 >
                   <div className="flex flex-col items-center">
-                    <h4 className={`text-lg font-bold mb-4 text-center w-full ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{t.sections.engineering}</h4>
-                    <div className="space-y-3 w-full pl-[15%]">
-                      {t.sections.technicalExpertise.engineering.map((skill, i) => (
+                    <h4 className={`text-lg font-bold mb-4 text-center w-full ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{t.skills.engineering}</h4>
+                    <div className="space-y-3 w-fit mx-auto">
+                      {t.skills.engineeringSkills.map((skill, i) => (
                         <div key={i} className="flex items-center gap-3">
                           <div className={`w-1.5 h-1.5 rounded-full ${darkMode ? 'bg-blue-400' : 'bg-[#2F5FD7]'}`} />
                           <span className={`text-base font-medium ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{skill}</span>
@@ -938,9 +969,9 @@ const Portfolio = () => {
                   className="p-6"
                 >
                   <div className="flex flex-col items-center">
-                    <h4 className={`text-lg font-bold mb-4 text-center w-full ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{t.sections.platforms}</h4>
-                    <div className="space-y-3 w-full pl-[15%]">
-                      {t.sections.technicalExpertise.platforms.map((skill, i) => (
+                    <h4 className={`text-lg font-bold mb-4 text-center w-full ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{t.skills.platforms}</h4>
+                    <div className="space-y-3 w-fit mx-auto">
+                      {t.skills.platformsSkills.map((skill, i) => (
                         <div key={i} className="flex items-center gap-3">
                           <div className={`w-1.5 h-1.5 rounded-full ${darkMode ? 'bg-blue-400' : 'bg-[#2F5FD7]'}`} />
                           <span className={`text-base font-medium ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{skill}</span>
@@ -961,9 +992,9 @@ const Portfolio = () => {
                   className="p-6"
                 >
                   <div className="flex flex-col items-center">
-                    <h4 className={`text-lg font-bold mb-4 text-center w-full ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{t.sections.interpersonal}</h4>
-                    <div className="space-y-3 w-full pl-[15%]">
-                      {cvData.skills.interpersonal.map((skill, i) => (
+                    <h4 className={`text-lg font-bold mb-4 text-center w-full ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{t.skills.interpersonal}</h4>
+                    <div className="space-y-3 w-fit mx-auto">
+                      {t.skills.interpersonalSkills.map((skill, i) => (
                         <div key={i} className="flex items-center gap-3">
                           <div className={`w-1.5 h-1.5 rounded-full ${darkMode ? 'bg-blue-400' : 'bg-[#2F5FD7]'}`} />
                           <span className={`text-base font-medium ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{skill}</span>
@@ -982,8 +1013,8 @@ const Portfolio = () => {
                   className="p-6"
                 >
                   <div className="flex flex-col items-center">
-                    <h4 className={`text-lg font-bold mb-4 text-center w-full ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{t.footer.languages}</h4>
-                    <div className="space-y-3 w-full pl-[15%]">
+                    <h4 className={`text-lg font-bold mb-4 text-center w-full ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{t.skills.languages}</h4>
+                    <div className="space-y-3 w-fit mx-auto">
                       <div className="flex items-center gap-3"><span className={`text-base font-medium ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>🇫🇷 French: Native</span></div>
                       <div className="flex items-center gap-3"><span className={`text-base font-medium ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>🇬🇧 English: Native</span></div>
                       <div className="flex items-center gap-3"><span className={`text-base font-medium ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>🇪🇸 Spanish: Native</span></div>
@@ -1004,7 +1035,7 @@ const Portfolio = () => {
             >
               <div className="relative z-10 w-full max-w-md">
                 <Suspense fallback={<div className="w-full aspect-square" />}>
-                <IconCloud iconSlugs={ICON_CLOUD_SLUGS} />
+                <IconCloud iconSlugs={ICON_CLOUD_SLUGS} darkMode={darkMode} />
                 </Suspense>
               </div>
               <div className={`absolute -inset-4 blur-3xl rounded-full z-0 ${darkMode ? 'bg-blue-400/5' : 'bg-[#2F5FD7]/5'}`} />
@@ -1012,17 +1043,6 @@ const Portfolio = () => {
           </div>
         </div>
       </section>
-
-      <AnimatePresence>
-        {selectedProject && (
-          <ProjectModal 
-            project={selectedProject} 
-            onClose={() => setSelectedProject(null)} 
-            t={t}
-            darkMode={darkMode}
-          />
-        )}
-      </AnimatePresence>
 
       {/* Experience section */}
       <section id="experience" className={`py-8 scroll-mt-16 border-b transition-colors duration-300 ${darkMode ? 'bg-[#0b1220] border-slate-800' : 'bg-[#F4F5F7] border-[#D8DCE3]'}`}>
@@ -1034,14 +1054,14 @@ const Portfolio = () => {
               viewport={{ once: true }}
               className={`text-5xl font-bold mb-6 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}
             >
-              {t.sections.experience.title}
+              {t.experience.title}
             </motion.h2>
           </div>
           
           <div className="max-w-4xl mx-auto">
             <div className="relative">
               <div className={`absolute left-0 top-[1rem] bottom-0 w-px ${darkMode ? 'bg-slate-700' : 'bg-[#D8DCE3]'}`} />
-              {cvData.experience.map((exp, index) => (
+              {t.experience.items.map((exp, index) => (
                 <motion.div 
                   key={index}
                   initial={{ opacity: 0, x: -20 }}
@@ -1059,15 +1079,15 @@ const Portfolio = () => {
                     {Array.isArray(exp.company) ? exp.company.map((c, i) => (
                       <p
                         key={i}
-                        className={`text-base font-medium mt-1 ${darkMode ? 'text-slate-400' : 'text-[#1F2933]'}`}
+                        className={`text-base font-medium mt-1 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}
                       >
                         {c}{Array.isArray(exp.location) && exp.location[i] ? `, ${exp.location[i]}` : exp.location ? `, ${exp.location}` : ''}
                       </p>
                     )) : (
-                      <p className={`text-base font-medium mt-1 ${darkMode ? 'text-slate-400' : 'text-[#1F2933]'}`}>{exp.company}{exp.location ? `, ${exp.location}` : ''}</p>
+                      <p className={`text-base font-medium mt-1 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{exp.company}{exp.location ? `, ${exp.location}` : ''}</p>
                     )}
                   </div>
-                  <ul className={`text-base leading-relaxed space-y-1 ml-[5px] ${darkMode ? 'text-slate-400' : 'text-[#1F2933]'}`}>
+                  <ul className={`text-base leading-relaxed space-y-1 ml-[5px] ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>
                     {(Array.isArray(exp.description) ? exp.description : [exp.description]).map((d, i) => (
                       <li key={i} className="flex gap-2"><span className="mt-[0.70em] min-w-[5px] w-[5px] h-[5px] rounded-full bg-current flex-shrink-0" /><span>{d}</span></li>
                     ))}
@@ -1080,7 +1100,7 @@ const Portfolio = () => {
       </section>
 
       {/* Education section */}
-      <section id="formation" className={`py-8 scroll-mt-16 border-b transition-colors duration-300 ${darkMode ? 'bg-slate-900/50 border-slate-800' : 'bg-[#EDEFF2] border-[#D8DCE3]'}`}>
+      <section id="education" className={`py-8 scroll-mt-16 border-b transition-colors duration-300 ${darkMode ? 'bg-slate-900/50 border-slate-800' : 'bg-[#EDEFF2] border-[#D8DCE3]'}`}>
         <div className="container mx-auto px-6">
           <div className="text-center mb-8">
             <motion.h2 
@@ -1089,14 +1109,14 @@ const Portfolio = () => {
               viewport={{ once: true }}
               className={`text-5xl font-bold mb-6 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}
             >
-              {t.sections.education}
+              {t.education.title}
             </motion.h2>
           </div>
 
           <div className="max-w-4xl mx-auto">
             <div className="relative">
               <div className={`absolute left-0 top-[1rem] bottom-0 w-px ${darkMode ? 'bg-slate-700' : 'bg-[#D8DCE3]'}`} />
-              {cvData.education.map((edu, index) => (
+              {t.education.items.map((edu, index) => (
                 <motion.div 
                   key={index}
                   initial={{ opacity: 0, x: -20 }}
@@ -1121,9 +1141,9 @@ const Portfolio = () => {
                       return (
                         <>
                           {field && (
-                            <p className={`text-base font-medium mt-1 ${darkMode ? 'text-slate-400' : 'text-[#1F2933]'}`}>{field}</p>
+                            <p className={`text-base font-medium mt-1 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{field}</p>
                           )}
-                          <p className={`text-base font-medium mt-1 ${darkMode ? 'text-slate-400' : 'text-[#1F2933]'}`}>{edu.school}</p>
+                          <p className={`text-base font-medium mt-1 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{edu.school}</p>
                         </>
                       );
                     })()}
@@ -1148,7 +1168,7 @@ const Portfolio = () => {
               Contact
             </motion.h2>
           </div>
-          <p className={`text-lg leading-relaxed mb-12 text-center ${darkMode ? 'text-slate-400' : 'text-[#1F2933]'}`}>
+          <p className={`text-lg leading-relaxed mb-12 text-center ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>
             Interested in improving your systems?
             <br />
             Let’s connect.
@@ -1160,27 +1180,27 @@ const Portfolio = () => {
                 <div className={`p-4 rounded-full border ${darkMode ? 'bg-slate-800 text-blue-400 border-transparent' : 'bg-white text-[#2F5FD7] border-[#D8DCE3]'}`}>
                   <Mail size={24} />
                 </div>
-                <p className={`text-base font-semibold ${darkMode ? 'text-slate-400' : 'text-[#1F2933]'}`}>{cvData.contact.email}</p>
+                <p className={`text-base font-semibold ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{t.contact.email}</p>
               </div>
               <div className="flex items-center gap-6">
                 <div className={`p-4 rounded-full border ${darkMode ? 'bg-slate-800 text-blue-400 border-transparent' : 'bg-white text-[#2F5FD7] border-[#D8DCE3]'}`}>
                   <Phone size={24} />
                 </div>
-                <p className={`text-base font-semibold ${darkMode ? 'text-slate-400' : 'text-[#1F2933]'}`}>{cvData.contact.phone}</p>
+                <p className={`text-base font-semibold ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{t.contact.phone}</p>
               </div>
               <div className="flex items-center gap-6">
                 <div className={`p-4 rounded-full border ${darkMode ? 'bg-slate-800 text-blue-400 border-transparent' : 'bg-white text-[#2F5FD7] border-[#D8DCE3]'}`}>
                   <MapPin size={24} />
                 </div>
-                <p className={`text-base font-semibold ${darkMode ? 'text-slate-400' : 'text-[#1F2933]'}`}>{cvData.contact.location}</p>
+                <p className={`text-base font-semibold ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{t.contact.location}</p>
               </div>
               <div>
                 <h4 className={`text-base font-semibold mb-4 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>Socials</h4>
                 <div className="flex gap-4">
-                  <a href="https://www.linkedin.com/in/yannick-wild/" target="_blank" rel="noopener noreferrer" className={`p-4 rounded-full transition-colors border ${darkMode ? 'bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-blue-400 border-transparent' : 'bg-white text-[#1F2933] hover:bg-[#EDEFF2] hover:text-[#2F5FD7] border-[#D8DCE3]'}`}>
+                  <a href="https://www.linkedin.com/in/yannick-wild/" target="_blank" rel="noopener noreferrer" className={`p-4 rounded-full transition-colors border ${darkMode ? 'bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-blue-400 border-transparent' : 'bg-white text-[#1F2933] hover:bg-[#EDEFF2] hover:text-[#2F5FD7] border-[#D8DCE3]'}`}>
                     <Linkedin size={24} />
                   </a>
-                  <a href="https://github.com/yanowild" target="_blank" rel="noopener noreferrer" className={`p-4 rounded-full transition-colors border ${darkMode ? 'bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-blue-400 border-transparent' : 'bg-white text-[#1F2933] hover:bg-[#EDEFF2] hover:text-[#2F5FD7] border-[#D8DCE3]'}`}>
+                  <a href="https://github.com/yanowild" target="_blank" rel="noopener noreferrer" className={`p-4 rounded-full transition-colors border ${darkMode ? 'bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-blue-400 border-transparent' : 'bg-white text-[#1F2933] hover:bg-[#EDEFF2] hover:text-[#2F5FD7] border-[#D8DCE3]'}`}>
                     <Github size={24} />
                   </a>
                 </div>
@@ -1202,7 +1222,7 @@ const Portfolio = () => {
             </motion.div>
           </div>
 
-          <div className={`mt-8 pt-6 border-t text-center text-sm pb-6 ${darkMode ? 'border-slate-800 text-slate-500' : 'border-[#D8DCE3] text-[#1F2933]'}`}>
+          <div className={`mt-8 pt-6 border-t text-center text-sm pb-6 ${darkMode ? 'border-slate-800 text-slate-300' : 'border-[#D8DCE3] text-[#1F2933]'}`}>
             © {new Date().getFullYear()} Yannick Wild. All rights reserved.
           </div>
         </div>

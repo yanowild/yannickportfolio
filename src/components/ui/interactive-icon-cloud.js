@@ -1,7 +1,6 @@
 "use client"
 
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react"
-import { useTheme } from "next-themes"
 import {
   Cloud,
   fetchSimpleIcons,
@@ -40,9 +39,9 @@ export const cloudProps = {
 }
 
 export const renderCustomIcon = (icon, theme) => {
-  const bgHex = theme === "light" ? "#f3f2ef" : "#080510"
+  const bgHex = theme === "light" ? "#F4F5F7" : "#080510"
   const fallbackHex = theme === "light" ? "#333333" : "#ffffff"
-  const minContrastRatio = theme === "light" ? 5 : 2
+  const minContrastRatio = theme === "light" ? 1.1 : 2
 
   return renderSimpleIcon({
     icon,
@@ -59,9 +58,19 @@ export const renderCustomIcon = (icon, theme) => {
   })
 }
 
-export const IconCloud = React.memo(function IconCloud({ iconSlugs }) {
+// Inner component that holds the Cloud instance and never re-renders on theme change.
+// This prevents TagCanvas from being destroyed and recreated when the theme toggles,
+// which would reset the spinning ball's position.
+const StableCloud = React.memo(function StableCloud({ icons }) {
+  return (
+    <Cloud {...cloudProps}>
+      <>{icons}</>
+    </Cloud>
+  )
+}, (prev, next) => prev.icons === next.icons)
+
+export const IconCloud = React.memo(function IconCloud({ iconSlugs, darkMode }) {
   const [data, setData] = useState(null)
-  const { theme } = useTheme()
   const containerRef = useRef(null)
   const interactingRef = useRef(false)
   const restoreTimerRef = useRef(null)
@@ -116,20 +125,21 @@ export const IconCloud = React.memo(function IconCloud({ iconSlugs }) {
     }
   }, [restoreIdleSpeed])
 
+  // Render icons only when data loads. Theme is not a dependency here so that
+  // the Cloud component (and its underlying TagCanvas) is not destroyed/recreated
+  // on theme switch, preserving the ball's spinning state and position.
   const renderedIcons = useMemo(() => {
     if (!data) return null
 
     return Object.values(data.simpleIcons).map((icon) =>
-      renderCustomIcon(icon, theme || "light"),
+      renderCustomIcon(icon, darkMode ? "dark" : "light"),
     )
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data])
 
   return (
     <div ref={containerRef}>
-      <Cloud {...cloudProps}>
-        <>{renderedIcons}</>
-      </Cloud>
+      <StableCloud icons={renderedIcons} />
     </div>
   )
 })
