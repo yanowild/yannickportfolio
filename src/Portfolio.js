@@ -213,7 +213,7 @@ const ICON_CLOUD_SLUGS = [
               {project.outcome && (
                 <div className={`p-4 rounded-xl border ${darkMode ? 'bg-slate-800/40 border-slate-700/50' : 'bg-[#F4F5F7] border-[#D8DCE3]'}`}>
                   <h4 className={`text-base font-semibold mb-2 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{t.projects.modal.outcome}</h4>
-                  <p className={`text-base leading-relaxed ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{project.outcome}</p>
+                  <p className={`text-base leading-relaxed whitespace-pre-line ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{project.outcome}</p>
                 </div>
               )}
 
@@ -292,7 +292,7 @@ const uiText = {
       },
       categories: {
         all: 'All',
-        operations: 'Operations',
+        professional: 'Professional',
         academic: 'Academic',
         personal: 'Personal'
       },
@@ -302,14 +302,14 @@ const uiText = {
           subtitle: "Product Owner",
           desc: "Redesigned global field service operations by implementing SAP FSM (Europe, USA, China, APAC).",
           role: "Product Owner",
-          outcome: "Successfully streamlined field service operations, defined key performance indicators (KPIs), and configured advanced dashboards in SAP Analytics Cloud, facilitating cross-departmental collaboration and maximizing operational value.",
+          outcome: "Successfully implemented SAP FSM, optimizing global service operations through standardized service processes and performance management.",
           skillsUsed: ["BPMN", "Agile", "Analytics"],
           projectLinks: [
             { label: "Company: GFMS", url: "https://www.gfms.com/com/en.html" },
             { label: "Platform: SAP FSM", url: "https://www.sap.com/swiss/products/scm/field-service-management.html" }
           ],
           projectLinksTitle: "Links",
-          category: "operations",
+          category: "professional",
           tags: ["BPMN", "Agile", "Analytics"],
           imageContain: true,
           image: "/assets/SAP FSM 1.webp",
@@ -324,7 +324,7 @@ const uiText = {
           subtitle: "Project Manager",
           desc: "Managed end-to-end procurement services and on-site installations for luxury hotel openings.",
           role: "Project Manager",
-          outcome: "Successfully coordinated procurement and logistics for up to 5,000 items from 100+ suppliers. Maintained strict on-time and on-budget execution through rigorous risk and quality controls, leading core teams to successful project delivery.",
+          outcome: "Successfully managed budgeting, purchasing, deliveries, and installations of 5,000+ items across 100+ suppliers.",
           skillsUsed: ["Logistics", "Sourcing", "Team"],
           projectLinks: [
             { label: "Company: Sunnyland", url: "https://www.sunnylandconsulting.com" },
@@ -332,7 +332,7 @@ const uiText = {
             { label: "Project: Rosewood Villa Magna", url: "https://www.rosewoodhotels.com/en/villa-magna" }
           ],
           projectLinksTitle: "Links",
-          category: "operations",
+          category: "professional",
           tags: ["Logistics", "Sourcing", "Team"],
           image: "/assets/Hotel Procurement 1.webp",
           images: [
@@ -346,8 +346,8 @@ const uiText = {
           subtitle: "Researcher (Grade: 6/6)",
           desc: "Research examining how interaction design influences user trust and sense of control in AI travel planning.",
           role: "Researcher",
-          outcome: "Using a Design Science Research methodology, I developed two prototypes to test user perceptions. The research provided key insights into how AI should communicate with users to foster trust while maintaining transparency and control through effective UI/UX design and qualitative testing.",
-          skillsUsed: ["Interviews", "Experiment", "Analysis"],
+          outcome: "Developed and user-tested two AI interfaces, a Chatbot and a Graphical User Interface. The study generated insights into how interaction modalities influence user trust and sense of control. Grade: 6/6.",
+          skillsUsed: ["Interviews", "Experiment", "AI"],
           projectLinks: [
             { label: "University: HEC", url: "https://www.unil.ch/hec/en/home/menuinst/master/systemes-d-information.html" }
           ],
@@ -366,7 +366,7 @@ const uiText = {
           subtitle: "Consultant (Grade: 6/6)",
           desc: "Developed a business development strategy and market entry plan for an IoT air quality solutions company.",
           role: "Consultant",
-          outcome: "Designed a phased business development strategy focusing on strategic partnerships and integration with open-API architectures. The project successfully translated complex technical IoT solutions into clear business value propositions.",
+          outcome: "Translated IoT solutions into business value by focusing on strategic partnerships and open-API integration. Grade 6/6.",
           skillsUsed: ["Strategy", "Data", "IoT"],
           projectLinks: [
             { label: "University: EHL", url: "https://www.ehl.edu" },
@@ -386,7 +386,7 @@ const uiText = {
           title: "Applied Projects",
           desc: "Projects developed in collaboration with industry professionals during my Master's at HEC Lausanne.",
           role: "Consultant",
-          outcome: "Successfully built proof-of-concept assistants, defined AI-specific KPIs, and aligned stakeholders on integration roadmaps to move from experimentation to production environments.",
+          outcome: "SAP: Designed an AI-driven sales process for SAP partners.\nValtronic: Designed an AI-driven KPI cockpit.",
           skillsUsed: ["Architecture", "Roadmap", "AI"],
           projectLinks: [
             { label: "Company: SAP", url: "https://www.sap.com/index.html" },
@@ -400,28 +400,27 @@ const uiText = {
           images: [
             "/assets/Applied Projects 1.webp",
             "/assets/Applied Projects 2.webp",
-            "/assets/Applied Projects 3.webp",
           ]
         },
         {
-          title: "Personal projects",
+          title: "Travelpop",
           subtitle: "Full Stack Developer",
-          desc: "Independent projects where I design and build web applications, mobile apps, and agentic AI systems.",
-          role: "A bit of everything",
-          outcome: "Designed and implemented a standardized project workflow that significantly reduced bottlenecks. Developed advanced Excel templates and VBA macros to streamline reporting and monitoring of multimillion-euro investment budgets.",
+          desc: "Designing and developing an AI-powered travel app for web and mobile as a personal project.",
+          role: "Full Stack Developer",
+          outcome: "Users can: \n" +
+              "Manage reservations, itineraries, travel documentation, and budgets.\n" +
+              "Invite other users to edit or view a trip.\n" +
+              "Interact with AI and Google maps directly in the app.",
           skillsUsed: ["Full-Stack", "UX/UI", "AI"],
           projectLinks: [
-            { label: "Company: GFMS", url: "https://www.gfms.com/com/en.html" },
-            { label: "Company: Sunnyland", url: "https://www.sunnylandconsulting.com" }
+            { label: "Travelpop", url: "https://www.travelpop.app" },
           ],
           projectLinksTitle: "Links",
           category: "personal",
           tags: ["Full-Stack", "UX/UI", "AI"],
-          image: "/assets/SAP FSM 3.webp",
+          image: "/assets/travelpop1.webp",
           images: [
-            "/assets/SAP FSM 3.webp",
-            "/assets/Workflow Design 2.webp",
-            "/assets/Workflow Design 3.webp",
+            "/assets/travelpop1.webp",
           ]
         }
       ]
@@ -483,7 +482,7 @@ const uiText = {
           location: "Personal Project",
           role: "Full Stack Dev",
           period: "2024 - Present",
-          description: ["Building a travel app (web + mobile) where users can:", "Manage reservations, itineraries, travel documentation, and budgets."," Invite other users to edit or view a trip.", "Interact with Google maps directly in the app."]
+          description: ["Building a travel app (web + mobile) where users can:", "Manage reservations, itineraries, travel documentation, and budgets."," Invite other users to edit or view a trip.", "Interact with AI and Google maps directly in the app."]
         },
         {
           company: "GF Machining Solutions",
