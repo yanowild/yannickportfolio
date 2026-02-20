@@ -1037,7 +1037,6 @@ const Portfolio = () => {
                 <IconCloud iconSlugs={ICON_CLOUD_SLUGS} darkMode={darkMode} />
                 </Suspense>
               </div>
-              <div className={`absolute -inset-4 blur-3xl rounded-full z-0 ${darkMode ? 'bg-blue-400/5' : 'bg-[#2F5FD7]/5'}`} />
             </motion.div>
           </div>
         </div>

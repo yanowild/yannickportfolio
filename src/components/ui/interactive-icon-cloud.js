@@ -38,10 +38,12 @@ export const cloudProps = {
   },
 }
 
-export const renderCustomIcon = (icon, theme) => {
-  const bgHex = theme === "light" ? "#F4F5F7" : "#080510"
-  const fallbackHex = theme === "light" ? "#333333" : "#ffffff"
-  const minContrastRatio = theme === "light" ? 1.1 : 2
+export const renderCustomIcon = (icon) => {
+  // Use a single (light-mode friendly) set of colors for both themes to keep
+  // brand colors consistent and avoid icons turning white in dark mode.
+  const bgHex = "#F4F5F7"
+  const fallbackHex = "#333333"
+  const minContrastRatio = 1.1
 
   return renderSimpleIcon({
     icon,
@@ -132,7 +134,7 @@ export const IconCloud = React.memo(function IconCloud({ iconSlugs, darkMode }) 
     if (!data) return null
 
     return Object.values(data.simpleIcons).map((icon) =>
-      renderCustomIcon(icon, darkMode ? "dark" : "light"),
+      renderCustomIcon(icon),
     )
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data])
