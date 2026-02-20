@@ -276,6 +276,7 @@ const uiText = {
       tagline: 'Business & Systems Engineer',
       bio: 'Complex systems deserve simple design. I improve business processes by aligning operations with effective information systems.',
       downloadCV: 'CV',
+      cvLink: 'https://drive.google.com/file/d/14IVBZ4uwHJ2MXbbxYBxkrkFKKj6yXr07/view?usp=sharing',
       contact: 'Contact',
       linkedin: 'https://www.linkedin.com/in/yannick-wild/',
       github: 'https://github.com/yanowild',
@@ -525,6 +526,10 @@ const uiText = {
     },
     // Contact
     contact: {
+      title: 'Contact',
+      interested: 'Interested in improving your systems?',
+      letsConnect: "Let's connect.",
+      socials: 'Socials',
       phone: "+41 79 910 10 84",
       email: "wildyannick1@gmail.com",
       location: "Switzerland",
@@ -534,10 +539,289 @@ const uiText = {
     footer: {
       extra: ["Fitness", "Kitesurf", "Snowboard"]
     }
+  },
+  fr: {
+    // Header
+    nav: {
+      projects: 'Projets',
+      expertise: 'Expertise',
+      skills: 'Compétences',
+      experience: 'Expérience',
+      education: 'Formation',
+      contact: 'Contact'
+    },
+    // Hero
+    hero: {
+      name: 'Yannick Wild',
+      tagline: 'Ingénieur Business & Systèmes',
+      bio: 'Les systèmes complexes méritent un design simple. J\'améliore les processus métier en alignant les opérations avec les systèmes d\'information.',
+      downloadCV: 'CV',
+      cvLink: 'https://drive.google.com/file/d/1xjdaQb2RPjO0fWjo-KNL8p_Sb8oXoiIX/view?usp=sharing',
+      contact: 'Contact',
+      linkedin: 'https://www.linkedin.com/in/yannick-wild/',
+      github: 'https://github.com/yanowild',
+      seeMore: 'Voir plus'
+    },
+    // Projects
+    projects: {
+      title: 'Projets',
+      desc: 'Projets sélectionnés en systèmes d\'information, opérations et gestion de projet.',
+      modal: {
+        role: 'Mon Rôle',
+        outcome: 'Résultat',
+        skills: 'Compétences',
+      },
+      categories: {
+        all: 'Tous',
+        professional: 'Professionnel',
+        academic: 'Académique',
+        personal: 'Personnel'
+      },
+      items: [
+        {
+          title: "Plateforme SAP FSM",
+          subtitle: "Product Owner",
+          desc: "Refonte des opérations de service sur le terrain à l'échelle mondiale via l'implémentation de SAP FSM (Europe, USA, Chine, APAC).",
+          role: "Product Owner",
+          outcome: "Implémentation réussie de SAP FSM, optimisant les opérations de service mondiales grâce à des processus de service standardisés et une gestion de la performance.",
+          skillsUsed: ["BPMN", "Agile", "Analytics"],
+          projectLinks: [
+            { label: "Entreprise : GFMS", url: "https://www.gfms.com/com/en.html" },
+            { label: "Plateforme : SAP FSM", url: "https://www.sap.com/swiss/products/scm/field-service-management.html" }
+          ],
+          projectLinksTitle: "Liens",
+          category: "professional",
+          tags: ["BPMN", "Agile", "Analytics"],
+          imageContain: true,
+          image: "/assets/SAP FSM 1.webp",
+          images: [
+            "/assets/SAP FSM 1.webp",
+            "/assets/SAP FSM 2.webp",
+            "/assets/SAP FSM 3.webp",
+          ]
+        },
+        {
+          title: "Approvisionnement Hôtelier",
+          subtitle: "Chef de Projet",
+          desc: "Gestion de bout en bout des services d'approvisionnement et des installations sur site pour des ouvertures d'hôtels de luxe.",
+          role: "Chef de Projet",
+          outcome: "Gestion réussie du budget, des achats, des livraisons et des installations de plus de 5 000 articles auprès de plus de 100 fournisseurs.",
+          skillsUsed: ["Logistique", "Sourcing", "Équipe"],
+          projectLinks: [
+            { label: "Entreprise : Sunnyland", url: "https://www.sunnylandconsulting.com" },
+            { label: "Projet : Six Senses Ibiza", url: "https://www.sixsenses.com/en/hotels-resorts/europe/spain/ibiza" },
+            { label: "Projet : Rosewood Villa Magna", url: "https://www.rosewoodhotels.com/en/villa-magna" }
+          ],
+          projectLinksTitle: "Liens",
+          category: "professional",
+          tags: ["Logistique", "Sourcing", "Équipe"],
+          image: "/assets/Hotel Procurement 1.webp",
+          images: [
+            "/assets/Hotel Procurement 1.webp",
+            "/assets/Hotel Procurement 2.webp",
+            "/assets/Hotel Procurement 3.webp",
+          ]
+        },
+        {
+          title: "Mémoire de Master HEC",
+          subtitle: "Chercheur (Note : 6/6)",
+          desc: "Recherche sur l'influence du design d'interaction sur la confiance et le sentiment de contrôle des utilisateurs dans la planification de voyage par IA.",
+          role: "Chercheur",
+          outcome: "Développement et test utilisateur de deux interfaces IA, un Chatbot et une Interface Graphique. L'étude a généré des insights sur l'influence des modalités d'interaction sur la confiance et le contrôle. Note : 6/6.",
+          skillsUsed: ["Entretiens", "Expérience", "IA"],
+          projectLinks: [
+            { label: "Université : HEC", url: "https://www.unil.ch/hec/en/home/menuinst/master/systemes-d-information.html" }
+          ],
+          projectLinksTitle: "Liens",
+          category: "academic",
+          tags: ["Entretiens", "Expérience", "IA"],
+          image: "/assets/Master Thesis 1.webp",
+          images: [
+            "/assets/Master Thesis 1.webp",
+            "/assets/Master Thesis 2.webp",
+            "/assets/Master Thesis 3.webp",
+          ]
+        },
+        {
+          title: "Projet de Bachelor EHL",
+          subtitle: "Consultant (Note : 6/6)",
+          desc: "Élaboration d'une stratégie de développement commercial et d'un plan d'entrée sur le marché pour une entreprise de solutions IoT de qualité de l'air.",
+          role: "Consultant",
+          outcome: "Traduction des solutions IoT en valeur commerciale en se concentrant sur les partenariats stratégiques et l'intégration API ouverte. Note 6/6.",
+          skillsUsed: ["Stratégie", "Données", "IoT"],
+          projectLinks: [
+            { label: "Université : EHL", url: "https://www.ehl.edu" },
+            { label: "Entreprise : Arve", url: "https://www.arveair.com" }
+          ],
+          projectLinksTitle: "Liens",
+          category: "academic",
+          tags: ["Stratégie", "Données", "IoT"],
+          image: "/assets/Arve 1.webp",
+          images: [
+            "/assets/Arve 1.webp",
+            "/assets/Arve 2.webp",
+            "/assets/Arve 3.webp"
+          ]
+        },
+        {
+          title: "Projets Appliqués",
+          desc: "Projets développés en collaboration avec des professionnels lors de mon Master à HEC Lausanne.",
+          role: "Consultant",
+          outcome: "SAP : Conception d'un processus de vente piloté par l'IA pour les partenaires SAP.\nValtronic : Conception d'un cockpit KPI piloté par l'IA.",
+          skillsUsed: ["Architecture", "Roadmap", "IA"],
+          projectLinks: [
+            { label: "Entreprise : SAP", url: "https://www.sap.com/index.html" },
+            { label: "Entreprise : Valtronic", url: "https://valtronic.com/" }
+          ],
+          projectLinksTitle: "Liens",
+          subtitle: "Consultant",
+          category: "academic",
+          tags: ["Architecture", "Roadmap", "IA"],
+          image: "/assets/Applied Projects 1.webp",
+          images: [
+            "/assets/Applied Projects 1.webp",
+            "/assets/Applied Projects 2.webp",
+          ]
+        },
+        {
+          title: "Travelpop",
+          subtitle: "Développeur Full Stack",
+          desc: "Conception et développement d'une application de voyage propulsée par l'IA pour le web et le mobile, en tant que projet personnel.",
+          role: "Développeur Full Stack",
+          outcome: "Les utilisateurs peuvent :\n" +
+              "Gérer les réservations, itinéraires, documents de voyage et budgets.\n" +
+              "Inviter d'autres utilisateurs à modifier ou consulter un voyage.\n" +
+              "Interagir avec l'IA et Google Maps directement dans l'application.",
+          skillsUsed: ["Full-Stack", "UX/UI", "IA"],
+          projectLinks: [
+            { label: "Travelpop", url: "https://www.travelpop.app" },
+          ],
+          projectLinksTitle: "Liens",
+          category: "personal",
+          tags: ["Full-Stack", "UX/UI", "IA"],
+          image: "/assets/travelpop1.webp",
+          images: [
+            "/assets/travelpop1.webp",
+          ]
+        }
+      ]
+    },
+    // Expertise
+    expertise: {
+      title: 'Mon Expertise',
+      items: [
+        {
+          title: 'Systèmes d\'Information',
+          desc: 'Travail sur l\'architecture des systèmes, les structures de données et le développement logiciel.'
+        },
+        {
+          title: 'Optimisation des Processus',
+          desc: 'Amélioration de l\'efficacité par la mise en place de processus métier structurés et évolutifs.'
+        },
+        {
+          title: 'Intelligence Artificielle',
+          desc: 'Utilisation des outils d\'IA pour le développement, l\'automatisation et l\'accélération des flux de travail.'
+        },
+        {
+          title: 'Design d\'Interaction',
+          desc: 'Conception d\'interfaces intuitives, engageantes et agréables centrées sur l\'expérience utilisateur.'
+        }
+      ]
+    },
+    // Skills
+    skills: {
+      title: 'Compétences',
+      engineering: 'Ingénierie',
+      platforms: 'Plateformes',
+      interpersonal: 'Interpersonnel',
+      languages: 'Langues',
+      engineeringSkills: [
+        'Intelligence Artificielle',
+        'Java · Python · SQL',
+        'HTML · CSS · JS',
+        'Spring · Auth · API',
+      ],
+      platformsSkills: [
+        'IntelliJ · Github',
+        'Jira · Postman',
+        'SAP · Odoo',
+        'Archimate · BPMN',
+      ],
+      interpersonalSkills: [
+        'Résolution de problèmes',
+        'Organisé',
+        'Débrouillard',
+        'Esprit d\'équipe'
+      ]
+    },
+    // Experience
+    experience: {
+      title: 'Expérience',
+      items: [
+        {
+          company: "Travelpop",
+          location: "Projet Personnel",
+          role: "Développeur Full Stack",
+          period: "2024 - Présent",
+          description: ["Développement d'une application de voyage (web + mobile) où les utilisateurs peuvent :", "Gérer les réservations, itinéraires, documents de voyage et budgets.", "Inviter d'autres utilisateurs à modifier ou consulter un voyage.", "Interagir avec l'IA et Google Maps directement dans l'application."]
+        },
+        {
+          company: "GF Machining Solutions",
+          location: "Genève",
+          role: "Product Owner",
+          period: "2021 - 2023",
+          description: ["Direction de l'implémentation de SAP FSM pour optimiser les opérations de service mondiales.", "Analyse des processus de service et des données ERP en Europe, USA, Chine et APAC.", "Conception de processus de service standards dans SAP FSM.", "Définition de KPIs et configuration de tableaux de bord dans SAP Analytics Cloud."]
+        },
+        {
+          company: "Sunnyland Consulting",
+          location: "Madrid",
+          role: "Chef de Projet",
+          period: "2019 - 2021",
+          description: ["Gestion d'une équipe pour fournir des services d'approvisionnement de bout en bout pour des ouvertures d'hôtels de luxe.", "Services d'approvisionnement : contrôle budgétaire, achats, livraisons et installations.", "Mise en place d'une nouvelle structure opérationnelle pour améliorer la productivité."]
+        },
+        {
+          company: ["Beau-Rivage Palace", "Hotel Bernerhof", "Grand Hôtel & Centre Thermal"],
+          location: ["Lausanne", "Grindelwald", "Yverdon"],
+          role: "Ops Hôtelières",
+          period: "2014 – 2017",
+          description: "Expérience opérationnelle en F&B (service & cuisine) et réception."
+        }
+      ]
+    },
+    // Education
+    education: {
+      title: 'Formation',
+      items: [
+        {
+          school: "HEC Lausanne",
+          degree: "Master en Systèmes d'Information & Innovation Digitale",
+          period: "2024 - 2026"
+        },
+        {
+          school: "EHL École Hôtelière de Lausanne",
+          degree: "Bachelor en Management Hôtelier",
+          period: "2016 - 2020"
+        }
+      ]
+    },
+    // Contact
+    contact: {
+      title: 'Contact',
+      interested: 'Envie d\'améliorer vos systèmes ?',
+      letsConnect: 'Connectons-nous.',
+      socials: 'Réseaux',
+      phone: "+41 79 910 10 84",
+      email: "wildyannick1@gmail.com",
+      location: "Suisse",
+      nationality: "Suisse"
+    },
+    // Footer
+    footer: {
+      copyright: '© {year} Yannick Wild. Tous droits réservés.',
+      extra: ["Fitness", "Kitesurf", "Snowboard"]
+    }
   }
 };
-
-const t = uiText.en;
 const fadeIn = {
   initial: { opacity: 0, y: 20 },
   animate: { opacity: 1, y: 0 },
@@ -546,12 +830,25 @@ const fadeIn = {
 };
 
 const Portfolio = () => {
-  // const [language, setLanguage] = useState('en'); // Removed to strictly use English
+  const [language, setLanguage] = useState('en');
+  const t = uiText[language];
   const [darkMode, setDarkMode] = useState(() => {
     const saved = localStorage.getItem('darkMode');
     return saved !== null ? JSON.parse(saved) : false;
   });
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [langMenuOpen, setLangMenuOpen] = useState(false);
+  const langMenuRef = React.useRef(null);
+
+  React.useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (langMenuRef.current && !langMenuRef.current.contains(e.target)) {
+        setLangMenuOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
   const [activeFilter, setActiveFilter] = useState('all');
 
   const [selectedProject, setSelectedProject] = useState(null);
@@ -626,8 +923,38 @@ const Portfolio = () => {
             >
               {darkMode ? <Sun size={20} /> : <Moon size={20} />}
             </button>
-            <div className={`flex h-10 w-10 items-center justify-center rounded-full border text-sm font-bold transition-colors duration-300 ${darkMode ? 'border-slate-700 bg-slate-800/40 text-blue-400' : 'border-[#D8DCE3] bg-white text-[#1F2933] hover:text-[#2F5FD7]'}`}>
-              EN
+            <div className="relative" ref={langMenuRef}>
+              <button
+                onClick={() => setLangMenuOpen(!langMenuOpen)}
+                className={`flex h-10 w-10 items-center justify-center rounded-full border text-sm font-bold transition-colors duration-300 cursor-pointer ${darkMode ? 'border-slate-700 bg-slate-800/40 text-blue-400 hover:bg-slate-700/60' : 'border-[#D8DCE3] bg-white text-[#1F2933] hover:text-[#2F5FD7]'}`}
+                title={language === 'en' ? 'Change language' : 'Changer de langue'}
+              >
+                {language === 'en' ? 'EN' : 'FR'}
+              </button>
+              <AnimatePresence>
+                {langMenuOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -8 }}
+                    transition={{ duration: 0.15 }}
+                    className={`absolute right-0 mt-2 w-36 rounded-lg border shadow-lg overflow-hidden ${darkMode ? 'border-slate-700 bg-slate-800' : 'border-[#D8DCE3] bg-white'}`}
+                  >
+                    <button
+                      onClick={() => { setLanguage('en'); setLangMenuOpen(false); }}
+                      className={`w-full text-left px-4 py-2.5 text-sm font-medium transition-colors ${language === 'en' ? (darkMode ? 'text-blue-400 bg-slate-700/50' : 'text-[#2F5FD7] bg-[#EDEFF2]') : (darkMode ? 'text-slate-300 hover:bg-slate-700/50 hover:text-blue-400' : 'text-[#1F2933] hover:bg-[#EDEFF2] hover:text-[#2F5FD7]')}`}
+                    >
+                      English
+                    </button>
+                    <button
+                      onClick={() => { setLanguage('fr'); setLangMenuOpen(false); }}
+                      className={`w-full text-left px-4 py-2.5 text-sm font-medium transition-colors ${language === 'fr' ? (darkMode ? 'text-blue-400 bg-slate-700/50' : 'text-[#2F5FD7] bg-[#EDEFF2]') : (darkMode ? 'text-slate-300 hover:bg-slate-700/50 hover:text-blue-400' : 'text-[#1F2933] hover:bg-[#EDEFF2] hover:text-[#2F5FD7]')}`}
+                    >
+                      Français
+                    </button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </div>
         </div>
@@ -697,17 +1024,26 @@ const Portfolio = () => {
               variants={fadeIn}
               className={`text-lg md:text-xl font-medium leading-relaxed mb-8 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}
             >
-              Complex systems deserve simple design.<br />
-              I improve business processes by aligning operations with effective digital solutions.
+              {t.hero.bio.split('.').filter(Boolean).map((sentence, i, arr) => (
+                <React.Fragment key={i}>
+                  {sentence.trim()}.{i < arr.length - 1 && <br />}
+                </React.Fragment>
+              ))}
             </motion.p>
 
             <motion.div 
               variants={fadeIn}
               className="flex flex-wrap gap-4 justify-center"
             >
-              <button className={`flex items-center gap-2 px-4 py-2 rounded-lg font-bold transition-colors text-sm md:text-base ${darkMode ? 'bg-blue-400 text-slate-900 hover:bg-blue-400/80' : 'bg-[#2F5FD7] text-white hover:bg-[#2854b5]'}`}>
-                <Download size={20} /> {t.hero.downloadCV}
-              </button>
+              {t.hero.cvLink ? (
+                <a href={t.hero.cvLink} target="_blank" rel="noopener noreferrer" className={`flex items-center gap-2 px-4 py-2 rounded-lg font-bold transition-colors text-sm md:text-base ${darkMode ? 'bg-blue-400 text-slate-900 hover:bg-blue-400/80' : 'bg-[#2F5FD7] text-white hover:bg-[#2854b5]'}`}>
+                  <Download size={20} /> {t.hero.downloadCV}
+                </a>
+              ) : (
+                <button className={`flex items-center gap-2 px-4 py-2 rounded-lg font-bold transition-colors text-sm md:text-base ${darkMode ? 'bg-blue-400 text-slate-900 hover:bg-blue-400/80' : 'bg-[#2F5FD7] text-white hover:bg-[#2854b5]'}`}>
+                  <Download size={20} /> {t.hero.downloadCV}
+                </button>
+              )}
               <div className="flex flex-wrap gap-3">
                 <a href="#contact" className={`flex items-center gap-2 p-3 border rounded-lg transition-colors font-medium ${darkMode ? 'border-slate-700 bg-slate-800/30 hover:bg-slate-800/50 text-slate-300 hover:text-blue-400' : 'border-[#D8DCE3] bg-white hover:bg-[#EDEFF2] text-[#1F2933] hover:text-[#2F5FD7]'}`} title="Contact">
                   <Mail size={20} />
@@ -1127,15 +1463,15 @@ const Portfolio = () => {
                   <div className="mb-4">
                     <div className="flex items-baseline justify-between gap-4">
                       {(() => {
-                        const parts = edu.degree.split(/ in /i);
+                        const parts = edu.degree.split(language === 'fr' ? / en /i : / in /i);
                         const diploma = parts[0];
                         return <h3 className={`text-2xl font-bold ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{diploma}</h3>;
                       })()}
                       <span className={`text-base whitespace-nowrap ${darkMode ? 'text-blue-400' : 'text-[#2F5FD7]'}`}>{edu.period}</span>
                     </div>
                     {(() => {
-                      const parts = edu.degree.split(/ in /i);
-                      const field = parts.length > 1 ? parts.slice(1).join(' in ') : null;
+                      const parts = edu.degree.split(language === 'fr' ? / en /i : / in /i);
+                      const field = parts.length > 1 ? parts.slice(1).join(language === 'fr' ? ' en ' : ' in ') : null;
                       return (
                         <>
                           {field && (
@@ -1163,13 +1499,13 @@ const Portfolio = () => {
               viewport={{ once: true }}
               className={`text-5xl font-bold mb-6 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}
             >
-              Contact
+              {t.contact.title || 'Contact'}
             </motion.h2>
           </div>
           <p className={`text-lg leading-relaxed mb-12 text-center ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>
-            Interested in improving your systems?
+            {t.contact.interested || 'Interested in improving your systems?'}
             <br />
-            Let’s connect.
+            {t.contact.letsConnect || "Let's connect."}
           </p>
 
           <div className="flex flex-col lg:flex-row items-center gap-16">
@@ -1193,7 +1529,7 @@ const Portfolio = () => {
                 <p className={`text-base font-semibold ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{t.contact.location}</p>
               </div>
               <div>
-                <h4 className={`text-base font-semibold mb-4 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>Socials</h4>
+                <h4 className={`text-base font-semibold mb-4 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{t.contact.socials || 'Socials'}</h4>
                 <div className="flex gap-4">
                   <a href="https://www.linkedin.com/in/yannick-wild/" target="_blank" rel="noopener noreferrer" className={`p-4 rounded-full transition-colors border ${darkMode ? 'bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-blue-400 border-transparent' : 'bg-white text-[#1F2933] hover:bg-[#EDEFF2] hover:text-[#2F5FD7] border-[#D8DCE3]'}`}>
                     <Linkedin size={24} />
@@ -1221,7 +1557,7 @@ const Portfolio = () => {
           </div>
 
           <div className={`mt-8 pt-6 border-t text-center text-sm pb-6 ${darkMode ? 'border-slate-800 text-slate-300' : 'border-[#D8DCE3] text-[#1F2933]'}`}>
-            © {new Date().getFullYear()} Yannick Wild. All rights reserved.
+            © {new Date().getFullYear()} Yannick Wild. {language === 'fr' ? 'Tous droits réservés.' : 'All rights reserved.'}
           </div>
         </div>
       </footer>
