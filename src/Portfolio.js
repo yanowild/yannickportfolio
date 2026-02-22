@@ -200,7 +200,7 @@ const ICON_CLOUD_SLUGS = [
           </button>
 
           {/* Content */}
-          <div className={`w-full p-8 overflow-y-auto ${darkMode ? 'bg-slate-900' : 'bg-white'}`}>
+          <div className={`w-full p-8 overflow-y-auto overscroll-contain ${darkMode ? 'bg-slate-900' : 'bg-white'}`}>
             <div className="mb-8">
               <h3 className={`text-3xl font-bold mb-2 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{project.title}</h3>
               {project.grade && (
