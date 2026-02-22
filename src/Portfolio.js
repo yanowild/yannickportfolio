@@ -743,12 +743,12 @@ const uiText = {
         'IntelliJ · Github',
         'Jira · Postman',
         'SAP · Odoo',
-        'Archimate · BPMN',
+        'ArchiMate · BPMN',
       ],
       interpersonalSkills: [
         'Résolution de problèmes',
-        'Organisé',
-        'Débrouillard',
+        'Organisation',
+        'Autonomie',
         'Esprit d\'équipe'
       ]
     },
@@ -759,23 +759,23 @@ const uiText = {
         {
           company: "Travelpop",
           location: "Projet Personnel",
-          role: "Développeur Full Stack",
+          role: "Full Stack Dev",
           period: "2024 - Présent",
-          description: ["Développement d'une application de voyage (web + mobile) où les utilisateurs peuvent :", "Gérer les réservations, itinéraires, documents de voyage et budgets.", "Inviter d'autres utilisateurs à modifier ou consulter un voyage.", "Interagir avec l'IA et Google Maps directement dans l'application."]
+          description: ["Développement d'une application de voyages (web + mobile) permettant aux utilisateurs de :", "Gérer les réservations, itinéraires, documents de voyage et budgets.", "Inviter d'autres utilisateurs à collaborer sur un voyage.", "Interagir avec l'IA et Google Maps directement dans l'application."]
         },
         {
           company: "GF Machining Solutions",
           location: "Genève",
           role: "Product Owner",
           period: "2021 - 2023",
-          description: ["Direction de l'implémentation de SAP FSM pour optimiser les opérations de service mondiales.", "Analyse des processus de service et des données ERP en Europe, USA, Chine et APAC.", "Conception de processus de service standards dans SAP FSM.", "Définition de KPIs et configuration de tableaux de bord dans SAP Analytics Cloud."]
+          description: ["Pilotage de l’implémentation globale de SAP FSM pour optimiser la gestion des services et les flux de travail.", "Analyse des processus de service et des données ERP en Europe, États-Unis, Chine et APAC.", "Conception de processus de service standardisés dans SAP FSM.", "Définition de KPIs et configuration de tableaux de bord dans SAP Analytics Cloud."]
         },
         {
           company: "Sunnyland Consulting",
           location: "Madrid",
           role: "Chef de Projet",
           period: "2019 - 2021",
-          description: ["Gestion d'une équipe pour fournir des services d'approvisionnement de bout en bout pour des ouvertures d'hôtels de luxe.", "Services d'approvisionnement : contrôle budgétaire, achats, livraisons et installations.", "Mise en place d'une nouvelle structure opérationnelle pour améliorer la productivité."]
+          description: ["Pilotage d’une équipe en charge de l’approvisionnement pour des projets de rénovation d’hôtels de luxe.", "Responsabilités : contrôle budgétaire, sourcing, achats, livraisons et installations.", "Déploiement d’une nouvelle structure opérationnelle afin d’optimiser les flux de travail et la productivité."]
         },
         {
           company: ["Beau-Rivage Palace", "Hotel Bernerhof", "Grand Hôtel & Centre Thermal"],
@@ -805,7 +805,7 @@ const uiText = {
     // Contact
     contact: {
       title: 'Contact',
-      interested: 'Vous souhaitez optimiser vos systèmes?',
+      interested: 'Vous souhaitez optimiser vos systèmes ?',
       letsConnect: 'Prenons contact.',
       socials: 'Réseaux',
       phone: "+41 79 910 10 84",
@@ -830,6 +830,78 @@ const fadeIn = {
 const Portfolio = () => {
   const [language, setLanguage] = useState('en');
   const t = uiText[language];
+
+  const switchLanguage = (newLang) => {
+    if (newLang === language) return;
+
+    const sectionIds = ['profil', 'projects', 'expertise', 'skills', 'experience', 'education', 'contact'];
+    const scrollY = window.scrollY;
+    const viewportTop = scrollY;
+
+    // Find which section the TOP of the viewport is inside, and compute proportional progress
+    let anchorId = null;
+    let proportionalOffset = 0; // 0..1 how far through the section the viewport top is
+    let pixelOffsetFromSectionTop = 0;
+
+    for (let i = sectionIds.length - 1; i >= 0; i--) {
+      const el = document.getElementById(sectionIds[i]);
+      if (el) {
+        const elTop = el.getBoundingClientRect().top + scrollY;
+        if (elTop <= viewportTop) {
+          anchorId = sectionIds[i];
+          const sectionHeight = el.offsetHeight;
+          pixelOffsetFromSectionTop = viewportTop - elTop;
+          proportionalOffset = sectionHeight > 0 ? pixelOffsetFromSectionTop / sectionHeight : 0;
+          break;
+        }
+      }
+    }
+    if (!anchorId) {
+      anchorId = sectionIds[0];
+      proportionalOffset = 0;
+    }
+
+    // Fade out smoothly, then switch language & correct scroll while invisible
+    const root = document.documentElement;
+    const body = document.body;
+    const bgColor = darkMode ? '#0b1220' : '#F4F5F7';
+    root.style.backgroundColor = bgColor;
+    body.style.transition = 'opacity 0.15s ease-out';
+    body.style.opacity = '0';
+
+    const onFadedOut = () => {
+      body.removeEventListener('transitionend', onFadedOut);
+
+      setLanguage(newLang);
+
+      // Triple rAF to be absolutely sure React + browser layout is done
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            const el = document.getElementById(anchorId);
+            if (el) {
+              const newElTop = el.getBoundingClientRect().top + window.scrollY;
+              const newSectionHeight = el.offsetHeight;
+              const targetScrollY = newElTop + (proportionalOffset * newSectionHeight);
+              window.scrollTo({ top: targetScrollY, behavior: 'instant' });
+            }
+
+            // Fade back in
+            body.style.transition = 'opacity 0.2s ease-in';
+            body.style.opacity = '1';
+            const onFadedIn = () => {
+              body.removeEventListener('transitionend', onFadedIn);
+              body.style.transition = '';
+              body.style.opacity = '';
+              root.style.backgroundColor = '';
+            };
+            body.addEventListener('transitionend', onFadedIn, { once: true });
+          });
+        });
+      });
+    };
+    body.addEventListener('transitionend', onFadedOut, { once: true });
+  };
   const [darkMode, setDarkMode] = useState(() => {
     const saved = localStorage.getItem('darkMode');
     return saved !== null ? JSON.parse(saved) : false;
@@ -939,13 +1011,13 @@ const Portfolio = () => {
                     className={`absolute right-0 mt-2 w-36 rounded-lg border shadow-lg overflow-hidden ${darkMode ? 'border-slate-700 bg-slate-800' : 'border-[#D8DCE3] bg-white'}`}
                   >
                     <button
-                      onClick={() => { setLanguage('en'); setLangMenuOpen(false); }}
+                      onClick={() => { switchLanguage('en'); setLangMenuOpen(false); }}
                       className={`w-full text-left px-4 py-2.5 text-sm font-medium transition-colors ${language === 'en' ? (darkMode ? 'text-blue-400 bg-slate-700/50' : 'text-[#2F5FD7] bg-[#EDEFF2]') : (darkMode ? 'text-slate-300 hover:bg-slate-700/50 hover:text-blue-400' : 'text-[#1F2933] hover:bg-[#EDEFF2] hover:text-[#2F5FD7]')}`}
                     >
                       English
                     </button>
                     <button
-                      onClick={() => { setLanguage('fr'); setLangMenuOpen(false); }}
+                      onClick={() => { switchLanguage('fr'); setLangMenuOpen(false); }}
                       className={`w-full text-left px-4 py-2.5 text-sm font-medium transition-colors ${language === 'fr' ? (darkMode ? 'text-blue-400 bg-slate-700/50' : 'text-[#2F5FD7] bg-[#EDEFF2]') : (darkMode ? 'text-slate-300 hover:bg-slate-700/50 hover:text-blue-400' : 'text-[#1F2933] hover:bg-[#EDEFF2] hover:text-[#2F5FD7]')}`}
                     >
                       Français
