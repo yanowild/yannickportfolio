@@ -273,7 +273,7 @@ const uiText = {
     // Hero
     hero: {
       name: 'Yannick Wild',
-      tagline: 'Business & Systems Engineer',
+      tagline: 'Information Systems Engineer',
       bio: 'Complex systems deserve simple design. I improve business processes by aligning operations with effective information systems.',
       downloadCV: 'CV',
       cvLink: 'https://drive.google.com/file/d/14IVBZ4uwHJ2MXbbxYBxkrkFKKj6yXr07/view?usp=sharing',
@@ -553,7 +553,7 @@ const uiText = {
     // Hero
     hero: {
       name: 'Yannick Wild',
-      tagline: 'Ingénieur Business & Systèmes',
+      tagline: 'Ingénieur Systèmes d\'Information',
       bio: 'Les systèmes complexes méritent un design simple. J\'améliore les processus métier en alignant les opérations avec les systèmes d\'information.',
       downloadCV: 'CV',
       cvLink: 'https://drive.google.com/file/d/1xjdaQb2RPjO0fWjo-KNL8p_Sb8oXoiIX/view?usp=sharing',
