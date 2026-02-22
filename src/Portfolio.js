@@ -1,4 +1,4 @@
-import React, { useState, useRef, lazy, Suspense } from 'react';
+import React, { useState, useRef, useEffect, lazy, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ThemeProvider } from 'next-themes';
 import { 
@@ -153,6 +153,14 @@ const ICON_CLOUD_SLUGS = [
   const ProjectModal = ({ project, onClose, t, darkMode }) => {
     // Fix for "click inside, release outside" closing the modal
     const [isMouseDownOnOverlay, setIsMouseDownOnOverlay] = useState(false);
+
+    // Prevent background scrolling when modal is open
+    useEffect(() => {
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = '';
+      };
+    }, []);
 
     const handleOverlayMouseDown = (e) => {
       if (e.target === e.currentTarget) {
@@ -431,18 +439,26 @@ const uiText = {
       items: [
         {
           title: 'Information Systems',
+          titleLine1: 'Information',
+          titleLine2: 'Systems',
           desc: 'Working across systems architecture, data structures and software development.'
         },
         {
           title: 'Process Optimization',
+          titleLine1: 'Process',
+          titleLine2: 'Optimization',
           desc: 'Improving efficiency by implementing structured and scalable business processes.'
         },
         {
           title: 'Artificial Intelligence',
+          titleLine1: 'Artificial',
+          titleLine2: 'Intelligence',
           desc: 'Leveraging AI tools for development, automation, and workflow acceleration.'
         },
         {
           title: 'Interaction Design',
+          titleLine1: 'Interaction',
+          titleLine2: 'Design',
           desc: 'Focusing on user experience to design intuitive, engaging, and enjoyable interfaces.'
         }
       ]
@@ -471,6 +487,12 @@ const uiText = {
         'Organized',
         'Resourceful',
         'Team Player'
+      ],
+      languagesSkills: [
+        '🇫🇷 French: Native',
+        '🇬🇧 English: Native',
+        '🇪🇸 Spanish: Native',
+        '🇮🇹 Italian: Fluent (B2)'
       ]
     },
     // Experience
@@ -579,17 +601,17 @@ const uiText = {
         {
           title: "Plateforme SAP FSM",
           subtitle: "Product Owner",
-          desc: "Refonte des opérations de service sur le terrain à l'échelle mondiale via l'implémentation de SAP FSM (Europe, USA, Chine, APAC).",
+          desc: "Implémentation de SAP FSM pour optimiser la gestion globale des services (Europe, États-Unis, Chine, APAC).",
           role: "Product Owner",
-          outcome: "Implémentation réussie de SAP FSM, optimisant les opérations de service mondiales grâce à des processus de service standardisés et une gestion de la performance.",
-          skillsUsed: ["BPMN", "Agile", "Analytics"],
+          outcome: "Implémentation réussie de SAP FSM, permettant la standardisation globale des processus de service client ainsi que l’amélioration du pilotage de la performance.",
+          skillsUsed: ["BPMN", "Agile", "Analytique"],
           projectLinks: [
             { label: "Entreprise : GFMS", url: "https://www.gfms.com/com/en.html" },
             { label: "Plateforme : SAP FSM", url: "https://www.sap.com/swiss/products/scm/field-service-management.html" }
           ],
           projectLinksTitle: "Liens",
           category: "professional",
-          tags: ["BPMN", "Agile", "Analytics"],
+          tags: ["BPMN", "Agile", "Analytique"],
           imageContain: true,
           image: "/assets/SAP FSM 1.webp",
           images: [
@@ -599,12 +621,12 @@ const uiText = {
           ]
         },
         {
-          title: "Approvisionnement Hôtelier",
+          title: "Projets Hôteliers",
           subtitle: "Chef de Projet",
-          desc: "Gestion de bout en bout des services d'approvisionnement et des installations sur site pour des ouvertures d'hôtels de luxe.",
+          desc: "Pilotage des achats, contrôle budgétaire, livraisons et installations pour des projets de rénovation d’hôtels de luxe.",
           role: "Chef de Projet",
           outcome: "Gestion réussie du budget, des achats, des livraisons et des installations de plus de 5 000 articles auprès de plus de 100 fournisseurs.",
-          skillsUsed: ["Logistique", "Sourcing", "Équipe"],
+          skillsUsed: ["Achats", "Budget", "Logistique"],
           projectLinks: [
             { label: "Entreprise : Sunnyland", url: "https://www.sunnylandconsulting.com" },
             { label: "Projet : Six Senses Ibiza", url: "https://www.sixsenses.com/en/hotels-resorts/europe/spain/ibiza" },
@@ -612,7 +634,7 @@ const uiText = {
           ],
           projectLinksTitle: "Liens",
           category: "professional",
-          tags: ["Logistique", "Sourcing", "Équipe"],
+          tags: ["Achats", "Budget", "Logistique"],
           image: "/assets/Hotel Procurement 1.webp",
           images: [
             "/assets/Hotel Procurement 1.webp",
@@ -621,11 +643,11 @@ const uiText = {
           ]
         },
         {
-          title: "Mémoire de Master HEC",
+          title: "HEC - Mémoire Master",
           subtitle: "Chercheur (Note : 6/6)",
-          desc: "Recherche sur l'influence du design d'interaction sur la confiance et le sentiment de contrôle des utilisateurs dans la planification de voyage par IA.",
+          desc: "Impact du design d’interaction sur la confiance et le sentiment de contrôle dans la planification de voyages assitée par l'IA.",
           role: "Chercheur",
-          outcome: "Développement et test utilisateur de deux interfaces IA, un Chatbot et une Interface Graphique. L'étude a généré des insights sur l'influence des modalités d'interaction sur la confiance et le contrôle. Note : 6/6.",
+          outcome: "Développement et test utilisateur de deux interfaces d'IA (Chatbot et Interface Graphique). L'étude a mis en évidence l'influence des modalités d'interaction sur la confiance et le sentiment de contrôle. Note : 6/6.",
           skillsUsed: ["Entretiens", "Expérience", "IA"],
           projectLinks: [
             { label: "Université : HEC", url: "https://www.unil.ch/hec/en/home/menuinst/master/systemes-d-information.html" }
@@ -641,11 +663,11 @@ const uiText = {
           ]
         },
         {
-          title: "Projet de Bachelor EHL",
+          title: "EHL - Projet Bachelor",
           subtitle: "Consultant (Note : 6/6)",
-          desc: "Élaboration d'une stratégie de développement commercial et d'un plan d'entrée sur le marché pour une entreprise de solutions IoT de qualité de l'air.",
+          desc: "Stratégie commerciale et plan d’entrée sur le marché pour une entreprise de solutions IoT en qualité de l’air.",
           role: "Consultant",
-          outcome: "Traduction des solutions IoT en valeur commerciale en se concentrant sur les partenariats stratégiques et l'intégration API ouverte. Note 6/6.",
+          outcome: "Élaboration d’une stratégie de création de valeur via des partenariats stratégiques et l’intégration d’API ouvertes. Note : 6/6.",
           skillsUsed: ["Stratégie", "Données", "IoT"],
           projectLinks: [
             { label: "Université : EHL", url: "https://www.ehl.edu" },
@@ -665,7 +687,7 @@ const uiText = {
           title: "Projets Appliqués",
           desc: "Projets développés en collaboration avec des professionnels lors de mon Master à HEC Lausanne.",
           role: "Consultant",
-          outcome: "SAP : Conception d'un processus de vente piloté par l'IA pour les partenaires SAP.\nValtronic : Conception d'un cockpit KPI piloté par l'IA.",
+          outcome: "SAP : Conception d'un processus de vente piloté par l'IA.\nValtronic : Conception d’un cockpit de pilotage des KPI basé sur l’IA.",
           skillsUsed: ["Architecture", "Roadmap", "IA"],
           projectLinks: [
             { label: "Entreprise : SAP", url: "https://www.sap.com/index.html" },
@@ -684,7 +706,7 @@ const uiText = {
         {
           title: "Travelpop",
           subtitle: "Développeur Full Stack",
-          desc: "Conception et développement d'une application de voyage propulsée par l'IA pour le web et le mobile, en tant que projet personnel.",
+          desc: "Conception et développement d'une application de voyage intégrant des fonctionnalités d’IA (web + mobile).",
           role: "Développeur Full Stack",
           outcome: "Les utilisateurs peuvent :\n" +
               "Gérer les réservations, itinéraires, documents de voyage et budgets.\n" +
@@ -710,19 +732,27 @@ const uiText = {
       items: [
         {
           title: 'Systèmes d\'Information',
-          desc: 'Travail sur l\'architecture des systèmes, les structures de données et le développement logiciel.'
+          titleLine1: 'Systèmes',
+          titleLine2: 'd\'Information',
+          desc: 'Architecture de systèmes, modélisation de données et développement de logiciels.'
         },
         {
           title: 'Optimisation des Processus',
-          desc: 'Amélioration de l\'efficacité par la mise en place de processus métier structurés et évolutifs.'
+          titleLine1: 'Optimisation',
+          titleLine2: 'des Processus',
+          desc: 'Optimisation des processus métier pour améliorer la productivité et la scalabilité.'
         },
         {
           title: 'Intelligence Artificielle',
-          desc: 'Utilisation des outils d\'IA pour le développement, l\'automatisation et l\'accélération des flux de travail.'
+          titleLine1: 'Intelligence',
+          titleLine2: 'Artificielle',
+          desc: 'Intégration d\'outils d\'IA pour le développement et l\'accélération des workflows.'
         },
         {
           title: 'Design d\'Interaction',
-          desc: 'Conception d\'interfaces intuitives, engageantes et agréables centrées sur l\'expérience utilisateur.'
+          titleLine1: 'Design',
+          titleLine2: 'd\'Interaction',
+          desc: 'Conception d\'interfaces intuitives centrées sur l\'expérience utilisateur.'
         }
       ]
     },
@@ -750,6 +780,12 @@ const uiText = {
         'Organisation',
         'Autonomie',
         'Esprit d\'équipe'
+      ],
+      languagesSkills: [
+        '🇫🇷 Français : Natif',
+        '🇬🇧 Anglais : Natif',
+        '🇪🇸 Espagnol : Natif',
+        '🇮🇹 Italien : Courant (B2)'
       ]
     },
     // Experience
@@ -780,7 +816,7 @@ const uiText = {
         {
           company: ["Beau-Rivage Palace", "Hotel Bernerhof", "Grand Hôtel & Centre Thermal"],
           location: ["Lausanne", "Grindelwald", "Yverdon"],
-          role: "Ops Hôtelières",
+          role: "Hôtellerie",
           period: "2014 – 2017",
           description: "Expérience opérationnelle en F&B (service & cuisine) et réception."
         }
@@ -1304,7 +1340,7 @@ const Portfolio = () => {
                       <Icon className={`${darkMode ? 'text-blue-400' : 'text-[#2F5FD7]'}`} size={28} />
                     </div>
                     <h3 className={`text-xl font-bold mb-2 text-center ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>
-                      {item.title}
+                      {item.titleLine1 ? (<>{item.titleLine1}<br />{item.titleLine2}</>) : item.title}
                     </h3>
                     <div className="flex justify-center flex-grow">
                       <p className={`text-base leading-relaxed text-center max-w-xs ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>
@@ -1412,10 +1448,9 @@ const Portfolio = () => {
                   <div className="flex flex-col items-center">
                     <h4 className={`text-lg font-bold mb-4 text-center w-full ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{t.skills.languages}</h4>
                     <div className="space-y-3 w-fit mx-auto">
-                      <div className="flex items-center gap-3"><span className={`text-base font-medium ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>🇫🇷 French: Native</span></div>
-                      <div className="flex items-center gap-3"><span className={`text-base font-medium ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>🇬🇧 English: Native</span></div>
-                      <div className="flex items-center gap-3"><span className={`text-base font-medium ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>🇪🇸 Spanish: Native</span></div>
-                      <div className="flex items-center gap-3"><span className={`text-base font-medium ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>🇮🇹 Italian: Fluent (B2)</span></div>
+                      {t.skills.languagesSkills.map((lang, i) => (
+                        <div key={i} className="flex items-center gap-3"><span className={`text-base font-medium ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{lang}</span></div>
+                      ))}
                     </div>
                   </div>
                 </motion.div>
