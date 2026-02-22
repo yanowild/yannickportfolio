@@ -285,7 +285,6 @@ const uiText = {
     // Projects
     projects: {
       title: 'Projects',
-      desc: 'Selected projects in information systems, operations, and project management.',
       modal: {
         role: 'My Role',
         outcome: 'Outcome',
@@ -565,7 +564,6 @@ const uiText = {
     // Projects
     projects: {
       title: 'Projets',
-      desc: 'Projets sélectionnés en systèmes d\'information, opérations et gestion de projet.',
       modal: {
         role: 'Mon Rôle',
         outcome: 'Résultat',
@@ -807,8 +805,8 @@ const uiText = {
     // Contact
     contact: {
       title: 'Contact',
-      interested: 'Envie d\'améliorer vos systèmes ?',
-      letsConnect: 'Connectons-nous.',
+      interested: 'Vous souhaitez optimiser vos systèmes?',
+      letsConnect: 'Prenons contact.',
       socials: 'Réseaux',
       phone: "+41 79 910 10 84",
       email: "wildyannick1@gmail.com",
@@ -1083,14 +1081,6 @@ const Portfolio = () => {
             >
               {t.projects.title}
             </motion.h2>
-            <motion.p 
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className={`max-w-2xl mx-auto text-lg leading-relaxed ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}
-            >
-              {t.projects.desc}
-            </motion.p>
           </div>
 
           {/* Filters */}
