@@ -160,18 +160,19 @@ const ICON_CLOUD_SLUGS = [
     useEffect(() => {
       const html = document.documentElement;
       const body = document.body;
+      const scrollY = window.scrollY;
 
-      // Use overflow hidden on both html and body
-      html.style.overflow = 'hidden';
+      // Lock body in place with position:fixed to prevent ALL scrolling
+      // Including mobile Chrome with collapsed bottom bar
+      body.style.position = 'fixed';
+      body.style.top = `-${scrollY}px`;
+      body.style.left = '0';
+      body.style.right = '0';
       body.style.overflow = 'hidden';
-      // Prevent touch-based scrolling on mobile (handles Chrome collapsed toolbar case)
-      body.style.touchAction = 'none';
-      body.style.overscrollBehavior = 'none';
-      html.style.overscrollBehavior = 'none';
+      html.style.overflow = 'hidden';
 
       // On mobile, prevent touchmove from scrolling the background
       const handleTouchMove = (e) => {
-        // Allow scrolling only inside the modal content
         if (modalContentRef.current && modalContentRef.current.contains(e.target)) {
           return;
         }
@@ -182,11 +183,13 @@ const ICON_CLOUD_SLUGS = [
 
       return () => {
         document.removeEventListener('touchmove', handleTouchMove);
-        html.style.overflow = '';
+        body.style.position = '';
+        body.style.top = '';
+        body.style.left = '';
+        body.style.right = '';
         body.style.overflow = '';
-        body.style.touchAction = '';
-        body.style.overscrollBehavior = '';
-        html.style.overscrollBehavior = '';
+        html.style.overflow = '';
+        window.scrollTo({ top: scrollY, left: 0, behavior: 'instant' });
       };
     }, []);
 
