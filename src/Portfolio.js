@@ -477,10 +477,10 @@ const uiText = {
         'Spring · Auth · API',
       ],
       platformsSkills: [
-        'IntelliJ · Github',
+        'IntelliJ · GitHub',
         'Jira · Postman',
         'SAP · Odoo',
-        'Archimate · BPMN',
+        'ArchiMate · BPMN',
       ],
       interpersonalSkills: [
         'Problem Solver',
@@ -575,7 +575,7 @@ const uiText = {
     hero: {
       name: 'Yannick Wild',
       tagline: 'Ingénieur Systèmes d\'Information',
-      bio: 'Les systèmes complexes méritent un design simple. J\'améliore les processus métier en alignant les opérations avec les systèmes d\'information.',
+      bio: "Les systèmes complexes méritent un design simple. J’optimise les processus métier en alignant opérations et systèmes d’information.",
       downloadCV: 'CV',
       cvLink: 'https://drive.google.com/file/d/1xjdaQb2RPjO0fWjo-KNL8p_Sb8oXoiIX/view?usp=sharing',
       contact: 'Contact',
@@ -770,7 +770,7 @@ const uiText = {
         'Spring · Auth · API',
       ],
       platformsSkills: [
-        'IntelliJ · Github',
+        'IntelliJ · GitHub',
         'Jira · Postman',
         'SAP · Odoo',
         'ArchiMate · BPMN',
@@ -797,7 +797,7 @@ const uiText = {
           location: "Projet Personnel",
           role: "Full Stack Dev",
           period: "2024 - Présent",
-          description: ["Développement d'une application de voyages (web + mobile) permettant aux utilisateurs de :", "Gérer les réservations, itinéraires, documents de voyage et budgets.", "Inviter d'autres utilisateurs à collaborer sur un voyage.", "Interagir avec l'IA et Google Maps directement dans l'application."]
+          description: ["Développement d'une application de voyages (web + mobile) permettant aux utilisateurs de:", "Gérer les réservations, itinéraires, documents de voyage et budgets.", "Inviter d'autres utilisateurs à collaborer sur un voyage.", "Interagir avec l'IA et Google Maps directement dans l'application."]
         },
         {
           company: "GF Machining Solutions",
@@ -864,7 +864,10 @@ const fadeIn = {
 };
 
 const Portfolio = () => {
-  const [language, setLanguage] = useState('en');
+  const [language, setLanguage] = useState(() => {
+    const saved = localStorage.getItem('language');
+    return saved && uiText[saved] ? saved : 'en';
+  });
   const t = uiText[language];
 
   const switchLanguage = (newLang) => {
@@ -909,6 +912,7 @@ const Portfolio = () => {
       body.removeEventListener('transitionend', onFadedOut);
 
       setLanguage(newLang);
+      localStorage.setItem('language', newLang);
 
       // Triple rAF to be absolutely sure React + browser layout is done
       requestAnimationFrame(() => {
@@ -1234,7 +1238,7 @@ const Portfolio = () => {
                   >
                   <CardCarousel project={project} darkMode={darkMode} />
                   
-                  <div className="p-8">
+                  <div className={`p-8 border-t ${darkMode ? 'border-slate-800' : 'border-[#D8DCE3]'}`}>
                     <div className="flex justify-between items-start mb-4">
                       <h3 className={`text-2xl font-bold transition-colors ${darkMode ? 'group-hover:text-blue-400' : 'group-hover:text-[#2F5FD7]'} ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>
                         {project.title}
