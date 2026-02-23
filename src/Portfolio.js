@@ -160,15 +160,14 @@ const ICON_CLOUD_SLUGS = [
     useEffect(() => {
       const html = document.documentElement;
       const body = document.body;
-      const scrollY = window.scrollY;
 
-      // Lock body in place using position fixed (works on all mobile browsers)
-      body.style.position = 'fixed';
-      body.style.top = `-${scrollY}px`;
-      body.style.left = '0';
-      body.style.right = '0';
+      // Use overflow hidden on both html and body
       html.style.overflow = 'hidden';
       body.style.overflow = 'hidden';
+      // Prevent touch-based scrolling on mobile (handles Chrome collapsed toolbar case)
+      body.style.touchAction = 'none';
+      body.style.overscrollBehavior = 'none';
+      html.style.overscrollBehavior = 'none';
 
       // On mobile, prevent touchmove from scrolling the background
       const handleTouchMove = (e) => {
@@ -183,14 +182,11 @@ const ICON_CLOUD_SLUGS = [
 
       return () => {
         document.removeEventListener('touchmove', handleTouchMove);
-        // Restore scroll position before removing fixed positioning to avoid visible jump
         html.style.overflow = '';
         body.style.overflow = '';
-        body.style.position = '';
-        body.style.top = '';
-        body.style.left = '';
-        body.style.right = '';
-        window.scrollTo({ top: scrollY, behavior: 'instant' });
+        body.style.touchAction = '';
+        body.style.overscrollBehavior = '';
+        html.style.overscrollBehavior = '';
       };
     }, []);
 
