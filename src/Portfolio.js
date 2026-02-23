@@ -1,4 +1,4 @@
-import React, { useState, useRef, lazy, Suspense } from 'react';
+import React, { useState, useRef, useEffect, lazy, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ThemeProvider } from 'next-themes';
 import { 
@@ -154,6 +154,14 @@ const ICON_CLOUD_SLUGS = [
     // Fix for "click inside, release outside" closing the modal
     const [isMouseDownOnOverlay, setIsMouseDownOnOverlay] = useState(false);
 
+    // Prevent background scrolling when modal is open
+    useEffect(() => {
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = '';
+      };
+    }, []);
+
     const handleOverlayMouseDown = (e) => {
       if (e.target === e.currentTarget) {
         setIsMouseDownOnOverlay(true);
@@ -192,7 +200,7 @@ const ICON_CLOUD_SLUGS = [
           </button>
 
           {/* Content */}
-          <div className={`w-full p-8 overflow-y-auto ${darkMode ? 'bg-slate-900' : 'bg-white'}`}>
+          <div className={`w-full p-8 overflow-y-auto overscroll-contain ${darkMode ? 'bg-slate-900' : 'bg-white'}`}>
             <div className="mb-8">
               <h3 className={`text-3xl font-bold mb-2 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{project.title}</h3>
               {project.grade && (
@@ -595,7 +603,7 @@ const uiText = {
           subtitle: "Product Owner",
           desc: "Implémentation de SAP FSM pour optimiser la gestion globale des services (Europe, États-Unis, Chine, APAC).",
           role: "Product Owner",
-          outcome: "Implémentation réussie de SAP FSM, optimisant les opérations de service mondiales grâce à des processus de service standardisés et une gestion de la performance.",
+          outcome: "Implémentation réussie de SAP FSM, permettant la standardisation globale des processus de service client ainsi que l’amélioration du pilotage de la performance.",
           skillsUsed: ["BPMN", "Agile", "Analytique"],
           projectLinks: [
             { label: "Entreprise : GFMS", url: "https://www.gfms.com/com/en.html" },
@@ -635,11 +643,11 @@ const uiText = {
           ]
         },
         {
-          title: "Mémoire de Master HEC",
+          title: "HEC - Mémoire Master",
           subtitle: "Chercheur (Note : 6/6)",
-          desc: "Recherche sur l'influence du design d'interaction sur la confiance et le sentiment de contrôle des utilisateurs dans la planification de voyage par IA.",
+          desc: "Impact du design d’interaction sur la confiance et le sentiment de contrôle dans la planification de voyages assitée par l'IA.",
           role: "Chercheur",
-          outcome: "Développement et test utilisateur de deux interfaces IA, un Chatbot et une Interface Graphique. L'étude a généré des insights sur l'influence des modalités d'interaction sur la confiance et le contrôle. Note : 6/6.",
+          outcome: "Développement et test utilisateur de deux interfaces d'IA (Chatbot et Interface Graphique). L'étude a mis en évidence l'influence des modalités d'interaction sur la confiance et le sentiment de contrôle. Note : 6/6.",
           skillsUsed: ["Entretiens", "Expérience", "IA"],
           projectLinks: [
             { label: "Université : HEC", url: "https://www.unil.ch/hec/en/home/menuinst/master/systemes-d-information.html" }
@@ -655,11 +663,11 @@ const uiText = {
           ]
         },
         {
-          title: "Projet de Bachelor EHL",
+          title: "EHL - Projet Bachelor",
           subtitle: "Consultant (Note : 6/6)",
-          desc: "Élaboration d'une stratégie de développement commercial et d'un plan d'entrée sur le marché pour une entreprise de solutions IoT de qualité de l'air.",
+          desc: "Stratégie commerciale et plan d’entrée sur le marché pour une entreprise de solutions IoT en qualité de l’air.",
           role: "Consultant",
-          outcome: "Traduction des solutions IoT en valeur commerciale en se concentrant sur les partenariats stratégiques et l'intégration API ouverte. Note 6/6.",
+          outcome: "Élaboration d’une stratégie de création de valeur via des partenariats stratégiques et l’intégration d’API ouvertes. Note : 6/6.",
           skillsUsed: ["Stratégie", "Données", "IoT"],
           projectLinks: [
             { label: "Université : EHL", url: "https://www.ehl.edu" },
@@ -679,7 +687,7 @@ const uiText = {
           title: "Projets Appliqués",
           desc: "Projets développés en collaboration avec des professionnels lors de mon Master à HEC Lausanne.",
           role: "Consultant",
-          outcome: "SAP : Conception d'un processus de vente piloté par l'IA pour les partenaires SAP.\nValtronic : Conception d'un cockpit KPI piloté par l'IA.",
+          outcome: "SAP : Conception d'un processus de vente piloté par l'IA.\nValtronic : Conception d’un cockpit de pilotage des KPI basé sur l’IA.",
           skillsUsed: ["Architecture", "Roadmap", "IA"],
           projectLinks: [
             { label: "Entreprise : SAP", url: "https://www.sap.com/index.html" },
@@ -698,7 +706,7 @@ const uiText = {
         {
           title: "Travelpop",
           subtitle: "Développeur Full Stack",
-          desc: "Conception et développement d'une application de voyage propulsée par l'IA pour le web et le mobile, en tant que projet personnel.",
+          desc: "Conception et développement d'une application de voyage intégrant des fonctionnalités d’IA (web + mobile).",
           role: "Développeur Full Stack",
           outcome: "Les utilisateurs peuvent :\n" +
               "Gérer les réservations, itinéraires, documents de voyage et budgets.\n" +
@@ -808,7 +816,7 @@ const uiText = {
         {
           company: ["Beau-Rivage Palace", "Hotel Bernerhof", "Grand Hôtel & Centre Thermal"],
           location: ["Lausanne", "Grindelwald", "Yverdon"],
-          role: "Ops Hôtelières",
+          role: "Hôtellerie",
           period: "2014 – 2017",
           description: "Expérience opérationnelle en F&B (service & cuisine) et réception."
         }
