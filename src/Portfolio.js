@@ -156,9 +156,16 @@ const ICON_CLOUD_SLUGS = [
 
     // Prevent background scrolling when modal is open
     useEffect(() => {
-      document.body.style.overflow = 'hidden';
+      const scrollY = window.scrollY;
+      const html = document.documentElement;
+      const body = document.body;
+      html.style.overflow = 'hidden';
+      body.style.overflow = 'hidden';
+      body.style.touchAction = 'none';
       return () => {
-        document.body.style.overflow = '';
+        html.style.overflow = '';
+        body.style.overflow = '';
+        body.style.touchAction = '';
       };
     }, []);
 
@@ -182,6 +189,7 @@ const ICON_CLOUD_SLUGS = [
         exit={{ opacity: 0 }}
         onMouseDown={handleOverlayMouseDown}
         onMouseUp={handleOverlayMouseUp}
+        onTouchMove={(e) => { if (e.target === e.currentTarget) e.preventDefault(); }}
         className={`fixed inset-0 z-50 flex items-center justify-center p-4 ${darkMode ? 'bg-slate-950/80' : 'bg-black/50'}`}
       >
         <motion.div
