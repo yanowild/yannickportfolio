@@ -160,6 +160,13 @@ const ICON_CLOUD_SLUGS = [
     useEffect(() => {
       const html = document.documentElement;
       const body = document.body;
+      const scrollY = window.scrollY;
+
+      // Lock body in place using position fixed (works on all mobile browsers)
+      body.style.position = 'fixed';
+      body.style.top = `-${scrollY}px`;
+      body.style.left = '0';
+      body.style.right = '0';
       html.style.overflow = 'hidden';
       body.style.overflow = 'hidden';
 
@@ -175,9 +182,15 @@ const ICON_CLOUD_SLUGS = [
       document.addEventListener('touchmove', handleTouchMove, { passive: false });
 
       return () => {
+        body.style.position = '';
+        body.style.top = '';
+        body.style.left = '';
+        body.style.right = '';
         html.style.overflow = '';
         body.style.overflow = '';
         document.removeEventListener('touchmove', handleTouchMove);
+        // Restore scroll position instantly (synchronous, no visible jump)
+        window.scrollTo(0, scrollY);
       };
     }, []);
 
