@@ -154,18 +154,30 @@ const ICON_CLOUD_SLUGS = [
     // Fix for "click inside, release outside" closing the modal
     const [isMouseDownOnOverlay, setIsMouseDownOnOverlay] = useState(false);
 
+    const modalContentRef = useRef(null);
+
     // Prevent background scrolling when modal is open
     useEffect(() => {
-      const scrollY = window.scrollY;
       const html = document.documentElement;
       const body = document.body;
       html.style.overflow = 'hidden';
       body.style.overflow = 'hidden';
-      body.style.touchAction = 'none';
+
+      // On mobile, prevent touchmove from scrolling the background
+      const handleTouchMove = (e) => {
+        // Allow scrolling only inside the modal content
+        if (modalContentRef.current && modalContentRef.current.contains(e.target)) {
+          return;
+        }
+        e.preventDefault();
+      };
+
+      document.addEventListener('touchmove', handleTouchMove, { passive: false });
+
       return () => {
         html.style.overflow = '';
         body.style.overflow = '';
-        body.style.touchAction = '';
+        document.removeEventListener('touchmove', handleTouchMove);
       };
     }, []);
 
@@ -189,7 +201,6 @@ const ICON_CLOUD_SLUGS = [
         exit={{ opacity: 0 }}
         onMouseDown={handleOverlayMouseDown}
         onMouseUp={handleOverlayMouseUp}
-        onTouchMove={(e) => { if (e.target === e.currentTarget) e.preventDefault(); }}
         className={`fixed inset-0 z-50 flex items-center justify-center p-4 ${darkMode ? 'bg-slate-950/80' : 'bg-black/50'}`}
       >
         <motion.div
@@ -208,7 +219,7 @@ const ICON_CLOUD_SLUGS = [
           </button>
 
           {/* Content */}
-          <div className={`w-full p-8 overflow-y-auto overscroll-contain ${darkMode ? 'bg-slate-900' : 'bg-white'}`}>
+          <div ref={modalContentRef} className={`w-full p-8 overflow-y-auto overscroll-contain ${darkMode ? 'bg-slate-900' : 'bg-white'}`}>
             <div className="mb-8">
               <h3 className={`text-3xl font-bold mb-2 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{project.title}</h3>
               {project.grade && (
