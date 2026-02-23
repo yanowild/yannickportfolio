@@ -160,25 +160,22 @@ const ICON_CLOUD_SLUGS = [
     useEffect(() => {
       const html = document.documentElement;
       const body = document.body;
-      const scrollY = window.scrollY;
 
       // Save original styles
       const originalHtmlOverflow = html.style.overflow;
       const originalBodyOverflow = body.style.overflow;
-      const originalBodyPosition = body.style.position;
-      const originalBodyTop = body.style.top;
-      const originalBodyWidth = body.style.width;
+      const originalHtmlOverscroll = html.style.overscrollBehavior;
+      const originalBodyOverscroll = body.style.overscrollBehavior;
 
       // Apply lock
-      // We use position: fixed to truly lock the background on mobile
-      // but we use a timeout or requestAnimationFrame to try to minimize the flash
-      // or we just accept the position: fixed as the only real solution but try to make it cleaner.
-      
-      body.style.position = 'fixed';
-      body.style.top = `-${scrollY}px`;
-      body.style.width = '100%';
+      // We avoid position: fixed because it triggers browser UI shifts (like opening the bottom menu bar)
+      // which creates a jumpy experience.
       body.style.overflow = 'hidden';
       html.style.overflow = 'hidden';
+      
+      // Prevent pull-to-refresh and scroll chaining
+      body.style.overscrollBehavior = 'none';
+      html.style.overscrollBehavior = 'none';
 
       // Block ALL touch-based scrolling except inside the modal content
       // and handle the "scroll chain" at the boundaries of the modal
@@ -222,25 +219,11 @@ const ICON_CLOUD_SLUGS = [
         document.removeEventListener('touchstart', handleTouchStart);
         document.removeEventListener('touchmove', handleTouchMove);
 
-        // Read the locked offset BEFORE clearing styles to avoid visible jump
-        const lockedTop = body.style.top;
-        const restoreY = lockedTop ? -parseInt(lockedTop, 10) : scrollY;
-
-        // Ensure no smooth scrolling interferes during restore
-        const prevScrollBehavior = html.style.scrollBehavior;
-        html.style.scrollBehavior = 'auto';
-
-        body.style.position = originalBodyPosition;
-        body.style.top = originalBodyTop;
-        body.style.width = originalBodyWidth;
+        // Restore original styles
         body.style.overflow = originalBodyOverflow;
         html.style.overflow = originalHtmlOverflow;
-
-        // Restore scroll position instantly without animation
-        window.scrollTo(0, restoreY);
-
-        // Restore any previous scroll-behavior setting
-        html.style.scrollBehavior = prevScrollBehavior;
+        body.style.overscrollBehavior = originalBodyOverscroll;
+        html.style.overscrollBehavior = originalHtmlOverscroll;
       };
     }, []);
 
