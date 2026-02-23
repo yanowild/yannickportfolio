@@ -160,18 +160,11 @@ const ICON_CLOUD_SLUGS = [
     useEffect(() => {
       const html = document.documentElement;
       const body = document.body;
-      const scrollY = window.scrollY;
 
-      // Lock body in place with position:fixed to prevent ALL scrolling
-      // Including mobile Chrome with collapsed bottom bar
-      body.style.position = 'fixed';
-      body.style.top = `-${scrollY}px`;
-      body.style.left = '0';
-      body.style.right = '0';
-      body.style.overflow = 'hidden';
       html.style.overflow = 'hidden';
+      body.style.overflow = 'hidden';
 
-      // On mobile, prevent touchmove from scrolling the background
+      // Block ALL touch-based scrolling except inside the modal content
       const handleTouchMove = (e) => {
         if (modalContentRef.current && modalContentRef.current.contains(e.target)) {
           return;
@@ -179,17 +172,22 @@ const ICON_CLOUD_SLUGS = [
         e.preventDefault();
       };
 
+      // Block scroll events on the window/document level
+      const handleScroll = (e) => {
+        if (modalContentRef.current && modalContentRef.current.contains(e.target)) {
+          return;
+        }
+        e.preventDefault();
+      };
+
       document.addEventListener('touchmove', handleTouchMove, { passive: false });
+      document.addEventListener('wheel', handleScroll, { passive: false });
 
       return () => {
         document.removeEventListener('touchmove', handleTouchMove);
-        body.style.position = '';
-        body.style.top = '';
-        body.style.left = '';
-        body.style.right = '';
-        body.style.overflow = '';
+        document.removeEventListener('wheel', handleScroll);
         html.style.overflow = '';
-        window.scrollTo({ top: scrollY, left: 0, behavior: 'instant' });
+        body.style.overflow = '';
       };
     }, []);
 
