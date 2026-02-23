@@ -160,34 +160,75 @@ const ICON_CLOUD_SLUGS = [
     useEffect(() => {
       const html = document.documentElement;
       const body = document.body;
+      const scrollY = window.scrollY;
 
-      html.style.overflow = 'hidden';
+      // Save original styles
+      const originalHtmlOverflow = html.style.overflow;
+      const originalBodyOverflow = body.style.overflow;
+      const originalBodyPosition = body.style.position;
+      const originalBodyTop = body.style.top;
+      const originalBodyWidth = body.style.width;
+
+      // Apply lock
+      // We use position: fixed to truly lock the background on mobile
+      // but we use a timeout or requestAnimationFrame to try to minimize the flash
+      // or we just accept the position: fixed as the only real solution but try to make it cleaner.
+      
+      body.style.position = 'fixed';
+      body.style.top = `-${scrollY}px`;
+      body.style.width = '100%';
       body.style.overflow = 'hidden';
+      html.style.overflow = 'hidden';
 
       // Block ALL touch-based scrolling except inside the modal content
+      // and handle the "scroll chain" at the boundaries of the modal
+      let startY = 0;
+      
+      const handleTouchStart = (e) => {
+        startY = e.touches[0].pageY;
+      };
+
       const handleTouchMove = (e) => {
-        if (modalContentRef.current && modalContentRef.current.contains(e.target)) {
+        if (!modalContentRef.current) return;
+
+        const el = modalContentRef.current;
+        const isContentTarget = el.contains(e.target);
+        
+        if (!isContentTarget) {
+          e.preventDefault();
           return;
         }
-        e.preventDefault();
-      };
 
-      // Block scroll events on the window/document level
-      const handleScroll = (e) => {
-        if (modalContentRef.current && modalContentRef.current.contains(e.target)) {
-          return;
+        const currentY = e.touches[0].pageY;
+        const scrollTop = el.scrollTop;
+        const scrollHeight = el.scrollHeight;
+        const height = el.clientHeight;
+
+        const isAtTop = scrollTop === 0;
+        const isAtBottom = scrollTop + height >= scrollHeight;
+
+        // If at top and pulling down, or at bottom and pulling up, prevent default
+        if (isAtTop && currentY > startY) {
+          e.preventDefault();
+        } else if (isAtBottom && currentY < startY) {
+          e.preventDefault();
         }
-        e.preventDefault();
       };
 
+      document.addEventListener('touchstart', handleTouchStart, { passive: true });
       document.addEventListener('touchmove', handleTouchMove, { passive: false });
-      document.addEventListener('wheel', handleScroll, { passive: false });
 
       return () => {
+        document.removeEventListener('touchstart', handleTouchStart);
         document.removeEventListener('touchmove', handleTouchMove);
-        document.removeEventListener('wheel', handleScroll);
-        html.style.overflow = '';
-        body.style.overflow = '';
+        
+        body.style.position = originalBodyPosition;
+        body.style.top = originalBodyTop;
+        body.style.width = originalBodyWidth;
+        body.style.overflow = originalBodyOverflow;
+        html.style.overflow = originalHtmlOverflow;
+        
+        window.scrollTo(0, scrollY);
       };
     }, []);
 
