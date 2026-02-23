@@ -221,14 +221,26 @@ const ICON_CLOUD_SLUGS = [
       return () => {
         document.removeEventListener('touchstart', handleTouchStart);
         document.removeEventListener('touchmove', handleTouchMove);
-        
+
+        // Read the locked offset BEFORE clearing styles to avoid visible jump
+        const lockedTop = body.style.top;
+        const restoreY = lockedTop ? -parseInt(lockedTop, 10) : scrollY;
+
+        // Ensure no smooth scrolling interferes during restore
+        const prevScrollBehavior = html.style.scrollBehavior;
+        html.style.scrollBehavior = 'auto';
+
         body.style.position = originalBodyPosition;
         body.style.top = originalBodyTop;
         body.style.width = originalBodyWidth;
         body.style.overflow = originalBodyOverflow;
         html.style.overflow = originalHtmlOverflow;
-        
-        window.scrollTo(0, scrollY);
+
+        // Restore scroll position instantly without animation
+        window.scrollTo(0, restoreY);
+
+        // Restore any previous scroll-behavior setting
+        html.style.scrollBehavior = prevScrollBehavior;
       };
     }, []);
 
