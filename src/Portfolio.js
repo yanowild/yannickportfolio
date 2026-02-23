@@ -182,15 +182,15 @@ const ICON_CLOUD_SLUGS = [
       document.addEventListener('touchmove', handleTouchMove, { passive: false });
 
       return () => {
+        document.removeEventListener('touchmove', handleTouchMove);
+        // Restore scroll position before removing fixed positioning to avoid visible jump
+        html.style.overflow = '';
+        body.style.overflow = '';
         body.style.position = '';
         body.style.top = '';
         body.style.left = '';
         body.style.right = '';
-        html.style.overflow = '';
-        body.style.overflow = '';
-        document.removeEventListener('touchmove', handleTouchMove);
-        // Restore scroll position instantly (synchronous, no visible jump)
-        window.scrollTo(0, scrollY);
+        window.scrollTo({ top: scrollY, behavior: 'instant' });
       };
     }, []);
 
