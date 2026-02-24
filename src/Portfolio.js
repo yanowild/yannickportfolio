@@ -348,17 +348,16 @@ const useMobile = () => {
               {project.projectLinks && project.projectLinks.length > 0 && (
                 <div>
                   <h4 className={`text-base font-semibold mb-3 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{project.projectLinksTitle || 'Projects Realized'}</h4>
-                  <div className="flex flex-col gap-3">
+                  <div className={`flex ${project.projectLinksInline ? 'flex-row' : 'flex-col'} gap-2`}>
                     {project.projectLinks.map((link, i) => (
                       <a
                         key={i}
                         href={link.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`flex items-center justify-between p-3 rounded-xl border transition-colors ${darkMode ? 'bg-slate-800/40 border-slate-700/50 text-slate-300 active:bg-slate-800' : 'bg-white border-[#D8DCE3] text-[#1F2933] active:bg-gray-50'}`}
+                        className={`inline-flex items-center gap-2 text-base transition-colors w-fit ${darkMode ? 'text-slate-300 hover:text-blue-400' : 'text-[#1F2933] hover:text-[#2F5FD7]'}`}
                       >
-                        <span className="text-base font-medium">{link.label}</span>
-                        <ExternalLink size={16} className={darkMode ? 'text-blue-400' : 'text-[#2F5FD7]'} />
+                        {link.label} <ExternalLink size={14} />
                       </a>
                     ))}
                   </div>
