@@ -165,7 +165,16 @@ const useMobile = () => {
     );
   });
 
-  const WebProjectModal = ({ project, onClose, t, darkMode, handleOverlayMouseDown, handleOverlayMouseUp }) => (
+  const WebProjectModal = ({ project, onClose, t, darkMode, handleOverlayMouseDown, handleOverlayMouseUp }) => {
+    useEffect(() => {
+      const prev = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = prev;
+      };
+    }, []);
+
+    return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -253,7 +262,8 @@ const useMobile = () => {
         </div>
       </motion.div>
     </motion.div>
-  );
+    );
+  };
 
   const MobileProjectModal = ({ project, onClose, t, darkMode }) => {
     const scrollRef = useRef(null);
@@ -413,19 +423,6 @@ const useMobile = () => {
     // Fix for "click inside, release outside" closing the modal
     const [isMouseDownOnOverlay, setIsMouseDownOnOverlay] = useState(false);
 
-    // Prevent background scrolling when modal is open
-    useEffect(() => {
-      const originalStyle = window.getComputedStyle(document.body).overflow;
-      document.body.style.overflow = 'hidden';
-      // Some browsers also need this on documentElement
-      const originalHtmlStyle = window.getComputedStyle(document.documentElement).overflow;
-      document.documentElement.style.overflow = 'hidden';
-      
-      return () => {
-        document.body.style.overflow = originalStyle;
-        document.documentElement.style.overflow = originalHtmlStyle;
-      };
-    }, []);
 
     const handleOverlayMouseDown = (e) => {
       if (e.target === e.currentTarget) {
@@ -1161,22 +1158,12 @@ const Portfolio = () => {
   }, [darkMode]);
 
   React.useEffect(() => {
-    const handleEsc = (e) => {
-      if (e.key === 'Escape') setSelectedProject(null);
-    };
-    window.addEventListener('keydown', handleEsc);
-    
-    if (selectedProject) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-
-    return () => {
-      window.removeEventListener('keydown', handleEsc);
-      document.body.style.overflow = 'unset';
-    };
-  }, [selectedProject]);
+  const handleEsc = (e) => {
+    if (e.key === 'Escape') setSelectedProject(null);
+  };
+  window.addEventListener('keydown', handleEsc);
+  return () => window.removeEventListener('keydown', handleEsc);
+}, []);
 
 
   return (
