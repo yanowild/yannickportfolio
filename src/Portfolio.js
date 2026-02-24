@@ -255,27 +255,39 @@ const useMobile = () => {
     </motion.div>
   );
 
-  const MobileProjectModal = ({ project, onClose, t, darkMode }) => (
-    <motion.div
-      initial={{ y: "100%" }}
-      animate={{ y: 0 }}
-      exit={{ y: "100%" }}
-      transition={{ type: "spring", damping: 25, stiffness: 200 }}
-      className={`fixed inset-x-0 bottom-0 z-50 rounded-t-[2rem] shadow-2xl flex flex-col max-h-[92vh] border-t ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-[#D8DCE3]'}`}
-    >
-      {/* Handle for dragging feel */}
-      <div className="w-full flex justify-center pt-3 pb-1">
-        <div className={`w-12 h-1.5 rounded-full ${darkMode ? 'bg-slate-700' : 'bg-slate-300'}`} onClick={onClose} />
-      </div>
+  const MobileProjectModal = ({ project, onClose, t, darkMode }) => {
+    const scrollRef = useRef(null);
 
-      <button 
-        onClick={onClose}
-        className={`absolute top-4 right-4 z-20 p-2 rounded-full transition-colors ${darkMode ? 'text-slate-400 hover:text-blue-400' : 'text-[#1F2933] hover:text-[#2F5FD7]'}`}
+    useEffect(() => {
+      if (scrollRef.current) {
+        scrollRef.current.scrollTop = 0;
+      }
+    }, [project]);
+
+    return (
+      <motion.div
+        initial={{ y: "100%" }}
+        animate={{ y: 0 }}
+        exit={{ y: "100%" }}
+        transition={{ type: "spring", damping: 25, stiffness: 200 }}
+        className={`fixed inset-x-0 bottom-0 z-50 rounded-t-[2rem] shadow-2xl flex flex-col max-h-[92dvh] border-t pb-[env(safe-area-inset-bottom)] ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-[#D8DCE3]'}`}
       >
-        <X size={24} />
-      </button>
+        {/* Handle for dragging feel */}
+        <div className="w-full flex justify-center pt-3 pb-1">
+          <div className={`w-12 h-1.5 rounded-full ${darkMode ? 'bg-slate-700' : 'bg-slate-300'}`} onClick={onClose} />
+        </div>
 
-      <div className="flex-1 overflow-y-auto p-6 pt-2 overscroll-contain">
+        <button 
+          onClick={onClose}
+          className={`absolute top-4 right-4 z-20 p-2 rounded-full transition-colors ${darkMode ? 'text-slate-400 hover:text-blue-400' : 'text-[#1F2933] hover:text-[#2F5FD7]'}`}
+        >
+          <X size={24} />
+        </button>
+
+        <div 
+          ref={scrollRef}
+          className="flex-1 overflow-y-auto p-6 pt-2 overscroll-contain"
+        >
         <div className="mb-6">
           <h3 className={`text-2xl font-bold mb-2 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{project.title}</h3>
           {project.grade && (
@@ -338,6 +350,7 @@ const useMobile = () => {
       </div>
     </motion.div>
   );
+};
 
   const ProjectModal = ({ project, onClose, t, darkMode }) => {
     const isMobile = useMobile();
