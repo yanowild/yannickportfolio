@@ -70,6 +70,21 @@ const ICON_CLOUD_SLUGS = [
     }
   };
 
+const useMobile = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  return isMobile;
+};
+
   const CardCarousel = React.memo(({ project, darkMode }) => {
     const images = project.images || [project.image];
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -150,15 +165,196 @@ const ICON_CLOUD_SLUGS = [
     );
   });
 
+  const WebProjectModal = ({ project, onClose, t, darkMode, handleOverlayMouseDown, handleOverlayMouseUp }) => (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      onMouseDown={handleOverlayMouseDown}
+      onMouseUp={handleOverlayMouseUp}
+      className={`fixed inset-0 z-50 flex items-center justify-center p-4 ${darkMode ? 'bg-slate-950/80' : 'bg-black/50'}`}
+    >
+      <motion.div
+        initial={{ scale: 0.9, opacity: 0, y: 20 }}
+        animate={{ scale: 1, opacity: 1, y: 0 }}
+        exit={{ scale: 0.9, opacity: 0, y: 20 }}
+        onMouseDown={(e) => e.stopPropagation()}
+        onMouseUp={(e) => e.stopPropagation()}
+        className={`rounded-3xl overflow-hidden max-w-2xl w-full max-h-[90vh] flex flex-col shadow-2xl relative border ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-[#D8DCE3]'}`}
+      >
+        <button 
+          onClick={onClose}
+          className={`absolute top-4 right-4 z-20 p-2 backdrop-blur-md rounded-full transition-colors border ${darkMode ? 'bg-slate-900/50 text-slate-300 hover:text-blue-400 border-slate-700/50' : 'bg-white/80 text-[#1F2933] hover:text-[#2F5FD7] border-[#D8DCE3]'}`}
+        >
+          <X size={20} />
+        </button>
+
+        {/* Content */}
+        <div className={`w-full p-8 overflow-y-auto overscroll-contain flex-1 ${darkMode ? 'bg-slate-900' : 'bg-white'}`}>
+          <div className="mb-8">
+            <h3 className={`text-3xl font-bold mb-2 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{project.title}</h3>
+            {project.grade && (
+              <p className={`text-base font-medium mb-2 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>Grade: {project.grade}</p>
+            )}
+            <p className={`text-base mb-4 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{project.desc}</p>
+          </div>
+
+          <div className="space-y-8">
+            {project.role && (
+              <div className={`relative pl-4 border-l-2 ${darkMode ? 'border-blue-400/30' : 'border-[#2F5FD7]'}`}>
+                <h4 className={`text-base font-semibold mb-2 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{t.projects.modal.role}</h4>
+                <p className={`text-base font-semibold leading-relaxed ${darkMode ? 'text-blue-400' : 'text-[#2F5FD7]'}`}>{project.role}</p>
+              </div>
+            )}
+
+
+            {project.outcome && (
+              <div className={`p-4 rounded-xl border ${darkMode ? 'bg-slate-800/40 border-slate-700/50' : 'bg-[#F4F5F7] border-[#D8DCE3]'}`}>
+                <h4 className={`text-base font-semibold mb-2 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{t.projects.modal.outcome}</h4>
+                <p className={`text-base leading-relaxed whitespace-pre-line ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{project.outcome}</p>
+              </div>
+            )}
+
+            {project.skillsUsed && (
+              <div>
+                <h4 className={`text-base font-semibold mb-3 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{t.projects.modal.skills}</h4>
+                <div className="flex flex-wrap gap-2">
+                  {project.skillsUsed.map((skill, i) => (
+                    <span 
+                      key={i}
+                      className={`px-3 py-1 text-base rounded-full border ${darkMode ? 'bg-slate-800/80 text-slate-300 border-slate-700' : 'bg-[#EDEFF2] text-[#1F2933] border-[#D8DCE3]'}`}
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {project.projectLinks && project.projectLinks.length > 0 && (
+              <div>
+                <h4 className={`text-base font-semibold mb-3 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{project.projectLinksTitle || 'Projects Realized'}</h4>
+                <div className={`flex ${project.projectLinksInline ? 'flex-row' : 'flex-col'} gap-2`}>
+                  {project.projectLinks.map((link, i) => (
+                    <a
+                      key={i}
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`inline-flex items-center gap-2 text-base transition-colors w-fit ${darkMode ? 'text-slate-300 hover:text-blue-400' : 'text-[#1F2933] hover:text-[#2F5FD7]'}`}
+                    >
+                      {link.label} <ExternalLink size={14} />
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+
+  const MobileProjectModal = ({ project, onClose, t, darkMode }) => (
+    <motion.div
+      initial={{ y: "100%" }}
+      animate={{ y: 0 }}
+      exit={{ y: "100%" }}
+      transition={{ type: "spring", damping: 25, stiffness: 200 }}
+      className={`fixed inset-x-0 bottom-0 z-50 rounded-t-[2rem] shadow-2xl flex flex-col max-h-[92vh] border-t ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-[#D8DCE3]'}`}
+    >
+      {/* Handle for dragging feel */}
+      <div className="w-full flex justify-center pt-3 pb-1">
+        <div className={`w-12 h-1.5 rounded-full ${darkMode ? 'bg-slate-700' : 'bg-slate-300'}`} onClick={onClose} />
+      </div>
+
+      <button 
+        onClick={onClose}
+        className={`absolute top-4 right-4 z-20 p-2 rounded-full transition-colors ${darkMode ? 'text-slate-400 hover:text-blue-400' : 'text-[#1F2933] hover:text-[#2F5FD7]'}`}
+      >
+        <X size={24} />
+      </button>
+
+      <div className="flex-1 overflow-y-auto p-6 pt-2 overscroll-contain">
+        <div className="mb-6">
+          <h3 className={`text-2xl font-bold mb-2 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{project.title}</h3>
+          {project.grade && (
+            <p className={`text-sm font-medium mb-1 ${darkMode ? 'text-slate-400' : 'text-[#1F2933]/70'}`}>Grade: {project.grade}</p>
+          )}
+          <p className={`text-base ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{project.desc}</p>
+        </div>
+
+        <div className="space-y-6 pb-8">
+          {project.role && (
+            <div className={`relative pl-4 border-l-2 ${darkMode ? 'border-blue-400/30' : 'border-[#2F5FD7]'}`}>
+              <h4 className={`text-sm font-semibold mb-1 ${darkMode ? 'text-slate-400' : 'text-[#1F2933]/70'}`}>{t.projects.modal.role}</h4>
+              <p className={`text-base font-semibold ${darkMode ? 'text-blue-400' : 'text-[#2F5FD7]'}`}>{project.role}</p>
+            </div>
+          )}
+
+          {project.outcome && (
+            <div className={`p-4 rounded-xl border ${darkMode ? 'bg-slate-800/40 border-slate-700/50' : 'bg-[#F4F5F7] border-[#D8DCE3]'}`}>
+              <h4 className={`text-sm font-semibold mb-1 ${darkMode ? 'text-slate-400' : 'text-[#1F2933]/70'}`}>{t.projects.modal.outcome}</h4>
+              <p className={`text-sm leading-relaxed whitespace-pre-line ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{project.outcome}</p>
+            </div>
+          )}
+
+          {project.skillsUsed && (
+            <div>
+              <h4 className={`text-sm font-semibold mb-2 ${darkMode ? 'text-slate-400' : 'text-[#1F2933]/70'}`}>{t.projects.modal.skills}</h4>
+              <div className="flex flex-wrap gap-2">
+                {project.skillsUsed.map((skill, i) => (
+                  <span 
+                    key={i}
+                    className={`px-3 py-1 text-xs rounded-full border ${darkMode ? 'bg-slate-800/80 text-slate-300 border-slate-700' : 'bg-[#EDEFF2] text-[#1F2933] border-[#D8DCE3]'}`}
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {project.projectLinks && project.projectLinks.length > 0 && (
+            <div>
+              <h4 className={`text-sm font-semibold mb-2 ${darkMode ? 'text-slate-400' : 'text-[#1F2933]/70'}`}>{project.projectLinksTitle || 'Projects Realized'}</h4>
+              <div className="flex flex-col gap-3">
+                {project.projectLinks.map((link, i) => (
+                  <a
+                    key={i}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`flex items-center justify-between p-3 rounded-xl border transition-colors ${darkMode ? 'bg-slate-800/40 border-slate-700/50 text-slate-300 active:bg-slate-800' : 'bg-white border-[#D8DCE3] text-[#1F2933] active:bg-gray-50'}`}
+                  >
+                    <span className="text-sm font-medium">{link.label}</span>
+                    <ExternalLink size={16} className={darkMode ? 'text-blue-400' : 'text-[#2F5FD7]'} />
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </motion.div>
+  );
+
   const ProjectModal = ({ project, onClose, t, darkMode }) => {
+    const isMobile = useMobile();
     // Fix for "click inside, release outside" closing the modal
     const [isMouseDownOnOverlay, setIsMouseDownOnOverlay] = useState(false);
 
     // Prevent background scrolling when modal is open
     useEffect(() => {
+      const originalStyle = window.getComputedStyle(document.body).overflow;
       document.body.style.overflow = 'hidden';
+      // Some browsers also need this on documentElement
+      const originalHtmlStyle = window.getComputedStyle(document.documentElement).overflow;
+      document.documentElement.style.overflow = 'hidden';
+      
       return () => {
-        document.body.style.overflow = '';
+        document.body.style.overflow = originalStyle;
+        document.documentElement.style.overflow = originalHtmlStyle;
       };
     }, []);
 
@@ -175,94 +371,31 @@ const ICON_CLOUD_SLUGS = [
       setIsMouseDownOnOverlay(false);
     };
 
-    return (
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        onMouseDown={handleOverlayMouseDown}
-        onMouseUp={handleOverlayMouseUp}
-        className={`fixed inset-0 z-50 flex items-center justify-center p-4 ${darkMode ? 'bg-slate-950/80' : 'bg-black/50'}`}
-      >
+    if (isMobile) {
+      return (
         <motion.div
-          initial={{ scale: 0.9, opacity: 0, y: 20 }}
-          animate={{ scale: 1, opacity: 1, y: 0 }}
-          exit={{ scale: 0.9, opacity: 0, y: 20 }}
-          onMouseDown={(e) => e.stopPropagation()}
-          onMouseUp={(e) => e.stopPropagation()}
-          className={`rounded-3xl overflow-hidden max-w-2xl w-full max-h-[90vh] flex flex-col shadow-2xl relative border ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-[#D8DCE3]'}`}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className={`fixed inset-0 z-50 ${darkMode ? 'bg-slate-950/80' : 'bg-black/50'}`}
+          onClick={onClose}
         >
-          <button 
-            onClick={onClose}
-            className={`absolute top-4 right-4 z-20 p-2 backdrop-blur-md rounded-full transition-colors border ${darkMode ? 'bg-slate-900/50 text-slate-300 hover:text-blue-400 border-slate-700/50' : 'bg-white/80 text-[#1F2933] hover:text-[#2F5FD7] border-[#D8DCE3]'}`}
-          >
-            <X size={20} />
-          </button>
-
-          {/* Content */}
-          <div className={`w-full p-8 overflow-y-auto overscroll-contain ${darkMode ? 'bg-slate-900' : 'bg-white'}`}>
-            <div className="mb-8">
-              <h3 className={`text-3xl font-bold mb-2 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{project.title}</h3>
-              {project.grade && (
-                <p className={`text-base font-medium mb-2 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>Grade: {project.grade}</p>
-              )}
-              <p className={`text-base mb-4 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{project.desc}</p>
-            </div>
-
-            <div className="space-y-8">
-              {project.role && (
-                <div className={`relative pl-4 border-l-2 ${darkMode ? 'border-blue-400/30' : 'border-[#2F5FD7]'}`}>
-                  <h4 className={`text-base font-semibold mb-2 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{t.projects.modal.role}</h4>
-                  <p className={`text-base font-semibold leading-relaxed ${darkMode ? 'text-blue-400' : 'text-[#2F5FD7]'}`}>{project.role}</p>
-                </div>
-              )}
-
-
-              {project.outcome && (
-                <div className={`p-4 rounded-xl border ${darkMode ? 'bg-slate-800/40 border-slate-700/50' : 'bg-[#F4F5F7] border-[#D8DCE3]'}`}>
-                  <h4 className={`text-base font-semibold mb-2 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{t.projects.modal.outcome}</h4>
-                  <p className={`text-base leading-relaxed whitespace-pre-line ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{project.outcome}</p>
-                </div>
-              )}
-
-              {project.skillsUsed && (
-                <div>
-                  <h4 className={`text-base font-semibold mb-3 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{t.projects.modal.skills}</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {project.skillsUsed.map((skill, i) => (
-                      <span 
-                        key={i}
-                        className={`px-3 py-1 text-base rounded-full border ${darkMode ? 'bg-slate-800/80 text-slate-300 border-slate-700' : 'bg-[#EDEFF2] text-[#1F2933] border-[#D8DCE3]'}`}
-                      >
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {project.projectLinks && project.projectLinks.length > 0 && (
-                <div>
-                  <h4 className={`text-base font-semibold mb-3 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{project.projectLinksTitle || 'Projects Realized'}</h4>
-                  <div className={`flex ${project.projectLinksInline ? 'flex-row' : 'flex-col'} gap-2`}>
-                    {project.projectLinks.map((link, i) => (
-                      <a
-                        key={i}
-                        href={link.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`inline-flex items-center gap-2 text-base transition-colors w-fit ${darkMode ? 'text-slate-300 hover:text-blue-400' : 'text-[#1F2933] hover:text-[#2F5FD7]'}`}
-                      >
-                        {link.label} <ExternalLink size={14} />
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
+          <div onClick={(e) => e.stopPropagation()}>
+            <MobileProjectModal project={project} onClose={onClose} t={t} darkMode={darkMode} />
           </div>
         </motion.div>
-      </motion.div>
+      );
+    }
+
+    return (
+      <WebProjectModal 
+        project={project} 
+        onClose={onClose} 
+        t={t} 
+        darkMode={darkMode} 
+        handleOverlayMouseDown={handleOverlayMouseDown} 
+        handleOverlayMouseUp={handleOverlayMouseUp} 
+      />
     );
   };
 
