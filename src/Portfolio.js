@@ -247,7 +247,8 @@ const ICON_CLOUD_SLUGS = [
         exit={{ opacity: 0 }}
         onMouseDown={handleOverlayMouseDown}
         onMouseUp={handleOverlayMouseUp}
-        className={`fixed inset-0 z-50 flex items-center justify-center p-4 ${darkMode ? 'bg-slate-950/80' : 'bg-black/50'}`}
+        className={`fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-8 ${darkMode ? 'bg-slate-950/80' : 'bg-black/50'}`}
+        style={{ height: '100dvh' }}
       >
         <motion.div
           initial={{ scale: 0.9, opacity: 0, y: 20 }}
@@ -255,7 +256,7 @@ const ICON_CLOUD_SLUGS = [
           exit={{ scale: 0.9, opacity: 0, y: 20 }}
           onMouseDown={(e) => e.stopPropagation()}
           onMouseUp={(e) => e.stopPropagation()}
-          className={`rounded-3xl overflow-hidden max-w-2xl w-full max-h-[90vh] flex flex-col shadow-2xl relative border ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-[#D8DCE3]'}`}
+          className={`rounded-3xl overflow-hidden max-w-2xl w-full max-h-[85dvh] flex flex-col shadow-2xl relative border ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-[#D8DCE3]'}`}
         >
           <button 
             onClick={onClose}
