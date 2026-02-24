@@ -1395,12 +1395,14 @@ const Portfolio = () => {
                   <motion.div
                     key={project.title}
                     variants={fadeIn}
-                    onClick={() => setSelectedProject(project)}
-                    className={`group rounded-2xl overflow-hidden transition-colors cursor-pointer border ${darkMode ? 'bg-slate-900/50 border-slate-800 hover:border-slate-700' : 'bg-white border-[#D8DCE3] hover:border-[#2F5FD7]/40'}`}
+                    className={`group rounded-2xl overflow-hidden transition-colors border ${darkMode ? 'bg-slate-900/50 border-slate-800 hover:border-slate-700' : 'bg-white border-[#D8DCE3] hover:border-[#2F5FD7]/40'}`}
                   >
                   <CardCarousel project={project} darkMode={darkMode} />
                   
-                  <div className={`p-8 border-t ${darkMode ? 'border-slate-800' : 'border-[#D8DCE3]'}`}>
+                  <div 
+                    onClick={() => setSelectedProject(project)}
+                    className={`p-8 border-t cursor-pointer ${darkMode ? 'border-slate-800' : 'border-[#D8DCE3]'}`}
+                  >
                     <div className="flex justify-between items-start mb-4">
                       <h3 className={`text-2xl font-bold transition-colors ${darkMode ? 'group-hover:text-blue-400' : 'group-hover:text-[#2F5FD7]'} ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>
                         {project.title}
