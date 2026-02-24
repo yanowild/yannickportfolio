@@ -247,8 +247,7 @@ const ICON_CLOUD_SLUGS = [
         exit={{ opacity: 0 }}
         onMouseDown={handleOverlayMouseDown}
         onMouseUp={handleOverlayMouseUp}
-        className={`fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-8 ${darkMode ? 'bg-slate-950/80' : 'bg-black/50'}`}
-        style={{ height: '100dvh' }}
+        className={`fixed inset-0 z-50 flex items-center justify-center p-6 sm:p-10 ${darkMode ? 'bg-slate-950/80' : 'bg-black/50'}`}
       >
         <motion.div
           initial={{ scale: 0.9, opacity: 0, y: 20 }}
@@ -256,7 +255,7 @@ const ICON_CLOUD_SLUGS = [
           exit={{ scale: 0.9, opacity: 0, y: 20 }}
           onMouseDown={(e) => e.stopPropagation()}
           onMouseUp={(e) => e.stopPropagation()}
-          className={`rounded-3xl overflow-hidden max-w-2xl w-full max-h-[85dvh] flex flex-col shadow-2xl relative border ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-[#D8DCE3]'}`}
+          className={`rounded-3xl overflow-hidden max-w-2xl w-full max-h-[85%] md:max-h-[85vh] flex flex-col shadow-2xl relative border ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-[#D8DCE3]'}`}
         >
           <button 
             onClick={onClose}
@@ -266,7 +265,7 @@ const ICON_CLOUD_SLUGS = [
           </button>
 
           {/* Content */}
-          <div ref={modalContentRef} className={`w-full p-8 overflow-y-auto overscroll-contain ${darkMode ? 'bg-slate-900' : 'bg-white'}`}>
+          <div ref={modalContentRef} className={`w-full p-6 sm:p-8 overflow-y-auto overscroll-contain ${darkMode ? 'bg-slate-900' : 'bg-white'}`}>
             <div className="mb-8">
               <h3 className={`text-3xl font-bold mb-2 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{project.title}</h3>
               {project.grade && (
