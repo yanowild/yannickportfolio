@@ -270,86 +270,105 @@ const useMobile = () => {
         animate={{ y: 0 }}
         exit={{ y: "100%" }}
         transition={{ type: "spring", damping: 25, stiffness: 200 }}
-        className={`fixed inset-x-0 bottom-0 z-50 rounded-t-[2rem] shadow-2xl flex flex-col max-h-[92dvh] border-t pb-[env(safe-area-inset-bottom)] ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-[#D8DCE3]'}`}
+        className="fixed inset-0 z-50 flex items-end"
       >
-        {/* Handle for dragging feel */}
-        <div className="w-full flex justify-center pt-3 pb-1">
-          <div className={`w-12 h-1.5 rounded-full ${darkMode ? 'bg-slate-700' : 'bg-slate-300'}`} onClick={onClose} />
-        </div>
-
-        <button 
+        {/* Backdrop */}
+        <div
+          className={`absolute inset-0 ${darkMode ? "bg-black/40" : "bg-black/20"}`}
           onClick={onClose}
-          className={`absolute top-4 right-4 z-20 p-2 rounded-full transition-colors ${darkMode ? 'text-slate-400 hover:text-blue-400' : 'text-[#1F2933] hover:text-[#2F5FD7]'}`}
-        >
-          <X size={24} />
-        </button>
+        />
+        <div
+          className={`
+    relative z-10
+    flex flex-col w-full
+    h-[92dvh] max-h-[92dvh]
+    overflow-hidden
+    rounded-t-[2rem]
+    border-t
+    pb-[env(safe-area-inset-bottom)]
+    ${darkMode ? "bg-slate-900 border-slate-800" : "bg-white border-[#D8DCE3]"}
+  `}
+>
+          {/* Handle for dragging feel */}
+          <div className="w-full flex justify-center pt-3 pb-1 flex-shrink-0">
+            <div className={`w-12 h-1.5 rounded-full ${darkMode ? 'bg-slate-700' : 'bg-slate-300'}`} onClick={onClose} />
+          </div>
 
-        <div 
-          ref={scrollRef}
-          className="flex-1 overflow-y-auto p-6 pt-2 overscroll-contain"
-        >
-        <div className="mb-6">
-          <h3 className={`text-2xl font-bold mb-2 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{project.title}</h3>
-          {project.grade && (
-            <p className={`text-sm font-medium mb-1 ${darkMode ? 'text-slate-400' : 'text-[#1F2933]/70'}`}>Grade: {project.grade}</p>
-          )}
-          <p className={`text-base ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{project.desc}</p>
+          <button 
+            onClick={onClose}
+            className={`absolute top-4 right-4 z-20 p-2 rounded-full transition-colors ${darkMode ? 'text-slate-400 hover:text-blue-400' : 'text-[#1F2933] hover:text-[#2F5FD7]'}`}
+          >
+            <X size={24} />
+          </button>
+
+          <div 
+            ref={scrollRef}
+            className="flex-1 overflow-y-auto p-6 pt-2 overscroll-contain"
+            style={{ WebkitOverflowScrolling: "touch" }}
+          >
+            <div className="mb-6">
+              <h3 className={`text-3xl font-bold mb-2 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{project.title}</h3>
+              {project.grade && (
+                <p className={`text-base font-medium mb-2 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>Grade: {project.grade}</p>
+              )}
+              <p className={`text-base mb-4 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{project.desc}</p>
+            </div>
+
+            <div className="space-y-8 pb-8">
+              {project.role && (
+                <div className={`relative pl-4 border-l-2 ${darkMode ? 'border-blue-400/30' : 'border-[#2F5FD7]'}`}>
+                  <h4 className={`text-base font-semibold mb-2 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{t.projects.modal.role}</h4>
+                  <p className={`text-base font-semibold leading-relaxed ${darkMode ? 'text-blue-400' : 'text-[#2F5FD7]'}`}>{project.role}</p>
+                </div>
+              )}
+
+              {project.outcome && (
+                <div className={`p-4 rounded-xl border ${darkMode ? 'bg-slate-800/40 border-slate-700/50' : 'bg-[#F4F5F7] border-[#D8DCE3]'}`}>
+                  <h4 className={`text-base font-semibold mb-2 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{t.projects.modal.outcome}</h4>
+                  <p className={`text-base leading-relaxed whitespace-pre-line ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{project.outcome}</p>
+                </div>
+              )}
+
+              {project.skillsUsed && (
+                <div>
+                  <h4 className={`text-base font-semibold mb-3 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{t.projects.modal.skills}</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {project.skillsUsed.map((skill, i) => (
+                      <span 
+                        key={i}
+                        className={`px-3 py-1 text-base rounded-full border ${darkMode ? 'bg-slate-800/80 text-slate-300 border-slate-700' : 'bg-[#EDEFF2] text-[#1F2933] border-[#D8DCE3]'}`}
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {project.projectLinks && project.projectLinks.length > 0 && (
+                <div>
+                  <h4 className={`text-base font-semibold mb-3 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{project.projectLinksTitle || 'Projects Realized'}</h4>
+                  <div className="flex flex-col gap-3">
+                    {project.projectLinks.map((link, i) => (
+                      <a
+                        key={i}
+                        href={link.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`flex items-center justify-between p-3 rounded-xl border transition-colors ${darkMode ? 'bg-slate-800/40 border-slate-700/50 text-slate-300 active:bg-slate-800' : 'bg-white border-[#D8DCE3] text-[#1F2933] active:bg-gray-50'}`}
+                      >
+                        <span className="text-base font-medium">{link.label}</span>
+                        <ExternalLink size={16} className={darkMode ? 'text-blue-400' : 'text-[#2F5FD7]'} />
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
-
-        <div className="space-y-6 pb-8">
-          {project.role && (
-            <div className={`relative pl-4 border-l-2 ${darkMode ? 'border-blue-400/30' : 'border-[#2F5FD7]'}`}>
-              <h4 className={`text-sm font-semibold mb-1 ${darkMode ? 'text-slate-400' : 'text-[#1F2933]/70'}`}>{t.projects.modal.role}</h4>
-              <p className={`text-base font-semibold ${darkMode ? 'text-blue-400' : 'text-[#2F5FD7]'}`}>{project.role}</p>
-            </div>
-          )}
-
-          {project.outcome && (
-            <div className={`p-4 rounded-xl border ${darkMode ? 'bg-slate-800/40 border-slate-700/50' : 'bg-[#F4F5F7] border-[#D8DCE3]'}`}>
-              <h4 className={`text-sm font-semibold mb-1 ${darkMode ? 'text-slate-400' : 'text-[#1F2933]/70'}`}>{t.projects.modal.outcome}</h4>
-              <p className={`text-sm leading-relaxed whitespace-pre-line ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{project.outcome}</p>
-            </div>
-          )}
-
-          {project.skillsUsed && (
-            <div>
-              <h4 className={`text-sm font-semibold mb-2 ${darkMode ? 'text-slate-400' : 'text-[#1F2933]/70'}`}>{t.projects.modal.skills}</h4>
-              <div className="flex flex-wrap gap-2">
-                {project.skillsUsed.map((skill, i) => (
-                  <span 
-                    key={i}
-                    className={`px-3 py-1 text-xs rounded-full border ${darkMode ? 'bg-slate-800/80 text-slate-300 border-slate-700' : 'bg-[#EDEFF2] text-[#1F2933] border-[#D8DCE3]'}`}
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {project.projectLinks && project.projectLinks.length > 0 && (
-            <div>
-              <h4 className={`text-sm font-semibold mb-2 ${darkMode ? 'text-slate-400' : 'text-[#1F2933]/70'}`}>{project.projectLinksTitle || 'Projects Realized'}</h4>
-              <div className="flex flex-col gap-3">
-                {project.projectLinks.map((link, i) => (
-                  <a
-                    key={i}
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`flex items-center justify-between p-3 rounded-xl border transition-colors ${darkMode ? 'bg-slate-800/40 border-slate-700/50 text-slate-300 active:bg-slate-800' : 'bg-white border-[#D8DCE3] text-[#1F2933] active:bg-gray-50'}`}
-                  >
-                    <span className="text-sm font-medium">{link.label}</span>
-                    <ExternalLink size={16} className={darkMode ? 'text-blue-400' : 'text-[#2F5FD7]'} />
-                  </a>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-    </motion.div>
-  );
+      </motion.div>
+    );
 };
 
   const ProjectModal = ({ project, onClose, t, darkMode }) => {
@@ -386,17 +405,7 @@ const useMobile = () => {
 
     if (isMobile) {
       return (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className={`fixed inset-0 z-50 ${darkMode ? 'bg-slate-950/80' : 'bg-black/50'}`}
-          onClick={onClose}
-        >
-          <div onClick={(e) => e.stopPropagation()}>
-            <MobileProjectModal project={project} onClose={onClose} t={t} darkMode={darkMode} />
-          </div>
-        </motion.div>
+        <MobileProjectModal project={project} onClose={onClose} t={t} darkMode={darkMode} />
       );
     }
 
