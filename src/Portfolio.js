@@ -61,6 +61,8 @@ const ICON_CLOUD_SLUGS = [
   "tailwindcss"
 ];
 
+  const isSafari = typeof navigator !== 'undefined' && /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
   const staggerContainer = {
     animate: {
       transition: {
@@ -68,21 +70,6 @@ const ICON_CLOUD_SLUGS = [
       }
     }
   };
-
-const useMobile = () => {
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  return isMobile;
-};
 
   const CardCarousel = React.memo(({ project, darkMode }) => {
     const images = project.images || [project.image];
@@ -725,7 +712,159 @@ const fadeIn = {
   transition: { duration: 0.3 }
 };
 
+  const ProjectsSection = React.memo(({ t, darkMode, activeFilter, setActiveFilter }) => {
+    return (
+      <section id="projects" className={`pt-16 pb-24 scroll-mt-16 border-b ${darkMode ? 'bg-slate-900/50 border-slate-800' : 'bg-[#EDEFF2] border-[#D8DCE3]'}`}>
+        <div className="container mx-auto px-6">
+          <div className="mb-8 text-center">
+            <motion.h2 
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={isSafari ? undefined : { opacity: 1, x: 0 }}
+              animate={isSafari ? { opacity: 1, x: 0 } : undefined}
+              viewport={{ once: true }}
+              className={`text-5xl font-bold mb-4 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}
+            >
+              {t.projects.title}
+            </motion.h2>
+          </div>
+
+          {/* Filters */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={isSafari ? undefined : { opacity: 1, y: 0 }}
+            animate={isSafari ? { opacity: 1, y: 0 } : undefined}
+            viewport={{ once: true }}
+            className="flex flex-wrap gap-4 mb-8 justify-center"
+          >
+            {Object.entries(t.projects.categories).map(([key, label]) => (
+              <button
+                key={key}
+                onClick={() => setActiveFilter(key)}
+                className={`px-6 py-2 rounded-full text-base font-medium transition-colors border ${
+                  activeFilter === key 
+                    ? darkMode ? 'bg-blue-400 text-slate-900 border-transparent' : 'bg-[#2F5FD7] text-white border-transparent'
+                    : darkMode ? 'bg-slate-800 text-slate-300 hover:bg-slate-700 border-transparent' : 'bg-white text-[#1F2933] hover:bg-[#EDEFF2] border-[#D8DCE3]'
+                }`}
+              >
+                {label}
+              </button>
+            ))}
+          </motion.div>
+
+          {/* Project Grid */}
+          <motion.div 
+            variants={staggerContainer}
+            initial="initial"
+            animate="animate"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          >
+            <AnimatePresence mode="wait">
+              {t.projects.items
+                .filter(project => activeFilter === 'all' || project.category === activeFilter)
+                .map((project) => (
+                  <motion.div
+                    key={project.title}
+                    variants={fadeIn}
+                    className={`group rounded-2xl overflow-hidden transition-colors border ${darkMode ? 'bg-slate-900/50 border-slate-800 md:hover:border-slate-700' : 'bg-white border-[#D8DCE3] md:hover:border-[#2F5FD7]/40'}`}
+                  >
+                  <CardCarousel project={project} darkMode={darkMode} />
+                  
+                  <div 
+                    className={`p-8 border-t ${darkMode ? 'border-slate-800' : 'border-[#D8DCE3]'}`}
+                  >
+                    <div className="flex justify-between items-start mb-4">
+                      <h3 className={`text-2xl font-bold transition-colors ${darkMode ? 'md:group-hover:text-blue-400' : 'md:group-hover:text-[#2F5FD7]'} ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>
+                        {project.title}
+                      </h3>
+                    </div>
+
+                    <div className="space-y-6">
+
+                      {project.role && (
+                        <div className={`relative pl-4 border-l-2 transition-colors ${darkMode ? 'border-slate-700 md:group-hover:border-blue-400' : 'border-[#D8DCE3] md:group-hover:border-[#2F5FD7]'}`}>
+                          <p className={`text-base font-semibold leading-relaxed transition-colors ${darkMode ? 'text-slate-300 md:group-hover:text-blue-400' : 'text-[#1F2933] md:group-hover:text-[#2F5FD7]'}`}>{project.role}</p>
+                        </div>
+                      )}
+
+                      {project.outcome && (
+                        <div>
+                          <p className={`text-base leading-relaxed whitespace-pre-line ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{project.outcome}</p>
+                        </div>
+                      )}
+
+                      {project.skillsUsed && project.skillsUsed.length > 0 && (
+                        <div className="flex flex-wrap gap-2">
+                          {project.skillsUsed.map((skill, idx) => (
+                            <span
+                              key={idx}
+                              className={`px-3 py-1 rounded-full text-sm font-medium border ${darkMode ? 'bg-slate-800/40 border-slate-700 text-slate-300' : 'bg-[#F4F5F7] border-[#D8DCE3] text-[#1F2933]'}`}
+                            >
+                              {skill}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+
+                      {project.projectLinks && project.projectLinks.length > 0 && (
+                        <div className="flex flex-col gap-2">
+                          {project.projectLinks.map((item, i) => {
+                            if (item.links) {
+                              return (
+                                <div key={i} className="flex flex-wrap items-center gap-x-1">
+                                  <span className={`text-sm ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>
+                                    {item.groupLabel}
+                                  </span>
+                                  {item.links.map((link, linkIdx) => (
+                                    <React.Fragment key={linkIdx}>
+                                      <a
+                                        href={link.url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className={`inline-flex items-center gap-1.5 text-sm transition-colors w-fit ${darkMode ? 'text-slate-300 hover:text-blue-400' : 'text-[#1F2933] hover:text-[#2F5FD7]'}`}
+                                      >
+                                        {link.label} <ExternalLink size={14} />
+                                      </a>
+                                      {linkIdx < item.links.length - 1 && (
+                                        <span className={`text-sm mr-1 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>,</span>
+                                      )}
+                                    </React.Fragment>
+                                  ))}
+                                </div>
+                              );
+                            }
+                            return (
+                              <a
+                                key={i}
+                                href={item.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className={`inline-flex items-center gap-2 text-sm transition-colors w-fit ${darkMode ? 'text-slate-300 hover:text-blue-400' : 'text-[#1F2933] hover:text-[#2F5FD7]'}`}
+                              >
+                                {item.label} <ExternalLink size={14} />
+                              </a>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </motion.div>
+        </div>
+      </section>
+    );
+  });
+
 const Portfolio = () => {
+  const [showVisuals, setShowVisuals] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setShowVisuals(true), 800);
+    return () => clearTimeout(timer);
+  }, []);
+
   const [language, setLanguage] = useState(() => {
     const saved = localStorage.getItem('language');
     return saved && uiText[saved] ? saved : 'en';
@@ -762,47 +901,18 @@ const Portfolio = () => {
       proportionalOffset = 0;
     }
 
-    // Fade out smoothly, then switch language & correct scroll while invisible
-    const root = document.documentElement;
-    const body = document.body;
-    const bgColor = darkMode ? '#0b1220' : '#F4F5F7';
-    root.style.backgroundColor = bgColor;
-    body.style.transition = 'opacity 0.15s ease-out';
-    body.style.opacity = '0';
+    setLanguage(newLang);
+    localStorage.setItem('language', newLang);
 
-    const onFadedOut = () => {
-      body.removeEventListener('transitionend', onFadedOut);
-
-      setLanguage(newLang);
-      localStorage.setItem('language', newLang);
-
-      // Triple rAF to be absolutely sure React + browser layout is done
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => {
-            const el = document.getElementById(anchorId);
-            if (el) {
-              const newElTop = el.getBoundingClientRect().top + window.scrollY;
-              const newSectionHeight = el.offsetHeight;
-              const targetScrollY = newElTop + (proportionalOffset * newSectionHeight);
-              window.scrollTo({ top: targetScrollY, behavior: 'instant' });
-            }
-
-            // Fade back in
-            body.style.transition = 'opacity 0.2s ease-in';
-            body.style.opacity = '1';
-            const onFadedIn = () => {
-              body.removeEventListener('transitionend', onFadedIn);
-              body.style.transition = '';
-              body.style.opacity = '';
-              root.style.backgroundColor = '';
-            };
-            body.addEventListener('transitionend', onFadedIn, { once: true });
-          });
-        });
-      });
-    };
-    body.addEventListener('transitionend', onFadedOut, { once: true });
+    setTimeout(() => {
+      const el = document.getElementById(anchorId);
+      if (el) {
+        const newElTop = el.getBoundingClientRect().top + window.scrollY;
+        const newSectionHeight = el.offsetHeight;
+        const targetScrollY = newElTop + (proportionalOffset * newSectionHeight);
+        window.scrollTo({ top: targetScrollY, behavior: 'instant' });
+      }
+    }, 0);
   };
   const [darkMode, setDarkMode] = useState(() => {
     const saved = localStorage.getItem('darkMode');
@@ -826,22 +936,21 @@ const Portfolio = () => {
 
   React.useEffect(() => {
     localStorage.setItem('darkMode', JSON.stringify(darkMode));
-    document.body.style.backgroundColor = darkMode ? '#0b1220' : '#F4F5F7';
   }, [darkMode]);
 
 
 
   return (
     <ThemeProvider attribute="class" defaultTheme="light">
-      <div className={`min-h-screen selection:bg-blue-400/30 transition-colors duration-300 ${darkMode ? 'bg-[#0b1220] text-slate-300' : 'bg-[#F4F5F7] text-[#1F2933]'}`}>
-      <nav className={`fixed inset-x-0 top-0 z-50 border-b backdrop-blur-md transition-colors duration-300 ${darkMode ? 'border-slate-800/80 bg-[#0b1220]/85' : 'border-[#D8DCE3] bg-[#F4F5F7]/90'}`}>
+      <div className={`min-h-screen selection:bg-blue-400/30 ${darkMode ? 'bg-[#0b1220] text-slate-300' : 'bg-[#F4F5F7] text-[#1F2933]'}`}>
+      <nav className={`fixed inset-x-0 top-0 z-50 border-b ${darkMode ? 'border-slate-800/80 bg-[#0b1220]/90' : 'border-[#D8DCE3] bg-[#F4F5F7]/95'}`}>
         <div className="container mx-auto flex h-16 items-center justify-between gap-6 px-6">
-          <a href="#profil" className={`flex items-center gap-2 text-lg font-bold tracking-wide transition-colors duration-300 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>
+          <a href="#profil" className={`flex items-center gap-2 text-lg font-bold tracking-wide ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>
             <Layers className={darkMode ? 'text-blue-400' : 'text-[#2F5FD7]'} size={20} />
             Portfolio
           </a>
           
-          <div className={`hidden items-center gap-8 text-base lg:flex transition-colors duration-300 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>
+          <div className={`hidden items-center gap-8 text-base lg:flex ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>
             <a href="#projects" className={`flex items-center gap-2 transition-colors ${darkMode ? 'hover:text-blue-400' : 'hover:text-[#2F5FD7]'}`}>
               <Layout size={16} /> {t.nav.projects}
             </a>
@@ -1026,152 +1135,16 @@ const Portfolio = () => {
       </header>
 
       {/* Projects Section */}
-      <section id="projects" className={`pt-16 pb-24 scroll-mt-16 border-b transition-colors duration-300 ${darkMode ? 'bg-slate-900/50 border-slate-800' : 'bg-[#EDEFF2] border-[#D8DCE3]'}`}>
-        <div className="container mx-auto px-6">
-          <div className="mb-8 text-center">
-            <motion.h2 
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className={`text-5xl font-bold mb-4 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}
-            >
-              {t.projects.title}
-            </motion.h2>
-          </div>
-
-          {/* Filters */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="flex flex-wrap gap-4 mb-8 justify-center"
-          >
-            {Object.entries(t.projects.categories).map(([key, label]) => (
-              <button
-                key={key}
-                onClick={() => setActiveFilter(key)}
-                className={`px-6 py-2 rounded-full text-base font-medium transition-colors border ${
-                  activeFilter === key 
-                    ? darkMode ? 'bg-blue-400 text-slate-900 border-transparent' : 'bg-[#2F5FD7] text-white border-transparent'
-                    : darkMode ? 'bg-slate-800 text-slate-300 hover:bg-slate-700 border-transparent' : 'bg-white text-[#1F2933] hover:bg-[#EDEFF2] border-[#D8DCE3]'
-                }`}
-              >
-                {label}
-              </button>
-            ))}
-          </motion.div>
-
-          {/* Project Grid */}
-          <motion.div 
-            variants={staggerContainer}
-            initial="initial"
-            animate="animate"
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-          >
-            <AnimatePresence>
-              {t.projects.items
-                .filter(project => activeFilter === 'all' || project.category === activeFilter)
-                .map((project) => (
-                  <motion.div
-                    key={project.title}
-                    variants={fadeIn}
-                    className={`group rounded-2xl overflow-hidden transition-colors border ${darkMode ? 'bg-slate-900/50 border-slate-800 md:hover:border-slate-700' : 'bg-white border-[#D8DCE3] md:hover:border-[#2F5FD7]/40'}`}
-                  >
-                  <CardCarousel project={project} darkMode={darkMode} />
-                  
-                  <div 
-                    className={`p-8 border-t ${darkMode ? 'border-slate-800' : 'border-[#D8DCE3]'}`}
-                  >
-                    <div className="flex justify-between items-start mb-4">
-                      <h3 className={`text-2xl font-bold transition-colors ${darkMode ? 'md:group-hover:text-blue-400' : 'md:group-hover:text-[#2F5FD7]'} ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>
-                        {project.title}
-                      </h3>
-                    </div>
-
-                    <div className="space-y-6">
-
-                      {project.role && (
-                        <div className={`relative pl-4 border-l-2 transition-colors ${darkMode ? 'border-slate-700 md:group-hover:border-blue-400' : 'border-[#D8DCE3] md:group-hover:border-[#2F5FD7]'}`}>
-                          <p className={`text-base font-semibold leading-relaxed transition-colors ${darkMode ? 'text-slate-300 md:group-hover:text-blue-400' : 'text-[#1F2933] md:group-hover:text-[#2F5FD7]'}`}>{project.role}</p>
-                        </div>
-                      )}
-
-                      {project.outcome && (
-                        <div>
-                          <p className={`text-base leading-relaxed whitespace-pre-line ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{project.outcome}</p>
-                        </div>
-                      )}
-
-                      {project.skillsUsed && project.skillsUsed.length > 0 && (
-                        <div className="flex flex-wrap gap-2">
-                          {project.skillsUsed.map((skill, idx) => (
-                            <span
-                              key={idx}
-                              className={`px-3 py-1 rounded-full text-sm font-medium border ${darkMode ? 'bg-slate-800/40 border-slate-700 text-slate-300' : 'bg-[#F4F5F7] border-[#D8DCE3] text-[#1F2933]'}`}
-                            >
-                              {skill}
-                            </span>
-                          ))}
-                        </div>
-                      )}
-
-                      {project.projectLinks && project.projectLinks.length > 0 && (
-                        <div className="flex flex-col gap-2">
-                          {project.projectLinks.map((item, i) => {
-                            if (item.links) {
-                              return (
-                                <div key={i} className="flex flex-wrap items-center gap-x-1">
-                                  <span className={`text-sm ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>
-                                    {item.groupLabel}
-                                  </span>
-                                  {item.links.map((link, linkIdx) => (
-                                    <React.Fragment key={linkIdx}>
-                                      <a
-                                        href={link.url}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className={`inline-flex items-center gap-1.5 text-sm transition-colors w-fit ${darkMode ? 'text-slate-300 hover:text-blue-400' : 'text-[#1F2933] hover:text-[#2F5FD7]'}`}
-                                      >
-                                        {link.label} <ExternalLink size={14} />
-                                      </a>
-                                      {linkIdx < item.links.length - 1 && (
-                                        <span className={`text-sm mr-1 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>,</span>
-                                      )}
-                                    </React.Fragment>
-                                  ))}
-                                </div>
-                              );
-                            }
-                            return (
-                              <a
-                                key={i}
-                                href={item.url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className={`inline-flex items-center gap-2 text-sm transition-colors w-fit ${darkMode ? 'text-slate-300 hover:text-blue-400' : 'text-[#1F2933] hover:text-[#2F5FD7]'}`}
-                              >
-                                {item.label} <ExternalLink size={14} />
-                              </a>
-                            );
-                          })}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </AnimatePresence>
-          </motion.div>
-        </div>
-      </section>
+      <ProjectsSection t={t} darkMode={darkMode} activeFilter={activeFilter} setActiveFilter={setActiveFilter} />
 
       {/* Expertise Section */}
-      <section id="expertise" className={`py-16 scroll-mt-16 transition-colors duration-300 ${darkMode ? 'bg-[#0b1220]' : 'bg-[#F4F5F7]'}`}>
+      <section id="expertise" className={`py-16 scroll-mt-16 ${darkMode ? 'bg-[#0b1220]' : 'bg-[#F4F5F7]'}`}>
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <motion.h2 
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              whileInView={isSafari ? undefined : { opacity: 1, y: 0 }}
+              animate={isSafari ? { opacity: 1, y: 0 } : undefined}
               viewport={{ once: true }}
               className={`text-5xl font-bold mb-6 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}
             >
@@ -1182,7 +1155,8 @@ const Portfolio = () => {
           <motion.div 
             variants={staggerContainer}
             initial="initial"
-            whileInView="animate"
+            whileInView={isSafari ? undefined : "animate"}
+            animate={isSafari ? "animate" : undefined}
             viewport={{ once: true }}
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-0"
           >
@@ -1239,12 +1213,13 @@ const Portfolio = () => {
       </section>
 
       {/* Skills Section */}
-      <section id="skills" className={`py-8 scroll-mt-16 border-b transition-colors duration-300 ${darkMode ? 'bg-slate-900/50 border-slate-800' : 'bg-[#EDEFF2] border-[#D8DCE3]'}`}>
+      <section id="skills" className={`py-8 scroll-mt-16 border-b ${darkMode ? 'bg-slate-900/50 border-slate-800' : 'bg-[#EDEFF2] border-[#D8DCE3]'}`}>
         <div className="container mx-auto px-6">
           <div className="text-center mb-8">
             <motion.h2 
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              whileInView={isSafari ? undefined : { opacity: 1, y: 0 }}
+              animate={isSafari ? { opacity: 1, y: 0 } : undefined}
               viewport={{ once: true }}
               className={`text-5xl font-bold mb-6 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}
             >
@@ -1259,7 +1234,8 @@ const Portfolio = () => {
                 {/* Engineering Card */}
                 <motion.div
                   initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
+                  whileInView={isSafari ? undefined : { opacity: 1, x: 0 }}
+                  animate={isSafari ? { opacity: 1, x: 0 } : undefined}
                   viewport={{ once: true }}
                   className="p-6"
                 >
@@ -1279,7 +1255,8 @@ const Portfolio = () => {
                 {/* Platforms Card */}
                 <motion.div
                   initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
+                  whileInView={isSafari ? undefined : { opacity: 1, x: 0 }}
+                  animate={isSafari ? { opacity: 1, x: 0 } : undefined}
                   viewport={{ once: true }}
                   transition={{ delay: 0.05 }}
                   className="p-6"
@@ -1302,7 +1279,8 @@ const Portfolio = () => {
                 {/* Interpersonal Card */}
                 <motion.div
                   initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
+                  whileInView={isSafari ? undefined : { opacity: 1, x: 0 }}
+                  animate={isSafari ? { opacity: 1, x: 0 } : undefined}
                   viewport={{ once: true }}
                   transition={{ delay: 0.1 }}
                   className="p-6"
@@ -1323,7 +1301,8 @@ const Portfolio = () => {
                 {/* Languages Card */}
                 <motion.div
                   initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
+                  whileInView={isSafari ? undefined : { opacity: 1, x: 0 }}
+                  animate={isSafari ? { opacity: 1, x: 0 } : undefined}
                   viewport={{ once: true }}
                   transition={{ delay: 0.15 }}
                   className="p-6"
@@ -1343,14 +1322,15 @@ const Portfolio = () => {
             {/* Right: Icon Cloud */}
             <motion.div 
               initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              whileInView={isSafari ? undefined : { opacity: 1, scale: 1 }}
+              animate={isSafari ? { opacity: 1, scale: 1 } : undefined}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
               className="lg:w-1/2 relative flex items-center justify-center"
             >
               <div className="relative z-10 w-full max-w-md">
                 <Suspense fallback={<div className="w-full aspect-square" />}>
-                <IconCloud iconSlugs={ICON_CLOUD_SLUGS} darkMode={darkMode} />
+                {showVisuals && <IconCloud iconSlugs={ICON_CLOUD_SLUGS} darkMode={darkMode} />}
                 </Suspense>
               </div>
             </motion.div>
@@ -1359,12 +1339,13 @@ const Portfolio = () => {
       </section>
 
       {/* Experience section */}
-      <section id="experience" className={`py-8 scroll-mt-16 border-b transition-colors duration-300 ${darkMode ? 'bg-[#0b1220] border-slate-800' : 'bg-[#F4F5F7] border-[#D8DCE3]'}`}>
+      <section id="experience" className={`py-8 scroll-mt-16 border-b ${darkMode ? 'bg-[#0b1220] border-slate-800' : 'bg-[#F4F5F7] border-[#D8DCE3]'}`}>
         <div className="container mx-auto px-6">
           <div className="text-center mb-8">
             <motion.h2 
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              whileInView={isSafari ? undefined : { opacity: 1, y: 0 }}
+              animate={isSafari ? { opacity: 1, y: 0 } : undefined}
               viewport={{ once: true }}
               className={`text-5xl font-bold mb-6 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}
             >
@@ -1379,7 +1360,8 @@ const Portfolio = () => {
                 <motion.div 
                   key={index}
                   initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
+                  whileInView={isSafari ? undefined : { opacity: 1, x: 0 }}
+                  animate={isSafari ? { opacity: 1, x: 0 } : undefined}
                   viewport={{ once: true }}
                   
                   className="relative pl-8 pb-12 last:pb-0"
@@ -1414,12 +1396,13 @@ const Portfolio = () => {
       </section>
 
       {/* Education section */}
-      <section id="education" className={`py-8 scroll-mt-16 border-b transition-colors duration-300 ${darkMode ? 'bg-slate-900/50 border-slate-800' : 'bg-[#EDEFF2] border-[#D8DCE3]'}`}>
+      <section id="education" className={`py-8 scroll-mt-16 border-b ${darkMode ? 'bg-slate-900/50 border-slate-800' : 'bg-[#EDEFF2] border-[#D8DCE3]'}`}>
         <div className="container mx-auto px-6">
           <div className="text-center mb-8">
             <motion.h2 
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              whileInView={isSafari ? undefined : { opacity: 1, y: 0 }}
+              animate={isSafari ? { opacity: 1, y: 0 } : undefined}
               viewport={{ once: true }}
               className={`text-5xl font-bold mb-6 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}
             >
@@ -1434,7 +1417,8 @@ const Portfolio = () => {
                 <motion.div 
                   key={index}
                   initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
+                  whileInView={isSafari ? undefined : { opacity: 1, x: 0 }}
+                  animate={isSafari ? { opacity: 1, x: 0 } : undefined}
                   viewport={{ once: true }}
                   
                   className="relative pl-8 pb-12 last:pb-0"
@@ -1470,12 +1454,13 @@ const Portfolio = () => {
       </section>
 
       {/* Footer / Contact */}
-      <footer id="contact" className={`pt-8 pb-0 scroll-mt-16 transition-colors duration-300 ${darkMode ? 'bg-[#0b1220]' : 'bg-[#F4F5F7]'}`}>
+      <footer id="contact" className={`pt-8 pb-0 scroll-mt-16 ${darkMode ? 'bg-[#0b1220]' : 'bg-[#F4F5F7]'}`}>
         <div className="container mx-auto px-6 max-w-4xl">
           <div className="text-center mb-8">
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              whileInView={isSafari ? undefined : { opacity: 1, y: 0 }}
+              animate={isSafari ? { opacity: 1, y: 0 } : undefined}
               viewport={{ once: true }}
               className={`text-5xl font-bold mb-6 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}
             >
@@ -1523,14 +1508,15 @@ const Portfolio = () => {
 
             <motion.div 
               initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              whileInView={isSafari ? undefined : { opacity: 1, scale: 1 }}
+              animate={isSafari ? { opacity: 1, scale: 1 } : undefined}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
               className="w-full lg:w-1/2 relative flex items-center justify-center"
             >
               <div className="relative z-10 w-full max-w-sm lg:max-w-lg -mt-12">
                 <Suspense fallback={<div className="w-full aspect-square" />}>
-                  <SpinningGlobe darkMode={darkMode} />
+                  {showVisuals && <SpinningGlobe darkMode={darkMode} />}
                 </Suspense>
               </div>
             </motion.div>
