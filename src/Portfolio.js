@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, lazy, Suspense } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useDragControls } from 'framer-motion';
 import { ThemeProvider } from 'next-themes';
 import { 
   Mail, 
@@ -257,6 +257,13 @@ const useMobile = () => {
 
   const MobileProjectModal = ({ project, onClose, t, darkMode }) => {
     const scrollRef = useRef(null);
+    const dragControls = useDragControls();
+
+    useEffect(() => {
+      const prev = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      return () => { document.body.style.overflow = prev; };
+    }, []);
 
     useEffect(() => {
       if (scrollRef.current) {
@@ -265,41 +272,45 @@ const useMobile = () => {
     }, [project]);
 
     return (
-      <motion.div
-        initial={{ y: "100%" }}
-        animate={{ y: 0 }}
-        exit={{ y: "100%" }}
-        transition={{ type: "spring", damping: 25, stiffness: 200 }}
-        drag="y"
-        dragConstraints={{ top: 0 }}
-        dragElastic={0.2}
-        onDragEnd={(_, info) => {
-          if (info.offset.y > 100 || info.velocity.y > 500) {
-            onClose();
-          }
-        }}
-        className="fixed inset-0 z-50 flex items-end"
-      >
+      <div className="fixed inset-0 z-50 flex items-end">
         {/* Backdrop */}
         <div
           className={`absolute inset-0 ${darkMode ? "bg-black/40" : "bg-black/20"}`}
           onClick={onClose}
         />
-        <div
+        <motion.div
+          initial={{ y: "100%" }}
+          animate={{ y: 0 }}
+          exit={{ y: "100%" }}
+          transition={{ type: "tween", duration: 0.22, ease: "easeOut" }}
+          drag="y"
+          dragControls={dragControls}
+          dragListener={false}
+          dragConstraints={{ top: 0 }}
+          dragElastic={0.12}
+          onDragEnd={(_, info) => {
+            if (info.offset.y > 120 || info.velocity.y > 800) {
+              onClose();
+            }
+          }}
           className={`
-    relative z-10
-    flex flex-col w-full
-    h-[92dvh] max-h-[92dvh]
-    overflow-hidden
-    rounded-t-[2rem]
-    border-t
-    pb-[env(safe-area-inset-bottom)]
-    ${darkMode ? "bg-slate-900 border-slate-800" : "bg-white border-[#D8DCE3]"}
-  `}
->
+            relative z-10
+            flex flex-col w-full
+            h-[92dvh] max-h-[92dvh]
+            overflow-hidden
+            rounded-t-[2rem]
+            border-t
+            pb-[env(safe-area-inset-bottom)]
+            will-change-transform
+            ${darkMode ? "bg-slate-900 border-slate-800" : "bg-white border-[#D8DCE3]"}
+          `}
+        >
           {/* Handle for dragging feel */}
-          <div className="w-full flex justify-center pt-3 pb-1 flex-shrink-0">
-            <div className={`w-12 h-1.5 rounded-full ${darkMode ? 'bg-slate-700' : 'bg-slate-300'}`} onClick={onClose} />
+          <div 
+            className="w-full flex justify-center pt-3 pb-1 flex-shrink-0"
+            onPointerDown={(e) => dragControls.start(e)}
+          >
+            <div className={`w-12 h-1.5 rounded-full ${darkMode ? 'bg-slate-700' : 'bg-slate-300'}`} />
           </div>
 
           <button 
@@ -344,7 +355,7 @@ const useMobile = () => {
                     {project.skillsUsed.map((skill, i) => (
                       <span 
                         key={i}
-                        className={`px-3 py-1 text-base rounded-full border ${darkMode ? 'bg-slate-800/80 text-slate-300 border-slate-700' : 'bg-[#EDEFF2] text-[#1F2933] border-[#D8DCE3]'}`}
+                        className={`px-3 py-1 text-sm rounded-full border ${darkMode ? 'bg-slate-800/80 text-slate-300 border-slate-700' : 'bg-[#EDEFF2] text-[#1F2933] border-[#D8DCE3]'}`}
                       >
                         {skill}
                       </span>
@@ -373,8 +384,8 @@ const useMobile = () => {
               )}
             </div>
           </div>
-        </div>
-      </motion.div>
+        </motion.div>
+      </div>
     );
 };
 
