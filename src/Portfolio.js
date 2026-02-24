@@ -1406,7 +1406,7 @@ const Portfolio = () => {
                   <motion.div
                     key={project.title}
                     variants={fadeIn}
-                    className={`group rounded-2xl overflow-hidden transition-colors border ${darkMode ? 'bg-slate-900/50 border-slate-800 hover:border-slate-700' : 'bg-white border-[#D8DCE3] hover:border-[#2F5FD7]/40'}`}
+                    className={`group rounded-2xl overflow-hidden transition-colors border ${darkMode ? 'bg-slate-900/50 border-slate-800 md:hover:border-slate-700' : 'bg-white border-[#D8DCE3] md:hover:border-[#2F5FD7]/40'}`}
                   >
                   <CardCarousel project={project} darkMode={darkMode} />
                   
@@ -1415,14 +1415,14 @@ const Portfolio = () => {
                     className={`p-8 border-t cursor-pointer ${darkMode ? 'border-slate-800' : 'border-[#D8DCE3]'}`}
                   >
                     <div className="flex justify-between items-start mb-4">
-                      <h3 className={`text-2xl font-bold transition-colors ${darkMode ? 'group-hover:text-blue-400' : 'group-hover:text-[#2F5FD7]'} ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>
+                      <h3 className={`text-2xl font-bold transition-colors ${darkMode ? 'md:group-hover:text-blue-400' : 'md:group-hover:text-[#2F5FD7]'} ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>
                         {project.title}
                       </h3>
-                      <ExternalLink size={20} className={`transition-colors ${darkMode ? 'group-hover:text-blue-400' : 'group-hover:text-[#2F5FD7]'} ${darkMode ? 'text-slate-300' : 'text-[#6B7280]'}`} />
+                      <ExternalLink size={20} className={`transition-colors ${darkMode ? 'md:group-hover:text-blue-400' : 'md:group-hover:text-[#2F5FD7]'} ${darkMode ? 'text-slate-300' : 'text-[#6B7280]'}`} />
                     </div>
                     {/* Project card grade/subtitle */}
                     {(project.grade || project.subtitle) && (
-                      <div className={`transition-colors font-medium text-base mb-4 ${darkMode ? 'text-slate-300 group-hover:text-blue-400' : 'text-[#1F2933] group-hover:text-[#2F5FD7]'}`}>
+                      <div className={`transition-colors font-medium text-base mb-4 ${darkMode ? 'text-slate-300 md:group-hover:text-blue-400' : 'text-[#1F2933] md:group-hover:text-[#2F5FD7]'}`}>
                         {project.grade && <p>Grade: {project.grade}</p>}
                         {project.subtitle && <p>{project.subtitle}</p>}
                       </div>
