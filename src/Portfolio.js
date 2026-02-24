@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, lazy, Suspense } from 'react';
-import { motion, AnimatePresence, useDragControls } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ThemeProvider } from 'next-themes';
 import { 
   Mail, 
@@ -20,7 +20,6 @@ import {
   Database,
   Bot,
   Layers,
-  X,
   Sun,
   Moon,
   Menu,
@@ -165,284 +164,8 @@ const useMobile = () => {
     );
   });
 
-  const WebProjectModal = ({ project, onClose, t, darkMode, handleOverlayMouseDown, handleOverlayMouseUp }) => {
-    useEffect(() => {
-      const html = document.documentElement;
-
-      html.style.overflow = "hidden";
-
-      return () => {
-        html.style.overflow = "";
-      };
-    }, []);
-
-    return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      onMouseDown={handleOverlayMouseDown}
-      onMouseUp={handleOverlayMouseUp}
-      className={`fixed inset-0 z-50 flex items-center justify-center p-4 ${darkMode ? 'bg-slate-950/80' : 'bg-black/50'}`}
-    >
-      <motion.div
-        initial={{ scale: 0.9, opacity: 0, y: 20 }}
-        animate={{ scale: 1, opacity: 1, y: 0 }}
-        exit={{ scale: 0.9, opacity: 0, y: 20 }}
-        onMouseDown={(e) => e.stopPropagation()}
-        onMouseUp={(e) => e.stopPropagation()}
-        className={`rounded-3xl overflow-hidden max-w-2xl w-full max-h-[90vh] flex flex-col shadow-2xl relative border ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-[#D8DCE3]'}`}
-      >
-        <button 
-          onClick={onClose}
-          className={`absolute top-4 right-4 z-20 p-2 backdrop-blur-md rounded-full transition-colors border ${darkMode ? 'bg-slate-900/50 text-slate-300 hover:text-blue-400 border-slate-700/50' : 'bg-white/80 text-[#1F2933] hover:text-[#2F5FD7] border-[#D8DCE3]'}`}
-        >
-          <X size={20} />
-        </button>
-
-        {/* Content */}
-        <div className={`w-full p-8 overflow-y-auto overscroll-contain flex-1 ${darkMode ? 'bg-slate-900' : 'bg-white'}`}>
-          <div className="mb-8">
-            <h3 className={`text-3xl font-bold mb-2 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{project.title}</h3>
-            {project.grade && (
-              <p className={`text-base font-medium mb-2 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>Grade: {project.grade}</p>
-            )}
-            <p className={`text-base mb-4 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{project.desc}</p>
-          </div>
-
-          <div className="space-y-8">
-            {project.role && (
-              <div className={`relative pl-4 border-l-2 ${darkMode ? 'border-blue-400/30' : 'border-[#2F5FD7]'}`}>
-                <h4 className={`text-base font-semibold mb-2 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{t.projects.modal.role}</h4>
-                <p className={`text-base font-semibold leading-relaxed ${darkMode ? 'text-blue-400' : 'text-[#2F5FD7]'}`}>{project.role}</p>
-              </div>
-            )}
 
 
-            {project.outcome && (
-              <div className={`p-4 rounded-xl border ${darkMode ? 'bg-slate-800/40 border-slate-700/50' : 'bg-[#F4F5F7] border-[#D8DCE3]'}`}>
-                <h4 className={`text-base font-semibold mb-2 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{t.projects.modal.outcome}</h4>
-                <p className={`text-base leading-relaxed whitespace-pre-line ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{project.outcome}</p>
-              </div>
-            )}
-
-            {project.skillsUsed && (
-              <div>
-                <h4 className={`text-base font-semibold mb-3 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{t.projects.modal.skills}</h4>
-                <div className="flex flex-wrap gap-2">
-                  {project.skillsUsed.map((skill, i) => (
-                    <span 
-                      key={i}
-                      className={`px-3 py-1 text-base rounded-full border ${darkMode ? 'bg-slate-800/80 text-slate-300 border-slate-700' : 'bg-[#EDEFF2] text-[#1F2933] border-[#D8DCE3]'}`}
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {project.projectLinks && project.projectLinks.length > 0 && (
-              <div>
-                <h4 className={`text-base font-semibold mb-3 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{project.projectLinksTitle || 'Projects Realized'}</h4>
-                <div className={`flex ${project.projectLinksInline ? 'flex-row' : 'flex-col'} gap-2`}>
-                  {project.projectLinks.map((link, i) => (
-                    <a
-                      key={i}
-                      href={link.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`inline-flex items-center gap-2 text-base transition-colors w-fit ${darkMode ? 'text-slate-300 hover:text-blue-400' : 'text-[#1F2933] hover:text-[#2F5FD7]'}`}
-                    >
-                      {link.label} <ExternalLink size={14} />
-                    </a>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-      </motion.div>
-    </motion.div>
-    );
-  };
-
-  const MobileProjectModal = ({ project, onClose, t, darkMode }) => {
-    const scrollRef = useRef(null);
-    const dragControls = useDragControls();
-
-    useEffect(() => {
-      const html = document.documentElement;
-
-      html.style.overflow = "hidden";
-
-      return () => {
-        html.style.overflow = "";
-      };
-    }, []);
-
-    useEffect(() => {
-      if (scrollRef.current) {
-        scrollRef.current.scrollTop = 0;
-      }
-    }, [project]);
-
-    return (
-      <div className="fixed inset-0 z-50 flex items-end">
-        {/* Backdrop */}
-        <div
-          className={`absolute inset-0 ${darkMode ? "bg-black/40" : "bg-black/20"}`}
-          onClick={onClose}
-        />
-        <motion.div
-          initial={{ y: "100%" }}
-          animate={{ y: 0 }}
-          exit={{ y: "100%" }}
-          transition={{ type: "tween", duration: 0.22, ease: "easeOut" }}
-          drag="y"
-          dragControls={dragControls}
-          dragListener={false}
-          dragConstraints={{ top: 0 }}
-          dragElastic={0.12}
-          onDragEnd={(_, info) => {
-            if (info.offset.y > 120 || info.velocity.y > 800) {
-              onClose();
-            }
-          }}
-          onClick={(e) => e.stopPropagation()}
-          className={`
-            relative z-10
-            flex flex-col w-full
-            h-[92dvh] max-h-[92dvh]
-            overflow-hidden
-            rounded-t-[2rem]
-            border-t
-            pb-[env(safe-area-inset-bottom)]
-            will-change-transform
-            touch-auto
-            ${darkMode ? "bg-slate-900 border-slate-800" : "bg-white border-[#D8DCE3]"}
-          `}
-        >
-          {/* Handle for dragging feel */}
-          <div 
-            className="w-full flex justify-center pt-3 pb-1 flex-shrink-0"
-            onPointerDown={(e) => dragControls.start(e)}
-          >
-            <div className={`w-12 h-1.5 rounded-full ${darkMode ? 'bg-slate-700' : 'bg-slate-300'}`} />
-          </div>
-
-          <button 
-            onClick={onClose}
-            className={`absolute top-4 right-4 z-20 p-2 rounded-full transition-colors ${darkMode ? 'text-slate-400 hover:text-blue-400' : 'text-[#1F2933] hover:text-[#2F5FD7]'}`}
-          >
-            <X size={24} />
-          </button>
-
-          <div 
-            ref={scrollRef}
-            className="flex-1 overflow-y-auto p-6 pt-2"
-            style={{ WebkitOverflowScrolling: "touch" }}
-          >
-            <div className="mb-6">
-              <h3 className={`text-3xl font-bold mb-2 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{project.title}</h3>
-              {project.grade && (
-                <p className={`text-base font-medium mb-2 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>Grade: {project.grade}</p>
-              )}
-              <p className={`text-base mb-4 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{project.desc}</p>
-            </div>
-
-            <div className="space-y-8 pb-8">
-              {project.role && (
-                <div className={`relative pl-4 border-l-2 ${darkMode ? 'border-blue-400/30' : 'border-[#2F5FD7]'}`}>
-                  <h4 className={`text-base font-semibold mb-2 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{t.projects.modal.role}</h4>
-                  <p className={`text-base font-semibold leading-relaxed ${darkMode ? 'text-blue-400' : 'text-[#2F5FD7]'}`}>{project.role}</p>
-                </div>
-              )}
-
-              {project.outcome && (
-                <div className={`p-4 rounded-xl border ${darkMode ? 'bg-slate-800/40 border-slate-700/50' : 'bg-[#F4F5F7] border-[#D8DCE3]'}`}>
-                  <h4 className={`text-base font-semibold mb-2 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{t.projects.modal.outcome}</h4>
-                  <p className={`text-base leading-relaxed whitespace-pre-line ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{project.outcome}</p>
-                </div>
-              )}
-
-              {project.skillsUsed && (
-                <div>
-                  <h4 className={`text-base font-semibold mb-3 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{t.projects.modal.skills}</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {project.skillsUsed.map((skill, i) => (
-                      <span 
-                        key={i}
-                        className={`px-3 py-1 text-sm rounded-full border ${darkMode ? 'bg-slate-800/80 text-slate-300 border-slate-700' : 'bg-[#EDEFF2] text-[#1F2933] border-[#D8DCE3]'}`}
-                      >
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {project.projectLinks && project.projectLinks.length > 0 && (
-                <div>
-                  <h4 className={`text-base font-semibold mb-3 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{project.projectLinksTitle || 'Projects Realized'}</h4>
-                  <div className={`flex ${project.projectLinksInline ? 'flex-row' : 'flex-col'} gap-2`}>
-                    {project.projectLinks.map((link, i) => (
-                      <a
-                        key={i}
-                        href={link.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`inline-flex items-center gap-2 text-base transition-colors w-fit ${darkMode ? 'text-slate-300 hover:text-blue-400' : 'text-[#1F2933] hover:text-[#2F5FD7]'}`}
-                      >
-                        {link.label} <ExternalLink size={14} />
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        </motion.div>
-      </div>
-    );
-};
-
-  const ProjectModal = ({ project, onClose, t, darkMode }) => {
-    const isMobile = useMobile();
-    // Fix for "click inside, release outside" closing the modal
-    const [isMouseDownOnOverlay, setIsMouseDownOnOverlay] = useState(false);
-
-
-    const handleOverlayMouseDown = (e) => {
-      if (e.target === e.currentTarget) {
-        setIsMouseDownOnOverlay(true);
-      }
-    };
-
-    const handleOverlayMouseUp = (e) => {
-      if (isMouseDownOnOverlay && e.target === e.currentTarget) {
-        onClose();
-      }
-      setIsMouseDownOnOverlay(false);
-    };
-
-    if (isMobile) {
-      return (
-        <MobileProjectModal project={project} onClose={onClose} t={t} darkMode={darkMode} />
-      );
-    }
-
-    return (
-      <WebProjectModal 
-        project={project} 
-        onClose={onClose} 
-        t={t} 
-        darkMode={darkMode} 
-        handleOverlayMouseDown={handleOverlayMouseDown} 
-        handleOverlayMouseUp={handleOverlayMouseUp} 
-      />
-    );
-  };
 
 
 const uiText = {
@@ -485,18 +208,14 @@ const uiText = {
       items: [
         {
           title: "SAP FSM Platform",
-          subtitle: "Product Owner",
-          desc: "Redesigned global field service operations by implementing SAP FSM (Europe, USA, China, APAC).",
           role: "Product Owner",
-          outcome: "Successfully implemented SAP FSM, optimizing global service operations through standardized service processes and performance management.",
+          outcome: "Successfully implemented SAP FSM, optimizing global service operations (Europe, USA, China, APAC) through standardized service processes and performance management.",
           skillsUsed: ["BPMN", "Agile", "Analytics"],
           projectLinks: [
             { label: "Company: GFMS", url: "https://www.gfms.com/com/en.html" },
             { label: "Platform: SAP FSM", url: "https://www.sap.com/swiss/products/scm/field-service-management.html" }
           ],
-          projectLinksTitle: "Links",
           category: "professional",
-          tags: ["BPMN", "Agile", "Analytics"],
           imageContain: true,
           image: "/assets/SAP FSM 1.webp",
           images: [
@@ -507,19 +226,20 @@ const uiText = {
         },
         {
           title: "Hotel Procurement",
-          subtitle: "Project Manager",
-          desc: "Managed end-to-end procurement services and on-site installations for luxury hotel openings.",
           role: "Project Manager",
-          outcome: "Successfully managed budgeting, purchasing, deliveries, and installations of 5,000+ items across 100+ suppliers.",
+          outcome: "Led end-to-end procurement for luxury hotel renovations, managing budgets, purchasing, logistics, and installation of 5,000+ items while negotiating contracts with 100+ suppliers.",
           skillsUsed: ["Logistics", "Sourcing", "Team"],
           projectLinks: [
             { label: "Company: Sunnyland", url: "https://www.sunnylandconsulting.com" },
-            { label: "Project: Six Senses Ibiza", url: "https://www.sixsenses.com/en/hotels-resorts/europe/spain/ibiza" },
-            { label: "Project: Rosewood Villa Magna", url: "https://www.rosewoodhotels.com/en/villa-magna" }
+            { 
+              groupLabel: "Projects: ",
+              links: [
+                { label: "Six Senses", url: "https://www.sixsenses.com/en/hotels-resorts/europe/spain/ibiza" },
+                { label: "Rosewood", url: "https://www.rosewoodhotels.com/en/villa-magna" }
+              ]
+            }
           ],
-          projectLinksTitle: "Links",
           category: "professional",
-          tags: ["Logistics", "Sourcing", "Team"],
           image: "/assets/Hotel Procurement 1.webp",
           images: [
             "/assets/Hotel Procurement 1.webp",
@@ -529,17 +249,13 @@ const uiText = {
         },
         {
           title: "HEC Master Thesis",
-          subtitle: "Researcher (Grade: 6/6)",
-          desc: "Research examining how interaction design influences user trust and sense of control in AI travel planning.",
-          role: "Researcher",
-          outcome: "Developed and user-tested two AI interfaces, a Chatbot and a Graphical User Interface. The study generated insights into how interaction modalities influence user trust and sense of control. Grade: 6/6.",
+          role: "Researcher (Grade: 6/6)",
+          outcome: "Developed and user-tested two AI interfaces, a Chatbot and a Graphical User Interface. The study generated insights into how interaction design influences user trust and sense of control in AI travel planning.",
           skillsUsed: ["Interviews", "Experiment", "AI"],
           projectLinks: [
             { label: "University: HEC", url: "https://www.unil.ch/hec/en/home/menuinst/master/systemes-d-information.html" }
           ],
-          projectLinksTitle: "Links",
           category: "academic",
-          tags: ["Interviews", "Experiment", "AI"],
           image: "/assets/Master Thesis 1.webp",
           images: [
             "/assets/Master Thesis 1.webp",
@@ -549,18 +265,14 @@ const uiText = {
         },
         {
           title: "EHL Bachelor Project",
-          subtitle: "Consultant (Grade: 6/6)",
-          desc: "Developed a business development strategy and market entry plan for an IoT air quality solutions company.",
-          role: "Consultant",
-          outcome: "Translated IoT solutions into business value by focusing on strategic partnerships and open-API integration. Grade 6/6.",
+          role: "Consultant (Grade 6/6).",
+          outcome: "Developed a business development strategy and market entry plan for an IoT air quality solutions company. Translated IoT solutions into business value by focusing on strategic partnerships and open-API integration.",
           skillsUsed: ["Strategy", "Data", "IoT"],
           projectLinks: [
             { label: "University: EHL", url: "https://www.ehl.edu" },
             { label: "Company: Arve", url: "https://www.arveair.com" }
           ],
-          projectLinksTitle: "Links",
           category: "academic",
-          tags: ["Strategy", "Data", "IoT"],
           image: "/assets/Arve 1.webp",
           images: [
             "/assets/Arve 1.webp",
@@ -570,18 +282,14 @@ const uiText = {
         },
         {
           title: "Applied Projects",
-          desc: "Projects developed in collaboration with industry professionals during my Master's at HEC Lausanne.",
           role: "Consultant",
-          outcome: "SAP: Designed an AI-driven sales process for SAP partners.\nValtronic: Designed an AI-driven KPI cockpit.",
+          outcome: "Projects developed in collaboration with industry professionals during my Master's at HEC Lausanne. SAP: Designed an AI-driven sales process. Valtronic: Designed an AI-driven KPI cockpit.",
           skillsUsed: ["Architecture", "Roadmap", "AI"],
           projectLinks: [
             { label: "Company: SAP", url: "https://www.sap.com/index.html" },
             { label: "Company: Valtronic", url: "https://valtronic.com/" }
           ],
-          projectLinksTitle: "Links",
-          subtitle: "Consultant",
           category: "academic",
-          tags: ["Architecture", "Roadmap", "AI"],
           image: "/assets/Applied Projects 1.webp",
           images: [
             "/assets/Applied Projects 1.webp",
@@ -590,20 +298,15 @@ const uiText = {
         },
         {
           title: "Travelpop",
-          subtitle: "Full Stack Developer",
-          desc: "Designing and developing an AI-powered travel app for web and mobile as a personal project.",
           role: "Full Stack Developer",
-          outcome: "Users can: \n" +
-              "Manage reservations, itineraries, travel documentation, and budgets.\n" +
-              "Invite other users to edit or view a trip.\n" +
+          outcome: "Developing an AI travel app (web & mobile) where users can: Manage reservations, itinerary, and budget." +
+              "Invite other users to edit or view a trip." +
               "Interact with AI and Google maps directly in the app.",
           skillsUsed: ["Full-Stack", "UX/UI", "AI"],
           projectLinks: [
             { label: "Travelpop", url: "https://www.travelpop.app" },
           ],
-          projectLinksTitle: "Links",
           category: "personal",
-          tags: ["Full-Stack", "UX/UI", "AI"],
           image: "/assets/travelpop1.webp",
           images: [
             "/assets/travelpop1.webp",
@@ -696,7 +399,7 @@ const uiText = {
           location: "Madrid",
           role: "Project Manager",
           period: "2019 - 2021",
-          description: ["Managed a team to deliver end-to-end procurement services for luxury hotel openings.", "Procurement services included: budget control, purchasing, deliveries, and installations.", "Implemented a new operational structure to improve workflow productivity."]
+          description: ["Managed a team to deliver end-to-end procurement services for luxury hotel renovations.", "Procurement services included: budget control, purchasing, deliveries, and installations.", "Implemented a new operational structure to improve workflow productivity."]
         },
         {
           company: ["Beau-Rivage Palace", "Hotel Bernerhof", "Grand Hôtel & Centre Thermal"],
@@ -778,18 +481,14 @@ const uiText = {
       items: [
         {
           title: "Plateforme SAP FSM",
-          subtitle: "Product Owner",
-          desc: "Implémentation de SAP FSM pour optimiser la gestion globale des services (Europe, États-Unis, Chine, APAC).",
           role: "Product Owner",
-          outcome: "Implémentation réussie de SAP FSM, permettant la standardisation globale des processus de service client ainsi que l’amélioration du pilotage de la performance.",
+          outcome: "Implémentation de SAP FSM pour optimiser la gestion globale des services (Europe, États-Unis, Chine, APAC). Implémentation réussie de SAP FSM, permettant la standardisation globale des processus de service client ainsi que l’amélioration du pilotage de la performance.",
           skillsUsed: ["BPMN", "Agile", "Analytique"],
           projectLinks: [
             { label: "Entreprise : GFMS", url: "https://www.gfms.com/com/en.html" },
             { label: "Plateforme : SAP FSM", url: "https://www.sap.com/swiss/products/scm/field-service-management.html" }
           ],
-          projectLinksTitle: "Liens",
           category: "professional",
-          tags: ["BPMN", "Agile", "Analytique"],
           imageContain: true,
           image: "/assets/SAP FSM 1.webp",
           images: [
@@ -800,19 +499,20 @@ const uiText = {
         },
         {
           title: "Projets Hôteliers",
-          subtitle: "Chef de Projet",
-          desc: "Pilotage des achats, contrôle budgétaire, livraisons et installations pour des projets de rénovation d’hôtels de luxe.",
           role: "Chef de Projet",
-          outcome: "Gestion réussie du budget, des achats, des livraisons et des installations de plus de 5 000 articles auprès de plus de 100 fournisseurs.",
+          outcome: "Pilotage des achats, contrôle budgétaire, livraisons et installations pour des projets de rénovation d’hôtels de luxe. Gestion réussie du budget, des achats, des livraisons et des installations de plus de 5 000 articles auprès de plus de 100 fournisseurs.",
           skillsUsed: ["Achats", "Budget", "Logistique"],
           projectLinks: [
             { label: "Entreprise : Sunnyland", url: "https://www.sunnylandconsulting.com" },
-            { label: "Projet : Six Senses Ibiza", url: "https://www.sixsenses.com/en/hotels-resorts/europe/spain/ibiza" },
-            { label: "Projet : Rosewood Villa Magna", url: "https://www.rosewoodhotels.com/en/villa-magna" }
+            { 
+              groupLabel: "Projets : ",
+              links: [
+                { label: "Six Senses", url: "https://www.sixsenses.com/en/hotels-resorts/europe/spain/ibiza" },
+                { label: "Rosewood", url: "https://www.rosewoodhotels.com/en/villa-magna" }
+              ]
+            }
           ],
-          projectLinksTitle: "Liens",
           category: "professional",
-          tags: ["Achats", "Budget", "Logistique"],
           image: "/assets/Hotel Procurement 1.webp",
           images: [
             "/assets/Hotel Procurement 1.webp",
@@ -822,17 +522,13 @@ const uiText = {
         },
         {
           title: "HEC - Mémoire Master",
-          subtitle: "Chercheur (Note : 6/6)",
-          desc: "Impact du design d’interaction sur la confiance et le sentiment de contrôle dans la planification de voyages assitée par l'IA.",
           role: "Chercheur",
-          outcome: "Développement et test utilisateur de deux interfaces d'IA (Chatbot et Interface Graphique). L'étude a mis en évidence l'influence des modalités d'interaction sur la confiance et le sentiment de contrôle. Note : 6/6.",
+          outcome: "Impact du design d’interaction sur la confiance et le sentiment de contrôle dans la planification de voyages assitée par l'IA. Développement et test utilisateur de deux interfaces d'IA (Chatbot et Interface Graphique). L'étude a mis en évidence l'influence des modalités d'interaction sur la confiance et le sentiment de contrôle. Note : 6/6.",
           skillsUsed: ["Entretiens", "Expérience", "IA"],
           projectLinks: [
             { label: "Université : HEC", url: "https://www.unil.ch/hec/en/home/menuinst/master/systemes-d-information.html" }
           ],
-          projectLinksTitle: "Liens",
           category: "academic",
-          tags: ["Entretiens", "Expérience", "IA"],
           image: "/assets/Master Thesis 1.webp",
           images: [
             "/assets/Master Thesis 1.webp",
@@ -842,18 +538,14 @@ const uiText = {
         },
         {
           title: "EHL - Projet Bachelor",
-          subtitle: "Consultant (Note : 6/6)",
-          desc: "Stratégie commerciale et plan d’entrée sur le marché pour une entreprise de solutions IoT en qualité de l’air.",
           role: "Consultant",
-          outcome: "Élaboration d’une stratégie de création de valeur via des partenariats stratégiques et l’intégration d’API ouvertes. Note : 6/6.",
+          outcome: "Stratégie commerciale et plan d’entrée sur le marché pour une entreprise de solutions IoT en qualité de l’air. Élaboration d’une stratégie de création de valeur via des partenariats stratégiques et l’intégration d’API ouvertes. Note : 6/6.",
           skillsUsed: ["Stratégie", "Données", "IoT"],
           projectLinks: [
             { label: "Université : EHL", url: "https://www.ehl.edu" },
             { label: "Entreprise : Arve", url: "https://www.arveair.com" }
           ],
-          projectLinksTitle: "Liens",
           category: "academic",
-          tags: ["Stratégie", "Données", "IoT"],
           image: "/assets/Arve 1.webp",
           images: [
             "/assets/Arve 1.webp",
@@ -863,18 +555,14 @@ const uiText = {
         },
         {
           title: "Projets Appliqués",
-          desc: "Projets développés en collaboration avec des professionnels lors de mon Master à HEC Lausanne.",
           role: "Consultant",
-          outcome: "SAP : Conception d'un processus de vente piloté par l'IA.\nValtronic : Conception d’un cockpit de pilotage des KPI basé sur l’IA.",
+          outcome: "Projets développés en collaboration avec des professionnels lors de mon Master à HEC Lausanne. SAP : Conception d'un processus de vente piloté par l'IA.\nValtronic : Conception d’un cockpit de pilotage des KPI basé sur l’IA.",
           skillsUsed: ["Architecture", "Roadmap", "IA"],
           projectLinks: [
             { label: "Entreprise : SAP", url: "https://www.sap.com/index.html" },
             { label: "Entreprise : Valtronic", url: "https://valtronic.com/" }
           ],
-          projectLinksTitle: "Liens",
-          subtitle: "Consultant",
           category: "academic",
-          tags: ["Architecture", "Roadmap", "IA"],
           image: "/assets/Applied Projects 1.webp",
           images: [
             "/assets/Applied Projects 1.webp",
@@ -883,10 +571,8 @@ const uiText = {
         },
         {
           title: "Travelpop",
-          subtitle: "Développeur Full Stack",
-          desc: "Conception et développement d'une application de voyage intégrant des fonctionnalités d’IA (web + mobile).",
           role: "Développeur Full Stack",
-          outcome: "Les utilisateurs peuvent :\n" +
+          outcome: "Conception et développement d'une application de voyage intégrant des fonctionnalités d’IA (web + mobile). Les utilisateurs peuvent :\n" +
               "Gérer les réservations, itinéraires, documents de voyage et budgets.\n" +
               "Inviter d'autres utilisateurs à modifier ou consulter un voyage.\n" +
               "Interagir avec l'IA et Google Maps directement dans l'application.",
@@ -894,9 +580,7 @@ const uiText = {
           projectLinks: [
             { label: "Travelpop", url: "https://www.travelpop.app" },
           ],
-          projectLinksTitle: "Liens",
           category: "personal",
-          tags: ["Full-Stack", "UX/UI", "IA"],
           image: "/assets/travelpop1.webp",
           images: [
             "/assets/travelpop1.webp",
@@ -1139,20 +823,12 @@ const Portfolio = () => {
   }, []);
   const [activeFilter, setActiveFilter] = useState('all');
 
-  const [selectedProject, setSelectedProject] = useState(null);
 
   React.useEffect(() => {
     localStorage.setItem('darkMode', JSON.stringify(darkMode));
     document.body.style.backgroundColor = darkMode ? '#0b1220' : '#F4F5F7';
   }, [darkMode]);
 
-  React.useEffect(() => {
-  const handleEsc = (e) => {
-    if (e.key === 'Escape') setSelectedProject(null);
-  };
-  window.addEventListener('keydown', handleEsc);
-  return () => window.removeEventListener('keydown', handleEsc);
-}, []);
 
 
   return (
@@ -1404,36 +1080,82 @@ const Portfolio = () => {
                   <CardCarousel project={project} darkMode={darkMode} />
                   
                   <div 
-                    onClick={() => setSelectedProject(project)}
-                    className={`p-8 border-t cursor-pointer ${darkMode ? 'border-slate-800' : 'border-[#D8DCE3]'}`}
+                    className={`p-8 border-t ${darkMode ? 'border-slate-800' : 'border-[#D8DCE3]'}`}
                   >
                     <div className="flex justify-between items-start mb-4">
                       <h3 className={`text-2xl font-bold transition-colors ${darkMode ? 'md:group-hover:text-blue-400' : 'md:group-hover:text-[#2F5FD7]'} ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>
                         {project.title}
                       </h3>
-                      <ExternalLink size={20} className={`transition-colors ${darkMode ? 'md:group-hover:text-blue-400' : 'md:group-hover:text-[#2F5FD7]'} ${darkMode ? 'text-slate-300' : 'text-[#6B7280]'}`} />
                     </div>
-                    {/* Project card grade/subtitle */}
-                    {(project.grade || project.subtitle) && (
-                      <div className={`transition-colors font-medium text-base mb-4 ${darkMode ? 'text-slate-300 md:group-hover:text-blue-400' : 'text-[#1F2933] md:group-hover:text-[#2F5FD7]'}`}>
-                        {project.grade && <p>Grade: {project.grade}</p>}
-                        {project.subtitle && <p>{project.subtitle}</p>}
-                      </div>
-                    )}
-                    
-                    <p className={`mb-6 leading-relaxed ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>
-                      {project.desc}
-                    </p>
-                    
-                    <div className="flex flex-wrap gap-2">
-                      {project.tags.map((tag, i) => (
-                        <span 
-                          key={i}
-                          className={`px-3 py-1 text-base rounded-full border ${darkMode ? 'bg-slate-800/80 text-slate-300 border-slate-700' : 'bg-[#F4F5F7] text-[#1F2933] border-[#D8DCE3]'}`}
-                        >
-                          {tag}
-                        </span>
-                      ))}
+
+                    <div className="space-y-6">
+
+                      {project.role && (
+                        <div className={`relative pl-4 border-l-2 transition-colors ${darkMode ? 'border-slate-700 md:group-hover:border-blue-400' : 'border-[#D8DCE3] md:group-hover:border-[#2F5FD7]'}`}>
+                          <p className={`text-base font-semibold leading-relaxed transition-colors ${darkMode ? 'text-slate-300 md:group-hover:text-blue-400' : 'text-[#1F2933] md:group-hover:text-[#2F5FD7]'}`}>{project.role}</p>
+                        </div>
+                      )}
+
+                      {project.outcome && (
+                        <div>
+                          <p className={`text-base leading-relaxed whitespace-pre-line ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{project.outcome}</p>
+                        </div>
+                      )}
+
+                      {project.skillsUsed && project.skillsUsed.length > 0 && (
+                        <div className="flex flex-wrap gap-2">
+                          {project.skillsUsed.map((skill, idx) => (
+                            <span
+                              key={idx}
+                              className={`px-3 py-1 rounded-full text-sm font-medium border ${darkMode ? 'bg-slate-800/40 border-slate-700 text-slate-300' : 'bg-[#F4F5F7] border-[#D8DCE3] text-[#1F2933]'}`}
+                            >
+                              {skill}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+
+                      {project.projectLinks && project.projectLinks.length > 0 && (
+                        <div className="flex flex-col gap-2">
+                          {project.projectLinks.map((item, i) => {
+                            if (item.links) {
+                              return (
+                                <div key={i} className="flex flex-wrap items-center gap-x-1">
+                                  <span className={`text-sm ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>
+                                    {item.groupLabel}
+                                  </span>
+                                  {item.links.map((link, linkIdx) => (
+                                    <React.Fragment key={linkIdx}>
+                                      <a
+                                        href={link.url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className={`inline-flex items-center gap-1.5 text-sm transition-colors w-fit ${darkMode ? 'text-slate-300 hover:text-blue-400' : 'text-[#1F2933] hover:text-[#2F5FD7]'}`}
+                                      >
+                                        {link.label} <ExternalLink size={14} />
+                                      </a>
+                                      {linkIdx < item.links.length - 1 && (
+                                        <span className={`text-sm mr-1 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>,</span>
+                                      )}
+                                    </React.Fragment>
+                                  ))}
+                                </div>
+                              );
+                            }
+                            return (
+                              <a
+                                key={i}
+                                href={item.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className={`inline-flex items-center gap-2 text-sm transition-colors w-fit ${darkMode ? 'text-slate-300 hover:text-blue-400' : 'text-[#1F2933] hover:text-[#2F5FD7]'}`}
+                              >
+                                {item.label} <ExternalLink size={14} />
+                              </a>
+                            );
+                          })}
+                        </div>
+                      )}
                     </div>
                   </div>
                 </motion.div>
@@ -1820,16 +1542,6 @@ const Portfolio = () => {
         </div>
       </footer>
 
-      <AnimatePresence>
-        {selectedProject && (
-          <ProjectModal 
-            project={selectedProject} 
-            onClose={() => setSelectedProject(null)} 
-            t={t}
-            darkMode={darkMode}
-          />
-        )}
-      </AnimatePresence>
     </div>
     </ThemeProvider>
   );
