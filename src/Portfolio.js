@@ -167,10 +167,12 @@ const useMobile = () => {
 
   const WebProjectModal = ({ project, onClose, t, darkMode, handleOverlayMouseDown, handleOverlayMouseUp }) => {
     useEffect(() => {
-      const prev = document.body.style.overflow;
-      document.body.style.overflow = "hidden";
+      const html = document.documentElement;
+
+      html.style.overflow = "hidden";
+
       return () => {
-        document.body.style.overflow = prev;
+        html.style.overflow = "";
       };
     }, []);
 
@@ -270,24 +272,12 @@ const useMobile = () => {
     const dragControls = useDragControls();
 
     useEffect(() => {
-      const scrollY = window.scrollY;
+      const html = document.documentElement;
 
-      document.body.style.position = "fixed";
-      document.body.style.top = `-${scrollY}px`;
-      document.body.style.left = "0";
-      document.body.style.right = "0";
-      document.body.style.width = "100%";
-      document.body.style.overflow = "hidden";
+      html.style.overflow = "hidden";
 
       return () => {
-        const y = Math.abs(parseInt(document.body.style.top || "0", 10));
-        document.body.style.position = "";
-        document.body.style.top = "";
-        document.body.style.left = "";
-        document.body.style.right = "";
-        document.body.style.width = "";
-        document.body.style.overflow = "";
-        window.scrollTo(0, y);
+        html.style.overflow = "";
       };
     }, []);
 
@@ -298,7 +288,7 @@ const useMobile = () => {
     }, [project]);
 
     return (
-      <div className="fixed inset-0 z-50 flex items-end touch-none">
+      <div className="fixed inset-0 z-50 flex items-end">
         {/* Backdrop */}
         <div
           className={`absolute inset-0 ${darkMode ? "bg-black/40" : "bg-black/20"}`}
@@ -320,7 +310,6 @@ const useMobile = () => {
             }
           }}
           onClick={(e) => e.stopPropagation()}
-          onTouchStart={(e) => e.stopPropagation()}
           className={`
             relative z-10
             flex flex-col w-full
@@ -351,7 +340,7 @@ const useMobile = () => {
 
           <div 
             ref={scrollRef}
-            className="flex-1 overflow-y-auto p-6 pt-2 overscroll-contain"
+            className="flex-1 overflow-y-auto p-6 pt-2"
             style={{ WebkitOverflowScrolling: "touch" }}
           >
             <div className="mb-6">
@@ -1398,14 +1387,12 @@ const Portfolio = () => {
 
           {/* Project Grid */}
           <motion.div 
-            key={activeFilter}
             variants={staggerContainer}
             initial="initial"
             animate="animate"
-            viewport={{ once: true }}
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
           >
-            <AnimatePresence mode="popLayout">
+            <AnimatePresence>
               {t.projects.items
                 .filter(project => activeFilter === 'all' || project.category === activeFilter)
                 .map((project) => (
@@ -1454,17 +1441,6 @@ const Portfolio = () => {
             </AnimatePresence>
           </motion.div>
         </div>
-
-        <AnimatePresence>
-          {selectedProject && (
-            <ProjectModal 
-              project={selectedProject} 
-              onClose={() => setSelectedProject(null)} 
-              t={t}
-              darkMode={darkMode}
-            />
-          )}
-        </AnimatePresence>
       </section>
 
       {/* Expertise Section */}
@@ -1843,6 +1819,17 @@ const Portfolio = () => {
           </div>
         </div>
       </footer>
+
+      <AnimatePresence>
+        {selectedProject && (
+          <ProjectModal 
+            project={selectedProject} 
+            onClose={() => setSelectedProject(null)} 
+            t={t}
+            darkMode={darkMode}
+          />
+        )}
+      </AnimatePresence>
     </div>
     </ThemeProvider>
   );
