@@ -260,9 +260,25 @@ const useMobile = () => {
     const dragControls = useDragControls();
 
     useEffect(() => {
-      const prev = document.body.style.overflow;
+      const scrollY = window.scrollY;
+
+      document.body.style.position = "fixed";
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.left = "0";
+      document.body.style.right = "0";
+      document.body.style.width = "100%";
       document.body.style.overflow = "hidden";
-      return () => { document.body.style.overflow = prev; };
+
+      return () => {
+        const y = Math.abs(parseInt(document.body.style.top || "0", 10));
+        document.body.style.position = "";
+        document.body.style.top = "";
+        document.body.style.left = "";
+        document.body.style.right = "";
+        document.body.style.width = "";
+        document.body.style.overflow = "";
+        window.scrollTo(0, y);
+      };
     }, []);
 
     useEffect(() => {
@@ -272,7 +288,7 @@ const useMobile = () => {
     }, [project]);
 
     return (
-      <div className="fixed inset-0 z-50 flex items-end">
+      <div className="fixed inset-0 z-50 flex items-end touch-none">
         {/* Backdrop */}
         <div
           className={`absolute inset-0 ${darkMode ? "bg-black/40" : "bg-black/20"}`}
@@ -293,6 +309,8 @@ const useMobile = () => {
               onClose();
             }
           }}
+          onClick={(e) => e.stopPropagation()}
+          onTouchStart={(e) => e.stopPropagation()}
           className={`
             relative z-10
             flex flex-col w-full
@@ -302,6 +320,7 @@ const useMobile = () => {
             border-t
             pb-[env(safe-area-inset-bottom)]
             will-change-transform
+            touch-auto
             ${darkMode ? "bg-slate-900 border-slate-800" : "bg-white border-[#D8DCE3]"}
           `}
         >
