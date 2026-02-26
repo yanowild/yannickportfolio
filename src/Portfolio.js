@@ -854,15 +854,34 @@ const Portfolio = () => {
   }, []);
 
   const darkMode = (resolvedTheme || theme) === 'dark';
-  const [isSafari, setIsSafari] = useState(false);
-  const [showVisuals, setShowVisuals] = useState(false);
+  const [showCloud, setShowCloud] = useState(false);
+  const [showGlobe, setShowGlobe] = useState(false);
+  const globeRef = useRef(null);
 
   useEffect(() => {
-    const safari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-    setIsSafari(safari);
-    const timer = setTimeout(() => setShowVisuals(true), 800);
-    return () => clearTimeout(timer);
-  }, []);
+    if (!mounted) return;
+
+    const cloudTimer = setTimeout(() => setShowCloud(true), 2000);
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShowGlobe(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (globeRef.current) {
+      observer.observe(globeRef.current);
+    }
+
+    return () => {
+      clearTimeout(cloudTimer);
+      observer.disconnect();
+    };
+  }, [mounted]);
 
   const [language, setLanguage] = useState(() => {
     const saved = localStorage.getItem('language');
@@ -1051,8 +1070,8 @@ const Portfolio = () => {
       {/* Hero Section */}
       <header id="profil" className="relative min-h-screen scroll-mt-16 flex items-center justify-center overflow-hidden pt-20">
         <div className="absolute inset-0 z-0">
-          <div className={`absolute top-1/4 left-1/4 w-96 h-96 rounded-full blur-[128px] ${darkMode ? 'bg-blue-600/10' : 'bg-[#2F5FD7]/10'}`} />
-          <div className={`absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full blur-[128px] ${darkMode ? 'bg-indigo-600/10' : 'bg-[#2F5FD7]/5'}`} />
+          <div className={`absolute top-1/4 left-1/4 w-96 h-96 rounded-full blur-[64px] ${darkMode ? 'bg-blue-600/10' : 'bg-[#2F5FD7]/10'}`} />
+          <div className={`absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full blur-[64px] ${darkMode ? 'bg-indigo-600/10' : 'bg-[#2F5FD7]/5'}`} />
         </div>
         
         <motion.div 
@@ -1144,11 +1163,7 @@ const Portfolio = () => {
             </motion.h2>
           </div>
 
-          <motion.div 
-            variants={staggerContainer}
-            initial="initial"
-            animate="animate"
-            viewport={{ once: true }}
+          <div 
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-0"
           >
             {t.expertise.items.map((item, i) => {
@@ -1166,9 +1181,8 @@ const Portfolio = () => {
               const lgAfterToggle = isLastColLg ? 'lg:after:hidden' : 'lg:after:block';
 
               return (
-                <motion.div
+                <div
                   key={i}
-                  variants={fadeIn}
                   className={[
                     "relative px-12 pt-5 pb-8 md:py-8",
                     // Independent separator: horizontal on mobile, vertical on md+
@@ -1196,10 +1210,10 @@ const Portfolio = () => {
                       </p>
                     </div>
                   </div>
-                </motion.div>
+                </div>
               );
             })}
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -1292,7 +1306,7 @@ const Portfolio = () => {
             >
               <div className="relative z-10 w-full max-w-md">
                 <Suspense fallback={<div className="w-full aspect-square" />}>
-                {showVisuals && <IconCloud iconSlugs={ICON_CLOUD_SLUGS} darkMode={darkMode} />}
+                {showCloud && <IconCloud iconSlugs={ICON_CLOUD_SLUGS} darkMode={darkMode} />}
                 </Suspense>
               </div>
             </motion.div>
@@ -1460,11 +1474,12 @@ const Portfolio = () => {
               animate={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="w-full lg:w-1/2 relative flex items-center justify-center"
+              className="w-full lg:w-1/2 relative flex items-center justify-center min-h-[400px]"
+              ref={globeRef}
             >
               <div className="relative z-10 w-full max-w-sm lg:max-w-lg -mt-12">
                 <Suspense fallback={<div className="w-full aspect-square" />}>
-                  {showVisuals && <SpinningGlobe darkMode={darkMode} />}
+                  {showGlobe && <SpinningGlobe darkMode={darkMode} />}
                 </Suspense>
               </div>
             </motion.div>
