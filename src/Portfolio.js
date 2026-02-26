@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, lazy, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ThemeProvider } from 'next-themes';
+import { useTheme } from 'next-themes';
 import { 
   Mail, 
   Phone, 
@@ -60,8 +60,6 @@ const ICON_CLOUD_SLUGS = [
   "springboot",
   "tailwindcss"
 ];
-
-  const isSafari = typeof navigator !== 'undefined' && /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
   const staggerContainer = {
     animate: {
@@ -705,10 +703,9 @@ const uiText = {
     }
   }
 };
-const fadeIn = {
+  const fadeIn = {
   initial: { opacity: 0, y: 20 },
   animate: { opacity: 1, y: 0 },
-  exit: { opacity: 0, scale: 0.95 },
   transition: { duration: 0.3 }
 };
 
@@ -719,8 +716,7 @@ const fadeIn = {
           <div className="mb-8 text-center">
             <motion.h2 
               initial={{ opacity: 0, x: -20 }}
-              whileInView={isSafari ? undefined : { opacity: 1, x: 0 }}
-              animate={isSafari ? { opacity: 1, x: 0 } : undefined}
+              animate={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               className={`text-5xl font-bold mb-4 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}
             >
@@ -731,8 +727,7 @@ const fadeIn = {
           {/* Filters */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
-            whileInView={isSafari ? undefined : { opacity: 1, y: 0 }}
-            animate={isSafari ? { opacity: 1, y: 0 } : undefined}
+            animate={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="flex flex-wrap gap-4 mb-8 justify-center"
           >
@@ -752,115 +747,119 @@ const fadeIn = {
           </motion.div>
 
           {/* Project Grid */}
-          <motion.div 
-            variants={staggerContainer}
-            initial="initial"
-            animate="animate"
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-          >
-            <AnimatePresence mode="wait">
-              {t.projects.items
-                .filter(project => activeFilter === 'all' || project.category === activeFilter)
-                .map((project) => (
-                  <motion.div
-                    key={project.title}
-                    variants={fadeIn}
-                    className={`group rounded-2xl overflow-hidden transition-colors border ${darkMode ? 'bg-slate-900/50 border-slate-800 md:hover:border-slate-700' : 'bg-white border-[#D8DCE3] md:hover:border-[#2F5FD7]/40'}`}
-                  >
-                  <CardCarousel project={project} darkMode={darkMode} />
-                  
-                  <div 
-                    className={`p-8 border-t ${darkMode ? 'border-slate-800' : 'border-[#D8DCE3]'}`}
-                  >
-                    <div className="flex justify-between items-start mb-4">
-                      <h3 className={`text-2xl font-bold transition-colors ${darkMode ? 'md:group-hover:text-blue-400' : 'md:group-hover:text-[#2F5FD7]'} ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>
-                        {project.title}
-                      </h3>
-                    </div>
-
-                    <div className="space-y-6">
-
-                      {project.role && (
-                        <div className={`relative pl-4 border-l-2 transition-colors ${darkMode ? 'border-slate-700 md:group-hover:border-blue-400' : 'border-[#D8DCE3] md:group-hover:border-[#2F5FD7]'}`}>
-                          <p className={`text-base font-semibold leading-relaxed transition-colors ${darkMode ? 'text-slate-300 md:group-hover:text-blue-400' : 'text-[#1F2933] md:group-hover:text-[#2F5FD7]'}`}>{project.role}</p>
-                        </div>
-                      )}
-
-                      {project.outcome && (
-                        <div>
-                          <p className={`text-base leading-relaxed whitespace-pre-line ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{project.outcome}</p>
-                        </div>
-                      )}
-
-                      {project.skillsUsed && project.skillsUsed.length > 0 && (
-                        <div className="flex flex-wrap gap-2">
-                          {project.skillsUsed.map((skill, idx) => (
-                            <span
-                              key={idx}
-                              className={`px-3 py-1 rounded-full text-sm font-medium border ${darkMode ? 'bg-slate-800/40 border-slate-700 text-slate-300' : 'bg-[#F4F5F7] border-[#D8DCE3] text-[#1F2933]'}`}
-                            >
-                              {skill}
-                            </span>
-                          ))}
-                        </div>
-                      )}
-
-                      {project.projectLinks && project.projectLinks.length > 0 && (
-                        <div className="flex flex-col gap-2">
-                          {project.projectLinks.map((item, i) => {
-                            if (item.links) {
-                              return (
-                                <div key={i} className="flex flex-wrap items-center gap-x-1">
-                                  <span className={`text-sm ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>
-                                    {item.groupLabel}
-                                  </span>
-                                  {item.links.map((link, linkIdx) => (
-                                    <React.Fragment key={linkIdx}>
-                                      <a
-                                        href={link.url}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className={`inline-flex items-center gap-1.5 text-sm transition-colors w-fit ${darkMode ? 'text-slate-300 hover:text-blue-400' : 'text-[#1F2933] hover:text-[#2F5FD7]'}`}
-                                      >
-                                        {link.label} <ExternalLink size={14} />
-                                      </a>
-                                      {linkIdx < item.links.length - 1 && (
-                                        <span className={`text-sm mr-1 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>,</span>
-                                      )}
-                                    </React.Fragment>
-                                  ))}
-                                </div>
-                              );
-                            }
-                            return (
-                              <a
-                                key={i}
-                                href={item.url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className={`inline-flex items-center gap-2 text-sm transition-colors w-fit ${darkMode ? 'text-slate-300 hover:text-blue-400' : 'text-[#1F2933] hover:text-[#2F5FD7]'}`}
-                              >
-                                {item.label} <ExternalLink size={14} />
-                              </a>
-                            );
-                          })}
-                        </div>
-                      )}
-                    </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {t.projects.items
+              .filter(project => activeFilter === 'all' || project.category === activeFilter)
+              .map((project) => (
+                <motion.div
+                  key={project.title}
+                  variants={fadeIn}
+                  className={`group rounded-2xl overflow-hidden transition-colors border ${darkMode ? 'bg-slate-900/50 border-slate-800 md:hover:border-slate-700' : 'bg-white border-[#D8DCE3] md:hover:border-[#2F5FD7]/40'}`}
+                >
+                <CardCarousel project={project} darkMode={darkMode} />
+                
+                <div 
+                  className={`p-8 border-t ${darkMode ? 'border-slate-800' : 'border-[#D8DCE3]'}`}
+                >
+                  <div className="flex justify-between items-start mb-4">
+                    <h3 className={`text-2xl font-bold transition-colors ${darkMode ? 'md:group-hover:text-blue-400' : 'md:group-hover:text-[#2F5FD7]'} ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>
+                      {project.title}
+                    </h3>
                   </div>
-                </motion.div>
-              ))}
-            </AnimatePresence>
-          </motion.div>
+
+                  <div className="space-y-6">
+
+                    {project.role && (
+                      <div className={`relative pl-4 border-l-2 transition-colors ${darkMode ? 'border-slate-700 md:group-hover:border-blue-400' : 'border-[#D8DCE3] md:group-hover:border-[#2F5FD7]'}`}>
+                        <p className={`text-base font-semibold leading-relaxed transition-colors ${darkMode ? 'text-slate-300 md:group-hover:text-blue-400' : 'text-[#1F2933] md:group-hover:text-[#2F5FD7]'}`}>{project.role}</p>
+                      </div>
+                    )}
+
+                    {project.outcome && (
+                      <div>
+                        <p className={`text-base leading-relaxed whitespace-pre-line ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{project.outcome}</p>
+                      </div>
+                    )}
+
+                    {project.skillsUsed && project.skillsUsed.length > 0 && (
+                      <div className="flex flex-wrap gap-2">
+                        {project.skillsUsed.map((skill, idx) => (
+                          <span
+                            key={idx}
+                            className={`px-3 py-1 rounded-full text-sm font-medium border ${darkMode ? 'bg-slate-800/40 border-slate-700 text-slate-300' : 'bg-[#F4F5F7] border-[#D8DCE3] text-[#1F2933]'}`}
+                          >
+                            {skill}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+
+                    {project.projectLinks && project.projectLinks.length > 0 && (
+                      <div className="flex flex-col gap-2">
+                        {project.projectLinks.map((item, i) => {
+                          if (item.links) {
+                            return (
+                              <div key={i} className="flex flex-wrap items-center gap-x-1">
+                                <span className={`text-sm ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>
+                                  {item.groupLabel}
+                                </span>
+                                {item.links.map((link, linkIdx) => (
+                                  <React.Fragment key={linkIdx}>
+                                    <a
+                                      href={link.url}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className={`inline-flex items-center gap-1.5 text-sm transition-colors w-fit ${darkMode ? 'text-slate-300 hover:text-blue-400' : 'text-[#1F2933] hover:text-[#2F5FD7]'}`}
+                                    >
+                                      {link.label} <ExternalLink size={14} />
+                                    </a>
+                                    {linkIdx < item.links.length - 1 && (
+                                      <span className={`text-sm mr-1 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>,</span>
+                                    )}
+                                  </React.Fragment>
+                                ))}
+                              </div>
+                            );
+                          }
+                          return (
+                            <a
+                              key={i}
+                              href={item.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className={`inline-flex items-center gap-2 text-sm transition-colors w-fit ${darkMode ? 'text-slate-300 hover:text-blue-400' : 'text-[#1F2933] hover:text-[#2F5FD7]'}`}
+                            >
+                              {item.label} <ExternalLink size={14} />
+                            </a>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
     );
   });
 
 const Portfolio = () => {
+  const { theme, setTheme, resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const darkMode = (resolvedTheme || theme) === 'dark';
+  const [isSafari, setIsSafari] = useState(false);
   const [showVisuals, setShowVisuals] = useState(false);
 
   useEffect(() => {
+    const safari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    setIsSafari(safari);
     const timer = setTimeout(() => setShowVisuals(true), 800);
     return () => clearTimeout(timer);
   }, []);
@@ -914,10 +913,6 @@ const Portfolio = () => {
       }
     }, 0);
   };
-  const [darkMode, setDarkMode] = useState(() => {
-    const saved = localStorage.getItem('darkMode');
-    return saved !== null ? JSON.parse(saved) : false;
-  });
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [langMenuOpen, setLangMenuOpen] = useState(false);
   const langMenuRef = React.useRef(null);
@@ -934,15 +929,13 @@ const Portfolio = () => {
   const [activeFilter, setActiveFilter] = useState('all');
 
 
-  React.useEffect(() => {
-    localStorage.setItem('darkMode', JSON.stringify(darkMode));
-  }, [darkMode]);
 
-
+  if (!mounted) {
+    return null;
+  }
 
   return (
-    <ThemeProvider attribute="class" defaultTheme="light">
-      <div className={`min-h-screen selection:bg-blue-400/30 ${darkMode ? 'bg-[#0b1220] text-slate-300' : 'bg-[#F4F5F7] text-[#1F2933]'}`}>
+    <div className={`min-h-screen selection:bg-blue-400/30 ${darkMode ? 'bg-[#0b1220] text-slate-300' : 'bg-[#F4F5F7] text-[#1F2933]'}`}>
       <nav className={`fixed inset-x-0 top-0 z-50 border-b ${darkMode ? 'border-slate-800/80 bg-[#0b1220]/90' : 'border-[#D8DCE3] bg-[#F4F5F7]/95'}`}>
         <div className="container mx-auto flex h-16 items-center justify-between gap-6 px-6">
           <a href="#profil" className={`flex items-center gap-2 text-lg font-bold tracking-wide ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>
@@ -980,7 +973,7 @@ const Portfolio = () => {
               <Menu size={20} />
             </button>
             <button
-              onClick={() => setDarkMode(!darkMode)}
+              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
               className={`flex h-10 w-10 items-center justify-center rounded-full border transition-colors duration-300 ${darkMode ? 'border-slate-700 bg-slate-800/40 text-yellow-400 hover:bg-slate-700/60' : 'border-[#D8DCE3] bg-white text-[#1F2933] hover:text-[#2F5FD7]'}`}
               title={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
             >
@@ -1143,8 +1136,7 @@ const Portfolio = () => {
           <div className="text-center mb-16">
             <motion.h2 
               initial={{ opacity: 0, y: 20 }}
-              whileInView={isSafari ? undefined : { opacity: 1, y: 0 }}
-              animate={isSafari ? { opacity: 1, y: 0 } : undefined}
+              animate={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               className={`text-5xl font-bold mb-6 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}
             >
@@ -1155,8 +1147,7 @@ const Portfolio = () => {
           <motion.div 
             variants={staggerContainer}
             initial="initial"
-            whileInView={isSafari ? undefined : "animate"}
-            animate={isSafari ? "animate" : undefined}
+            animate="animate"
             viewport={{ once: true }}
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-0"
           >
@@ -1218,8 +1209,7 @@ const Portfolio = () => {
           <div className="text-center mb-8">
             <motion.h2 
               initial={{ opacity: 0, y: 20 }}
-              whileInView={isSafari ? undefined : { opacity: 1, y: 0 }}
-              animate={isSafari ? { opacity: 1, y: 0 } : undefined}
+              animate={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               className={`text-5xl font-bold mb-6 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}
             >
@@ -1232,13 +1222,7 @@ const Portfolio = () => {
               {/* Technical Card */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Engineering Card */}
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={isSafari ? undefined : { opacity: 1, x: 0 }}
-                  animate={isSafari ? { opacity: 1, x: 0 } : undefined}
-                  viewport={{ once: true }}
-                  className="p-6"
-                >
+                <div className="p-6">
                   <div className="flex flex-col items-center">
                     <h4 className={`text-lg font-bold mb-4 text-center w-full ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{t.skills.engineering}</h4>
                     <div className="space-y-3 w-fit mx-auto">
@@ -1250,17 +1234,10 @@ const Portfolio = () => {
                       ))}
                     </div>
                   </div>
-                </motion.div>
+                </div>
 
                 {/* Platforms Card */}
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={isSafari ? undefined : { opacity: 1, x: 0 }}
-                  animate={isSafari ? { opacity: 1, x: 0 } : undefined}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.05 }}
-                  className="p-6"
-                >
+                <div className="p-6">
                   <div className="flex flex-col items-center">
                     <h4 className={`text-lg font-bold mb-4 text-center w-full ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{t.skills.platforms}</h4>
                     <div className="space-y-3 w-fit mx-auto">
@@ -1272,19 +1249,12 @@ const Portfolio = () => {
                       ))}
                     </div>
                   </div>
-                </motion.div>
+                </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Interpersonal Card */}
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={isSafari ? undefined : { opacity: 1, x: 0 }}
-                  animate={isSafari ? { opacity: 1, x: 0 } : undefined}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.1 }}
-                  className="p-6"
-                >
+                <div className="p-6">
                   <div className="flex flex-col items-center">
                     <h4 className={`text-lg font-bold mb-4 text-center w-full ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{t.skills.interpersonal}</h4>
                     <div className="space-y-3 w-fit mx-auto">
@@ -1296,17 +1266,10 @@ const Portfolio = () => {
                       ))}
                     </div>
                   </div>
-                </motion.div>
+                </div>
 
                 {/* Languages Card */}
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={isSafari ? undefined : { opacity: 1, x: 0 }}
-                  animate={isSafari ? { opacity: 1, x: 0 } : undefined}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.15 }}
-                  className="p-6"
-                >
+                <div className="p-6">
                   <div className="flex flex-col items-center">
                     <h4 className={`text-lg font-bold mb-4 text-center w-full ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}>{t.skills.languages}</h4>
                     <div className="space-y-3 w-fit mx-auto">
@@ -1315,15 +1278,14 @@ const Portfolio = () => {
                       ))}
                     </div>
                   </div>
-                </motion.div>
+                </div>
               </div>
             </div>
 
             {/* Right: Icon Cloud */}
             <motion.div 
               initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={isSafari ? undefined : { opacity: 1, scale: 1 }}
-              animate={isSafari ? { opacity: 1, scale: 1 } : undefined}
+              animate={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
               className="lg:w-1/2 relative flex items-center justify-center"
@@ -1344,8 +1306,7 @@ const Portfolio = () => {
           <div className="text-center mb-8">
             <motion.h2 
               initial={{ opacity: 0, y: 20 }}
-              whileInView={isSafari ? undefined : { opacity: 1, y: 0 }}
-              animate={isSafari ? { opacity: 1, y: 0 } : undefined}
+              animate={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               className={`text-5xl font-bold mb-6 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}
             >
@@ -1357,13 +1318,8 @@ const Portfolio = () => {
             <div className="relative">
               <div className={`absolute left-0 top-[1rem] bottom-0 w-px ${darkMode ? 'bg-slate-700' : 'bg-[#D8DCE3]'}`} />
               {t.experience.items.map((exp, index) => (
-                <motion.div 
+                <div 
                   key={index}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={isSafari ? undefined : { opacity: 1, x: 0 }}
-                  animate={isSafari ? { opacity: 1, x: 0 } : undefined}
-                  viewport={{ once: true }}
-                  
                   className="relative pl-8 pb-12 last:pb-0"
                 >
                   <div className={`absolute -left-1.5 top-2.5 w-3 h-3 rounded-full z-10 ${darkMode ? 'bg-blue-400' : 'bg-[#2F5FD7]'}`} />
@@ -1388,7 +1344,7 @@ const Portfolio = () => {
                       <li key={i} className="flex gap-2"><span className="mt-[0.70em] min-w-[5px] w-[5px] h-[5px] rounded-full bg-current flex-shrink-0" /><span>{d}</span></li>
                     ))}
                   </ul>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
@@ -1401,8 +1357,7 @@ const Portfolio = () => {
           <div className="text-center mb-8">
             <motion.h2 
               initial={{ opacity: 0, y: 20 }}
-              whileInView={isSafari ? undefined : { opacity: 1, y: 0 }}
-              animate={isSafari ? { opacity: 1, y: 0 } : undefined}
+              animate={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               className={`text-5xl font-bold mb-6 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}
             >
@@ -1414,13 +1369,8 @@ const Portfolio = () => {
             <div className="relative">
               <div className={`absolute left-0 top-[1rem] bottom-0 w-px ${darkMode ? 'bg-slate-700' : 'bg-[#D8DCE3]'}`} />
               {t.education.items.map((edu, index) => (
-                <motion.div 
+                <div 
                   key={index}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={isSafari ? undefined : { opacity: 1, x: 0 }}
-                  animate={isSafari ? { opacity: 1, x: 0 } : undefined}
-                  viewport={{ once: true }}
-                  
                   className="relative pl-8 pb-12 last:pb-0"
                 >
                   <div className={`absolute -left-1.5 top-2.5 w-3 h-3 rounded-full z-10 ${darkMode ? 'bg-blue-400' : 'bg-[#2F5FD7]'}`} />
@@ -1446,7 +1396,7 @@ const Portfolio = () => {
                       );
                     })()}
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
@@ -1459,8 +1409,7 @@ const Portfolio = () => {
           <div className="text-center mb-8">
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
-              whileInView={isSafari ? undefined : { opacity: 1, y: 0 }}
-              animate={isSafari ? { opacity: 1, y: 0 } : undefined}
+              animate={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               className={`text-5xl font-bold mb-6 ${darkMode ? 'text-slate-300' : 'text-[#1F2933]'}`}
             >
@@ -1508,8 +1457,7 @@ const Portfolio = () => {
 
             <motion.div 
               initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={isSafari ? undefined : { opacity: 1, scale: 1 }}
-              animate={isSafari ? { opacity: 1, scale: 1 } : undefined}
+              animate={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
               className="w-full lg:w-1/2 relative flex items-center justify-center"
@@ -1529,7 +1477,6 @@ const Portfolio = () => {
       </footer>
 
     </div>
-    </ThemeProvider>
   );
 };
 
