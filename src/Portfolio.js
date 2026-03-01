@@ -284,7 +284,7 @@ const uiText = {
         {
           title: "Travelpop",
           role: "Full Stack Developer",
-          outcome: "Developing an AI travel app (web & mobile) where users can: Manage reservations, itinerary, and budget. " +
+          outcome: "Developing an AI travel app (web & mobile) where users can: manage reservations, itinerary, and budget. " +
               "Invite other users to collaborate on a trip. " +
               "Interact with AI and Google Maps directly in the app.",
           skillsUsed: ["Full-Stack", "UX/UI", "AI"],
@@ -370,7 +370,7 @@ const uiText = {
           location: "Personal Project",
           role: "Full Stack Dev",
           period: "2024 - Present",
-          description: ["Building a travel app (web + mobile) where users can:", "Manage reservations, itineraries, travel documentation, and budgets."," Invite other users to edit or view a trip.", "Interact with AI and Google Maps directly in the app."]
+          description: ["Building a travel app (web + mobile) where users can:", "manage reservations, itineraries, travel documentation, and budgets."," Invite other users to edit or view a trip.", "Interact with AI and Google Maps directly in the app."]
         },
         {
           company: "GF Machining Solutions",
@@ -467,7 +467,7 @@ const uiText = {
         {
           title: "Plateforme SAP FSM",
           role: "Product Owner",
-          outcome: "Implémentation de SAP FSM pour optimiser la gestion globale des services (Europe, États-Unis, Chine, APAC). Implémentation réussie de SAP FSM, permettant la standardisation globale des processus de service client ainsi que l’amélioration du pilotage de la performance.",
+          outcome: "Implémentation de SAP FSM afin d’optimiser les opérations de service à l’échelle globale (Europe, États-Unis, Chine, APAC). Standardisation des processus de service et configuration de tableaux de bord KPI pour le pilotage de la performance.",
           skillsUsed: ["BPMN", "Agile", "Analytique"],
           projectLinks: [
             { label: "Entreprise : GFMS", url: "https://www.gfms.com/com/en.html" },
@@ -485,7 +485,7 @@ const uiText = {
         {
           title: "Projets Hôteliers",
           role: "Chef de Projet",
-          outcome: "Pilotage des achats, contrôle budgétaire, livraisons et installations pour des projets de rénovation d’hôtels de luxe. Gestion réussie du budget, des achats, des livraisons et des installations de plus de 5 000 articles auprès de plus de 100 fournisseurs.",
+          outcome: "Direction d’une équipe pour des projets de rénovation d’hôtels de luxe.\nEn charge du budget, achats, négociation des contrats avec les fournisseurs, coordination de la logistique et des installations sur site.",
           skillsUsed: ["Achats", "Budget", "Logistique"],
           projectLinks: [
             { label: "Entreprise : Sunnyland", url: "https://www.sunnylandconsulting.com" },
@@ -507,8 +507,8 @@ const uiText = {
         },
         {
           title: "HEC - Mémoire Master",
-          role: "Chercheur",
-          outcome: "Impact du design d’interaction sur la confiance et le sentiment de contrôle dans la planification de voyages assitée par l'IA. Développement et test utilisateur de deux interfaces d'IA (Chatbot et Interface Graphique). L'étude a mis en évidence l'influence des modalités d'interaction sur la confiance et le sentiment de contrôle. Note : 6/6.",
+          role: "Chercheur (Note : 6/6)",
+          outcome: "Développement et tests utilisateurs de deux interfaces d’IA : un chatbot et une interface graphique. L’étude a mis en évidence l’influence du design d’interaction sur la confiance et le sentiment de contrôle dans la planification de voyage assistée par IA.",
           skillsUsed: ["Entretiens", "Expérience", "IA"],
           projectLinks: [
             { label: "Université : HEC", url: "https://www.unil.ch/hec/en/home/menuinst/master/systemes-d-information.html" }
@@ -523,8 +523,8 @@ const uiText = {
         },
         {
           title: "EHL - Projet Bachelor",
-          role: "Consultant",
-          outcome: "Stratégie commerciale et plan d’entrée sur le marché pour une entreprise de solutions IoT en qualité de l’air. Élaboration d’une stratégie de création de valeur via des partenariats stratégiques et l’intégration d’API ouvertes. Note : 6/6.",
+          role: "Consultant (Note : 6/6)",
+          outcome: "Stratégie commerciale et plan d’entrée sur le marché pour une entreprise de solutions IoT en qualité de l’air. Définition des segments cibles, des partenaires stratégiques et du modèle d’intégration basé sur des API ouvertes.",
           skillsUsed: ["Stratégie", "Données", "IoT"],
           projectLinks: [
             { label: "Université : EHL", url: "https://www.ehl.edu" },
@@ -557,10 +557,10 @@ const uiText = {
         {
           title: "Travelpop",
           role: "Développeur Full Stack",
-          outcome: "Conception et développement d'une application de voyage intégrant des fonctionnalités d’IA (web + mobile). Les utilisateurs peuvent :\n" +
-              "Gérer les réservations, itinéraires, documents de voyage et budgets.\n" +
-              "Inviter d'autres utilisateurs à modifier ou consulter un voyage.\n" +
-              "Interagir avec l'IA et Google Maps directement dans l'application.",
+          outcome: "Développement d'une application de voyage IA (web + mobile). Les utilisateurs peuvent :\n" +
+              "Gérer les réservations, itinéraires, et budgets. " +
+              "Inviter d'autres utilisateurs à collaborer sur un voyage. " +
+              "Interagir avec l'IA et Google Maps dans l'application.",
           skillsUsed: ["Full-Stack", "UX/UI", "IA"],
           projectLinks: [
             { label: "Travelpop", url: "https://www.travelpop.app" },
