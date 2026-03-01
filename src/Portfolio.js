@@ -194,7 +194,7 @@ const uiText = {
         {
           title: "SAP FSM Platform",
           role: "Product Owner",
-          outcome: "Successfully implemented SAP FSM, optimizing global service operations (Europe, USA, China, APAC) through standardized service processes and performance management.",
+          outcome: "Implemented SAP FSM to optimize global service operations in Europe, USA, China, and APAC. Standardized service processes and configured KPI dashboards for performance management.",
           skillsUsed: ["BPMN", "Agile", "Analytics"],
           projectLinks: [
             { label: "Company: GFMS", url: "https://www.gfms.com/com/en.html" },
@@ -212,7 +212,7 @@ const uiText = {
         {
           title: "Hotel Procurement",
           role: "Project Manager",
-          outcome: "Led end-to-end procurement for luxury hotel renovations, managing budgets, purchasing, logistics, and installation of 5,000+ items while negotiating contracts with 100+ suppliers.",
+          outcome: "Led a team to deliver end-to-end procurement for luxury hotel renovations. Managed budgets and purchasing, negotiated supplier contracts, and coordinated logistics and installations.",
           skillsUsed: ["Logistics", "Sourcing", "Team"],
           projectLinks: [
             { label: "Company: Sunnyland", url: "https://www.sunnylandconsulting.com" },
@@ -251,7 +251,7 @@ const uiText = {
         {
           title: "EHL Bachelor Project",
           role: "Consultant (Grade 6/6).",
-          outcome: "Developed a business development strategy and market entry plan for an IoT air quality solutions company. Translated IoT solutions into business value by focusing on strategic partnerships and open-API integration.",
+          outcome: "Developed a business development strategy and market entry plan for an IoT air quality solutions company. Defined target segments, partnership channels, and an open API integration strategy.",
           skillsUsed: ["Strategy", "Data", "IoT"],
           projectLinks: [
             { label: "University: EHL", url: "https://www.ehl.edu" },
@@ -284,9 +284,9 @@ const uiText = {
         {
           title: "Travelpop",
           role: "Full Stack Developer",
-          outcome: "Developing an AI travel app (web & mobile) where users can: Manage reservations, itinerary, and budget." +
-              "Invite other users to edit or view a trip." +
-              "Interact with AI and Google maps directly in the app.",
+          outcome: "Developing an AI travel app (web & mobile) where users can: Manage reservations, itinerary, and budget. " +
+              "Invite other users to collaborate on a trip. " +
+              "Interact with AI and Google Maps directly in the app.",
           skillsUsed: ["Full-Stack", "UX/UI", "AI"],
           projectLinks: [
             { label: "Travelpop", url: "https://www.travelpop.app" },
@@ -370,7 +370,7 @@ const uiText = {
           location: "Personal Project",
           role: "Full Stack Dev",
           period: "2024 - Present",
-          description: ["Building a travel app (web + mobile) where users can:", "Manage reservations, itineraries, travel documentation, and budgets."," Invite other users to edit or view a trip.", "Interact with AI and Google maps directly in the app."]
+          description: ["Building a travel app (web + mobile) where users can:", "Manage reservations, itineraries, travel documentation, and budgets."," Invite other users to edit or view a trip.", "Interact with AI and Google Maps directly in the app."]
         },
         {
           company: "GF Machining Solutions",
@@ -711,7 +711,7 @@ const uiText = {
 
   const ProjectsSection = React.memo(({ t, darkMode, activeFilter, setActiveFilter }) => {
     return (
-      <section id="projects" className={`pt-16 pb-24 scroll-mt-16 border-b ${darkMode ? 'bg-slate-900/50 border-slate-800' : 'bg-[#EDEFF2] border-[#D8DCE3]'}`}>
+      <section id="projects" className={`pt-8 pb-8 scroll-mt-16 border-b ${darkMode ? 'bg-slate-900/50 border-slate-800' : 'bg-[#EDEFF2] border-[#D8DCE3]'}`}>
         <div className="container mx-auto px-6">
           <div className="mb-8 text-center">
             <motion.h2 
@@ -1150,9 +1150,9 @@ const Portfolio = () => {
       <ProjectsSection t={t} darkMode={darkMode} activeFilter={activeFilter} setActiveFilter={setActiveFilter} />
 
       {/* Expertise Section */}
-      <section id="expertise" className={`py-16 scroll-mt-16 ${darkMode ? 'bg-[#0b1220]' : 'bg-[#F4F5F7]'}`}>
+      <section id="expertise" className={`pt-8 pb-0 scroll-mt-16 ${darkMode ? 'bg-[#0b1220]' : 'bg-[#F4F5F7]'}`}>
         <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
+          <div className="text-center mb-8">
             <motion.h2 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -1388,7 +1388,7 @@ const Portfolio = () => {
                   className="relative pl-8 pb-12 last:pb-0"
                 >
                   <div className={`absolute -left-1.5 top-2.5 w-3 h-3 rounded-full z-10 ${darkMode ? 'bg-blue-400' : 'bg-[#2F5FD7]'}`} />
-                  <div className="mb-4">
+                  <div className="mb-0">
                     <div className="flex items-baseline justify-between gap-4">
                       {(() => {
                         const parts = edu.degree.split(language === 'fr' ? / en /i : / in /i);
