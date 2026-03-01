@@ -170,7 +170,7 @@ const uiText = {
       tagline: 'Information Systems Engineer',
       bio: 'Complex systems deserve simple design. I improve business processes by aligning operations with effective information systems.',
       downloadCV: 'CV',
-      cvLink: 'https://drive.google.com/file/d/14IVBZ4uwHJ2MXbbxYBxkrkFKKj6yXr07/view?usp=sharing',
+      cvLink: 'https://drive.google.com/file/d/1h_UvJLkhkZ5OHcpkZoMtuPEwLMzN6MBT/view?usp=sharing',
       contact: 'Contact',
       linkedin: 'https://www.linkedin.com/in/yannick-wild/',
       github: 'https://github.com/yanowild',
