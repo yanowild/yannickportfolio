@@ -541,7 +541,8 @@ const uiText = {
         {
           title: "Projets Appliqués",
           role: "Consultant",
-          outcome: "Projets développés en collaboration avec des professionnels lors de mon Master à HEC Lausanne. SAP : Conception d'un processus de vente piloté par l'IA.\nValtronic : Conception d’un cockpit de pilotage des KPI basé sur l’IA.",
+          outcome: "Projets développés en collaboration avec des professionnels lors de mon Master à HEC Lausanne. SAP : Conception d'un processus de vente piloté par l'IA. " +
+              "Valtronic : Conception d’un cockpit de pilotage des KPI basé sur l’IA.",
           skillsUsed: ["Architecture", "Roadmap", "IA"],
           projectLinks: [
             { label: "Entreprise : SAP", url: "https://www.sap.com/index.html" },
